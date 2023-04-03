@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator-kustomize
+policyDefaults:
+  namespace: my-policies
+  # Put each object in its own ConfigurationPolicy in the Policy
+  consolidateManifests: false
+  # Use the name of an existing placement rule
+  placement:
+    placementRuleName: placement-red-hat-cloud
+policies:
+- name: myapp
+  manifests:
+    - path: input-kustomize/

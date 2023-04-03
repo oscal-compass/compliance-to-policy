@@ -1,0 +1,10 @@
+resources:
+- ../base
+namePrefix: dev-
+namespace: myapp-dev
+labels:
+- pairs:
+    env: dev
+images:
+- name: nginx
+  newTag: latest

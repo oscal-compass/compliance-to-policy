@@ -1,0 +1,12 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-sample
+  namespace: sample
+spec:
+  clusterSelector:
+    matchExpressions:
+    - key: env
+      operator: In
+      values:
+      - dev

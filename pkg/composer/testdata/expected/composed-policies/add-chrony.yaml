@@ -1,0 +1,71 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    policy.open-cluster-management.io/categories: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/controls: CM Configuration Management
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+  name: add-chrony
+  namespace: default
+spec:
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: add-chrony
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-*
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: machineconfiguration.openshift.io/v1
+            kind: MachineConfig
+            metadata:
+              labels:
+                machineconfiguration.openshift.io/role: worker
+              name: 50-worker-chrony
+            spec:
+              config:
+                ignition:
+                  version: 2.2.0
+                storage:
+                  files:
+                  - contents:
+                      filesystem: root
+                      mode: 420
+                      path: /etc/chrony.conf
+                      source: data:,server%200.fedora.pool.ntp.org%0A%0Aserver%201.fedora.pool.ntp.org%0A%0Aserver%202.fedora.pool.ntp.org%0A%0Adriftfile%20/var/lib/chrony/drift%0A%0Amakestep%201.0%203%0A%0Artcsync%0A%0Akeyfile%20/etc/chrony.keys%0A%0Aleapsectz%20right/UTC%0A%0Alogdir%20/var/log/chrony%0A
+        remediationAction: inform
+        severity: low
+  remediationAction: inform
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-add-chrony
+  namespace: default
+spec:
+  clusterSelector:
+    matchExpressions:
+    - key: env
+      operator: In
+      values:
+      - dev
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-add-chrony
+  namespace: default
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+  name: placement-add-chrony
+subjects:
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: add-chrony

@@ -1,0 +1,149 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps.open-cluster-management.io
+  resources:
+  - placementrules
+  verbs:
+  - '*'
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - compliancedeployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - compliancedeployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - compliancedeployments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferencekcps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferencekcps/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferencekcps/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferences
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferences/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - controlreferences/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - resultcollectors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - resultcollectors/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - compliance-to-policy.io
+  resources:
+  - resultcollectors/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - policy.open-cluster-management.io
+  resources:
+  - placementbindings
+  - policies
+  - policysets
+  verbs:
+  - '*'
+- apiGroups:
+  - wgpolicyk8s.io
+  resources:
+  - clusterpolicyreports
+  - policyreports
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
