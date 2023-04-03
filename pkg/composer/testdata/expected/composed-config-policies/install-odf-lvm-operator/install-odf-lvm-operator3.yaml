@@ -1,0 +1,26 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  creationTimestamp: null
+  labels:
+    policy-id: install-odf-lvm-operator
+  name: install-odf-lvm-operator3
+spec:
+  evaluationInterval: {}
+  namespaceSelector:
+    exclude:
+    - kube-*
+  object-templates:
+  - complianceType: musthave
+    objectDefinition:
+      apiVersion: operators.coreos.com/v1
+      kind: OperatorGroup
+      metadata:
+        name: openshift-storage-operatorgroup
+        namespace: openshift-storage
+      spec:
+        targetNamespaces:
+        - openshift-storage
+  remediationAction: inform
+  severity: low
+status: {}

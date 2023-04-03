@@ -1,0 +1,499 @@
+{
+  "component-definition": {
+    "uuid": "c14d8812-7098-4a9b-8f89-cba41b6ff0d8",
+    "metadata": {
+      "title": "Component definition",
+      "last-modified": "2023-02-21T06:53:42+00:00",
+      "version": "1.1",
+      "oscal-version": "1.0.2"
+    },
+    "components": [
+      {
+        "uuid": "c8106bc8-5174-4e86-91a4-52f2fe0ed027",
+        "type": "service",
+        "title": "Kubernetes",
+        "description": "Kubernetes",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_cert_file",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_key_file",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_client_cert_auth",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --client-cert-auth argument is set to true",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_auto_tls",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --auto-tls argument is not set to true",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_cert_file",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_key_file",
+            "remarks": "rule_set_05"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_05"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_client_cert_auth",
+            "remarks": "rule_set_06"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-client-cert-auth argument is set to true",
+            "remarks": "rule_set_06"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_auto_tls",
+            "remarks": "rule_set_07"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-auto-tls argument is not set to true",
+            "remarks": "rule_set_07"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "f79d6290-8efa-4ea7-b931-27b8435cf707",
+            "source": "profiles/OCP4_CIS/profile.json",
+            "description": "OCP4 CIS Profile",
+            "implemented-requirements": [
+              {
+                "uuid": "a1b5b713-52c7-46fb-ab57-ebac7f576b23",
+                "control-id": "CIS-2.1",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_cert_file"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_key_file"
+                  }
+                ]
+              },
+              {
+                "uuid": "bd737295-2dd9-436d-89b4-54a581afa154",
+                "control-id": "CIS-2.2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_client_cert_auth"
+                  }
+                ]
+              },
+              {
+                "uuid": "a463ae43-f562-434e-a3a4-2eaed2cbec59",
+                "control-id": "CIS-2.3",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_auto_tls"
+                  }
+                ]
+              },
+              {
+                "uuid": "22d8d502-a9c2-444a-9a3e-e55c1405f42c",
+                "control-id": "CIS-2.4",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_cert_file"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_key_file"
+                  }
+                ]
+              },
+              {
+                "uuid": "e297ed7f-7a8f-44ed-af58-78b0693f3f4b",
+                "control-id": "CIS-2.5",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_client_cert_auth"
+                  }
+                ]
+              },
+              {
+                "uuid": "13c6e9ee-1c85-440a-bbe9-6a54498fcde2",
+                "control-id": "CIS-2.6",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_auto_tls"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "701c70f1-482b-42b0-a419-9870158cd9e2",
+        "type": "validation",
+        "title": "OSCO",
+        "description": "OSCO",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_cert_file",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_cert_file",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_key_file",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_key_file",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --cert-file and --key-file arguments are set as appropriate",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_client_cert_auth",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --client-cert-auth argument is set to true",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_client_cert_auth",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --client-cert-auth argument is set to true",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_auto_tls",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --auto-tls argument is not set to true",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_auto_tls",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --auto-tls argument is not set to true",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_cert_file",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_cert_file",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_key_file",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_key_file",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --peer-cert-file and --peer-key-file arguments are set as appropriate",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_client_cert_auth",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-client-cert-auth argument is set to true",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_client_cert_auth",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --peer-client-cert-auth argument is set to true",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_auto_tls",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Ensure that the --peer-auto-tls argument is not set to true",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "etcd_peer_auto_tls",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Check that the --peer-auto-tls argument is not set to true",
+            "remarks": "rule_set_15"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "af0c5af7-db05-4d33-98d9-6968b12f8b25",
+            "source": "profiles/OCP4_CIS/profile.json",
+            "description": "OCP4 CIS Profile",
+            "implemented-requirements": [
+              {
+                "uuid": "b146e8cb-7cb2-4155-8af6-8b2f5a71ce3b",
+                "control-id": "CIS-2.1",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_cert_file"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_key_file"
+                  }
+                ]
+              },
+              {
+                "uuid": "ffd308ca-ff97-47bc-b274-46a473f7eea4",
+                "control-id": "CIS-2.2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_client_cert_auth"
+                  }
+                ]
+              },
+              {
+                "uuid": "041f497b-277a-4201-96a1-9a4bf709eba4",
+                "control-id": "CIS-2.3",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_auto_tls"
+                  }
+                ]
+              },
+              {
+                "uuid": "f6e24906-023c-4c5e-bb96-126822f524a8",
+                "control-id": "CIS-2.4",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_cert_file"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_key_file"
+                  }
+                ]
+              },
+              {
+                "uuid": "dba7d56a-8cdf-419f-a273-c83aacec1167",
+                "control-id": "CIS-2.5",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_client_cert_auth"
+                  }
+                ]
+              },
+              {
+                "uuid": "8d317740-af2d-4058-beb0-d2dbcbbfec27",
+                "control-id": "CIS-2.6",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "etcd_peer_auto_tls"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
