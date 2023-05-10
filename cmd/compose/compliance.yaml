@@ -1,0 +1,9 @@
+standard:
+  name: NIST SP 800-53
+  categories:
+  - name: CM Configuration Management
+    controls:
+    - name: CM-2 Baseline Configuration
+      controlrefs:
+      - add-chrony
+      - install-odf-lvm-operator

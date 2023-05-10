@@ -1,0 +1,111 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.10.0
+  creationTimestamp: null
+  name: compliancedeployments.compliance-to-policy.io
+spec:
+  group: compliance-to-policy.io
+  names:
+    kind: ComplianceDeployment
+    listKind: ComplianceDeploymentList
+    plural: compliancedeployments
+    singular: compliancedeployment
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ComplianceDeployment is the Schema for the compliancedeployments
+          API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ComplianceDeploymentSpec defines the desired state of ComplianceDeployment
+            properties:
+              binding:
+                properties:
+                  clusterGroups:
+                    description: The list of cluster group to be bound to the compliance
+                    items:
+                      type: string
+                    type: array
+                  compliance:
+                    description: Compliance name
+                    type: string
+                type: object
+              clusterGroups:
+                items:
+                  properties:
+                    matchLabels:
+                      additionalProperties:
+                        type: string
+                      description: Cluster selector
+                      type: object
+                    name:
+                      description: Name
+                      type: string
+                  type: object
+                type: array
+              compliance:
+                properties:
+                  catalog:
+                    description: Reference to OSCAL Catalog json
+                    properties:
+                      url:
+                        type: string
+                    type: object
+                  componentDefinition:
+                    description: Reference to OSCAL Component Definition json
+                    properties:
+                      url:
+                        type: string
+                    type: object
+                  name:
+                    description: Name of compliance
+                    type: string
+                  profile:
+                    description: Reference to OSCAL Profile json
+                    properties:
+                      url:
+                        type: string
+                    type: object
+                type: object
+              policyResources:
+                properties:
+                  url:
+                    type: string
+                type: object
+              target:
+                properties:
+                  namespace:
+                    description: Namespace for generated policies to be placed in
+                      Hub
+                    type: string
+                  workspace:
+                    description: KCP workspace
+                    type: string
+                type: object
+            type: object
+          status:
+            description: ComplianceDeploymentStatus defines the observed state of
+              ComplianceDeployment
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

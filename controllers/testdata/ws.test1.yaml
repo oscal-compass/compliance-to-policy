@@ -1,0 +1,10 @@
+apiVersion: tenancy.kcp.io/v1alpha1
+kind: Workspace
+metadata:
+  name: ws1
+  labels:
+    level: nist-high
+spec:
+  type:
+    name: organization
+    path: root

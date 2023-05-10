@@ -1,0 +1,32 @@
+apiVersion: compliance-to-policy.io/v1alpha1
+kind: ComplianceDeployment
+metadata:
+  labels:
+    app.kubernetes.io/name: compliancedeployment
+    app.kubernetes.io/instance: compliancedeployment-sample
+    app.kubernetes.io/part-of: compliance-to-policy
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: compliance-to-policy
+  name: compliancedeployment-sample
+spec:
+  oscalRepo:
+    githubRef:
+      url: https://github.com/yana1205/test1-tmp
+      interval: 1h
+    catalog: /oscal/NIST_SP-800-53_rev5_catalog.json
+    profile: /oscal/NIST_SP-800-53_rev5_HIGH-baseline_profile.json
+    componentDefinition: /oscal/component-definition.json
+  policyCollectionRepo:
+    githubRef:
+      url: https://github.com/yana1205/test1-tmp
+      interval: 1h
+    policyCollection: /policy-collection
+  outputRepo: 
+    githubRef:
+      url: https://github.com/yana1205/test1-tmp
+      secretRef: "github"
+      interval: 1h
+    output: /generated/nist-high-eu
+  clusterSelectors:
+    matchLabels:
+      location: eu
