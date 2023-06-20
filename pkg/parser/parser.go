@@ -72,19 +72,21 @@ func (c *Collector) TraversalFunc(target string) func(path string, info os.FileI
 			return err
 		}
 		if !info.IsDir() {
-			return c.ParseFile(target, outputTargetDir, path, info, err)
+			if err := c.ParseFile(target, outputTargetDir, path, info, err); err != nil {
+				logger.Sugar().Infof("Ignore parsing %s due to %s", path, err.Error())
+			}
 		}
 		return nil
 	}
 }
 
 func (c *Collector) parseFile(target string, outputDir string, path string, filename string, reader io.Reader) error {
-	if filename == "policy-ocp4-certs.yaml" {
-		println("")
-	}
 	policies, placementBindings, plaementRules, err := loadAndUnmarshal(reader)
 	if err != nil {
 		return err
+	}
+	if len(policies) == 0 {
+		return fmt.Errorf("No policies are found for %s.", target)
 	}
 	placementDir := outputDir + "/placements"
 	if err := os.MkdirAll(placementDir, os.ModePerm); err != nil {
@@ -240,7 +242,13 @@ func (c *Collector) ParseFile(target string, outputTargetDir string, path string
 		return err
 	}
 	defer f.Close()
-	return c.parseFile(target, outputDir, path, filepath.Base(f.Name()), f)
+	if err := c.parseFile(target, outputDir, path, filepath.Base(f.Name()), f); err != nil {
+		logger.Sugar().Infof("Ignore %s and cleanup the output directory %s due to %s", target, outputDir, err.Error())
+		if err := os.RemoveAll(outputDir); err != nil {
+			logger.Sugar().Errorf("%v", err)
+		}
+	}
+	return nil
 }
 
 func (c *Collector) CreatePolicySourcesDir() (string, error) {
