@@ -18,11 +18,16 @@ package modules
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"go.uber.org/zap"
+	"gopkg.in/yaml.v3"
 
+	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/parser"
+	"github.com/IBM/compliance-to-policy/pkg/tables/resources"
+	"github.com/IBM/compliance-to-policy/pkg/types/policycomposition"
 )
 
 var TARGETS = []string{
@@ -50,19 +55,126 @@ func Parse(logger *zap.Logger, policyCollectionDir string, outputDir string) *Ou
 			logger.Error(err.Error())
 		}
 	}
-	err := collector.Indexer()
+	err := indexer(collector)
 	if err != nil {
 		panic(err)
 	}
-	err = collector.AppendCompliance()
+	err = appendCompliance(collector)
 	if err != nil {
 		panic(err)
 	}
 	o := &Outputs{}
-	o.SourcesDir, err = collector.CreatePolicySourcesDir()
+	o.SourcesDir, err = createPolicySourcesDir(collector)
 	if err != nil {
 		panic(err)
 	}
 	o.PolicyCsvPath, o.ResourcesCsvPath = parser.WriteToCSVs(collector, outputDir)
 	return o
+}
+
+func createPolicySourcesDir(c *parser.Collector) (string, error) {
+	sourcesDir, err := pkg.MakeDir(c.GetOutputDir() + "/_sources")
+	if err != nil {
+		return sourcesDir, err
+	}
+	if err := createPolicySources(sourcesDir, c.GetResourceTable()); err != nil {
+		return sourcesDir, err
+	}
+
+	return sourcesDir, createPolicySources(sourcesDir, c.GetErroredTable())
+}
+
+func createPolicySources(sourcesDir string, resourcesTable *resources.Table) error {
+	filenameCreator := pkg.NewFilenameCreator("", &pkg.FilenameCreatorOption{
+		UnlabelToZero: true,
+	})
+	groupedByPolicy := resourcesTable.GroupBy("policy")
+	for policy, table := range groupedByPolicy {
+		policyFilename := filenameCreator.Get(policy)
+		sourcesPolicyDir, err := pkg.MakeDir(sourcesDir + "/" + policyFilename)
+		if err != nil {
+			return err
+		}
+		if err := pkg.CopyFile(table.List()[0].PolicyDir+"/../../policy.yaml", sourcesPolicyDir+"/policy.yaml"); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func appendCompliance(c *parser.Collector) error {
+	type mapKey struct {
+		standard string
+		category string
+		control  string
+	}
+	groupedByPolicy := c.GetResourceTable().GroupBy("policy")
+	for _, table := range groupedByPolicy {
+		groupedByPolicyByCompliance := map[mapKey]*resources.Table{}
+		groupedByStandard := table.GroupBy("standard")
+		for standard, table := range groupedByStandard {
+			groupedByCategory := table.GroupBy("category")
+			for category, table := range groupedByCategory {
+				groupedByControl := table.GroupBy("control")
+				for control, table := range groupedByControl {
+					mapKey := mapKey{
+						standard: standard,
+						category: category,
+						control:  control,
+					}
+					groupedByPolicyByCompliance[mapKey] = table
+				}
+			}
+		}
+		compliances := []policycomposition.Compliance{}
+		policyDir := table.List()[0].PolicyDir
+		for mapKey := range groupedByPolicyByCompliance {
+			compliance := policycomposition.Compliance{
+				Standard: mapKey.standard,
+				Category: mapKey.category,
+				Control:  mapKey.control,
+			}
+			compliances = append(compliances, compliance)
+		}
+		yamlData, err := yaml.Marshal(compliances)
+		if err != nil {
+			return err
+		}
+		if err := os.WriteFile(policyDir+"/compliance.yaml", yamlData, os.ModePerm); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func indexer(c *parser.Collector) error {
+	resourcesDir := c.GetOutputDir() + "/resources"
+	groupedByApiVersion := c.GetResourceTable().GroupBy("api-version")
+	filenameCreator := pkg.NewFilenameCreator(".yaml", nil)
+	for apiVersion, table := range groupedByApiVersion {
+		apiVersionDir := resourcesDir + "/" + apiVersion
+		if err := os.MkdirAll(apiVersionDir, os.ModePerm); err != nil {
+			return err
+		}
+		groupedByKind := table.GroupBy("kind")
+		for kind, table := range groupedByKind {
+			kindDir := apiVersionDir + "/" + kind
+			if err := os.MkdirAll(kindDir, os.ModePerm); err != nil {
+				return err
+			}
+			for _, row := range table.List() {
+				name := row.Name
+				if name == "" {
+					name = "noname"
+				}
+				fnameFmt := "%s/%s.%s"
+				fname := fmt.Sprintf(fnameFmt, kindDir, row.Policy, name)
+				fname = filenameCreator.Get(fname)
+				if err := pkg.CopyFile(row.Source, fname); err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
 }

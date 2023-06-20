@@ -27,9 +27,8 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg/tables"
 	"github.com/IBM/compliance-to-policy/pkg/tables/resources"
 	"github.com/IBM/compliance-to-policy/pkg/types/configurationpolicy"
-	"github.com/IBM/compliance-to-policy/pkg/types/policycomposition"
+	"github.com/IBM/compliance-to-policy/pkg/types/policy"
 	"go.uber.org/zap"
-	"gopkg.in/yaml.v3"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
 )
@@ -62,6 +61,10 @@ func (c *Collector) GetResourceTable() *resources.Table {
 
 func (c *Collector) GetErroredTable() *resources.Table {
 	return c.erroredTable
+}
+
+func (c *Collector) GetOutputDir() string {
+	return c.outputDir
 }
 
 func (c *Collector) TraversalFunc(target string) func(path string, info os.FileInfo, err error) error {
@@ -107,109 +110,14 @@ func (c *Collector) parseFile(target string, outputDir string, path string, file
 	policiesDir := outputDir + "/policies"
 	annotations := policies[0].Annotations
 	for _, policy := range policies {
-		policyDir := policiesDir + "/" + policy.Name
-		standard := policy.Annotations["policy.open-cluster-management.io/standards"]
-		category := policy.Annotations["policy.open-cluster-management.io/categories"]
-		control := policy.Annotations["policy.open-cluster-management.io/controls"]
 		for _, policyTemplate := range policy.Spec.PolicyTemplates {
-			raw := policyTemplate.ObjectDefinition.Raw
-			var configPolicy configurationpolicy.ConfigurationPolicy
-			err := utilyaml.Unmarshal(raw, &configPolicy)
-			if err != nil {
-				logger.Sugar().Errorf("%v", err)
-				c.erroredTable.Add(resources.Row{
-					Name:         "",
-					Kind:         "",
-					ApiVersion:   "",
-					Policy:       policy.Name,
-					ConfigPolicy: configPolicy.Name,
-					Standard:     standard,
-					Category:     category,
-					Control:      control,
-					Source:       "",
-					PolicyDir:    policyDir,
-				})
-				continue
-			}
-			configPoliciesDir := policyDir + "/config-policies"
-			configPolicyDir := configPoliciesDir + "/" + configPolicy.Name
-			if err := os.MkdirAll(configPolicyDir, os.ModePerm); err != nil {
-				return err
-			}
-			filenameCreator := pkg.NewFilenameCreator(".yaml", nil)
-			if configPolicy.Spec.ObjectTemplates == nil {
-				c.erroredTable.Add(resources.Row{
-					Name:         "",
-					Kind:         "",
-					ApiVersion:   "",
-					Policy:       policy.Name,
-					ConfigPolicy: configPolicy.Name,
-					Standard:     standard,
-					Category:     category,
-					Control:      control,
-					Source:       "",
-					PolicyDir:    policyDir,
-				})
-				continue
-			}
-			for _, objectTemplate := range configPolicy.Spec.ObjectTemplates {
-				raw := objectTemplate.ObjectDefinition.Raw
-				var unst unstructured.Unstructured
-				err := utilyaml.Unmarshal(raw, &unst)
-				if err != nil {
-					logger.Sugar().Errorf("%v", err)
-					c.erroredTable.Add(resources.Row{
-						Name:         "",
-						Kind:         "",
-						ApiVersion:   "",
-						Policy:       policy.Name,
-						ConfigPolicy: configPolicy.Name,
-						Standard:     standard,
-						Category:     category,
-						Control:      control,
-						Source:       "",
-						PolicyDir:    policyDir,
-					})
-					continue
-				}
-				kind := unst.GetKind()
-				name := unst.GetName()
-				if name == "" {
-					name = "noname"
-				}
-				fnameFmt := "%s.%s"
-				fname := fmt.Sprintf(fnameFmt, kind, name)
-				fname = filenameCreator.Get(fname)
-				outputResourceFile := configPolicyDir + "/" + fname
-				if err := pkg.WriteObjToYamlFile(outputResourceFile, unst.Object); err != nil {
-					logger.Sugar().Errorf("%v", err)
-					c.erroredTable.Add(resources.Row{
-						Name:         name,
-						Kind:         kind,
-						ApiVersion:   unst.GetAPIVersion(),
-						Policy:       policy.Name,
-						ConfigPolicy: configPolicy.Name,
-						Standard:     standard,
-						Category:     category,
-						Control:      control,
-						Source:       outputResourceFile,
-						PolicyDir:    policyDir,
-					})
-					continue
-				}
-				c.resourceTable.Add(resources.Row{
-					Name:         name,
-					Kind:         kind,
-					ApiVersion:   unst.GetAPIVersion(),
-					Policy:       policy.Name,
-					ConfigPolicy: configPolicy.Name,
-					Standard:     standard,
-					Category:     category,
-					Control:      control,
-					Source:       outputResourceFile,
-					PolicyDir:    policyDir,
-				})
-			}
+			_ = c.parsePolicyTemplate(policyTemplate, resources.Row{
+				Standard:  policy.Annotations["policy.open-cluster-management.io/standards"],
+				Category:  policy.Annotations["policy.open-cluster-management.io/categories"],
+				Control:   policy.Annotations["policy.open-cluster-management.io/controls"],
+				PolicyDir: policiesDir + "/" + policy.Name,
+				Policy:    policy.Name,
+			})
 		}
 	}
 	c.table.Add(tables.Row{
@@ -251,108 +159,51 @@ func (c *Collector) ParseFile(target string, outputTargetDir string, path string
 	return nil
 }
 
-func (c *Collector) CreatePolicySourcesDir() (string, error) {
-	sourcesDir, err := pkg.MakeDir(c.outputDir + "/_sources")
+func (c *Collector) parsePolicyTemplate(policyTemplate *policy.PolicyTemplate, row resources.Row) error {
+	raw := policyTemplate.ObjectDefinition.Raw
+	var configPolicy configurationpolicy.ConfigurationPolicy
+	err := utilyaml.Unmarshal(raw, &configPolicy)
 	if err != nil {
-		return sourcesDir, err
+		logger.Sugar().Errorf("%v", err)
+		c.erroredTable.Add(row)
+		return err
 	}
-	if err := createPolicySources(sourcesDir, c.resourceTable); err != nil {
-		return sourcesDir, err
+	row.ConfigPolicy = configPolicy.Name
+	configPoliciesDir := row.PolicyDir + "/config-policies"
+	configPolicyDir := configPoliciesDir + "/" + configPolicy.Name
+	if err := os.MkdirAll(configPolicyDir, os.ModePerm); err != nil {
+		return err
 	}
-	return sourcesDir, createPolicySources(sourcesDir, c.erroredTable)
-}
-
-func createPolicySources(sourcesDir string, resourcesTable *resources.Table) error {
-	filenameCreator := pkg.NewFilenameCreator("", &pkg.FilenameCreatorOption{
-		UnlabelToZero: true,
-	})
-	groupedByPolicy := resourcesTable.GroupBy("policy")
-	for policy, table := range groupedByPolicy {
-		policyFilename := filenameCreator.Get(policy)
-		sourcesPolicyDir, err := pkg.MakeDir(sourcesDir + "/" + policyFilename)
-		if err != nil {
-			return err
-		}
-		if err := pkg.CopyFile(table.List()[0].PolicyDir+"/../../policy.yaml", sourcesPolicyDir+"/policy.yaml"); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (c *Collector) Indexer() error {
-	resourcesDir := c.outputDir + "/resources"
-	groupedByApiVersion := c.resourceTable.GroupBy("api-version")
 	filenameCreator := pkg.NewFilenameCreator(".yaml", nil)
-	for apiVersion, table := range groupedByApiVersion {
-		apiVersionDir := resourcesDir + "/" + apiVersion
-		if err := os.MkdirAll(apiVersionDir, os.ModePerm); err != nil {
-			return err
-		}
-		groupedByKind := table.GroupBy("kind")
-		for kind, table := range groupedByKind {
-			kindDir := apiVersionDir + "/" + kind
-			if err := os.MkdirAll(kindDir, os.ModePerm); err != nil {
-				return err
-			}
-			for _, row := range table.List() {
-				name := row.Name
-				if name == "" {
-					name = "noname"
-				}
-				fnameFmt := "%s/%s.%s"
-				fname := fmt.Sprintf(fnameFmt, kindDir, row.Policy, name)
-				fname = filenameCreator.Get(fname)
-				if err := pkg.CopyFile(row.Source, fname); err != nil {
-					return err
-				}
-			}
-		}
+	if configPolicy.Spec.ObjectTemplates == nil {
+		c.erroredTable.Add(row)
+		return err
 	}
-	return nil
-}
-
-func (c *Collector) AppendCompliance() error {
-	type mapKey struct {
-		standard string
-		category string
-		control  string
-	}
-	groupedByPolicy := c.resourceTable.GroupBy("policy")
-	for _, table := range groupedByPolicy {
-		groupedByPolicyByCompliance := map[mapKey]*resources.Table{}
-		groupedByStandard := table.GroupBy("standard")
-		for standard, table := range groupedByStandard {
-			groupedByCategory := table.GroupBy("category")
-			for category, table := range groupedByCategory {
-				groupedByControl := table.GroupBy("control")
-				for control, table := range groupedByControl {
-					mapKey := mapKey{
-						standard: standard,
-						category: category,
-						control:  control,
-					}
-					groupedByPolicyByCompliance[mapKey] = table
-				}
-			}
-		}
-		compliances := []policycomposition.Compliance{}
-		policyDir := table.List()[0].PolicyDir
-		for mapKey := range groupedByPolicyByCompliance {
-			compliance := policycomposition.Compliance{
-				Standard: mapKey.standard,
-				Category: mapKey.category,
-				Control:  mapKey.control,
-			}
-			compliances = append(compliances, compliance)
-		}
-		yamlData, err := yaml.Marshal(compliances)
+	for _, objectTemplate := range configPolicy.Spec.ObjectTemplates {
+		rowc := row
+		raw := objectTemplate.ObjectDefinition.Raw
+		var unst unstructured.Unstructured
+		err := utilyaml.Unmarshal(raw, &unst)
 		if err != nil {
+			logger.Sugar().Errorf("%v", err)
+			c.erroredTable.Add(rowc)
+		}
+		rowc.Kind = unst.GetKind()
+		rowc.Name = unst.GetName()
+		rowc.ApiVersion = unst.GetAPIVersion()
+		if rowc.Name == "" {
+			rowc.Name = "noname"
+		}
+		fnameFmt := "%s.%s"
+		fname := fmt.Sprintf(fnameFmt, rowc.Kind, rowc.Name)
+		fname = filenameCreator.Get(fname)
+		rowc.Source = configPolicyDir + "/" + fname
+		if err := pkg.WriteObjToYamlFile(rowc.Source, unst.Object); err != nil {
+			logger.Sugar().Errorf("%v", err)
+			c.erroredTable.Add(rowc)
 			return err
 		}
-		if err := os.WriteFile(policyDir+"/compliance.yaml", yamlData, os.ModePerm); err != nil {
-			return err
-		}
+		c.resourceTable.Add(rowc)
 	}
 	return nil
 }
