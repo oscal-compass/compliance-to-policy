@@ -110,11 +110,8 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 				if err := pkg.WriteObjToYamlFile(policyGeneratorPath, policyGenerator); err != nil {
 					return nil, err
 				}
-				kustomize := map[string]interface{}{
-					"generators": []string{"./policy-generator.yaml"},
-				}
 				kustomizePath := policyCompositionDir + "/kustomization.yaml"
-				if err := pkg.WriteObjToYamlFile(kustomizePath, kustomize); err != nil {
+				if err := pkg.WriteObjToYamlFile(kustomizePath, pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}}); err != nil {
 					return nil, err
 				}
 				logger.Info(fmt.Sprintf("Generate policy '%s' by PolicyGenerator", policyGeneratorPath))

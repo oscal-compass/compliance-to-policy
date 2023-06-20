@@ -22,7 +22,20 @@ Decompose OCM poicy collection to kubernetes resources composing each OCM policy
     ├── _sources
     └── resources
     ```
-
+    Individual decomposed resource contains k8s manifests and configuration files (policy-generator.yaml and kustomization.yaml) for PolicyGenerator. 
+    ```
+    $ tree -L 3 /tmp/c2p-output/decomposed/resources
+    /tmp/c2p-output/decomposed/resources
+    ├── add-chrony
+    │   ├── add-chrony-worker
+    │   │   └── MachineConfig.50-worker-chrony.0.yaml
+    │   ├── kustomization.yaml
+    │   └── policy-generator.yaml
+    ├── add-tvk-license
+    │   ├── add-tvk-license
+    │   │   └── License.triliovault-license.0.yaml
+    │   ├── kustomization.yaml
+    ```
 ## C2P Composer
 Compose OCM Policy from policy resources from compliance information (for example, [compliance.yaml](cmd/compose/compliance.yaml))
 

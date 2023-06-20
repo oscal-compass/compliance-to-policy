@@ -30,6 +30,7 @@ import (
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 
+	goyaml "gopkg.in/yaml.v3"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	k8syaml "k8s.io/apimachinery/pkg/runtime/serializer/yaml"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
@@ -118,6 +119,16 @@ func WriteObjToYamlFile(path string, in interface{}) error {
 	} else {
 		return os.WriteFile(path, yamlData, os.ModePerm)
 	}
+}
+
+func WriteObjToYamlFileByGoYaml(path string, in interface{}) error {
+	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	encoder := goyaml.NewEncoder(file)
+	encoder.SetIndent(2)
+	return encoder.Encode(in)
 }
 
 func WriteObjToJsonFile(path string, in interface{}) error {

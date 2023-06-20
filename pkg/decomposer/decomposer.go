@@ -57,6 +57,12 @@ func (d *Decomposer) Decompose() (string, error) {
 		if err != nil {
 			return policyResourcesDir, err
 		}
+		if err := pkg.CopyFile(table.List()[0].PolicyDir+"/kustomization.yaml", policyDir+"/kustomization.yaml"); err != nil {
+			return policyResourcesDir, err
+		}
+		if err := pkg.CopyFile(table.List()[0].PolicyDir+"/policy-generator.yaml", policyDir+"/policy-generator.yaml"); err != nil {
+			return policyResourcesDir, err
+		}
 		policyResourcesDir := policyDir
 		groupedByPolicyByCompliance := GroupByCompliance(table)
 		for _, table := range groupedByPolicyByCompliance {

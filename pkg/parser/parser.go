@@ -24,10 +24,12 @@ import (
 	"strings"
 
 	"github.com/IBM/compliance-to-policy/pkg"
+	"github.com/IBM/compliance-to-policy/pkg/policygenerator"
 	"github.com/IBM/compliance-to-policy/pkg/tables"
 	"github.com/IBM/compliance-to-policy/pkg/tables/resources"
 	"github.com/IBM/compliance-to-policy/pkg/types/configurationpolicy"
 	"github.com/IBM/compliance-to-policy/pkg/types/policy"
+	typepolicygenerator "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
 	"go.uber.org/zap"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
@@ -110,14 +112,54 @@ func (c *Collector) parseFile(target string, outputDir string, path string, file
 	policiesDir := outputDir + "/policies"
 	annotations := policies[0].Annotations
 	for _, policy := range policies {
+		manifests := []typepolicygenerator.Manifest{}
+		policyDir := policiesDir + "/" + policy.Name
 		for _, policyTemplate := range policy.Spec.PolicyTemplates {
-			_ = c.parsePolicyTemplate(policyTemplate, resources.Row{
+			manifestsPerPolicyTemplate, _ := c.parsePolicyTemplate(policyTemplate, policy, resources.Row{
 				Standard:  policy.Annotations["policy.open-cluster-management.io/standards"],
 				Category:  policy.Annotations["policy.open-cluster-management.io/categories"],
 				Control:   policy.Annotations["policy.open-cluster-management.io/controls"],
-				PolicyDir: policiesDir + "/" + policy.Name,
+				PolicyDir: policyDir,
 				Policy:    policy.Name,
 			})
+			manifests = append(manifests, manifestsPerPolicyTemplate...)
+		}
+		canConsolidate := checkConsolidatable(manifests)
+		var configurationPolicyOptions typepolicygenerator.ConfigurationPolicyOptions
+		var policyOptions typepolicygenerator.PolicyOptions
+		if canConsolidate {
+			policyOptions = typepolicygenerator.PolicyOptions{
+				ConsolidateManifests: checkConsolidatable(manifests),
+			}
+			configurationPolicyOptions = typepolicygenerator.ConfigurationPolicyOptions{
+				RemediationAction: manifests[0].RemediationAction,
+				ComplianceType:    manifests[0].ComplianceType,
+				Severity:          manifests[0].Severity,
+			}
+			for i := range manifests {
+				manifests[i].RemediationAction = ""
+				manifests[i].ComplianceType = ""
+				manifests[i].Severity = ""
+			}
+		}
+		policyGenerator := policygenerator.BuildPolicyGeneratorManifest(
+			"policy-generator",
+			typepolicygenerator.PolicyDefaults{
+				Namespace: "namespace",
+			},
+			[]typepolicygenerator.PolicyConfig{{
+				Name:                       policy.Name,
+				Manifests:                  manifests,
+				PolicyOptions:              policyOptions,
+				ConfigurationPolicyOptions: configurationPolicyOptions,
+			}})
+		if err := pkg.WriteObjToYamlFileByGoYaml(policyDir+"/policy-generator.yaml", policyGenerator); err != nil {
+			logger.Sugar().Errorf("%v", err)
+			return err
+		}
+		kustomize := typepolicygenerator.Kustomization{Generators: []string{"./policy-generator.yaml"}}
+		if err := pkg.WriteObjToYamlFile(policyDir+"/kustomization.yaml", kustomize); err != nil {
+			return err
 		}
 	}
 	c.table.Add(tables.Row{
@@ -159,25 +201,29 @@ func (c *Collector) ParseFile(target string, outputTargetDir string, path string
 	return nil
 }
 
-func (c *Collector) parsePolicyTemplate(policyTemplate *policy.PolicyTemplate, row resources.Row) error {
+func (c *Collector) parsePolicyTemplate(policyTemplate *policy.PolicyTemplate, basePolicy *policy.Policy, row resources.Row) ([]typepolicygenerator.Manifest, error) {
 	raw := policyTemplate.ObjectDefinition.Raw
+	manifests := []typepolicygenerator.Manifest{}
 	var configPolicy configurationpolicy.ConfigurationPolicy
 	err := utilyaml.Unmarshal(raw, &configPolicy)
 	if err != nil {
 		logger.Sugar().Errorf("%v", err)
 		c.erroredTable.Add(row)
-		return err
+		return manifests, err
 	}
 	row.ConfigPolicy = configPolicy.Name
-	configPoliciesDir := row.PolicyDir + "/config-policies"
-	configPolicyDir := configPoliciesDir + "/" + configPolicy.Name
+	configPolicyDir := row.PolicyDir + "/" + configPolicy.Name
 	if err := os.MkdirAll(configPolicyDir, os.ModePerm); err != nil {
-		return err
+		return manifests, err
+	}
+	remediationAction := configPolicy.Spec.RemediationAction
+	if remediationAction == "" {
+		remediationAction = configurationpolicy.RemediationAction(basePolicy.Spec.RemediationAction)
 	}
 	filenameCreator := pkg.NewFilenameCreator(".yaml", nil)
 	if configPolicy.Spec.ObjectTemplates == nil {
 		c.erroredTable.Add(row)
-		return err
+		return manifests, err
 	}
 	for _, objectTemplate := range configPolicy.Spec.ObjectTemplates {
 		rowc := row
@@ -201,9 +247,52 @@ func (c *Collector) parsePolicyTemplate(policyTemplate *policy.PolicyTemplate, r
 		if err := pkg.WriteObjToYamlFile(rowc.Source, unst.Object); err != nil {
 			logger.Sugar().Errorf("%v", err)
 			c.erroredTable.Add(rowc)
-			return err
+			return manifests, err
 		}
 		c.resourceTable.Add(rowc)
+		manifests = append(manifests, typepolicygenerator.Manifest{
+			Path: rowc.Source,
+			ConfigurationPolicyOptions: typepolicygenerator.ConfigurationPolicyOptions{
+				RemediationAction: string(remediationAction),
+				ComplianceType:    string(objectTemplate.ComplianceType),
+				Severity:          string(configPolicy.Spec.Severity),
+			},
+		})
 	}
-	return nil
+	if len(manifests) == 0 {
+		return manifests, nil
+	}
+	canConsolidate := checkConsolidatable(manifests)
+	if canConsolidate {
+		manifests = []typepolicygenerator.Manifest{{
+			Path: configPolicyDir,
+			ConfigurationPolicyOptions: typepolicygenerator.ConfigurationPolicyOptions{
+				RemediationAction: manifests[0].RemediationAction,
+				ComplianceType:    manifests[0].ComplianceType,
+				Severity:          string(configPolicy.Spec.Severity),
+			},
+		}}
+	}
+	for i, manifest := range manifests {
+		manifests[i].Path = strings.Replace(manifest.Path, row.PolicyDir, ".", 1)
+	}
+	return manifests, nil
+}
+
+func checkConsolidatable(manifests []typepolicygenerator.Manifest) bool {
+	if len(manifests) == 0 {
+		return false
+	}
+	var prevComplianceType string
+	var prevRemediationAction string
+	for i, manifest := range manifests {
+		if i > 0 {
+			if manifest.ComplianceType != prevComplianceType || manifest.RemediationAction != prevRemediationAction {
+				return false
+			}
+		}
+		prevComplianceType = manifest.ComplianceType
+		prevRemediationAction = manifest.RemediationAction
+	}
+	return true
 }
