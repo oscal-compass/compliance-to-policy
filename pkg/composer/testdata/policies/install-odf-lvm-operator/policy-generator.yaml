@@ -1,0 +1,18 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator
+policyDefaults:
+  consolidateManifests: false
+  orderManifests: false
+  namespace: namespace
+policies:
+  - consolidateManifests: true
+    orderManifests: false
+    remediationAction: enforce
+    severity: low
+    complianceType: musthave
+    name: install-odf-lvm-operator
+    manifests:
+      - path: ./policy-odf-lvm-operator
+      - path: ./odf-lvmcluster

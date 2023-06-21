@@ -33,11 +33,11 @@ import (
 	"sigs.k8s.io/kustomize/api/resource"
 )
 
-var policyDir = pkg.PathFromPkgDirectory("./composer/testdata/policies")
-var tempDir = pkg.PathFromPkgDirectory("./composer/_test")
-var expectedDir = pkg.PathFromPkgDirectory("./composer/testdata/expected")
-
 func TestCompose(t *testing.T) {
+
+	var policyDir = pkg.PathFromPkgDirectory("./composer/testdata/policies")
+	var tempDir = pkg.PathFromPkgDirectory("./composer/_test")
+	var expectedDir = pkg.PathFromPkgDirectory("./composer/testdata/expected")
 
 	complianceYaml := pkg.PathFromPkgDirectory("./composer/testdata/compliance.yaml")
 	if err := os.MkdirAll(tempDir, os.ModePerm); err != nil {
@@ -126,7 +126,7 @@ func TestCompose(t *testing.T) {
 	configPoliciesByPolicy, err := result.ToConfigPoliciesByPolicy()
 	assert.NoError(t, err, "Should not happen")
 
-	configPolicyDir := c.tempDir + "/config-policy"
+	configPolicyDir := c.tempDir.getTempDir() + "/config-policy"
 	for policy, configPolicies := range configPoliciesByPolicy {
 		for _, configPolicy := range configPolicies {
 			err := pkg.MakeDirAndWriteObjToYamlFile(fmt.Sprintf("%s/%s", configPolicyDir, policy), configPolicy.Name+".yaml", configPolicy)

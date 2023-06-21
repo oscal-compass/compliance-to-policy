@@ -33,17 +33,17 @@ var logger *zap.Logger = pkg.GetLogger("composer")
 
 type Composer struct {
 	policiesDir string
-	tempDir     string
+	tempDir     TempDirectory
 }
 
 func NewComposer(policiesDir string, tempDir string) *Composer {
-	dir, err := os.MkdirTemp(tempDir, "tmp-")
-	if err != nil {
-		panic(err)
-	}
+	return NewComposerByTempDirectory(policiesDir, NewTempDirectory(tempDir))
+}
+
+func NewComposerByTempDirectory(policiesDir string, tempDir TempDirectory) *Composer {
 	return &Composer{
 		policiesDir: policiesDir,
-		tempDir:     dir,
+		tempDir:     tempDir,
 	}
 }
 
@@ -64,7 +64,7 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 	standard := compliance.Standard
 	for _, category := range standard.Categories {
 		for _, control := range category.Controls {
-			controlDir := c.tempDir + "/" + control.Name
+			controlDir := c.tempDir.getTempDir() + "/" + control.Name
 			for _, policy := range control.ControlRefs {
 				logger.Info(fmt.Sprintf("Start generating policy '%s'", policy))
 
