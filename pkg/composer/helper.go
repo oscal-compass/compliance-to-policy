@@ -26,6 +26,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg/types/configurationpolicy"
 	. "github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	typespolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
+	pgtype "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
 	cp "github.com/otiai10/copy"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
@@ -36,13 +37,17 @@ import (
 type ComposedResult struct {
 	policyCompositions []PolicyComposition
 	internalCompliance Compliance
+	namespace          string
+	clusterSelectors   map[string]string
 }
 
 type PolicyComposition struct {
-	Id                   string
-	PolicyCompositionDir string
-	configPolicyDirs     []string
-	composedManifests    *resmap.ResMap
+	Id                      string
+	ControlId               string
+	PolicyCompositionDir    string
+	configPolicyDirs        []string
+	composedManifests       *resmap.ResMap
+	policyGeneratorManifest pgtype.PolicyGenerator
 }
 
 // map of policy to yaml bytes
