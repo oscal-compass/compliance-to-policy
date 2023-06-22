@@ -41,31 +41,29 @@ Compose OCM Policy from policy resources from compliance information (for exampl
 
 1. Run C2P Composer
     ```
-    go run ./cmd/compose/compose.go --policy-resources-dir=/tmp/c2p-output/decomposed/resources --compliance-yaml=./cmd/compose/compliance.yaml --out=/tmp/c2p-output
+    go run cmd/compose-by-c2pcr/main.go --c2pcr ./cmd/compose-by-c2pcr/c2pcr.yaml --out /tmp/c2p-output
     ```
-1. Composed OCM policies are output in `/tmp/c2p-output/composed`
+1. Composed OCM policies are output in `/tmp/c2p-output`
     ```
-    $ tree -L 1 /tmp/c2p-output/composed  
-    /tmp/c2p-output/composed
-    ├── add-chrony.yaml
-    └── install-odf-lvm-operator.yaml
-    ```
-1. If you want to see the intermidiate files to generate OCM Policy, please set `--temp-dir=<something to directory>` in the previous C2P Composer command.
-    ```
-    $ mkdir -p /tmp/c2p-temp
-    $ go run ./cmd/compose/compose.go --policy-resources-dir=/tmp/c2p-output/decomposed/resources --compliance-yaml=./cmd/compose/compliance.yaml --out=/tmp/c2p-output --temp-dir=/tmp/c2p-temp
-    $ tree -L 4 /tmp/c2p-temp
-    /tmp/c2p-temp
-    └── tmp-747478669
-        └── CM-2 Baseline Configuration
-            ├── add-chrony
-            │   ├── kustomization.yaml
-            │   ├── policy-generator.yaml
-            │   └── resources
-            └── install-odf-lvm-operator
-                ├── kustomization.yaml
-                ├── policy-generator.yaml
-                └── resources
+    $ tree /tmp/c2p-output                                                                             
+    /tmp/c2p-output
+    ├── add-chrony
+    │   ├── add-chrony-worker
+    │   │   └── MachineConfig.50-worker-chrony.0.yaml
+    │   ├── kustomization.yaml
+    │   └── policy-generator.yaml
+    ├── install-odf-lvm-operator
+    │   ├── kustomization.yaml
+    │   ├── odf-lvmcluster
+    │   │   └── LVMCluster.odf-lvmcluster.0.yaml
+    │   ├── policy-generator.yaml
+    │   └── policy-odf-lvm-operator
+    │       ├── Namespace.openshift-storage.0.yaml
+    │       ├── OperatorGroup.openshift-storage-operatorgroup.0.yaml
+    │       └── Subscription.lvm-operator.0.yaml
+    ├── kustomization.yaml
+    ├── policy-generator.yaml
+    └── policy-sets.yaml
     ```
 
 ## C2P Controller

@@ -69,8 +69,12 @@ func TestC2PCRParser(t *testing.T) {
 			Namespace: "test",
 		},
 	}
-	c2pcrParser := NewC2PCRParser(gitUtils, tempDir)
-	result, err := c2pcrParser.parse(c2pcrSpec)
+	c2pcrParser := NewC2PCRParser(gitUtils)
+	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
+	assert.NoError(t, err, "Should not happen")
+
+	composer := NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, tempDir)
+	result, err := composer.ComposeByC2PCRParsed(c2pcrParsed)
 	assert.NoError(t, err, "Should not happen")
 
 	yamlDataList, err := result.ToYaml()

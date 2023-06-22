@@ -48,10 +48,7 @@ func (g *GitUtils) loadFromWeb(url string, out interface{}) error {
 		return err
 	}
 	if u.Scheme == "local" {
-		if err := pkg.LoadJsonFileToObject(u.Path, out); err != nil {
-			return fmt.Errorf("Failed to marshal %s in local directory", u.Path)
-		}
-		return nil
+		return loadFromLocalFs(u, out)
 	}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -87,10 +84,7 @@ func (g *GitUtils) loadFromGit(url string, out interface{}) error {
 	path := strings.Join(paths[3:], "/")
 
 	if u.Scheme == "local" {
-		if err := pkg.LoadJsonFileToObject(u.Path, out); err != nil {
-			return fmt.Errorf("Failed to marshal %s in local directory", u.Path)
-		}
-		return nil
+		return loadFromLocalFs(u, out)
 	}
 	repoDir, _, err := g.GitClone(repoUrl)
 	if err != nil {
@@ -102,6 +96,18 @@ func (g *GitUtils) loadFromGit(url string, out interface{}) error {
 	return nil
 }
 
+func loadFromLocalFs(u *neturl.URL, out interface{}) error {
+	path := toLocalPath(u)
+	if err := pkg.LoadJsonFileToObject(path, out); err != nil {
+		return fmt.Errorf("Failed to marshal %s in local directory", path)
+	}
+	return nil
+}
+
+func toLocalPath(u *neturl.URL) string {
+	return u.Host + u.Path
+}
+
 func (g *GitUtils) GitClone(url string) (string, string, error) {
 	u, err := neturl.Parse(url)
 	if err != nil {
@@ -111,7 +117,7 @@ func (g *GitUtils) GitClone(url string) (string, string, error) {
 	repoUrl := fmt.Sprintf("%s://%s/%s/%s", u.Scheme, u.Host, paths[1], paths[2])
 	path := strings.Join(paths[3:], "/")
 	if u.Scheme == "local" {
-		return u.Path, "", nil
+		return toLocalPath(u), "", nil
 	}
 	rootDir, err := g.gitClone(repoUrl)
 	return rootDir, path, err

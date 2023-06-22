@@ -39,6 +39,7 @@ type ComposedResult struct {
 	internalCompliance Compliance
 	namespace          string
 	clusterSelectors   map[string]string
+	composedManifests  *resmap.ResMap
 }
 
 type PolicyComposition struct {
@@ -61,6 +62,10 @@ func (cr *ComposedResult) ToYaml() (map[string]*[]byte, error) {
 		policies[pc.Id] = &yamlData
 	}
 	return policies, nil
+}
+
+func (cr *ComposedResult) ToYamlForPolicySets() ([]byte, error) {
+	return (*cr.composedManifests).AsYaml()
 }
 
 func (cr *ComposedResult) ToResourcesByPolicy() map[string][]*resource.Resource {

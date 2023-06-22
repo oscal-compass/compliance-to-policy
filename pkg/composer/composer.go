@@ -76,6 +76,10 @@ type File struct {
 	SourcePath string
 }
 
+func (c *Composer) ComposeByC2PCRParsed(c2pcrParsed C2PCRParsed) (*ComposedResult, error) {
+	return c.Compose(c2pcrParsed.namespace, c2pcrParsed.internalCompliance, c2pcrParsed.clusterSelectors)
+}
+
 func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelectors map[string]string) (*ComposedResult, error) {
 
 	if clusterSelectors == nil {
@@ -155,6 +159,13 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 		return nil, err
 	}
 
+	generatedManifests, err := policygenerator.Kustomize(c.tempDir.getTempDir())
+	if err != nil {
+		logger.Sugar().Error(err, "failed to run kustomize")
+		return nil, err
+	}
+	result.composedManifests = &generatedManifests
+
 	logger.Info("")
 	logger.Info(fmt.Sprintf("%d policies are created", count))
 
@@ -221,11 +232,11 @@ func appendUnique(slice []string, elems ...string) []string {
 	return sets.List[string](sets.New[string](a...))
 }
 
-func (c *Composer) CopyPoliciesDirTo(destDir string) error {
+func (c *Composer) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}
-	if err := cp.Copy(c.policiesDir, destDir); err != nil {
+	if err := cp.Copy(c.tempDir.getTempDir(), destDir); err != nil {
 		return err
 	}
 	return nil

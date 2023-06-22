@@ -1,0 +1,20 @@
+compliance:
+  name: Test Compliance # name of compliance
+  catalog:
+    url: local://./pkg/composer/testdata/oscal/catalog.json
+  profile:
+    url: local://./pkg/composer/testdata/oscal/profile.json
+  componentDefinition:
+    url: local://./pkg/composer/testdata/oscal/component-definition.json
+policyResources: 
+  url: local://./pkg/composer/testdata/policies
+clusterGroups:
+  - name: cluster-nist-high # name of clusterGroup
+    matchLabels:
+      level: nist-high # label's key value pair of clusterlabel
+binding:
+  compliance: NIST_SP-800-53-HIGH # compliance name
+  clusterGroups:
+  - cluster-nist-high # clusterGroup name
+target:
+  namespace: compliance-high # namespace to which C2P deploys generated resources

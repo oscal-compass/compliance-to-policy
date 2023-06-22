@@ -28,35 +28,33 @@ import (
 
 type C2PCRParser struct {
 	gitUtils GitUtils
-	tempDir  TempDirectory
 }
 
-func NewC2PCRParser(gitUtils GitUtils, tempDir TempDirectory) C2PCRParser {
+type C2PCRParsed struct {
+	namespace          string
+	PolicyResoureDir   string
+	internalCompliance internalcompliance.Compliance
+	clusterSelectors   map[string]string
+}
+
+func NewC2PCRParser(gitUtils GitUtils) C2PCRParser {
 	return C2PCRParser{
 		gitUtils: gitUtils,
-		tempDir:  tempDir,
 	}
 }
 
-func (p *C2PCRParser) parse(c2pcrSpec c2pcr.Spec) (*ComposedResult, error) {
-	composer, err := p.createComposer(c2pcrSpec)
-	if err != nil {
-		return nil, err
-	}
-	internalCompliance, err := p.toInternalCompliance(c2pcrSpec)
-	if err != nil {
-		return nil, err
-	}
-	return composer.Compose(c2pcrSpec.Target.Namespace, internalCompliance, *c2pcrSpec.ClusterGroups[0].MatchLabels)
-}
-
-func (p *C2PCRParser) createComposer(c2pcrSpec c2pcr.Spec) (*Composer, error) {
+func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (C2PCRParsed, error) {
+	parsed := C2PCRParsed{}
+	parsed.namespace = c2pcrSpec.Target.Namespace
+	parsed.clusterSelectors = *c2pcrSpec.ClusterGroups[0].MatchLabels
 	cloneDir, path, err := p.gitUtils.GitClone(c2pcrSpec.PolicyResources.Url)
 	if err != nil {
 		logger.Sugar().Error(err, fmt.Sprintf("Failed to load policy resources %v", c2pcrSpec.PolicyResources.Url))
-		return nil, err
+		return parsed, err
 	}
-	return NewComposerByTempDirectory(cloneDir+"/"+path, p.tempDir), nil
+	parsed.PolicyResoureDir = cloneDir + "/" + path
+	parsed.internalCompliance, err = p.toInternalCompliance(c2pcrSpec)
+	return parsed, err
 }
 
 func (p *C2PCRParser) toInternalCompliance(c2pcrSpec c2pcr.Spec) (internalcompliance.Compliance, error) {
