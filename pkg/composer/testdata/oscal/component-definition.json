@@ -53,6 +53,40 @@
             "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "install-odf-lvm-operator",
             "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule3",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule3...",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-nginx-deployment",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "minimum_nginx_deployment_replicas",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Minimum # of NGINX pod",
+            "class": "scc_class",
+            "remarks": "rule_set_02"
           }
         ],
         "control-implementations": [
@@ -62,7 +96,7 @@
             "description": "NIST Special Publication 800-53 Revision 5 HIGH IMPACT BASELINE",
             "set-parameters": [
               {
-                "param-id": "NGINX_DEPLOYMENT_REPLICAS",
+                "param-id": "minimum_nginx_deployment_replicas",
                 "values": [
                   "3"
                 ]             
@@ -97,6 +131,12 @@
                     "name": "Rule_Id",
                     "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "rule2",
+                    "class": "scc_class"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "rule3",
                     "class": "scc_class"
                   }
                 ]

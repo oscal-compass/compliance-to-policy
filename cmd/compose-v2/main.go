@@ -48,19 +48,21 @@ func main() {
 		panic(err)
 	}
 
-	composer := composer.NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, composer.NewTempDirectory(tempDirPath))
-	results, err := composer.ComposeByC2PCRParsed(c2pcrParsed)
+	composer := composer.NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, composer.NewTempDirectory(tempDirPath))
+	if err := composer.ComposeByC2PParsed(c2pcrParsed); err != nil {
+		panic(err)
+	}
+	policySet, err := composer.GeneratePolicySet()
 	if err != nil {
 		panic(err)
 	}
-	policySetsYaml, err := results.ToYamlForPolicySets()
+	policySetYaml, err := (*policySet).AsYaml()
 	if err != nil {
 		panic(err)
 	}
-	if err := os.WriteFile(outputDir+"/policy-sets.yaml", policySetsYaml, os.ModePerm); err != nil {
+	if err := os.WriteFile(outputDir+"/policy-sets.yaml", policySetYaml, os.ModePerm); err != nil {
 		panic(err)
 	}
-
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
 		panic(err)
 	}

@@ -76,10 +76,6 @@ type File struct {
 	SourcePath string
 }
 
-func (c *Composer) ComposeByC2PCRParsed(c2pcrParsed C2PCRParsed) (*ComposedResult, error) {
-	return c.Compose(c2pcrParsed.namespace, c2pcrParsed.internalCompliance, c2pcrParsed.clusterSelectors)
-}
-
 func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelectors map[string]string) (*ComposedResult, error) {
 
 	if clusterSelectors == nil {

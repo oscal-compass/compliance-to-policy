@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: policy-generator
+  name: policy
 policyDefaults:
   consolidateManifests: false
   orderManifests: false
@@ -9,9 +9,9 @@ policyDefaults:
 policies:
   - consolidateManifests: true
     orderManifests: false
-    remediationAction: inform
-    severity: high
+    remediationAction: enforce
+    severity: low
     complianceType: musthave
-    name: add-chrony
+    name: policy-nginx-deployment
     manifests:
-      - path: ./add-chrony-worker
+      - path: ./policy-nginx-deployment

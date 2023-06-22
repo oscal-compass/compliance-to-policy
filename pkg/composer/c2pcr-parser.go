@@ -21,20 +21,23 @@ import (
 
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	"github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
-	"github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	typesoscal "github.com/IBM/compliance-to-policy/pkg/types/oscal"
 	typecd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
 )
 
 type C2PCRParser struct {
 	gitUtils GitUtils
+	parsed   C2PCRParsed
 }
 
 type C2PCRParsed struct {
-	namespace          string
-	PolicyResoureDir   string
-	internalCompliance internalcompliance.Compliance
-	clusterSelectors   map[string]string
+	namespace           string
+	PolicyResoureDir    string
+	catalog             typesoscal.CatalogRoot
+	profile             typesoscal.ProfileRoot
+	componentDefinition typecd.ComponentDefinitionRoot
+	componentObjects    []oscal.ComponentObject
+	clusterSelectors    map[string]string
 }
 
 func NewC2PCRParser(gitUtils GitUtils) C2PCRParser {
@@ -53,158 +56,26 @@ func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (C2PCRParsed, error) {
 		return parsed, err
 	}
 	parsed.PolicyResoureDir = cloneDir + "/" + path
-	parsed.internalCompliance, err = p.toInternalCompliance(c2pcrSpec)
-	return parsed, err
-}
-
-func (p *C2PCRParser) toInternalCompliance(c2pcrSpec c2pcr.Spec) (internalcompliance.Compliance, error) {
-	var internalCompliance internalcompliance.Compliance
 
 	logger.Info(fmt.Sprintf("Component-definition is loaded from %s", c2pcrSpec.Compliance.ComponentDefinition.Url))
-	var cdobj typecd.ComponentDefinitionRoot
-	if err := p.gitUtils.loadFromGit(c2pcrSpec.Compliance.ComponentDefinition.Url, &cdobj); err != nil {
+	if err := p.gitUtils.loadFromGit(c2pcrSpec.Compliance.ComponentDefinition.Url, &parsed.componentDefinition); err != nil {
 		logger.Sugar().Error(err, "Failed to load component-definition")
-		return internalCompliance, err
+		return parsed, err
 	}
 
 	logger.Info(fmt.Sprintf("Catalog is loaded from %s", c2pcrSpec.Compliance.Catalog.Url))
-	var catalogObj typesoscal.CatalogRoot
-	if err := p.gitUtils.loadFromWeb(c2pcrSpec.Compliance.Catalog.Url, &catalogObj); err != nil {
+	if err := p.gitUtils.loadFromWeb(c2pcrSpec.Compliance.Catalog.Url, &parsed.catalog); err != nil {
 		logger.Sugar().Error(err, "Failed to load catalog")
-		return internalCompliance, err
+		return parsed, err
 	}
 
 	logger.Info(fmt.Sprintf("Profile is loaded from %s", c2pcrSpec.Compliance.Profile.Url))
-	var profileObj typesoscal.ProfileRoot
-	if err := p.gitUtils.loadFromWeb(c2pcrSpec.Compliance.Profile.Url, &profileObj); err != nil {
+	if err := p.gitUtils.loadFromWeb(c2pcrSpec.Compliance.Profile.Url, &parsed.profile); err != nil {
 		logger.Sugar().Error(err, "Failed to load profile")
-		return internalCompliance, err
+		return parsed, err
 	}
 
-	profiledCd := oscal.IntersectProfileWithCD(cdobj.ComponentDefinition, profileObj.Profile)
-	internalCompliance = makeInternalCompliance(catalogObj.Catalog, profileObj.Profile, profiledCd)
+	parsed.componentObjects = oscal.ParseComponentDefinition(parsed.componentDefinition)
 
-	return internalCompliance, nil
-}
-
-func listRules(props []typecd.Prop) []typecd.Prop {
-	newProps := []typecd.Prop{}
-	for _, prop := range props {
-		if prop.Name == "Rule_Id" {
-			newProps = append(newProps, prop)
-		}
-	}
-	return newProps
-}
-
-func findRuleSetByRuleId(ruleSetMap map[string]*RuleSet, ruleId string) (*RuleSet, bool) {
-	for _, ruleSet := range ruleSetMap {
-		if ruleSet.ruleId == ruleId {
-			return ruleSet, true
-		}
-	}
-	return nil, false
-}
-
-type RuleSet struct {
-	ruleId          string
-	ruleDescription string
-	policyId        string
-}
-
-func makeInternalCompliance(catalog typesoscal.Catalog, profile typesoscal.Profile, cd typecd.ComponentDefinition) internalcompliance.Compliance {
-
-	unknownGroup := typesoscal.Group{ID: "unknown", Title: "unknown", Class: "unknown"}
-
-	intCompliances := []internalcompliance.Compliance{}
-	for _, component := range cd.Components {
-		ruleSetMap := map[string]*RuleSet{}
-		for _, prop := range component.Props {
-			ruleSetId := prop.Remarks
-			ruleSet, ok := ruleSetMap[ruleSetId]
-			if !ok {
-				ruleSet = &RuleSet{}
-				ruleSetMap[ruleSetId] = ruleSet
-			}
-			switch prop.Name {
-			case "Rule_Id":
-				ruleSet.ruleId = prop.Value
-			case "Rule_Description":
-				ruleSet.ruleDescription = prop.Value
-			case "Policy_Id":
-				ruleSet.policyId = prop.Value
-			}
-		}
-		for _, controlImpl := range component.ControlImplementations {
-			controlsPerGroup := map[string][]internalcompliance.Control{}
-			for _, implReq := range controlImpl.ImplementedRequirements {
-				group, ok := findControlGroup(implReq.ControlID, catalog)
-				if !ok {
-					group = unknownGroup
-				}
-				controls, ok := controlsPerGroup[group.ID]
-				if !ok {
-					controls = []internalcompliance.Control{}
-					controlsPerGroup[group.ID] = controls
-				}
-				controlRefs := []string{}
-				for _, prop := range listRules(implReq.Props) {
-					ruleSet, ok := findRuleSetByRuleId(ruleSetMap, prop.Value)
-					if ok {
-						controlRefs = append(controlRefs, ruleSet.policyId)
-					}
-				}
-				controlsPerGroup[group.ID] = append(controls, internalcompliance.Control{
-					Name:        implReq.ControlID,
-					ControlRefs: controlRefs,
-				})
-			}
-			categories := []internalcompliance.Category{}
-			for groupId, controls := range controlsPerGroup {
-				category := internalcompliance.Category{
-					Name:     groupId,
-					Controls: controls,
-				}
-				categories = append(categories, category)
-			}
-			standard := internalcompliance.Standard{
-				Name:       profile.Metadata.Title,
-				Categories: categories,
-			}
-			intCompliances = append(intCompliances, internalcompliance.Compliance{
-				Standard: standard,
-			})
-		}
-	}
-	return intCompliances[0]
-}
-
-func findControlGroup(controlId string, catalog typesoscal.Catalog) (typesoscal.Group, bool) {
-	findCategoriesFromControls := func(controls []typesoscal.Control) bool {
-		for _, control := range controls {
-			_controlId := control.ID
-			if controlId == _controlId {
-				return true
-			}
-			for _, innerControl := range control.Controls {
-				_innerControlId := innerControl.ID
-				if controlId == _innerControlId {
-					return true
-				}
-			}
-		}
-		return false
-	}
-
-	for _, group := range catalog.Groups {
-		if findCategoriesFromControls(group.Controls) {
-			return group, true
-		}
-		for _, subGroup := range group.Groups {
-			if findCategoriesFromControls(subGroup.Controls) {
-				return group, true
-			}
-		}
-	}
-	return typesoscal.Group{}, false
+	return parsed, err
 }

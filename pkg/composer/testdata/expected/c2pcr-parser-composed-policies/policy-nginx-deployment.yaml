@@ -1,0 +1,74 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    policy.open-cluster-management.io/categories: ac
+    policy.open-cluster-management.io/controls: ac-2.1
+    policy.open-cluster-management.io/standards: Test Profile
+  name: policy-nginx-deployment
+  namespace: test
+spec:
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-nginx-deployment
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              labels:
+                app: nginx
+              name: nginx-deployment
+              namespace: nginx-service
+            spec:
+              replicas: '{{hub fromConfigMap "c2p" "oscal-parameters" "minimum_nginx_deployment_replicas"
+                | toInt hub}}'
+              selector:
+                matchLabels:
+                  app: nginx
+              template:
+                metadata:
+                  labels:
+                    app: nginx
+                spec:
+                  containers:
+                  - image: nginx:1.21.4
+                    name: nginx
+                    ports:
+                    - containerPort: 80
+        remediationAction: enforce
+        severity: low
+  remediationAction: enforce
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-nginx-deployment
+  namespace: test
+spec:
+  clusterSelector:
+    matchExpressions:
+    - key: environment
+      operator: In
+      values:
+      - test
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-nginx-deployment
+  namespace: test
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+  name: placement-policy-nginx-deployment
+subjects:
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: policy-nginx-deployment
