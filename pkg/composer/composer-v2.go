@@ -20,6 +20,9 @@ import (
 	"fmt"
 	"strings"
 
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	policygenerator "github.com/IBM/compliance-to-policy/pkg/policygenerator"
@@ -60,6 +63,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	}
 
 	logger.Info("Start composing policySets")
+	parameters := map[string]string{}
 	policyConfigMap := map[string]pgtype.PolicyConfig{}
 	policySets := []pgtype.PolicySetConfig{}
 	for _, componentObject := range componentObjects {
@@ -76,6 +80,9 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 
 		for idx, controlImpleObject := range componentObject.ControlImpleObjects {
 			policyListPerControlImple := []string{}
+			for _, param := range controlImpleObject.SetParameters {
+				parameters[param.ParamID] = param.Values[0]
+			}
 			for _, controlObject := range controlImpleObject.ControlObjects {
 				for _, ruleId := range controlObject.RuleIds {
 					ruleObject, ok := oscal.FindRulesByRuleId(ruleId, componentObject.RuleObjects)
@@ -147,11 +154,27 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.getTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
 		return err
 	}
-	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}}
-	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/kustomization.yaml", kustomize); err != nil {
+
+	logger.Info("Create configmapt for templatized parameters")
+	parametersConfigmap := corev1.ConfigMap{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "ConfigMap",
+			APIVersion: "v1",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "c2p-parameters",
+			Namespace: "c2p",
+		},
+		Data: parameters,
+	}
+	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/parameters.yaml", parametersConfigmap); err != nil {
 		return err
 	}
 
+	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}, Resources: []string{"./parameters.yaml"}}
+	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/kustomization.yaml", kustomize); err != nil {
+		return err
+	}
 	logger.Info("")
 
 	return nil

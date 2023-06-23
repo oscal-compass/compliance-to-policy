@@ -60,7 +60,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	if err := os.WriteFile(outputDir+"/policy-sets.yaml", policySetYaml, os.ModePerm); err != nil {
+	if err := os.WriteFile(outputDir+"/manifests.yaml", policySetYaml, os.ModePerm); err != nil {
 		panic(err)
 	}
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {

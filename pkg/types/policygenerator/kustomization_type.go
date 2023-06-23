@@ -18,4 +18,5 @@ package policygenerator
 
 type Kustomization struct {
 	Generators []string `json:"generators,omitempty" yaml:"generators,omitempty"`
+	Resources  []string `json:"resources,omitempty" yaml:"resources,omitempty"`
 }
