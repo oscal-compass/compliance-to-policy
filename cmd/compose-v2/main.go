@@ -21,6 +21,7 @@ import (
 	"os"
 
 	"github.com/IBM/compliance-to-policy/pkg"
+	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/composer"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
@@ -41,14 +42,14 @@ func main() {
 		panic(err)
 	}
 
-	gitUtils := composer.NewGitUtils(composer.NewTempDirectory(tempDirPath))
-	c2pcrParser := composer.NewC2PCRParser(gitUtils)
+	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
+	c2pcrParser := c2pcr.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	if err != nil {
 		panic(err)
 	}
 
-	composer := composer.NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, composer.NewTempDirectory(tempDirPath))
+	composer := composer.NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, pkg.NewTempDirectory(tempDirPath))
 	if err := composer.ComposeByC2PParsed(c2pcrParsed); err != nil {
 		panic(err)
 	}

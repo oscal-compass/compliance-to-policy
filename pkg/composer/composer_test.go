@@ -126,7 +126,7 @@ func TestCompose(t *testing.T) {
 	configPoliciesByPolicy, err := result.ToConfigPoliciesByPolicy()
 	assert.NoError(t, err, "Should not happen")
 
-	configPolicyDir := c.tempDir.getTempDir() + "/config-policy"
+	configPolicyDir := c.tempDir.GetTempDir() + "/config-policy"
 	for policy, configPolicies := range configPoliciesByPolicy {
 		for _, configPolicy := range configPolicies {
 			err := pkg.MakeDirAndWriteObjToYamlFile(fmt.Sprintf("%s/%s", configPolicyDir, policy), configPolicy.Name+".yaml", configPolicy)

@@ -14,22 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package composer
+package c2pcr
 
-import "os"
+import (
+	"github.com/IBM/compliance-to-policy/pkg/oscal"
+	typesoscal "github.com/IBM/compliance-to-policy/pkg/types/oscal"
+	typecd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
+)
 
-type TempDirectory struct {
-	tempDir string
-}
-
-func NewTempDirectory(tempDir string) TempDirectory {
-	dir, err := os.MkdirTemp(tempDir, "tmp-")
-	if err != nil {
-		panic(err)
-	}
-	return TempDirectory{tempDir: dir}
-}
-
-func (t *TempDirectory) getTempDir() string {
-	return t.tempDir
+type C2PCRParsed struct {
+	Namespace           string
+	PolicyResoureDir    string
+	Catalog             typesoscal.CatalogRoot
+	Profile             typesoscal.ProfileRoot
+	ComponentDefinition typecd.ComponentDefinitionRoot
+	ComponentObjects    []oscal.ComponentObject
+	ClusterSelectors    map[string]string
 }

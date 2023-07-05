@@ -255,3 +255,19 @@ func ChdirFromPkgDirectory(relativePath string) string {
 	}
 	return dir
 }
+
+type TempDirectory struct {
+	tempDir string
+}
+
+func NewTempDirectory(tempDir string) TempDirectory {
+	dir, err := os.MkdirTemp(tempDir, "tmp-")
+	if err != nil {
+		panic(err)
+	}
+	return TempDirectory{tempDir: dir}
+}
+
+func (t *TempDirectory) GetTempDir() string {
+	return t.tempDir
+}

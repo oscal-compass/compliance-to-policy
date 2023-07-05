@@ -26,6 +26,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	policygenerator "github.com/IBM/compliance-to-policy/pkg/policygenerator"
+	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	pgtype "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
 	cp "github.com/otiai10/copy"
 	"go.uber.org/zap"
@@ -34,14 +35,14 @@ import (
 
 type ComposerV2 struct {
 	policiesDir string
-	tempDir     TempDirectory
+	tempDir     pkg.TempDirectory
 }
 
 func NewComposerV2(policiesDir string, tempDir string) *ComposerV2 {
-	return NewComposerV2ByTempDirectory(policiesDir, NewTempDirectory(tempDir))
+	return NewComposerV2ByTempDirectory(policiesDir, pkg.NewTempDirectory(tempDir))
 }
 
-func NewComposerV2ByTempDirectory(policiesDir string, tempDir TempDirectory) *ComposerV2 {
+func NewComposerV2ByTempDirectory(policiesDir string, tempDir pkg.TempDirectory) *ComposerV2 {
 	return &ComposerV2{
 		policiesDir: policiesDir,
 		tempDir:     tempDir,
@@ -52,8 +53,8 @@ func (c *ComposerV2) GetPoliciesDir() string {
 	return c.policiesDir
 }
 
-func (c *ComposerV2) ComposeByC2PParsed(c2pParsed C2PCRParsed) error {
-	return c.Compose(c2pParsed.namespace, c2pParsed.componentObjects, c2pParsed.clusterSelectors)
+func (c *ComposerV2) ComposeByC2PParsed(c2pParsed typec2pcr.C2PCRParsed) error {
+	return c.Compose(c2pParsed.Namespace, c2pParsed.ComponentObjects, c2pParsed.ClusterSelectors)
 }
 
 func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.ComponentObject, clusterSelectors map[string]string) error {
@@ -71,7 +72,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 		logger.Info("Start generating policy")
 		for _, ruleObject := range componentObject.RuleObjects {
 			sourceDir := fmt.Sprintf("%s/%s", c.policiesDir, ruleObject.PolicyId)
-			destDir := fmt.Sprintf("%s/%s", c.tempDir.getTempDir(), ruleObject.PolicyId)
+			destDir := fmt.Sprintf("%s/%s", c.tempDir.GetTempDir(), ruleObject.PolicyId)
 			err := cp.Copy(sourceDir, destDir)
 			if err != nil {
 				return err
@@ -88,7 +89,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 					ruleObject, ok := oscal.FindRulesByRuleId(ruleId, componentObject.RuleObjects)
 					if ok {
 						policyId := ruleObject.PolicyId
-						destDir := fmt.Sprintf("%s/%s", c.tempDir.getTempDir(), policyId)
+						destDir := fmt.Sprintf("%s/%s", c.tempDir.GetTempDir(), policyId)
 						policyGeneratorManifestPath := destDir + "/policy-generator.yaml"
 						var policyGeneratorManifest pgtype.PolicyGenerator
 						if err := pkg.LoadYamlFileToObject(policyGeneratorManifestPath, &policyGeneratorManifest); err != nil {
@@ -162,7 +163,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 		},
 	}
 
-	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.getTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
+	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.GetTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
 		return err
 	}
 
@@ -178,12 +179,12 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 		},
 		Data: parameters,
 	}
-	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/parameters.yaml", parametersConfigmap); err != nil {
+	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/parameters.yaml", parametersConfigmap); err != nil {
 		return err
 	}
 
 	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}, Resources: []string{"./parameters.yaml"}}
-	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/kustomization.yaml", kustomize); err != nil {
+	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
 		return err
 	}
 	logger.Info("")
@@ -195,14 +196,14 @@ func (c *ComposerV2) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}
-	if err := cp.Copy(c.tempDir.getTempDir(), destDir); err != nil {
+	if err := cp.Copy(c.tempDir.GetTempDir(), destDir); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (c *ComposerV2) GeneratePolicySet() (*resmap.ResMap, error) {
-	generatedManifests, err := policygenerator.Kustomize(c.tempDir.getTempDir())
+	generatedManifests, err := policygenerator.Kustomize(c.tempDir.GetTempDir())
 	if err != nil {
 		logger.Sugar().Error(err, "failed to run kustomize")
 		return nil, err

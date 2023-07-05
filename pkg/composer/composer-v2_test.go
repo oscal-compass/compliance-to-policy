@@ -21,6 +21,7 @@ import (
 	"testing"
 
 	"github.com/IBM/compliance-to-policy/pkg"
+	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	"github.com/stretchr/testify/assert"
 )
@@ -35,9 +36,9 @@ func TestComposerV2(t *testing.T) {
 	tempDirPath := pkg.PathFromPkgDirectory("./composer/_test")
 	err := os.MkdirAll(tempDirPath, os.ModePerm)
 	assert.NoError(t, err, "Should not happen")
-	tempDir := NewTempDirectory(tempDirPath)
+	tempDir := pkg.NewTempDirectory(tempDirPath)
 
-	gitUtils := NewGitUtils(tempDir)
+	gitUtils := pkg.NewGitUtils(tempDir)
 
 	c2pcrSpec := typec2pcr.Spec{
 		Compliance: typec2pcr.Compliance{
@@ -67,11 +68,11 @@ func TestComposerV2(t *testing.T) {
 			Namespace: "test",
 		},
 	}
-	c2pcrParser := NewC2PCRParser(gitUtils)
+	c2pcrParser := c2pcr.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
 	composer := NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, tempDir)
-	err = composer.Compose(c2pcrParsed.namespace, c2pcrParsed.componentObjects, c2pcrParsed.clusterSelectors)
+	err = composer.Compose(c2pcrParsed.Namespace, c2pcrParsed.ComponentObjects, c2pcrParsed.ClusterSelectors)
 	assert.NoError(t, err, "Should not happen")
 }

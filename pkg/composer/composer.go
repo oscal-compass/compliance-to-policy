@@ -35,14 +35,14 @@ var logger *zap.Logger = pkg.GetLogger("composer")
 
 type Composer struct {
 	policiesDir string
-	tempDir     TempDirectory
+	tempDir     pkg.TempDirectory
 }
 
 func NewComposer(policiesDir string, tempDir string) *Composer {
-	return NewComposerByTempDirectory(policiesDir, NewTempDirectory(tempDir))
+	return NewComposerByTempDirectory(policiesDir, pkg.NewTempDirectory(tempDir))
 }
 
-func NewComposerByTempDirectory(policiesDir string, tempDir TempDirectory) *Composer {
+func NewComposerByTempDirectory(policiesDir string, tempDir pkg.TempDirectory) *Composer {
 	return &Composer{
 		policiesDir: policiesDir,
 		tempDir:     tempDir,
@@ -93,7 +93,7 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 				logger.Info(fmt.Sprintf("Start generating policy '%s'", policy))
 
 				sourceDir := fmt.Sprintf("%s/%s", c.policiesDir, policy)
-				policyCompositionDir := fmt.Sprintf("%s/%s", c.tempDir.getTempDir(), policy)
+				policyCompositionDir := fmt.Sprintf("%s/%s", c.tempDir.GetTempDir(), policy)
 				err := cp.Copy(sourceDir, policyCompositionDir)
 				if err != nil {
 					return nil, err
@@ -147,15 +147,15 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 	result.clusterSelectors = clusterSelectors
 
 	policySetsGeneratorManifest := generatePolicySetsGeneratorManifest(&result)
-	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.getTempDir()+"/policy-generator.yaml", policySetsGeneratorManifest); err != nil {
+	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.GetTempDir()+"/policy-generator.yaml", policySetsGeneratorManifest); err != nil {
 		return nil, err
 	}
 	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}}
-	if err := pkg.WriteObjToYamlFile(c.tempDir.getTempDir()+"/kustomization.yaml", kustomize); err != nil {
+	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
 		return nil, err
 	}
 
-	generatedManifests, err := policygenerator.Kustomize(c.tempDir.getTempDir())
+	generatedManifests, err := policygenerator.Kustomize(c.tempDir.GetTempDir())
 	if err != nil {
 		logger.Sugar().Error(err, "failed to run kustomize")
 		return nil, err
@@ -232,7 +232,7 @@ func (c *Composer) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}
-	if err := cp.Copy(c.tempDir.getTempDir(), destDir); err != nil {
+	if err := cp.Copy(c.tempDir.GetTempDir(), destDir); err != nil {
 		return err
 	}
 	return nil

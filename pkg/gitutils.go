@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package composer
+package pkg
 
 import (
 	"encoding/json"
@@ -25,7 +25,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/IBM/compliance-to-policy/pkg"
 	"gopkg.in/src-d/go-git.v4"
 	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
 )
@@ -42,7 +41,7 @@ func NewGitUtils(tempDir TempDirectory) GitUtils {
 	}
 }
 
-func (g *GitUtils) loadFromWeb(url string, out interface{}) error {
+func (g *GitUtils) LoadFromWeb(url string, out interface{}) error {
 	u, err := neturl.Parse(url)
 	if err != nil {
 		return err
@@ -74,7 +73,7 @@ func (g *GitUtils) loadFromWeb(url string, out interface{}) error {
 	return nil
 }
 
-func (g *GitUtils) loadFromGit(url string, out interface{}) error {
+func (g *GitUtils) LoadFromGit(url string, out interface{}) error {
 	u, err := neturl.Parse(url)
 	if err != nil {
 		return err
@@ -90,7 +89,7 @@ func (g *GitUtils) loadFromGit(url string, out interface{}) error {
 	if err != nil {
 		return fmt.Errorf("Failed to clone %s", repoUrl)
 	}
-	if err := pkg.LoadJsonFileToObject(repoDir+"/"+path, out); err != nil {
+	if err := LoadJsonFileToObject(repoDir+"/"+path, out); err != nil {
 		return fmt.Errorf("Failed to marshal %s", repoDir+path)
 	}
 	return nil
@@ -98,7 +97,7 @@ func (g *GitUtils) loadFromGit(url string, out interface{}) error {
 
 func loadFromLocalFs(u *neturl.URL, out interface{}) error {
 	path := toLocalPath(u)
-	if err := pkg.LoadJsonFileToObject(path, out); err != nil {
+	if err := LoadJsonFileToObject(path, out); err != nil {
 		return fmt.Errorf("Failed to marshal %s in local directory", path)
 	}
 	return nil
@@ -128,7 +127,7 @@ func (g *GitUtils) gitClone(url string) (string, error) {
 	token := os.Getenv("token")
 	dir, ok := g.gitRepoCache[url]
 	if !ok {
-		dir, err := os.MkdirTemp(g.tempDir.getTempDir(), "tmp-")
+		dir, err := os.MkdirTemp(g.tempDir.GetTempDir(), "tmp-")
 		if err != nil {
 			return "", err
 		}
