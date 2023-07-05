@@ -139,7 +139,13 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 		Namespace: namespace,
 		PolicyOptions: pgtype.PolicyOptions{
 			Placement: pgtype.PlacementConfig{
-				ClusterSelectors: clusterSelectors,
+				LabelSelector: clusterSelectors,
+			},
+		},
+		ConfigurationPolicyOptions: pgtype.ConfigurationPolicyOptions{
+			NamespaceSelector: pgtype.NamespaceSelector{
+				Exclude: []string{"kube-system", "open-cluster-management", "open-cluster-management-agent", "open-cluster-management-agent-addon"},
+				Include: []string{"*"},
 			},
 		},
 	}
@@ -150,6 +156,11 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	policySetGeneratorManifest := policygenerator.BuildPolicyGeneratorManifest("policy-set", policyDefaults, policyConfigs)
 	policySetGeneratorManifest.PlacementBindingDefaults.Name = "policy-set"
 	policySetGeneratorManifest.PolicySets = policySets
+	policySetGeneratorManifest.PolicySetDefaults = pgtype.PolicySetDefaults{
+		PolicySetOptions: pgtype.PolicySetOptions{
+			Placement: policyDefaults.Placement,
+		},
+	}
 
 	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.getTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
 		return err

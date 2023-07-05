@@ -277,3 +277,19 @@ catalog-build: opm ## Build a catalog image.
 .PHONY: catalog-push
 catalog-push: ## Push a catalog image.
 	$(MAKE) docker-push IMG=$(CATALOG_IMG)
+
+###
+.PHONY: compose-v2
+compose-v2: bin/compose-v2.linux_amd64 bin/compose-v2.darwin_amd64 bin/compose-v2.darwin_arm64
+
+bin/compose-v2.linux_amd64:
+	GOOS=linux GOARCH=amd64 go build -o bin/compose-v2.linux_amd64 ./cmd/compose-v2
+
+bin/compose-v2.darwin_amd64:
+	GOOS=darwin GOARCH=amd64 go build -o bin/compose-v2.darwin_amd64 ./cmd/compose-v2
+
+bin/compose-v2.darwin_arm64:
+	GOOS=darwin GOARCH=arm64 go build -o bin/compose-v2.darwin_arm64 ./cmd/compose-v2
+
+bin/compose-v2.%.gz: bin/compose-v2.%
+	gzip ./bin/compose-v2.$*	
