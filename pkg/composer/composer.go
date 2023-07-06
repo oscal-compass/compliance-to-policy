@@ -25,6 +25,7 @@ import (
 	. "github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	pgtype "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
 	cp "github.com/otiai10/copy"
+	typekustomize "sigs.k8s.io/kustomize/api/types"
 
 	"github.com/IBM/compliance-to-policy/pkg"
 	"go.uber.org/zap"
@@ -150,7 +151,7 @@ func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelec
 	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.GetTempDir()+"/policy-generator.yaml", policySetsGeneratorManifest); err != nil {
 		return nil, err
 	}
-	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}}
+	kustomize := typekustomize.Kustomization{Generators: []string{"./policy-generator.yaml"}}
 	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
 		return nil, err
 	}

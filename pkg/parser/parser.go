@@ -33,6 +33,7 @@ import (
 	"go.uber.org/zap"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
+	typekustomize "sigs.k8s.io/kustomize/api/types"
 )
 
 var logger *zap.Logger = pkg.GetLogger("parser")
@@ -157,7 +158,7 @@ func (c *Collector) parseFile(target string, outputDir string, path string, file
 			logger.Sugar().Errorf("%v", err)
 			return err
 		}
-		kustomize := typepolicygenerator.Kustomization{Generators: []string{"./policy-generator.yaml"}}
+		kustomize := typekustomize.Kustomization{Generators: []string{"./policy-generator.yaml"}}
 		if err := pkg.WriteObjToYamlFile(policyDir+"/kustomization.yaml", kustomize); err != nil {
 			return err
 		}

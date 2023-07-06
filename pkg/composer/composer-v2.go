@@ -31,6 +31,7 @@ import (
 	cp "github.com/otiai10/copy"
 	"go.uber.org/zap"
 	"sigs.k8s.io/kustomize/api/resmap"
+	typekustomize "sigs.k8s.io/kustomize/api/types"
 )
 
 type ComposerV2 struct {
@@ -183,7 +184,10 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 		return err
 	}
 
-	kustomize := pgtype.Kustomization{Generators: []string{"./policy-generator.yaml"}, Resources: []string{"./parameters.yaml"}}
+	kustomize := typekustomize.Kustomization{
+		Generators: []string{"./policy-generator.yaml"},
+		Resources:  []string{"./parameters.yaml"},
+	}
 	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
 		return err
 	}
