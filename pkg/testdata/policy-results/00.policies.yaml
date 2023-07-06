@@ -1,0 +1,901 @@
+apiVersion: v1
+items:
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-2","policy.open-cluster-management.io/standards":""},"name":"policy-deployment","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-deployment"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"labels":{"app":"nginx"},"name":"nginx-deployment"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"nginx"}},"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.21.4","name":"nginx","ports":[{"containerPort":80}]}]}}}}}],"remediationAction":"inform","severity":"low"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-2
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T16:10:56Z"
+    generation: 2
+    name: policy-deployment
+    namespace: c2p
+    resourceVersion: "58942"
+    uid: 55fb6d11-cdf5-43a6-8848-7076ea3c02ba
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-deployment
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                labels:
+                  app: nginx
+                name: nginx-deployment
+              spec:
+                replicas: 3
+                selector:
+                  matchLabels:
+                    app: nginx
+                template:
+                  metadata:
+                    labels:
+                      app: nginx
+                  spec:
+                    containers:
+                    - image: nginx:1.21.4
+                      name: nginx
+                      ports:
+                      - containerPort: 80
+          remediationAction: inform
+          severity: low
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    placement:
+    - placement: placement-managed-kubernetes
+      placementBinding: policy-set
+      policySet: managed-kubernetes
+    status:
+    - clustername: cluster1
+      clusternamespace: cluster1
+      compliant: NonCompliant
+    - clustername: cluster2
+      clusternamespace: cluster2
+      compliant: NonCompliant
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"ac-6","policy.open-cluster-management.io/standards":""},"name":"policy-disallowed-roles","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-disallowed-roles"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]}]}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: ac-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T16:10:56Z"
+    generation: 2
+    name: policy-disallowed-roles
+    namespace: c2p
+    resourceVersion: "58945"
+    uid: 3aa8b4b0-6aa0-4635-a55d-342a9f38660e
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-disallowed-roles
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: rbac.authorization.k8s.io/v1
+              kind: Role
+              rules:
+              - apiGroups:
+                - '*'
+                resources:
+                - '*'
+                verbs:
+                - '*'
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: Compliant
+    placement:
+    - placement: placement-managed-kubernetes
+      placementBinding: policy-set
+      policySet: managed-kubernetes
+    status:
+    - clustername: cluster1
+      clusternamespace: cluster1
+      compliant: Compliant
+    - clustername: cluster2
+      clusternamespace: cluster2
+      compliant: Compliant
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-6","policy.open-cluster-management.io/standards":""},"name":"policy-high-scan","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ScanSettingBinding","metadata":{"name":"high","namespace":"openshift-compliance"},"profiles":[{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high"},{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high-node"}],"settingsRef":{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"ScanSetting","name":"default"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan2"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceSuite","metadata":{"name":"high","namespace":"openshift-compliance"},"status":{"phase":"DONE"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan3"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceCheckResult","metadata":{"labels":{"compliance.openshift.io/check-status":"FAIL","compliance.openshift.io/suite":"high"},"namespace":"openshift-compliance"}}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T16:10:56Z"
+    generation: 2
+    name: policy-high-scan
+    namespace: c2p
+    resourceVersion: "58952"
+    uid: 1e829f28-a2e6-4b5b-9b58-d18c11730841
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ScanSettingBinding
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              profiles:
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high-node
+              settingsRef:
+                apiGroup: compliance.openshift.io/v1alpha1
+                kind: ScanSetting
+                name: default
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan2
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceSuite
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              status:
+                phase: DONE
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan3
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceCheckResult
+              metadata:
+                labels:
+                  compliance.openshift.io/check-status: FAIL
+                  compliance.openshift.io/suite: high
+                namespace: openshift-compliance
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    placement:
+    - placement: placement-managed-kubernetes
+      placementBinding: policy-set
+      policySet: managed-kubernetes
+    status:
+    - clustername: cluster1
+      clusternamespace: cluster1
+      compliant: NonCompliant
+    - clustername: cluster2
+      clusternamespace: cluster2
+      compliant: NonCompliant
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-2","policy.open-cluster-management.io/standards":""},"name":"policy-deployment","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-deployment"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"labels":{"app":"nginx"},"name":"nginx-deployment"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"nginx"}},"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.21.4","name":"nginx","ports":[{"containerPort":80}]}]}}}}}],"remediationAction":"inform","severity":"low"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-2
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:52:32Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster1
+      policy.open-cluster-management.io/cluster-namespace: cluster1
+      policy.open-cluster-management.io/root-policy: c2p.policy-deployment
+    name: c2p.policy-deployment
+    namespace: cluster1
+    resourceVersion: "58997"
+    uid: 3d7bf6b3-4332-4195-81b4-d343a847c3f8
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-deployment
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                labels:
+                  app: nginx
+                name: nginx-deployment
+              spec:
+                replicas: 3
+                selector:
+                  matchLabels:
+                    app: nginx
+                template:
+                  metadata:
+                    labels:
+                      app: nginx
+                  spec:
+                    containers:
+                    - image: nginx:1.21.4
+                      name: nginx
+                      ports:
+                      - containerPort: 80
+          remediationAction: inform
+          severity: low
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    details:
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-deployment.176f1ddc5591cb1c
+        lastTimestamp: "2023-07-05T23:53:37Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster1 missing; [nginx-deployment] in namespace kube-node-lease
+          missing; [nginx-deployment] in namespace kube-public missing; [nginx-deployment]
+          in namespace local-path-storage missing'
+      - eventName: c2p.policy-deployment.176f1dc090333b1b
+        lastTimestamp: "2023-07-05T23:51:38Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster1 missing; [nginx-deployment] in namespace kube-node-lease
+          missing; [nginx-deployment] in namespace kube-public missing; [nginx-deployment]
+          in namespace local-path-storage missing'
+      - eventName: c2p.policy-deployment.176f1bee3daf20de
+        lastTimestamp: "2023-07-05T23:18:15Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster1 missing; [nginx-deployment] in namespace kube-node-lease
+          missing; [nginx-deployment] in namespace kube-public missing; [nginx-deployment]
+          in namespace local-path-storage missing'
+      templateMeta:
+        creationTimestamp: null
+        name: policy-deployment
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"ac-6","policy.open-cluster-management.io/standards":""},"name":"policy-disallowed-roles","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-disallowed-roles"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]}]}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: ac-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:52:32Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster1
+      policy.open-cluster-management.io/cluster-namespace: cluster1
+      policy.open-cluster-management.io/root-policy: c2p.policy-disallowed-roles
+    name: c2p.policy-disallowed-roles
+    namespace: cluster1
+    resourceVersion: "58962"
+    uid: dea67078-25f4-4c45-9e55-01796af1999e
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-disallowed-roles
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: rbac.authorization.k8s.io/v1
+              kind: Role
+              rules:
+              - apiGroups:
+                - '*'
+                resources:
+                - '*'
+                verbs:
+                - '*'
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: Compliant
+    details:
+    - compliant: Compliant
+      history:
+      - eventName: c2p.policy-disallowed-roles.176f1dcdc4c8d17e
+        lastTimestamp: "2023-07-05T23:52:34Z"
+        message: Compliant; notification - roles in namespace cluster1; in namespace
+          default; in namespace kube-node-lease; in namespace kube-public; in namespace
+          local-path-storage missing as expected, therefore this Object template is
+          compliant
+      - eventName: c2p.policy-disallowed-roles.176f1cd7a1623786
+        lastTimestamp: "2023-07-05T23:34:57Z"
+        message: Compliant; notification - roles in namespace cluster1; in namespace
+          default; in namespace kube-node-lease; in namespace kube-public; in namespace
+          local-path-storage missing as expected, therefore this Object template is
+          compliant
+      - eventName: c2p.policy-disallowed-roles.176f1bee3d61b1f3
+        lastTimestamp: "2023-07-05T23:18:15Z"
+        message: Compliant; notification - roles in namespace cluster1; in namespace
+          default; in namespace kube-node-lease; in namespace kube-public; in namespace
+          local-path-storage missing as expected, therefore this Object template is
+          compliant
+      templateMeta:
+        creationTimestamp: null
+        name: policy-disallowed-roles
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-6","policy.open-cluster-management.io/standards":""},"name":"policy-high-scan","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ScanSettingBinding","metadata":{"name":"high","namespace":"openshift-compliance"},"profiles":[{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high"},{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high-node"}],"settingsRef":{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"ScanSetting","name":"default"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan2"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceSuite","metadata":{"name":"high","namespace":"openshift-compliance"},"status":{"phase":"DONE"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan3"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceCheckResult","metadata":{"labels":{"compliance.openshift.io/check-status":"FAIL","compliance.openshift.io/suite":"high"},"namespace":"openshift-compliance"}}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:52:32Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster1
+      policy.open-cluster-management.io/cluster-namespace: cluster1
+      policy.open-cluster-management.io/root-policy: c2p.policy-high-scan
+    name: c2p.policy-high-scan
+    namespace: cluster1
+    resourceVersion: "58991"
+    uid: 4007f281-2977-42c4-ab42-cf0fb8563f56
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ScanSettingBinding
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              profiles:
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high-node
+              settingsRef:
+                apiGroup: compliance.openshift.io/v1alpha1
+                kind: ScanSetting
+                name: default
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan2
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceSuite
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              status:
+                phase: DONE
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan3
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceCheckResult
+              metadata:
+                labels:
+                  compliance.openshift.io/check-status: FAIL
+                  compliance.openshift.io/suite: high
+                namespace: openshift-compliance
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    details:
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1dcdc2b51b01
+        lastTimestamp: "2023-07-05T23:52:34Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ScanSettingBinding, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1cd79ed5ce45
+        lastTimestamp: "2023-07-05T23:34:57Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ScanSettingBinding, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1bef5d9a8c7c
+        lastTimestamp: "2023-07-05T23:18:20Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ScanSettingBinding, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1ddc44adf035
+        lastTimestamp: "2023-07-05T23:53:37Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceSuite, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1dc08583a394
+        lastTimestamp: "2023-07-05T23:51:37Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceSuite, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1bef5e40c973
+        lastTimestamp: "2023-07-05T23:18:20Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceSuite, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan2
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1ddc441457e5
+        lastTimestamp: "2023-07-05T23:53:37Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceCheckResult, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1dc085241b09
+        lastTimestamp: "2023-07-05T23:51:37Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceCheckResult, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1bf01c04e351
+        lastTimestamp: "2023-07-05T23:18:23Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceCheckResult, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan3
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-2","policy.open-cluster-management.io/standards":""},"name":"policy-deployment","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-deployment"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"labels":{"app":"nginx"},"name":"nginx-deployment"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"nginx"}},"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.21.4","name":"nginx","ports":[{"containerPort":80}]}]}}}}}],"remediationAction":"inform","severity":"low"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-2
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:51:43Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster2
+      policy.open-cluster-management.io/cluster-namespace: cluster2
+      policy.open-cluster-management.io/root-policy: c2p.policy-deployment
+    name: c2p.policy-deployment
+    namespace: cluster2
+    resourceVersion: "58322"
+    uid: 25080d0e-e6cf-4f39-94cb-04a7d01d6cfe
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-deployment
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                labels:
+                  app: nginx
+                name: nginx-deployment
+              spec:
+                replicas: 3
+                selector:
+                  matchLabels:
+                    app: nginx
+                template:
+                  metadata:
+                    labels:
+                      app: nginx
+                  spec:
+                    containers:
+                    - image: nginx:1.21.4
+                      name: nginx
+                      ports:
+                      - containerPort: 80
+          remediationAction: inform
+          severity: low
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    details:
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-deployment.176f1dc4e7de17cb
+        lastTimestamp: "2023-07-05T23:51:56Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster2 missing; [nginx-deployment] in namespace default missing;
+          [nginx-deployment] in namespace kube-node-lease missing; [nginx-deployment]
+          in namespace kube-public missing; [nginx-deployment] in namespace local-path-storage
+          missing'
+      - eventName: c2p.policy-deployment.176f1bf28b594e3c
+        lastTimestamp: "2023-07-05T23:18:33Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster2 missing; [nginx-deployment] in namespace default missing;
+          [nginx-deployment] in namespace kube-node-lease missing; [nginx-deployment]
+          in namespace kube-public missing; [nginx-deployment] in namespace local-path-storage
+          missing'
+      - eventName: c2p.policy-deployment.176f1bf06f3be6c5
+        lastTimestamp: "2023-07-05T23:18:24Z"
+        message: 'NonCompliant; violation - deployments not found: [nginx-deployment]
+          in namespace cluster2 missing; [nginx-deployment] in namespace default missing;
+          [nginx-deployment] in namespace kube-node-lease missing; [nginx-deployment]
+          in namespace kube-public missing; [nginx-deployment] in namespace local-path-storage
+          missing'
+      templateMeta:
+        creationTimestamp: null
+        name: policy-deployment
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"ac-6","policy.open-cluster-management.io/standards":""},"name":"policy-disallowed-roles","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-disallowed-roles"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]}]}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: ac-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:51:43Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster2
+      policy.open-cluster-management.io/cluster-namespace: cluster2
+      policy.open-cluster-management.io/root-policy: c2p.policy-disallowed-roles
+    name: c2p.policy-disallowed-roles
+    namespace: cluster2
+    resourceVersion: "58171"
+    uid: fb2bed28-f7be-4ad3-9df2-00f26600feb7
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-disallowed-roles
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: rbac.authorization.k8s.io/v1
+              kind: Role
+              rules:
+              - apiGroups:
+                - '*'
+                resources:
+                - '*'
+                verbs:
+                - '*'
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: Compliant
+    details:
+    - compliant: Compliant
+      history:
+      - eventName: c2p.policy-disallowed-roles.176f1dc36e36b7b2
+        lastTimestamp: "2023-07-05T23:51:50Z"
+        message: Compliant; notification - roles in namespace cluster2; in namespace
+          default; in namespace kube-node-lease; in namespace kube-public; in namespace
+          local-path-storage missing as expected, therefore this Object template is
+          compliant
+      - eventName: c2p.policy-disallowed-roles.176f1bf28b48947f
+        lastTimestamp: "2023-07-05T23:18:33Z"
+        message: Compliant; notification - roles in namespace cluster2; in namespace
+          default; in namespace kube-node-lease; in namespace kube-public; in namespace
+          local-path-storage missing as expected, therefore this Object template is
+          compliant
+      templateMeta:
+        creationTimestamp: null
+        name: policy-disallowed-roles
+- apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-6","policy.open-cluster-management.io/standards":""},"name":"policy-high-scan","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ScanSettingBinding","metadata":{"name":"high","namespace":"openshift-compliance"},"profiles":[{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high"},{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high-node"}],"settingsRef":{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"ScanSetting","name":"default"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan2"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceSuite","metadata":{"name":"high","namespace":"openshift-compliance"},"status":{"phase":"DONE"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan3"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceCheckResult","metadata":{"labels":{"compliance.openshift.io/check-status":"FAIL","compliance.openshift.io/suite":"high"},"namespace":"openshift-compliance"}}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+      policy.open-cluster-management.io/categories: ""
+      policy.open-cluster-management.io/controls: cm-6
+      policy.open-cluster-management.io/standards: ""
+    creationTimestamp: "2023-07-05T23:51:43Z"
+    generation: 1
+    labels:
+      policy.open-cluster-management.io/cluster-name: cluster2
+      policy.open-cluster-management.io/cluster-namespace: cluster2
+      policy.open-cluster-management.io/root-policy: c2p.policy-high-scan
+    name: c2p.policy-high-scan
+    namespace: cluster2
+    resourceVersion: "58319"
+    uid: 38eb6af4-5b3f-4a8b-aa1b-f066cd7a3ed8
+  spec:
+    disabled: false
+    policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ScanSettingBinding
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              profiles:
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high
+              - apiGroup: compliance.openshift.io/v1alpha1
+                kind: Profile
+                name: ocp4-high-node
+              settingsRef:
+                apiGroup: compliance.openshift.io/v1alpha1
+                kind: ScanSetting
+                name: default
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan2
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceSuite
+              metadata:
+                name: high
+                namespace: openshift-compliance
+              status:
+                phase: DONE
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan3
+        spec:
+          namespaceSelector:
+            exclude:
+            - kube-system
+            - open-cluster-management
+            - open-cluster-management-agent
+            - open-cluster-management-agent-addon
+            include:
+            - '*'
+          object-templates:
+          - complianceType: mustnothave
+            objectDefinition:
+              apiVersion: compliance.openshift.io/v1alpha1
+              kind: ComplianceCheckResult
+              metadata:
+                labels:
+                  compliance.openshift.io/check-status: FAIL
+                  compliance.openshift.io/suite: high
+                namespace: openshift-compliance
+          remediationAction: inform
+          severity: high
+    remediationAction: inform
+  status:
+    compliant: NonCompliant
+    details:
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1dc3684f9eb6
+        lastTimestamp: "2023-07-05T23:51:50Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ScanSettingBinding, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1ccd9a7768a0
+        lastTimestamp: "2023-07-05T23:34:14Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ScanSettingBinding, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1dc426d20948
+        lastTimestamp: "2023-07-05T23:51:53Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceSuite, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1ccd9a7af3da
+        lastTimestamp: "2023-07-05T23:34:14Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceSuite, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan2
+    - compliant: NonCompliant
+      history:
+      - eventName: c2p.policy-high-scan.176f1dc4e29e1221
+        lastTimestamp: "2023-07-05T23:51:56Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceCheckResult, please check if you have CRD deployed
+      - eventName: c2p.policy-high-scan.176f1cce592bc71e
+        lastTimestamp: "2023-07-05T23:34:17Z"
+        message: NonCompliant; violation - couldn't find mapping resource with kind
+          ComplianceCheckResult, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan3
+kind: List
+metadata:
+  resourceVersion: ""

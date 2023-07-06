@@ -1,0 +1,75 @@
+{
+  "profile": {
+    "uuid": "beade175-48ad-47c0-ac38-e9c2514cba22",
+    "metadata": {
+      "title": "NIST Special Publication 800-53 Revision 5 Customized BASELINE",
+      "last-modified": "2021-06-08T13:57:33.585986-04:00",
+      "version": "Final",
+      "oscal-version": "1.0.0",
+      "roles": [
+        {
+          "id": "creator",
+          "title": "Document Creator"
+        },
+        {
+          "id": "contact",
+          "title": "Contact"
+        }
+      ],
+      "parties": [
+        {
+          "uuid": "c748c806-1d77-4695-bb40-e117b2afa82e",
+          "type": "organization",
+          "name": "Joint Task Force, Transformation Initiative",
+          "email-addresses": [
+            "sec-cert@nist.gov"
+          ],
+          "addresses": [
+            {
+              "addr-lines": [
+                "National Institute of Standards and Technology",
+                "Attn: Computer Security Division",
+                "Information Technology Laboratory",
+                "100 Bureau Drive (Mail Stop 8930)"
+              ],
+              "city": "Gaithersburg",
+              "state": "MD",
+              "postal-code": "20899-8930"
+            }
+          ]
+        }
+      ],
+      "responsible-parties": [
+        {
+          "role-id": "creator",
+          "party-uuids": [
+            "c748c806-1d77-4695-bb40-e117b2afa82e"
+          ]
+        },
+        {
+          "role-id": "contact",
+          "party-uuids": [
+            "c748c806-1d77-4695-bb40-e117b2afa82e"
+          ]
+        }
+      ]
+    },
+    "imports": [
+      {
+        "href": "./catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "ac-6",
+              "cm-2",
+              "cm-6"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

@@ -1,0 +1,16 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSettingBinding
+metadata:
+  name: high
+  namespace: openshift-compliance
+profiles:
+- apiGroup: compliance.openshift.io/v1alpha1
+  kind: Profile
+  name: ocp4-high
+- apiGroup: compliance.openshift.io/v1alpha1
+  kind: Profile
+  name: ocp4-high-node
+settingsRef:
+  apiGroup: compliance.openshift.io/v1alpha1
+  kind: ScanSetting
+  name: default

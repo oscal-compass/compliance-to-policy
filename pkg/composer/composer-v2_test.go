@@ -27,13 +27,13 @@ import (
 )
 
 func TestComposerV2(t *testing.T) {
-	policyDir := pkg.PathFromPkgDirectory("./composer/testdata/policies")
-	catalogPath := pkg.PathFromPkgDirectory("./composer/testdata/oscal/catalog.json")
-	profilePath := pkg.PathFromPkgDirectory("./composer/testdata/oscal/profile.json")
-	cdPath := pkg.PathFromPkgDirectory("./composer/testdata/oscal/component-definition.json")
+	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
+	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/catalog.json")
+	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/profile.json")
+	cdPath := pkg.PathFromPkgDirectory("./testdata/oscal/component-definition.json")
 	// expectedDir := pkg.PathFromPkgDirectory("./composer/testdata/expected/c2pcr-parser-composed-policies")
 
-	tempDirPath := pkg.PathFromPkgDirectory("./composer/_test")
+	tempDirPath := pkg.PathFromPkgDirectory("./testdata/_test")
 	err := os.MkdirAll(tempDirPath, os.ModePerm)
 	assert.NoError(t, err, "Should not happen")
 	tempDir := pkg.NewTempDirectory(tempDirPath)

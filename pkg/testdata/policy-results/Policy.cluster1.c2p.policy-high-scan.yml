@@ -1,0 +1,155 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-6","policy.open-cluster-management.io/standards":""},"name":"policy-high-scan","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ScanSettingBinding","metadata":{"name":"high","namespace":"openshift-compliance"},"profiles":[{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high"},{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high-node"}],"settingsRef":{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"ScanSetting","name":"default"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan2"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceSuite","metadata":{"name":"high","namespace":"openshift-compliance"},"status":{"phase":"DONE"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan3"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceCheckResult","metadata":{"labels":{"compliance.openshift.io/check-status":"FAIL","compliance.openshift.io/suite":"high"},"namespace":"openshift-compliance"}}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: cm-6
+    policy.open-cluster-management.io/standards: ""
+  creationTimestamp: "2023-07-05T23:52:32Z"
+  generation: 1
+  labels:
+    policy.open-cluster-management.io/cluster-name: cluster1
+    policy.open-cluster-management.io/cluster-namespace: cluster1
+    policy.open-cluster-management.io/root-policy: c2p.policy-high-scan
+  name: c2p.policy-high-scan
+  namespace: cluster1
+  resourceVersion: "58991"
+  uid: 4007f281-2977-42c4-ab42-cf0fb8563f56
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: high
+                  namespace: openshift-compliance
+                profiles:
+                  - apiGroup: compliance.openshift.io/v1alpha1
+                    kind: Profile
+                    name: ocp4-high
+                  - apiGroup: compliance.openshift.io/v1alpha1
+                    kind: Profile
+                    name: ocp4-high-node
+                settingsRef:
+                  apiGroup: compliance.openshift.io/v1alpha1
+                  kind: ScanSetting
+                  name: default
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan2
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ComplianceSuite
+                metadata:
+                  name: high
+                  namespace: openshift-compliance
+                status:
+                  phase: DONE
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan3
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: mustnothave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ComplianceCheckResult
+                metadata:
+                  labels:
+                    compliance.openshift.io/check-status: FAIL
+                    compliance.openshift.io/suite: high
+                  namespace: openshift-compliance
+          remediationAction: inform
+          severity: high
+  remediationAction: inform
+status:
+  compliant: NonCompliant
+  details:
+    - compliant: NonCompliant
+      history:
+        - eventName: c2p.policy-high-scan.176f1dcdc2b51b01
+          lastTimestamp: "2023-07-05T23:52:34Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1cd79ed5ce45
+          lastTimestamp: "2023-07-05T23:34:57Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1bef5d9a8c7c
+          lastTimestamp: "2023-07-05T23:18:20Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan
+    - compliant: NonCompliant
+      history:
+        - eventName: c2p.policy-high-scan.176f1ddc44adf035
+          lastTimestamp: "2023-07-05T23:53:37Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1dc08583a394
+          lastTimestamp: "2023-07-05T23:51:37Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1bef5e40c973
+          lastTimestamp: "2023-07-05T23:18:20Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan2
+    - compliant: NonCompliant
+      history:
+        - eventName: c2p.policy-high-scan.176f1ddc441457e5
+          lastTimestamp: "2023-07-05T23:53:37Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1dc085241b09
+          lastTimestamp: "2023-07-05T23:51:37Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed
+        - eventName: c2p.policy-high-scan.176f1bf01c04e351
+          lastTimestamp: "2023-07-05T23:18:23Z"
+          message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed
+      templateMeta:
+        creationTimestamp: null
+        name: policy-high-scan3

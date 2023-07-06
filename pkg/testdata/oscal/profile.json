@@ -1,0 +1,27 @@
+{
+  "profile": {
+    "uuid": "1019f424-1556-4aa3-9df3-337b97c2c856",
+    "metadata": {
+      "title": "Test Profile",
+      "last-modified": "2021-06-08T13:57:34.337491-04:00",
+      "version": "Final",
+      "oscal-version": "1.0.0"
+    },
+    "imports": [
+      {
+        "href": "local://pkg/composer/testdata/oscal/catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "ac-1",
+              "ac-2.1"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

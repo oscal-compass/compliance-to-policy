@@ -1,0 +1,17 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator
+policyDefaults:
+  consolidateManifests: false
+  orderManifests: false
+  namespace: namespace
+policies:
+  - consolidateManifests: true
+    orderManifests: false
+    remediationAction: inform
+    severity: high
+    complianceType: musthave
+    name: add-chrony
+    manifests:
+      - path: ./add-chrony-worker
