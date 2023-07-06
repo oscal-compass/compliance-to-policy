@@ -39,6 +39,10 @@ import (
 
 var logger *zap.Logger
 
+const (
+	ANNOTATION_COMPONENT_TITLE string = "compliance-to-policy.component-title"
+)
+
 func init() {
 	var err error
 	logger, err = zap.NewDevelopment()

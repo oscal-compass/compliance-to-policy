@@ -32,6 +32,7 @@ import (
 	"go.uber.org/zap"
 	"sigs.k8s.io/kustomize/api/resmap"
 	typekustomize "sigs.k8s.io/kustomize/api/types"
+	"sigs.k8s.io/kustomize/kyaml/resid"
 )
 
 type ComposerV2 struct {
@@ -68,6 +69,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	parameters := map[string]string{}
 	policyConfigMap := map[string]pgtype.PolicyConfig{}
 	policySets := []pgtype.PolicySetConfig{}
+	policySetPatches := []typekustomize.Patch{}
 	for _, componentObject := range componentObjects {
 		logger := logger.With(zap.Namespace(fmt.Sprintf("component %s", componentObject.ComponentTitle)))
 		logger.Info("Start generating policy")
@@ -134,6 +136,13 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 				Policies: policyListPerControlImple,
 			}
 			policySets = append(policySets, policySetConfig)
+			policySetPatch := typekustomize.Patch{
+				Target: &typekustomize.Selector{
+					ResId: resid.FromString(fmt.Sprintf("PolicySet../%s.", policySetConfig.Name)),
+				},
+				Patch: fmt.Sprintf(`[{"op": "replace", "path": "/metadata/annotations/%s", "value": "%s"}]`, pkg.ANNOTATION_COMPONENT_TITLE, componentObject.ComponentTitle),
+			}
+			policySetPatches = append(policySetPatches, policySetPatch)
 		}
 	}
 
@@ -187,6 +196,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	kustomize := typekustomize.Kustomization{
 		Generators: []string{"./policy-generator.yaml"},
 		Resources:  []string{"./parameters.yaml"},
+		Patches:    policySetPatches,
 	}
 	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
 		return err
