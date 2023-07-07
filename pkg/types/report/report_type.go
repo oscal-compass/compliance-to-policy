@@ -48,6 +48,8 @@ type RuleResult struct {
 	PolicyId string `json:"policyId,omitempty" yaml:"policyId,omitempty"`
 	// Status
 	Status RuleStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	// Reason
+	Reason string `json:"reason,omitempty" yaml:"reason,omitempty"`
 }
 
 type ControlResult struct {

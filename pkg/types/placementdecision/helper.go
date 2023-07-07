@@ -14,36 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package policy
+package placementdecision
 
-func (p *Policy) GetNamespace() string {
+func (p *PlacementDecision) GetNamespace() string {
 	return p.Namespace
 }
 
-func (p *Policy) GetName() string {
+func (p *PlacementDecision) GetName() string {
 	return p.Name
 }
 
-func (p *Policy) GetAnnotation() map[string]string {
+func (p *PlacementDecision) GetAnnotation() map[string]string {
 	return p.Annotations
 }
 
-func (p *Policy) GetLabel() map[string]string {
-	return p.Labels
-}
-
-func (p *PolicySet) GetNamespace() string {
-	return p.Namespace
-}
-
-func (p *PolicySet) GetName() string {
-	return p.Name
-}
-
-func (p *PolicySet) GetAnnotation() map[string]string {
-	return p.Annotations
-}
-
-func (p *PolicySet) GetLabel() map[string]string {
+func (p *PlacementDecision) GetLabel() map[string]string {
 	return p.Labels
 }

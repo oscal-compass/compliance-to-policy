@@ -23,19 +23,31 @@ import (
 
 	"github.com/IBM/compliance-to-policy/pkg"
 	"go.uber.org/zap"
+	sigyaml "sigs.k8s.io/yaml"
+
+	"k8s.io/apimachinery/pkg/util/sets"
 
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
+	typeplacementdecision "github.com/IBM/compliance-to-policy/pkg/types/placementdecision"
 	typepolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
 	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
+	typeutils "github.com/IBM/compliance-to-policy/pkg/types/utils"
 )
 
 var logger *zap.Logger = pkg.GetLogger("reporter")
 
 type Reporter struct {
-	c2pParsed  typec2pcr.C2PCRParsed
-	policies   []*typepolicy.Policy
-	policySets []*typepolicy.PolicySet
+	c2pParsed          typec2pcr.C2PCRParsed
+	policies           []*typepolicy.Policy
+	policySets         []*typepolicy.PolicySet
+	placementDecisions []*typeplacementdecision.PlacementDecision
+}
+
+type Reason struct {
+	ClusterName     string                         `json:"clusterName,omitempty" yaml:"clusterName,omitempty"`
+	ComplianceState typepolicy.ComplianceState     `json:"complianceState,omitempty" yaml:"complianceState,omitempty"`
+	Messages        []typepolicy.ComplianceHistory `json:"messages,omitempty" yaml:"messages,omitempty"`
 }
 
 func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
@@ -47,19 +59,31 @@ func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 	return &r
 }
 
-func (r *Reporter) generate(path string) (typereport.Spec, error) {
+func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 	if err := filepath.Walk(path, r.traverse); err != nil {
 		logger.Error(err.Error())
 	}
 	reportComponents := []typereport.Component{}
 	for _, cdobj := range r.c2pParsed.ComponentObjects {
-		policySet := typepolicy.FindByNamespaceAnnotation(r.policySets, r.c2pParsed.Namespace, pkg.ANNOTATION_COMPONENT_TITLE, cdobj.ComponentTitle)
+		policySet := typeutils.FindByNamespaceAnnotation(r.policySets, r.c2pParsed.Namespace, pkg.ANNOTATION_COMPONENT_TITLE, cdobj.ComponentTitle)
+		clusterNameSets := sets.NewString()
 		if policySet != nil {
-			policies := []typepolicy.Policy{}
-			for _, policyName := range policySet.Spec.Policies {
-				policy := typepolicy.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, string(policyName))
-				policies = append(policies, *policy)
+			placements := []string{}
+			for _, placement := range policySet.Status.Placement {
+				placements = append(placements, placement.Placement)
 			}
+			for _, placement := range placements {
+				placementDecision := typeutils.FindByNamespaceLabel(r.placementDecisions, r.c2pParsed.Namespace, "cluster.open-cluster-management.io/placement", placement)
+				for _, decision := range placementDecision.Status.Decisions {
+					clusterNameSets.Insert(decision.ClusterName)
+				}
+			}
+			// for _, clusterName := range clusterNameSets.List() {
+			// 	for _, policyName := range policySet.Spec.Policies {
+			// 		policy := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace + "." + string(policyName))
+			// 	}
+			// }
+
 		}
 		for _, controlImpleObj := range cdobj.ControlImpleObjects {
 			controlResults := []typereport.ControlResult{}
@@ -79,11 +103,37 @@ func (r *Reporter) generate(path string) (typereport.Spec, error) {
 						})
 					} else {
 						policyId := rule.PolicyId
-						policy := typepolicy.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
+						policy := typeutils.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
+						reasons := []Reason{}
+						for _, status := range policy.Status.Status {
+							clusterName := status.ClusterName
+							policyPerCluster := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace+"."+policyId)
+							if policyPerCluster == nil {
+								continue
+							}
+							messages := []typepolicy.ComplianceHistory{}
+							for _, detail := range policyPerCluster.Status.Details {
+								if len(detail.History) > 0 {
+									messages = append(messages, detail.History[0])
+								}
+							}
+							reasons = append(reasons, Reason{
+								ClusterName:     clusterName,
+								ComplianceState: status.ComplianceState,
+								Messages:        messages,
+							})
+						}
+						var reason string
+						if statusByte, err := sigyaml.Marshal(reasons); err == nil {
+							reason = string(statusByte)
+						} else {
+							reason = err.Error()
+						}
 						ruleResult := typereport.RuleResult{
 							RuleId:   ruleId,
 							PolicyId: policyId,
 							Status:   mapToRuleStatus(policy.Status.ComplianceState),
+							Reason:   reason,
 						}
 						ruleResults = append(ruleResults, ruleResult)
 						checkedControls = append(checkedControls, controlId)
@@ -191,6 +241,12 @@ func (r *Reporter) traverse(path string, info os.FileInfo, err error) error {
 					return err
 				}
 				r.policySets = append(r.policySets, &policySet)
+			case "PlacementDecision":
+				var placementDecision typeplacementdecision.PlacementDecision
+				if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
+					return err
+				}
+				r.placementDecisions = append(r.placementDecisions, &placementDecision)
 			}
 		}
 	}

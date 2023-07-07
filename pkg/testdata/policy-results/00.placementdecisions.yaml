@@ -1,0 +1,29 @@
+apiVersion: v1
+items:
+- apiVersion: cluster.open-cluster-management.io/v1beta1
+  kind: PlacementDecision
+  metadata:
+    creationTimestamp: "2023-07-05T16:10:56Z"
+    generation: 1
+    labels:
+      cluster.open-cluster-management.io/placement: placement-managed-kubernetes
+    name: placement-managed-kubernetes-decision-1
+    namespace: c2p
+    ownerReferences:
+    - apiVersion: cluster.open-cluster-management.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Placement
+      name: placement-managed-kubernetes
+      uid: fb698906-ffbc-4483-afc1-e87cd6048858
+    resourceVersion: "127345"
+    uid: 78e9e593-8ca7-48f2-86af-0306238cdedc
+  status:
+    decisions:
+    - clusterName: cluster1
+      reason: ""
+    - clusterName: cluster2
+      reason: ""
+kind: List
+metadata:
+  resourceVersion: ""

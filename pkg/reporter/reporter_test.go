@@ -73,7 +73,7 @@ func TestReporter(t *testing.T) {
 	assert.NoError(t, err, "Should not happen")
 
 	reporter := NewReporter(c2pcrParsed)
-	report, err := reporter.generate(pkg.PathFromPkgDirectory("./testdata/policy-results"))
+	report, err := reporter.Generate(pkg.PathFromPkgDirectory("./testdata/policy-results"))
 	assert.NoError(t, err, "Should not happen")
 
 	err = pkg.WriteObjToYamlFileByGoYaml(tempDir.GetTempDir()+"/compliance-report.yaml", report)
