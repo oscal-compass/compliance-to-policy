@@ -20,11 +20,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/IBM/compliance-to-policy/pkg"
 	"go.uber.org/zap"
 	sigyaml "sigs.k8s.io/yaml"
 
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
@@ -33,6 +35,7 @@ import (
 	typepolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
 	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
 	typeutils "github.com/IBM/compliance-to-policy/pkg/types/utils"
+	typepolr "sigs.k8s.io/wg-policy-prototypes/policy-report/pkg/api/wgpolicyk8s.io/v1beta1"
 )
 
 var logger *zap.Logger = pkg.GetLogger("reporter")
@@ -42,6 +45,8 @@ type Reporter struct {
 	policies           []*typepolicy.Policy
 	policySets         []*typepolicy.PolicySet
 	placementDecisions []*typeplacementdecision.PlacementDecision
+	policyReports      []*typepolr.PolicyReport
+	generationType     string
 }
 
 type Reason struct {
@@ -52,11 +57,17 @@ type Reason struct {
 
 func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 	r := Reporter{
-		c2pParsed:  c2pParsed,
-		policies:   []*typepolicy.Policy{},
-		policySets: []*typepolicy.PolicySet{},
+		c2pParsed:          c2pParsed,
+		policies:           []*typepolicy.Policy{},
+		policySets:         []*typepolicy.PolicySet{},
+		placementDecisions: []*typeplacementdecision.PlacementDecision{},
+		policyReports:      []*typepolr.PolicyReport{},
 	}
 	return &r
+}
+
+func (r *Reporter) SetGenerationType(generationType string) {
+	r.generationType = generationType
 }
 
 func (r *Reporter) Generate(path string) (typereport.Spec, error) {
@@ -69,6 +80,10 @@ func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 	)
 	if err := filepath.Walk(path, traverseFunc); err != nil {
 		logger.Error(err.Error())
+	}
+	for _, policy := range r.policies {
+		polr := ConvertToPolicyReport(*policy)
+		r.policyReports = append(r.policyReports, &polr)
 	}
 	reportComponents := []typereport.Component{}
 	for _, cdobj := range r.c2pParsed.ComponentObjects {
@@ -85,12 +100,6 @@ func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 					clusterNameSets.Insert(decision.ClusterName)
 				}
 			}
-			// for _, clusterName := range clusterNameSets.List() {
-			// 	for _, policyName := range policySet.Spec.Policies {
-			// 		policy := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace + "." + string(policyName))
-			// 	}
-			// }
-
 		}
 		for _, controlImpleObj := range cdobj.ControlImpleObjects {
 			controlResults := []typereport.ControlResult{}
@@ -111,24 +120,11 @@ func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 					} else {
 						policyId := rule.PolicyId
 						policy := typeutils.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
-						reasons := []Reason{}
-						for _, status := range policy.Status.Status {
-							clusterName := status.ClusterName
-							policyPerCluster := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace+"."+policyId)
-							if policyPerCluster == nil {
-								continue
-							}
-							messages := []typepolicy.ComplianceHistory{}
-							for _, detail := range policyPerCluster.Status.Details {
-								if len(detail.History) > 0 {
-									messages = append(messages, detail.History[0])
-								}
-							}
-							reasons = append(reasons, Reason{
-								ClusterName:     clusterName,
-								ComplianceState: status.ComplianceState,
-								Messages:        messages,
-							})
+						var reasons []Reason
+						if r.generationType == "policy-report" {
+							reasons = r.GenerateReasonsFromPolicyReports(*policy)
+						} else {
+							reasons = r.GenerateReasonsFromRawPolicies(*policy)
 						}
 						var reason string
 						if statusByte, err := sigyaml.Marshal(reasons); err == nil {
@@ -175,6 +171,53 @@ func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 	}, nil
 }
 
+func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Reason {
+	reasons := []Reason{}
+	for _, status := range policy.Status.Status {
+		clusterName := status.ClusterName
+		policyPerCluster := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace+"."+policy.Name)
+		if policyPerCluster == nil {
+			continue
+		}
+		messages := []typepolicy.ComplianceHistory{}
+		for _, detail := range policyPerCluster.Status.Details {
+			if len(detail.History) > 0 {
+				messages = append(messages, detail.History[0])
+			}
+		}
+		reasons = append(reasons, Reason{
+			ClusterName:     clusterName,
+			ComplianceState: status.ComplianceState,
+			Messages:        messages,
+		})
+	}
+	return reasons
+
+}
+
+func (r *Reporter) GenerateReasonsFromPolicyReports(policy typepolicy.Policy) []Reason {
+	reasons := []Reason{}
+	for _, status := range policy.Status.Status {
+		clusterName := status.ClusterName
+		policyReport := findPolicyReportByNamespaceName(r.policyReports, clusterName, r.c2pParsed.Namespace+"."+policy.Name)
+		clusterHistories := []typepolicy.ComplianceHistory{}
+		for _, result := range policyReport.Results {
+			clusterHistory := typepolicy.ComplianceHistory{
+				LastTimestamp: v1.NewTime(time.Unix(result.Timestamp.Seconds, int64(result.Timestamp.Nanos))),
+				EventName:     result.Properties["eventName"],
+				Message:       result.Properties["details"],
+			}
+			clusterHistories = append(clusterHistories, clusterHistory)
+		}
+		reasons = append(reasons, Reason{
+			ClusterName:     policyReport.Namespace,
+			ComplianceState: aggregatePolicyReportSummaryToComplianceState(policyReport.Summary),
+			Messages:        clusterHistories,
+		})
+	}
+	return reasons
+}
+
 func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.RuleStatus {
 	switch complianceState {
 	case typepolicy.Compliant:
@@ -185,6 +228,14 @@ func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.Rule
 		return typereport.RuleStatusFail
 	default:
 		return typereport.RuleStatusError
+	}
+}
+
+func aggregatePolicyReportSummaryToComplianceState(summary typepolr.PolicyReportSummary) typepolicy.ComplianceState {
+	if summary.Pass == 0 {
+		return typepolicy.NonCompliant
+	} else {
+		return typepolicy.Compliant
 	}
 }
 
@@ -227,38 +278,6 @@ func aggregateControlResults(controlResults []typereport.ControlResult) typerepo
 	}
 	return typereport.ComplianceStatusNonCompliant
 }
-
-// func (r *Reporter) traverse(path string, info os.FileInfo, err error) error {
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if !info.IsDir() {
-// 		kind, _, _, ok := parseFileName(info.Name())
-// 		if ok {
-// 			switch kind {
-// 			case "Policy":
-// 				var policy typepolicy.Policy
-// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policy); err != nil {
-// 					return err
-// 				}
-// 				r.policies = append(r.policies, &policy)
-// 			case "PolicySet":
-// 				var policySet typepolicy.PolicySet
-// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policySet); err != nil {
-// 					return err
-// 				}
-// 				r.policySets = append(r.policySets, &policySet)
-// 			case "PlacementDecision":
-// 				var placementDecision typeplacementdecision.PlacementDecision
-// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
-// 					return err
-// 				}
-// 				r.placementDecisions = append(r.placementDecisions, &placementDecision)
-// 			}
-// 		}
-// 	}
-// 	return nil
-// }
 
 func genTraverseFunc(onPolicy func(typepolicy.Policy), onPolicySet func(typepolicy.PolicySet), onPlacementDesicion func(typeplacementdecision.PlacementDecision)) func(path string, info os.FileInfo, err error) error {
 	return func(path string, info os.FileInfo, err error) error {

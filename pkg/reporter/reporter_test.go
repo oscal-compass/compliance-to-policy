@@ -17,6 +17,7 @@ limitations under the License.
 package reporter
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -84,4 +85,17 @@ func TestReporter(t *testing.T) {
 	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &expected)
 	assert.NoError(t, err, "Should not happen")
 	assert.Equal(t, expected, report)
+
+	reporter.SetGenerationType("policy-report")
+	reportFromPolicyReports, err := reporter.Generate(pkg.PathFromPkgDirectory("./testdata/policy-results"))
+	assert.NoError(t, err, "Should not happen")
+
+	assert.Equal(t, report, reportFromPolicyReports)
+
+	for _, policyReport := range reporter.policyReports {
+		fname := fmt.Sprintf("policy-report.%s.%s.yaml", policyReport.Namespace, policyReport.Name)
+		err := pkg.WriteObjToYamlFile(tempDir.GetTempDir()+"/"+fname, policyReport)
+		assert.NoError(t, err, "Should not happen")
+	}
+
 }

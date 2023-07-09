@@ -198,3 +198,12 @@ func summary(policyReport typepolr.PolicyReport) typepolr.PolicyReportSummary {
 	}
 	return reportSummary
 }
+
+func findPolicyReportByNamespaceName(policyReports []*typepolr.PolicyReport, namespace string, name string) *typepolr.PolicyReport {
+	for _, policyReport := range policyReports {
+		if policyReport.Namespace == namespace && policyReport.Name == name {
+			return policyReport
+		}
+	}
+	return nil
+}
