@@ -1,0 +1,72 @@
+apiVersion: wgpolicyk8s.io/v1beta1
+kind: PolicyReport
+metadata:
+  creationTimestamp: null
+  name: c2p.policy-high-scan
+  namespace: cluster2
+results:
+- message: musthave Kind:ScanSettingBinding Name:high
+  policy: policy-high-scan
+  properties:
+    details: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding,
+      please check if you have CRD deployed
+    eventName: c2p.policy-high-scan.176f1dc3684f9eb6
+    lastTimestamp: 2023-07-06 08:51:50 +0900 JST
+  resources:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    kind: ScanSettingBinding
+    name: high
+    namespace: openshift-compliance
+  result: fail
+  severity: high
+  source: ""
+  timestamp:
+    nanos: 0
+    seconds: 1688601110
+- message: musthave Kind:ComplianceSuite Name:high
+  policy: policy-high-scan2
+  properties:
+    details: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite,
+      please check if you have CRD deployed
+    eventName: c2p.policy-high-scan.176f1dc426d20948
+    lastTimestamp: 2023-07-06 08:51:53 +0900 JST
+  resources:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    kind: ComplianceSuite
+    name: high
+    namespace: openshift-compliance
+  result: fail
+  severity: high
+  source: ""
+  timestamp:
+    nanos: 0
+    seconds: 1688601113
+- message: 'mustnothave Kind:ComplianceCheckResult Name:'
+  policy: policy-high-scan3
+  properties:
+    details: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult,
+      please check if you have CRD deployed
+    eventName: c2p.policy-high-scan.176f1dc4e29e1221
+    lastTimestamp: 2023-07-06 08:51:56 +0900 JST
+  resources:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    kind: ComplianceCheckResult
+    namespace: openshift-compliance
+  result: fail
+  severity: high
+  source: ""
+  timestamp:
+    nanos: 0
+    seconds: 1688601116
+scope:
+  apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  name: c2p.policy-high-scan
+  namespace: cluster2
+source: ""
+summary:
+  error: 0
+  fail: 3
+  pass: 0
+  skip: 0
+  warn: 0

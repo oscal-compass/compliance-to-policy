@@ -23,6 +23,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
+	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -78,4 +79,9 @@ func TestReporter(t *testing.T) {
 
 	err = pkg.WriteObjToYamlFileByGoYaml(tempDir.GetTempDir()+"/compliance-report.yaml", report)
 	assert.NoError(t, err, "Should not happen")
+
+	var expected typereport.Spec
+	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &expected)
+	assert.NoError(t, err, "Should not happen")
+	assert.Equal(t, expected, report)
 }

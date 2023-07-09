@@ -60,7 +60,14 @@ func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 }
 
 func (r *Reporter) Generate(path string) (typereport.Spec, error) {
-	if err := filepath.Walk(path, r.traverse); err != nil {
+	traverseFunc := genTraverseFunc(
+		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
+		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
+		func(placementDecision typeplacementdecision.PlacementDecision) {
+			r.placementDecisions = append(r.placementDecisions, &placementDecision)
+		},
+	)
+	if err := filepath.Walk(path, traverseFunc); err != nil {
 		logger.Error(err.Error())
 	}
 	reportComponents := []typereport.Component{}
@@ -221,36 +228,70 @@ func aggregateControlResults(controlResults []typereport.ControlResult) typerepo
 	return typereport.ComplianceStatusNonCompliant
 }
 
-func (r *Reporter) traverse(path string, info os.FileInfo, err error) error {
-	if err != nil {
-		return err
-	}
-	if !info.IsDir() {
-		kind, _, _, ok := parseFileName(info.Name())
-		if ok {
-			switch kind {
-			case "Policy":
-				var policy typepolicy.Policy
-				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policy); err != nil {
-					return err
+// func (r *Reporter) traverse(path string, info os.FileInfo, err error) error {
+// 	if err != nil {
+// 		return err
+// 	}
+// 	if !info.IsDir() {
+// 		kind, _, _, ok := parseFileName(info.Name())
+// 		if ok {
+// 			switch kind {
+// 			case "Policy":
+// 				var policy typepolicy.Policy
+// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policy); err != nil {
+// 					return err
+// 				}
+// 				r.policies = append(r.policies, &policy)
+// 			case "PolicySet":
+// 				var policySet typepolicy.PolicySet
+// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policySet); err != nil {
+// 					return err
+// 				}
+// 				r.policySets = append(r.policySets, &policySet)
+// 			case "PlacementDecision":
+// 				var placementDecision typeplacementdecision.PlacementDecision
+// 				if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
+// 					return err
+// 				}
+// 				r.placementDecisions = append(r.placementDecisions, &placementDecision)
+// 			}
+// 		}
+// 	}
+// 	return nil
+// }
+
+func genTraverseFunc(onPolicy func(typepolicy.Policy), onPolicySet func(typepolicy.PolicySet), onPlacementDesicion func(typeplacementdecision.PlacementDecision)) func(path string, info os.FileInfo, err error) error {
+	return func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			kind, _, _, ok := parseFileName(info.Name())
+			if ok {
+				switch kind {
+				case "Policy":
+					var policy typepolicy.Policy
+					if err := pkg.LoadYamlFileToK8sTypedObject(path, &policy); err != nil {
+						return err
+					}
+					onPolicy(policy)
+				case "PolicySet":
+					var policySet typepolicy.PolicySet
+					if err := pkg.LoadYamlFileToK8sTypedObject(path, &policySet); err != nil {
+						return err
+					}
+					onPolicySet(policySet)
+				case "PlacementDecision":
+					var placementDecision typeplacementdecision.PlacementDecision
+					if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
+						return err
+					}
+					onPlacementDesicion(placementDecision)
 				}
-				r.policies = append(r.policies, &policy)
-			case "PolicySet":
-				var policySet typepolicy.PolicySet
-				if err := pkg.LoadYamlFileToK8sTypedObject(path, &policySet); err != nil {
-					return err
-				}
-				r.policySets = append(r.policySets, &policySet)
-			case "PlacementDecision":
-				var placementDecision typeplacementdecision.PlacementDecision
-				if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
-					return err
-				}
-				r.placementDecisions = append(r.placementDecisions, &placementDecision)
 			}
 		}
+		return nil
 	}
-	return nil
 }
 
 func parseFileName(fname string) (kind string, namespace string, name string, ok bool) {

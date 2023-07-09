@@ -1,0 +1,36 @@
+apiVersion: wgpolicyk8s.io/v1beta1
+kind: PolicyReport
+metadata:
+  creationTimestamp: null
+  name: c2p.policy-disallowed-roles
+  namespace: cluster1
+results:
+- message: 'mustnothave Kind:Role Name:'
+  policy: policy-disallowed-roles
+  properties:
+    details: Compliant; notification - roles in namespace cluster1; in namespace default;
+      in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage
+      missing as expected, therefore this Object template is compliant
+    eventName: c2p.policy-disallowed-roles.176f1dcdc4c8d17e
+    lastTimestamp: 2023-07-06 08:52:34 +0900 JST
+  resources:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+  result: pass
+  severity: high
+  source: ""
+  timestamp:
+    nanos: 0
+    seconds: 1688601154
+scope:
+  apiVersion: policy.open-cluster-management.io/v1
+  kind: Policy
+  name: c2p.policy-disallowed-roles
+  namespace: cluster1
+source: ""
+summary:
+  error: 0
+  fail: 0
+  pass: 1
+  skip: 0
+  warn: 0

@@ -21,6 +21,7 @@ require (
 	sigs.k8s.io/controller-runtime v0.13.0
 	sigs.k8s.io/kustomize/api v0.13.1
 	sigs.k8s.io/kustomize/kyaml v0.14.0
+	sigs.k8s.io/wg-policy-prototypes v0.0.0-20230505033312-51c21979086a
 	sigs.k8s.io/yaml v1.3.0
 )
 
