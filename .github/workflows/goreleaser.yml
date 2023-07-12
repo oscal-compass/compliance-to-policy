@@ -4,7 +4,6 @@ on:
   push:
     tags:
     - 'v*'
-    - snapshot
     paths:
     - .github/workflows/goreleaser.yml
     - .goreleaser.yaml

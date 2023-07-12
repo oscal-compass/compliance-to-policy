@@ -46,7 +46,7 @@ func (g *GitUtils) LoadFromWeb(url string, out interface{}) error {
 	if err != nil {
 		return err
 	}
-	if u.Scheme == "local" {
+	if u.Scheme == "" || u.Scheme == "local" {
 		return loadFromLocalFs(u, out)
 	}
 	req, err := http.NewRequest("GET", url, nil)
@@ -78,11 +78,11 @@ func (g *GitUtils) LoadFromGit(url string, out interface{}) error {
 	if err != nil {
 		return err
 	}
-	paths := strings.Split(u.Path, "/")
-	repoUrl := fmt.Sprintf("%s://%s/%s/%s", u.Scheme, u.Host, paths[1], paths[2])
-	path := strings.Join(paths[3:], "/")
-
-	if u.Scheme == "local" {
+	repoUrl, path, err := splitGitUrl(u)
+	if err != nil {
+		return err
+	}
+	if u.Scheme == "" || u.Scheme == "local" {
 		return loadFromLocalFs(u, out)
 	}
 	repoDir, _, err := g.GitClone(repoUrl)
@@ -112,14 +112,26 @@ func (g *GitUtils) GitClone(url string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	paths := strings.Split(u.Path, "/")
-	repoUrl := fmt.Sprintf("%s://%s/%s/%s", u.Scheme, u.Host, paths[1], paths[2])
-	path := strings.Join(paths[3:], "/")
-	if u.Scheme == "local" {
+	repoUrl, path, err := splitGitUrl(u)
+	if err != nil {
+		return "", "", err
+	}
+	if u.Scheme == "" || u.Scheme == "local" {
 		return toLocalPath(u), "", nil
 	}
 	rootDir, err := g.gitClone(repoUrl)
 	return rootDir, path, err
+}
+
+func splitGitUrl(u *neturl.URL) (repoUrl string, path string, err error) {
+	paths := strings.Split(u.Path, "/")
+	if len(paths) < 3 {
+		err = fmt.Errorf("url path should have at least 3 tokens. url: %v", u)
+		return
+	}
+	repoUrl = fmt.Sprintf("%s://%s/%s/%s", u.Scheme, u.Host, paths[1], paths[2])
+	path = strings.Join(paths[3:], "/")
+	return
 }
 
 func (g *GitUtils) gitClone(url string) (string, error) {

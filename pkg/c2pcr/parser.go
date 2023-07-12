@@ -38,15 +38,18 @@ func NewParser(gitUtils pkg.GitUtils) C2PCRParser {
 }
 
 func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
+	var err error
 	parsed := c2pcr.C2PCRParsed{}
 	parsed.Namespace = c2pcrSpec.Target.Namespace
 	parsed.ClusterSelectors = *c2pcrSpec.ClusterGroups[0].MatchLabels
-	cloneDir, path, err := p.gitUtils.GitClone(c2pcrSpec.PolicyResources.Url)
+	parsed.PolicyResoureDir, err = p.loadResourceFromUrl(c2pcrSpec.PolicyResources.Url)
 	if err != nil {
-		logger.Sugar().Error(err, fmt.Sprintf("Failed to load policy resources %v", c2pcrSpec.PolicyResources.Url))
 		return parsed, err
 	}
-	parsed.PolicyResoureDir = cloneDir + "/" + path
+	parsed.PolicyResultsDir, err = p.loadResourceFromUrl(c2pcrSpec.PolicyRersults.Url)
+	if err != nil {
+		return parsed, err
+	}
 
 	logger.Info(fmt.Sprintf("Component-definition is loaded from %s", c2pcrSpec.Compliance.ComponentDefinition.Url))
 	if err := p.gitUtils.LoadFromGit(c2pcrSpec.Compliance.ComponentDefinition.Url, &parsed.ComponentDefinition); err != nil {
@@ -69,4 +72,13 @@ func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
 	parsed.ComponentObjects = oscal.ParseComponentDefinition(parsed.ComponentDefinition)
 
 	return parsed, err
+}
+
+func (p *C2PCRParser) loadResourceFromUrl(url string) (dirpath string, err error) {
+	cloneDir, path, err := p.gitUtils.GitClone(url)
+	if err != nil {
+		logger.Sugar().Error(err, fmt.Sprintf("Failed to load %v", url))
+		return dirpath, err
+	}
+	return cloneDir + "/" + path, nil
 }

@@ -68,7 +68,7 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	composer := composer.NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, pkg.NewTempDirectory(options.TempDirPath))
+	composer := composer.NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, pkg.NewTempDirectory(options.TempDirPath))
 	if err := composer.ComposeByC2PParsed(c2pcrParsed); err != nil {
 		panic(err)
 	}

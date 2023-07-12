@@ -52,7 +52,7 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	outputDir, policyResultsDir, c2pcrPath, tempDirPath := options.OutputDir, options.PolicyResultsDir, options.C2PCRPath, options.TempDirPath
+	outputDir, c2pcrPath, tempDirPath := options.OutputDir, options.C2PCRPath, options.TempDirPath
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
 		panic(err)
 	}
@@ -70,7 +70,7 @@ func Run(options *options.Options) error {
 	}
 
 	reporter := reporter.NewReporter(c2pcrParsed)
-	report, err := reporter.Generate(policyResultsDir)
+	report, err := reporter.Generate()
 	if err != nil {
 		panic(err)
 	}

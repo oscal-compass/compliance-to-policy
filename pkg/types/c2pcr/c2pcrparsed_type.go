@@ -25,6 +25,7 @@ import (
 type C2PCRParsed struct {
 	Namespace           string
 	PolicyResoureDir    string
+	PolicyResultsDir    string
 	Catalog             typesoscal.CatalogRoot
 	Profile             typesoscal.ProfileRoot
 	ComponentDefinition typecd.ComponentDefinitionRoot

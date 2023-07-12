@@ -38,31 +38,31 @@ import (
 
 var logger *zap.Logger = pkg.GetLogger("composer")
 
-type ComposerV2 struct {
+type Composer struct {
 	policiesDir string
 	tempDir     pkg.TempDirectory
 }
 
-func NewComposerV2(policiesDir string, tempDir string) *ComposerV2 {
-	return NewComposerV2ByTempDirectory(policiesDir, pkg.NewTempDirectory(tempDir))
+func NewComposer(policiesDir string, tempDir string) *Composer {
+	return NewComposerByTempDirectory(policiesDir, pkg.NewTempDirectory(tempDir))
 }
 
-func NewComposerV2ByTempDirectory(policiesDir string, tempDir pkg.TempDirectory) *ComposerV2 {
-	return &ComposerV2{
+func NewComposerByTempDirectory(policiesDir string, tempDir pkg.TempDirectory) *Composer {
+	return &Composer{
 		policiesDir: policiesDir,
 		tempDir:     tempDir,
 	}
 }
 
-func (c *ComposerV2) GetPoliciesDir() string {
+func (c *Composer) GetPoliciesDir() string {
 	return c.policiesDir
 }
 
-func (c *ComposerV2) ComposeByC2PParsed(c2pParsed typec2pcr.C2PCRParsed) error {
+func (c *Composer) ComposeByC2PParsed(c2pParsed typec2pcr.C2PCRParsed) error {
 	return c.Compose(c2pParsed.Namespace, c2pParsed.ComponentObjects, c2pParsed.ClusterSelectors)
 }
 
-func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.ComponentObject, clusterSelectors map[string]string) error {
+func (c *Composer) Compose(namespace string, componentObjects []oscal.ComponentObject, clusterSelectors map[string]string) error {
 
 	if clusterSelectors == nil {
 		clusterSelectors = map[string]string{"env": "dev"}
@@ -209,7 +209,7 @@ func (c *ComposerV2) Compose(namespace string, componentObjects []oscal.Componen
 	return nil
 }
 
-func (c *ComposerV2) CopyAllTo(destDir string) error {
+func (c *Composer) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}
@@ -219,7 +219,7 @@ func (c *ComposerV2) CopyAllTo(destDir string) error {
 	return nil
 }
 
-func (c *ComposerV2) GeneratePolicySet() (*resmap.ResMap, error) {
+func (c *Composer) GeneratePolicySet() (*resmap.ResMap, error) {
 	generatedManifests, err := policygenerator.Kustomize(c.tempDir.GetTempDir())
 	if err != nil {
 		logger.Sugar().Error(err, "failed to run kustomize")

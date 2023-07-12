@@ -1,13 +1,13 @@
 compliance:
   name: Test Compliance # name of compliance
   catalog:
-    url: local://./pkg/composer/testdata/oscal/catalog.json
+    url: ./pkg/composer/testdata/oscal/catalog.json
   profile:
-    url: local://./pkg/composer/testdata/oscal/profile.json
+    url: ./pkg/composer/testdata/oscal/profile.json
   componentDefinition:
-    url: local://./pkg/composer/testdata/oscal/component-definition.json
+    url: ./pkg/composer/testdata/oscal/component-definition.json
 policyResources: 
-  url: local://./pkg/composer/testdata/policies
+  url: ./pkg/composer/testdata/policies
 clusterGroups:
   - name: cluster-nist-high # name of clusterGroup
     matchLabels:

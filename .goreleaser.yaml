@@ -18,4 +18,4 @@ release:
   skip_upload: false
   github:
     owner: yana1205
-    name: compliance-to-policy-yana
+    name: compliance-to-policy

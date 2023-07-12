@@ -62,6 +62,7 @@ type Spec struct {
 
 	Compliance      Compliance     `json:"compliance,omitempty"`
 	PolicyResources ResourceRef    `json:"policyResources,omitempty"`
+	PolicyRersults  ResourceRef    `json:"policyResults,omitempty"`
 	ClusterGroups   []ClusterGroup `json:"clusterGroups,omitempty"`
 	Binding         Binding        `json:"binding,omitempty"`
 	Target          Target         `json:"target,omitempty"`

@@ -44,17 +44,20 @@ func TestComposer(t *testing.T) {
 		Compliance: typec2pcr.Compliance{
 			Name: "Test Compliance",
 			Catalog: typec2pcr.ResourceRef{
-				Url: "local://" + catalogPath,
+				Url: catalogPath,
 			},
 			Profile: typec2pcr.ResourceRef{
-				Url: "local://" + profilePath,
+				Url: profilePath,
 			},
 			ComponentDefinition: typec2pcr.ResourceRef{
-				Url: "local://" + cdPath,
+				Url: cdPath,
 			},
 		},
 		PolicyResources: typec2pcr.ResourceRef{
-			Url: "local://" + policyDir,
+			Url: policyDir,
+		},
+		PolicyRersults: typec2pcr.ResourceRef{
+			Url: "/1/2/3",
 		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
@@ -72,7 +75,7 @@ func TestComposer(t *testing.T) {
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
-	composer := NewComposerV2ByTempDirectory(c2pcrParsed.PolicyResoureDir, tempDir)
+	composer := NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, tempDir)
 	err = composer.Compose(c2pcrParsed.Namespace, c2pcrParsed.ComponentObjects, c2pcrParsed.ClusterSelectors)
 	assert.NoError(t, err, "Should not happen")
 }

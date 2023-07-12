@@ -70,7 +70,7 @@ func (r *Reporter) SetGenerationType(generationType string) {
 	r.generationType = generationType
 }
 
-func (r *Reporter) Generate(path string) (typereport.Spec, error) {
+func (r *Reporter) Generate() (typereport.Spec, error) {
 	traverseFunc := genTraverseFunc(
 		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
 		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
@@ -78,7 +78,7 @@ func (r *Reporter) Generate(path string) (typereport.Spec, error) {
 			r.placementDecisions = append(r.placementDecisions, &placementDecision)
 		},
 	)
-	if err := filepath.Walk(path, traverseFunc); err != nil {
+	if err := filepath.Walk(r.c2pParsed.PolicyResultsDir, traverseFunc); err != nil {
 		logger.Error(err.Error())
 	}
 	for _, policy := range r.policies {

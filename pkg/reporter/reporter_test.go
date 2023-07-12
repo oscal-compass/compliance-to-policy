@@ -31,6 +31,7 @@ import (
 func TestReporter(t *testing.T) {
 
 	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
+	policyResultsDir := pkg.PathFromPkgDirectory("./testdata/policy-results")
 	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/catalog.json")
 	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/profile.json")
 	cdPath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/component-definition.json")
@@ -46,17 +47,20 @@ func TestReporter(t *testing.T) {
 		Compliance: typec2pcr.Compliance{
 			Name: "Test Compliance",
 			Catalog: typec2pcr.ResourceRef{
-				Url: "local://" + catalogPath,
+				Url: catalogPath,
 			},
 			Profile: typec2pcr.ResourceRef{
-				Url: "local://" + profilePath,
+				Url: profilePath,
 			},
 			ComponentDefinition: typec2pcr.ResourceRef{
-				Url: "local://" + cdPath,
+				Url: cdPath,
 			},
 		},
 		PolicyResources: typec2pcr.ResourceRef{
-			Url: "local://" + policyDir,
+			Url: policyDir,
+		},
+		PolicyRersults: typec2pcr.ResourceRef{
+			Url: policyResultsDir,
 		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
@@ -75,7 +79,7 @@ func TestReporter(t *testing.T) {
 	assert.NoError(t, err, "Should not happen")
 
 	reporter := NewReporter(c2pcrParsed)
-	report, err := reporter.Generate(pkg.PathFromPkgDirectory("./testdata/policy-results"))
+	report, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 
 	err = pkg.WriteObjToYamlFileByGoYaml(tempDir.GetTempDir()+"/compliance-report.yaml", report)
@@ -87,7 +91,7 @@ func TestReporter(t *testing.T) {
 	assert.Equal(t, expected, report)
 
 	reporter.SetGenerationType("policy-report")
-	reportFromPolicyReports, err := reporter.Generate(pkg.PathFromPkgDirectory("./testdata/policy-results"))
+	reportFromPolicyReports, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 
 	assert.Equal(t, report, reportFromPolicyReports)

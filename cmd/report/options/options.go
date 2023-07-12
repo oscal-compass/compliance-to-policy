@@ -23,10 +23,9 @@ import (
 )
 
 type Options struct {
-	C2PCRPath        string
-	PolicyResultsDir string
-	TempDirPath      string
-	OutputDir        string
+	C2PCRPath   string
+	TempDirPath string
+	OutputDir   string
 }
 
 func NewOptions() *Options {
@@ -35,7 +34,6 @@ func NewOptions() *Options {
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&o.C2PCRPath, "c2pcr", "", "path to c2p CR")
-	fs.StringVar(&o.PolicyResultsDir, "policy-results-dir", "", "path to directory hosting policy results")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
 	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output files")
 }
@@ -47,9 +45,6 @@ func (o *Options) Complete() error {
 func (o *Options) Validate() error {
 	if o.C2PCRPath == "" {
 		return errors.New("--c2pcr is required")
-	}
-	if o.PolicyResultsDir == "" {
-		return errors.New("--policy-results-dir is required")
 	}
 	return nil
 }
