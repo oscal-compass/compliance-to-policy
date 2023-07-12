@@ -21,10 +21,10 @@ import (
 	"os"
 
 	compliancetopolicycontrollerv1alpha1 "github.com/IBM/compliance-to-policy/api/v1alpha1"
+	"github.com/IBM/compliance-to-policy/controllers/composer"
 	"github.com/IBM/compliance-to-policy/controllers/utils"
 	"github.com/IBM/compliance-to-policy/controllers/utils/gitrepo"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/composer"
 	"github.com/go-logr/logr"
 	cp "github.com/otiai10/copy"
 	ctrl "sigs.k8s.io/controller-runtime"
