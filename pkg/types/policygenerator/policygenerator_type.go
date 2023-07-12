@@ -68,8 +68,8 @@ type PolicyOptions struct {
 	OrderManifests                 bool               `json:"orderManifests" yaml:"orderManifests"`
 	Disabled                       bool               `json:"disabled,omitempty" yaml:"disabled,omitempty"`
 	IgnorePending                  bool               `json:"ignorePending,omitempty" yaml:"ignorePending,omitempty"`
-	InformGatekeeperPolicies       bool               `json:"informGatekeeperPolicies,omitempty" yaml:"informGatekeeperPolicies,omitempty"`
-	InformKyvernoPolicies          bool               `json:"informKyvernoPolicies,omitempty" yaml:"informKyvernoPolicies,omitempty"`
+	InformGatekeeperPolicies       bool               `json:"informGatekeeperPolicies" yaml:"informGatekeeperPolicies"`
+	InformKyvernoPolicies          bool               `json:"informKyvernoPolicies" yaml:"informKyvernoPolicies"`
 	GeneratePolicyPlacement        bool               `json:"generatePolicyPlacement,omitempty" yaml:"generatePolicyPlacement,omitempty"`
 	GeneratePlacementWhenInSet     bool               `json:"generatePlacementWhenInSet,omitempty" yaml:"generatePlacementWhenInSet,omitempty"`
 	PolicySets                     []string           `json:"policySets,omitempty" yaml:"policySets,omitempty"`
