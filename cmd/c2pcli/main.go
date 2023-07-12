@@ -19,7 +19,7 @@ package main
 import (
 	"os"
 
-	"github.com/IBM/compliance-to-policy/cmd/compose/cmd"
+	"github.com/IBM/compliance-to-policy/cmd/c2pcli/cmd"
 )
 
 func main() {

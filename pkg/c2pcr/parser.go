@@ -25,11 +25,10 @@ import (
 	"go.uber.org/zap"
 )
 
-var logger *zap.Logger = pkg.GetLogger("composer")
+var logger *zap.Logger = pkg.GetLogger("c2pcr")
 
 type C2PCRParser struct {
 	gitUtils pkg.GitUtils
-	parsed   c2pcr.C2PCRParsed
 }
 
 func NewParser(gitUtils pkg.GitUtils) C2PCRParser {
