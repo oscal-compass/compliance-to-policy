@@ -30,6 +30,9 @@ Dockerfile.cross
 .vscode
 .idea
 
+# Output of gorelease
+dist
+
 # ignore output by test
 /**/_test
 

@@ -1,0 +1,21 @@
+# .goreleaser.yaml
+builds:
+- id: c2pcli
+  main: ./cmd/c2pcli
+  binary: c2pcli
+  goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  - arm64
+  ignore:
+  - goos: linux
+    goarch: arm64
+
+release:
+  disable: false
+  skip_upload: false
+  github:
+    owner: yana1205
+    name: compliance-to-policy-yana
