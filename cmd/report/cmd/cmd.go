@@ -76,7 +76,7 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	err = pkg.WriteObjToYamlFileByGoYaml(outputDir+"/compliance-report.yaml", report)
+	err = pkg.WriteObjToYamlFile(outputDir+"/compliance-report.yaml", report)
 	if err != nil {
 		panic(err)
 	}
