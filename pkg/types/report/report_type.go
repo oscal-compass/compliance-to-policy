@@ -16,6 +16,10 @@ limitations under the License.
 
 package report
 
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 // RuleStatus is a status of rule result
 type RuleStatus string
 
@@ -80,4 +84,9 @@ type Spec struct {
 	Catalog    string      `json:"catalog,omitempty" yaml:"catalog,omitempty"`
 	Profile    string      `json:"profile,omitempty" yaml:"profile,omitempty"`
 	Components []Component `json:"components,omitempty" yaml:"components,omitempty"`
+}
+
+type ComplianceReport struct {
+	metav1.ObjectMeta `json:"metadata,omitempty" yaml:"metadata,omitempty"`
+	Spec              Spec `json:"spec" yaml:"spec"`
 }

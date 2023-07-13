@@ -82,7 +82,7 @@ func (r *Reporter) GetPolicyReports() []*typepolr.PolicyReport {
 	return r.policyReports
 }
 
-func (r *Reporter) Generate() (typereport.Spec, error) {
+func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 	traverseFunc := genTraverseFunc(
 		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
 		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
@@ -176,11 +176,20 @@ func (r *Reporter) Generate() (typereport.Spec, error) {
 			reportComponents = append(reportComponents, reportComponent)
 		}
 	}
-	return typereport.Spec{
+	spec := typereport.Spec{
 		Catalog:    r.c2pParsed.Catalog.Metadata.Title,
 		Profile:    r.c2pParsed.Profile.Metadata.Title,
 		Components: reportComponents,
-	}, nil
+	}
+	complianceReport := typereport.ComplianceReport{
+		ObjectMeta: v1.ObjectMeta{
+			Name:              "compliance-report",
+			CreationTimestamp: v1.Now(),
+		},
+		Spec: spec,
+	}
+
+	return complianceReport, nil
 }
 
 func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Reason {

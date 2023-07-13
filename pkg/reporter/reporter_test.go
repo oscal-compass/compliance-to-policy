@@ -82,17 +82,24 @@ func TestReporter(t *testing.T) {
 	report, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 
-	err = pkg.WriteObjToYamlFileByGoYaml(tempDir.GetTempDir()+"/compliance-report.yaml", report)
+	err = pkg.WriteObjToYamlFile(tempDir.GetTempDir()+"/compliance-report.yaml", report)
 	assert.NoError(t, err, "Should not happen")
 
-	var expected typereport.Spec
+	var expected typereport.ComplianceReport
 	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &expected)
+
+	// Timestamp is currently set by Now(). Since the timestamp should be always different from expected one, reset creationTimestamp of expected one to actual one.
+	expected.CreationTimestamp = report.CreationTimestamp
+
 	assert.NoError(t, err, "Should not happen")
 	assert.Equal(t, expected, report)
 
 	reporter.SetGenerationType("policy-report")
 	reportFromPolicyReports, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
+
+	// Timestamp is currently set by Now(). Since the timestamp should be always different from expected one, reset creationTimestamp of expected one to actual one.
+	reportFromPolicyReports.CreationTimestamp = report.CreationTimestamp
 
 	assert.Equal(t, report, reportFromPolicyReports)
 

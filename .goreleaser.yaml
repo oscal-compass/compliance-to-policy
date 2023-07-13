@@ -16,7 +16,6 @@ builds:
 release:
   disable: false
   skip_upload: false
-  mode: replace
   github:
     owner: yana1205
     name: compliance-to-policy
