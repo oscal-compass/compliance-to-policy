@@ -1,7 +1,7 @@
 apiVersion: wgpolicyk8s.io/v1beta1
 kind: PolicyReport
 metadata:
-  creationTimestamp: null
+  creationTimestamp: "2023-07-13T03:45:31Z"
   name: policy-disallowed-roles
   namespace: c2p
 results:

@@ -46,7 +46,7 @@ type Reporter struct {
 	policySets         []*typepolicy.PolicySet
 	placementDecisions []*typeplacementdecision.PlacementDecision
 	policyReports      []*typepolr.PolicyReport
-	generationType     string
+	generationType     GenerationType
 }
 
 type Reason struct {
@@ -55,6 +55,13 @@ type Reason struct {
 	Messages        []typepolicy.ComplianceHistory `json:"messages,omitempty" yaml:"messages,omitempty"`
 }
 
+type GenerationType string
+
+const (
+	GenerationTypeRaw          GenerationType = "raw"
+	GenerationTypePolicyReport GenerationType = "policy-report"
+)
+
 func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 	r := Reporter{
 		c2pParsed:          c2pParsed,
@@ -62,12 +69,17 @@ func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 		policySets:         []*typepolicy.PolicySet{},
 		placementDecisions: []*typeplacementdecision.PlacementDecision{},
 		policyReports:      []*typepolr.PolicyReport{},
+		generationType:     GenerationTypeRaw,
 	}
 	return &r
 }
 
-func (r *Reporter) SetGenerationType(generationType string) {
+func (r *Reporter) SetGenerationType(generationType GenerationType) {
 	r.generationType = generationType
+}
+
+func (r *Reporter) GetPolicyReports() []*typepolr.PolicyReport {
+	return r.policyReports
 }
 
 func (r *Reporter) Generate() (typereport.Spec, error) {
@@ -103,13 +115,13 @@ func (r *Reporter) Generate() (typereport.Spec, error) {
 		}
 		for _, controlImpleObj := range cdobj.ControlImpleObjects {
 			controlResults := []typereport.ControlResult{}
-			requiredControls := []string{}
-			checkedControls := []string{}
+			requiredControls := sets.NewString()
+			checkedControls := sets.NewString()
 			for _, controlObj := range controlImpleObj.ControlObjects {
 				ruleResults := []typereport.RuleResult{}
 				controlId := controlObj.ControlId
 				for _, ruleId := range controlObj.RuleIds {
-					requiredControls = append(requiredControls, controlId)
+					requiredControls.Insert(controlId)
 					rule, ok := oscal.FindRulesByRuleId(ruleId, cdobj.RuleObjects)
 					if !ok {
 						ruleResults = append(ruleResults, typereport.RuleResult{
@@ -121,7 +133,7 @@ func (r *Reporter) Generate() (typereport.Spec, error) {
 						policyId := rule.PolicyId
 						policy := typeutils.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
 						var reasons []Reason
-						if r.generationType == "policy-report" {
+						if r.generationType == GenerationTypePolicyReport {
 							reasons = r.GenerateReasonsFromPolicyReports(*policy)
 						} else {
 							reasons = r.GenerateReasonsFromRawPolicies(*policy)
@@ -139,7 +151,7 @@ func (r *Reporter) Generate() (typereport.Spec, error) {
 							Reason:   reason,
 						}
 						ruleResults = append(ruleResults, ruleResult)
-						checkedControls = append(checkedControls, controlId)
+						checkedControls.Insert(controlId)
 					}
 				}
 				controlResult := typereport.ControlResult{
@@ -155,8 +167,8 @@ func (r *Reporter) Generate() (typereport.Spec, error) {
 			}
 			reportComponent := typereport.Component{
 				ComponentTitle:   cdobj.ComponentTitle,
-				RequiredControls: requiredControls,
-				CheckedControls:  checkedControls,
+				RequiredControls: requiredControls.List(),
+				CheckedControls:  checkedControls.List(),
 				Parameters:       parameters,
 				ControlResults:   controlResults,
 				ComplianceStatus: aggregateControlResults(controlResults),

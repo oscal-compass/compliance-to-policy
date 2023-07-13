@@ -4,13 +4,13 @@ components:
   - componentTitle: Managed Kubernetes
     complianceStatus: NonCompliant
     requiredControls:
-      - cm-6
-      - cm-2
       - ac-6
+      - cm-2
+      - cm-6
     checkedControls:
-      - cm-6
-      - cm-2
       - ac-6
+      - cm-2
+      - cm-6
     parameters:
       minimum_nginx_deployment_replicas: "3"
     controlResults:

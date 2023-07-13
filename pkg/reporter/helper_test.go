@@ -61,6 +61,8 @@ func TestConvertToPolicyReport(t *testing.T) {
 				expected.Results[idx].Properties = map[string]string{}
 			}
 		}
+		// Timestamp is currently set by Now(). Since the timestamp should be always different from expected one, reset creationTimestamp of expected one to actual one.
+		expected.CreationTimestamp = policyReport.CreationTimestamp
 		assert.Equal(t, expected, policyReport)
 	}
 }

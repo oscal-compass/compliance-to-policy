@@ -69,8 +69,9 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	reporter := reporter.NewReporter(c2pcrParsed)
-	report, err := reporter.Generate()
+	r := reporter.NewReporter(c2pcrParsed)
+	r.SetGenerationType(reporter.GenerationTypePolicyReport)
+	report, err := r.Generate()
 	if err != nil {
 		panic(err)
 	}
@@ -78,6 +79,17 @@ func Run(options *options.Options) error {
 	err = pkg.WriteObjToYamlFileByGoYaml(outputDir+"/compliance-report.yaml", report)
 	if err != nil {
 		panic(err)
+	}
+
+	for _, pr := range r.GetPolicyReports() {
+		nspath, err := pkg.MakeDir(outputDir + "/" + pr.Namespace)
+		if err != nil {
+			panic(err)
+		}
+		err = pkg.WriteObjToYamlFile(nspath+"/"+pr.Name+".yaml", pr)
+		if err != nil {
+			panic(err)
+		}
 	}
 	return nil
 }

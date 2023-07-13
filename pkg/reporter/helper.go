@@ -96,8 +96,9 @@ func ConvertToPolicyReport(policy typepolicy.Policy) typepolr.PolicyReport {
 			APIVersion: "wgpolicyk8s.io/v1beta1",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Namespace: policy.Namespace,
-			Name:      policy.Name,
+			Namespace:         policy.Namespace,
+			Name:              policy.Name,
+			CreationTimestamp: metav1.Now(),
 		},
 		Scope: &corev1.ObjectReference{
 			Kind:       "Policy",
