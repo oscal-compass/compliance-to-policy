@@ -23,9 +23,10 @@ import (
 )
 
 type Options struct {
-	C2PCRPath   string
-	TempDirPath string
-	OutputDir   string
+	C2PCRPath                   string
+	TempDirPath                 string
+	OutputDir                   string
+	OutputDirForPolicyGenerator string
 }
 
 func NewOptions() *Options {
@@ -35,7 +36,8 @@ func NewOptions() *Options {
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&o.C2PCRPath, "c2pcr", "", "path to c2p CR")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
-	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output files")
+	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output manifest files of generated OCM Policy manifests")
+	fs.StringVar(&o.OutputDirForPolicyGenerator, "out-for-policy-generator", "", "path to a directory for output files for policy generator to generate OCM Policy manifests (default: system temporary directory or directory specified by --temp-dir)")
 }
 
 func (o *Options) Complete() error {

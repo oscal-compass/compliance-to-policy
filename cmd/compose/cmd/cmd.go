@@ -18,6 +18,7 @@ package cmd
 
 import (
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -68,7 +69,8 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	composer := composer.NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, pkg.NewTempDirectory(options.TempDirPath))
+	tmpdir := pkg.NewTempDirectory(options.TempDirPath)
+	composer := composer.NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, tmpdir)
 	if err := composer.ComposeByC2PParsed(c2pcrParsed); err != nil {
 		panic(err)
 	}
@@ -76,18 +78,26 @@ func Run(options *options.Options) error {
 	if err != nil {
 		panic(err)
 	}
-	policySetYaml, err := (*policySet).AsYaml()
-	if err != nil {
-		panic(err)
+
+	for _, resource := range (*policySet).Resources() {
+		name := resource.GetName()
+		kind := resource.GetKind()
+		namespace := resource.GetNamespace()
+		yamlByte, err := resource.AsYAML()
+		if err != nil {
+			panic(err)
+		}
+		fnamesTokens := []string{kind, namespace, name}
+		fname := strings.Join(fnamesTokens, ".") + ".yaml"
+		if err := os.WriteFile(options.OutputDir+"/"+fname, yamlByte, os.ModePerm); err != nil {
+			panic(err)
+		}
 	}
-	if err := os.WriteFile(options.OutputDir+"/manifests.yaml", policySetYaml, os.ModePerm); err != nil {
-		panic(err)
-	}
-	if err := os.MkdirAll(options.OutputDir, os.ModePerm); err != nil {
-		panic(err)
-	}
-	if err := composer.CopyAllTo(options.OutputDir); err != nil {
-		panic(err)
+
+	if options.OutputDirForPolicyGenerator != "" {
+		if err := composer.CopyAllTo(options.OutputDirForPolicyGenerator); err != nil {
+			panic(err)
+		}
 	}
 
 	return nil
