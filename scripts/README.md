@@ -11,10 +11,6 @@
     ```
     init.sh
     ```
-1. Deploy policies
-    ```
-    deploy.sh
-    ```
 1. Collect results
     ```
     collect.sh
