@@ -17,6 +17,7 @@ limitations under the License.
 package reporter
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -132,22 +133,29 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 					} else {
 						policyId := rule.PolicyId
 						policy := typeutils.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
-						var reasons []Reason
-						if r.generationType == GenerationTypePolicyReport {
-							reasons = r.GenerateReasonsFromPolicyReports(*policy)
-						} else {
-							reasons = r.GenerateReasonsFromRawPolicies(*policy)
-						}
 						var reason string
-						if statusByte, err := sigyaml.Marshal(reasons); err == nil {
-							reason = string(statusByte)
+						var ruleStatus typereport.RuleStatus
+						if policy != nil {
+							var reasons []Reason
+							if r.generationType == GenerationTypePolicyReport {
+								reasons = r.GenerateReasonsFromPolicyReports(*policy)
+							} else {
+								reasons = r.GenerateReasonsFromRawPolicies(*policy)
+							}
+							if statusByte, err := sigyaml.Marshal(reasons); err == nil {
+								reason = string(statusByte)
+							} else {
+								reason = err.Error()
+							}
+							ruleStatus = mapToRuleStatus(policy.Status.ComplianceState)
 						} else {
-							reason = err.Error()
+							reason = fmt.Sprintf("Unable to find policy status for policy %s", policyId)
+							ruleStatus = typereport.RuleStatusError
 						}
 						ruleResult := typereport.RuleResult{
 							RuleId:   ruleId,
 							PolicyId: policyId,
-							Status:   mapToRuleStatus(policy.Status.ComplianceState),
+							Status:   ruleStatus,
 							Reason:   reason,
 						}
 						ruleResults = append(ruleResults, ruleResult)
