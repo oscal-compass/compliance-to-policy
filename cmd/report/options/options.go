@@ -23,9 +23,10 @@ import (
 )
 
 type Options struct {
-	C2PCRPath   string
-	TempDirPath string
-	OutputDir   string
+	C2PCRPath      string
+	TempDirPath    string
+	MdTemplateFile string
+	OutputDir      string
 }
 
 func NewOptions() *Options {
@@ -35,6 +36,7 @@ func NewOptions() *Options {
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&o.C2PCRPath, "c2pcr", "", "path to c2p CR")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
+	fs.StringVar(&o.MdTemplateFile, "template-file", "", "path to a template of markdown (default: pre-defined template)")
 	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output files")
 }
 
