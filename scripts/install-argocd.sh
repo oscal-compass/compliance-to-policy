@@ -57,7 +57,6 @@ kill $pid
 
 # setup argocd
 kubectl config set-context --current --namespace=argocd
-kubectl port-forward svc/argocd-server -n argocd 8080:443 & pid=$!; sleep 3
 kubectl -n argocd patch configmap argocd-cm --type merge -p '{"data":{"timeout.reconciliation":"'$interval'"}}'
 kubectl -n argocd rollout restart deploy argocd-repo-server
 kubectl -n argocd rollout restart sts argocd-application-controller

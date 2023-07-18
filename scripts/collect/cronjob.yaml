@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: collect-ocm-status
+  namespace: c2p
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: collector
+            image: ghcr.io/yana1205/compliance-to-policy-ocm-status-collector:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - |
+              git clone https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_ORG/$GITHUB_REPO.git collect
+              git config --global user.name "C2P Status Collector"
+              git config --global user.email ""
+
+              cd collect
+              resultdir=./ocm-policy-statuses
+              while true
+              do
+                git pull
+                rm -rf  $resultdir/*
+                kubectl get policy -A -o yaml > $resultdir/00.policies.yaml
+                kubectl get policySet -A -o yaml > $resultdir/00.policysets.yaml
+                kubectl get placementdecisions -A -o yaml > $resultdir/00.placementdecisions.yaml
+
+                cd $resultdir
+                yq '.items[]' 00.policies.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
+                yq '.items[]' 00.policysets.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
+                yq '.items[]' 00.placementdecisions.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
+                cd ..
+
+                echo "git diff"
+                git diff
+                echo ""
+                
+                git add $resultdir 
+                git commit -m "Push $resultdir at `date`"
+                if [[ "$?" == "0" ]];then
+                  echo "Push $resultdir to github"
+                  git push
+                else
+                  echo "Nothing to push $resultdir to github"
+                fi
+                
+                if [[ "$INTERVAL" == "0" || "$INTERVAL" == "" ]];then
+                  break
+                fi
+                sleep $INTERVAL
+              done
+            env:
+              - name: GITHUB_USER
+                value: yana1205
+              - name: GITHUB_ORG
+                value: yana1205
+              - name: GITHUB_REPO
+                value: c2p-for-ocm-pipeline0712
+              - name: GITHUB_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: collect-ocm-status-secret
+                    key: github-token
+              - name: INTERVAL
+                value: "0"
+          restartPolicy: OnFailure
+          serviceAccountName: collector

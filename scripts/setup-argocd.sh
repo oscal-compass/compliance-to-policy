@@ -58,9 +58,8 @@ kubectl config set-context --current --namespace=argocd
 kubectl port-forward svc/argocd-server -n argocd 8080:443 & pid=$!; sleep 3
 argocd login localhost:8080 --username=admin --password="${admin_pass}" --insecure
 argocd repocreds add --upsert https://github.com/$org/$repo --username $user --password $token
-argocd app create $appname --repo https://github.com/$org/$repo.git --path $path --dest-server https://kubernetes.default.svc --dest-namespace $ns --sync-option Replace=true --sync-policy automated --allow-empty --auto-prune
-kubectl -n argocd patch application $appname --type merge -p '{"spec":{"syncPolicy":{"syncOptions": ["Replace=true"]}}}'
-kubectl -n argocd patch application $appname --type merge -p '{"spec":{"syncPolicy":{"automated": {"prune": true}}}}'
+# argocd app create $appname --repo https://github.com/$org/$repo.git --path $path --dest-server https://kubernetes.default.svc --dest-namespace $ns --sync-option Replace=true --sync-policy automated --allow-empty --auto-prune
+argocd app create $appname --repo https://github.com/$org/$repo.git --path $path --dest-server https://kubernetes.default.svc --dest-namespace $ns --sync-option Replace=true --sync-policy automated --allow-empty
 argocd app get $appname
 
 kill $pid
