@@ -23,9 +23,8 @@ import (
 )
 
 type Options struct {
-	C2PCRPath   string
-	TempDirPath string
-	OutputDir   string
+	ComplianceReportFile string
+	MdTemplateFile       string
 }
 
 func NewOptions() *Options {
@@ -33,9 +32,8 @@ func NewOptions() *Options {
 }
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
-	fs.StringVar(&o.C2PCRPath, "c2pcr", "", "path to c2p CR")
-	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
-	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output files")
+	fs.StringVar(&o.ComplianceReportFile, "compliance-report", "", "path to a compliance report")
+	fs.StringVar(&o.MdTemplateFile, "template", "", "path to a template of markdown (default: pre-defined template)")
 }
 
 func (o *Options) Complete() error {
@@ -43,8 +41,8 @@ func (o *Options) Complete() error {
 }
 
 func (o *Options) Validate() error {
-	if o.C2PCRPath == "" {
-		return errors.New("--c2pcr is required")
+	if o.ComplianceReportFile == "" {
+		return errors.New("--compliance-report is required")
 	}
 	return nil
 }

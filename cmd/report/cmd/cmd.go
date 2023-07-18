@@ -92,15 +92,5 @@ func Run(options *options.Options) error {
 		}
 	}
 
-	md := reporter.NewMarkdown()
-	generated, err := md.Generate(options.MdTemplateFile, report)
-	if err != nil {
-		panic(err)
-	}
-	err = os.WriteFile(outputDir+"/compliance-report.md", generated, os.ModePerm)
-	if err != nil {
-		panic(err)
-	}
-
 	return nil
 }
