@@ -100,15 +100,19 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 	}
 	reportComponents := []typereport.Component{}
 	for _, cdobj := range r.c2pParsed.ComponentObjects {
-		policySet := typeutils.FindByNamespaceAnnotation(r.policySets, r.c2pParsed.Namespace, pkg.ANNOTATION_COMPONENT_TITLE, cdobj.ComponentTitle)
+		policySets := typeutils.FilterByAnnotation(r.policySets, pkg.ANNOTATION_COMPONENT_TITLE, cdobj.ComponentTitle)
 		clusterNameSets := sets.NewString()
+		var policySet *typepolicy.PolicySet
+		if len(policySets) > 0 {
+			policySet = policySets[0]
+		}
 		if policySet != nil {
 			placements := []string{}
 			for _, placement := range policySet.Status.Placement {
 				placements = append(placements, placement.Placement)
 			}
 			for _, placement := range placements {
-				placementDecision := typeutils.FindByNamespaceLabel(r.placementDecisions, r.c2pParsed.Namespace, "cluster.open-cluster-management.io/placement", placement)
+				placementDecision := typeutils.FindByNamespaceLabel(r.placementDecisions, policySet.Namespace, "cluster.open-cluster-management.io/placement", placement)
 				for _, decision := range placementDecision.Status.Decisions {
 					clusterNameSets.Insert(decision.ClusterName)
 				}
@@ -132,7 +136,10 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 						})
 					} else {
 						policyId := rule.PolicyId
-						policy := typeutils.FindByNamespaceName(r.policies, r.c2pParsed.Namespace, policyId)
+						var policy *typepolicy.Policy
+						if policySet != nil {
+							policy = typeutils.FindByNamespaceName(r.policies, policySet.Namespace, policyId)
+						}
 						var reason string
 						var ruleStatus typereport.RuleStatus
 						if policy != nil {
@@ -204,7 +211,7 @@ func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Re
 	reasons := []Reason{}
 	for _, status := range policy.Status.Status {
 		clusterName := status.ClusterName
-		policyPerCluster := typeutils.FindByNamespaceName(r.policies, clusterName, r.c2pParsed.Namespace+"."+policy.Name)
+		policyPerCluster := typeutils.FindByNamespaceName(r.policies, clusterName, policy.Namespace+"."+policy.Name)
 		if policyPerCluster == nil {
 			continue
 		}
@@ -228,7 +235,7 @@ func (r *Reporter) GenerateReasonsFromPolicyReports(policy typepolicy.Policy) []
 	reasons := []Reason{}
 	for _, status := range policy.Status.Status {
 		clusterName := status.ClusterName
-		policyReport := findPolicyReportByNamespaceName(r.policyReports, clusterName, r.c2pParsed.Namespace+"."+policy.Name)
+		policyReport := findPolicyReportByNamespaceName(r.policyReports, clusterName, policy.Namespace+"."+policy.Name)
 		clusterHistories := []typepolicy.ComplianceHistory{}
 		for _, result := range policyReport.Results {
 			clusterHistory := typepolicy.ComplianceHistory{

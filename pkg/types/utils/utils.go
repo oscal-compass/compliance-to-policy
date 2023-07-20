@@ -23,6 +23,19 @@ type KubernetesObject interface {
 	GetLabel() map[string]string
 }
 
+func FilterByAnnotation[T KubernetesObject](list []T, annotationName string, annotationValue string) []T {
+	filtered := []T{}
+	for _, item := range list {
+		an, ok := item.GetAnnotation()[annotationName]
+		if ok {
+			if an == annotationValue {
+				filtered = append(filtered, item)
+			}
+		}
+	}
+	return filtered
+}
+
 func FindByNamespaceName[T KubernetesObject](list []T, namespace string, name string) T {
 	var result T
 	for _, item := range list {

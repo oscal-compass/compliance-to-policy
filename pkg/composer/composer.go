@@ -188,7 +188,7 @@ func (c *Composer) Compose(namespace string, componentObjects []oscal.ComponentO
 		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "c2p-parameters",
-			Namespace: "c2p",
+			Namespace: namespace,
 		},
 		Data: parameters,
 	}

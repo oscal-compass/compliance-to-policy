@@ -27,15 +27,12 @@ import (
 )
 
 func TestMarkdown(t *testing.T) {
-	tmplateData, err := embeddedResources.ReadFile("template.md")
-	assert.NoError(t, err, "Should not happen")
-
 	var report typereport.ComplianceReport
-	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &report)
+	err := pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &report)
 	assert.NoError(t, err, "Should not happen")
 
 	markdown := NewMarkdown()
-	generated, err := markdown.Generate(string(tmplateData), report)
+	generated, err := markdown.Generate("", report)
 	assert.NoError(t, err, "Should not happen")
 
 	err = os.WriteFile(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.md"), generated, os.ModePerm)
