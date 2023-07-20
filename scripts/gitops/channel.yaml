@@ -1,0 +1,13 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+  name: c2p-policy-resource
+  namespace: c2p
+spec:
+  pathname: https://github.com/yana1205/c2p-for-ocm-pipeline0712.git
+  type: GitHub
+  secretRef:
+    name: git-secret
+    # namespace: c2p

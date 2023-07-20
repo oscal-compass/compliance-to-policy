@@ -24,6 +24,7 @@ spec:
 
               cd collect
               resultdir=./ocm-policy-statuses
+              mkdir -p $resultdir
               while true
               do
                 git pull
@@ -62,7 +63,7 @@ spec:
               - name: GITHUB_ORG
                 value: yana1205
               - name: GITHUB_REPO
-                value: c2p-for-ocm-pipeline0712
+                value: c2p-for-ocm-pipeline0712-evidence
               - name: GITHUB_TOKEN
                 valueFrom:
                   secretKeyRef:

@@ -26,3 +26,13 @@ kubectl -n c2p create secret generic --save-config collect-ocm-status-secret --f
 kubectl apply -f ./scripts/collect
 ```
 
+# Install GitOps
+1. Create Secret
+```
+kubectl -n c2p create secret generic --save-config git-secret --from-literal=user=$GITHUB_USER --from-literal=accessToken=$GITHUB_TOKEN
+```
+1. Deploy channel and subscription
+```
+kubectl -n c2p apply -f ./scripts/gitops
+```
+
