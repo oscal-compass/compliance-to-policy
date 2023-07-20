@@ -68,7 +68,7 @@ func TestComposer(t *testing.T) {
 			ClusterGroups: []string{"test-group"},
 		},
 		Target: typec2pcr.Target{
-			Namespace: "test",
+			Namespace: "",
 		},
 	}
 	c2pcrParser := c2pcr.NewParser(gitUtils)

@@ -38,6 +38,8 @@ import (
 
 var logger *zap.Logger = pkg.GetLogger("composer")
 
+var DummyNamespace string = "dummy-namespace-c2p"
+
 type Composer struct {
 	policiesDir string
 	tempDir     pkg.TempDirectory
@@ -176,6 +178,9 @@ func (c *Composer) Compose(namespace string, componentObjects []oscal.ComponentO
 		},
 	}
 
+	if policySetGeneratorManifest.PolicyDefaults.Namespace == "" {
+		policySetGeneratorManifest.PolicyDefaults.Namespace = DummyNamespace
+	}
 	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.GetTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
 		return err
 	}
@@ -224,6 +229,14 @@ func (c *Composer) GeneratePolicySet() (*resmap.ResMap, error) {
 	if err != nil {
 		logger.Sugar().Error(err, "failed to run kustomize")
 		return nil, err
+	}
+	// TODO: Workaround to allow to run PolicyGenerator with empty namespace.
+	for _, resource := range generatedManifests.Resources() {
+		if resource.GetNamespace() == DummyNamespace {
+			if err := resource.SetNamespace(""); err != nil {
+				return nil, err
+			}
+		}
 	}
 	return &generatedManifests, nil
 }

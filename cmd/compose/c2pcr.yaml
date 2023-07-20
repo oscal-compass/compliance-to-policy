@@ -8,6 +8,8 @@ compliance:
     url: ./pkg/composer/testdata/oscal/component-definition.json
 policyResources: 
   url: ./pkg/composer/testdata/policies
+policyResults: 
+  url: a/b/c
 clusterGroups:
   - name: cluster-nist-high # name of clusterGroup
     matchLabels:
@@ -17,4 +19,4 @@ binding:
   clusterGroups:
   - cluster-nist-high # clusterGroup name
 target:
-  namespace: compliance-high # namespace to which C2P deploys generated resources
+  namespace: "" # namespace to which C2P deploys generated resources
