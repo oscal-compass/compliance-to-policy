@@ -1,0 +1,24 @@
+name: Install PolicyGenerator
+description: Install PolicyGenerator
+inputs:
+  url:
+    description: PolicyGenerator artifact (binary) url
+    default: 'https://github.com/open-cluster-management-io/policy-generator-plugin/releases/download/v1.12.1/linux-amd64-PolicyGenerator'
+    required: false
+
+runs:
+  using: "composite"
+  
+  steps:
+  
+  - name: Download PolicyGenerator from ${{ inputs.url }}
+    shell: bash
+    run: |
+      curl -LO ${{ inputs.url }}  --output-dir /tmp
+
+  - name: Add PolicyGenerator to Kustomization plugin
+    shell: bash
+    run: |
+      mkdir -p ~/.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator
+      mv /tmp/linux-amd64-PolicyGenerator ~/.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator/PolicyGenerator
+      chmod +x ~/.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator/PolicyGenerator

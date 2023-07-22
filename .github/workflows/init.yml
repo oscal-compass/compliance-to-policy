@@ -1,0 +1,81 @@
+name: Initialize repositories
+
+on:
+  workflow_dispatch:
+
+env:
+  name: "GitHub Actions: C2P to initialize repos"
+  git-user: c2p
+  config-repo-dir: c2p-configuration
+  evidence-repo-dir: c2p-evidence
+  c2p-repo-dir: c2p
+
+jobs:
+  setup-configuration-repo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: ${{ env.c2p-repo-dir }}
+
+    - name: Setup git user
+      run: |
+        git --version
+        git config --global user.name "${{ env.name }}"
+        git config --global user.email "<>"
+
+    - name: Clone repo for C2P configuration pipeline
+      run: |
+        git clone https://${{ env.git-user }}:${{ secrets.PAT }}@github.com/${{ vars.CONFIGURATION_REPOSITORY }}.git ${{ env.config-repo-dir }}
+
+    - name: Setup C2P configuration pipeline repo
+      run: |
+        c2pdir=${{ github.workspace }}/${{ env.c2p-repo-dir }}
+        cd ${{ github.workspace }}/${{ env.config-repo-dir }}
+        mkdir -p .github/actions
+        mkdir -p .github/workflows
+        cp -r $c2pdir/.github/actions/* .github/actions/
+        cp -r $c2pdir/.github/workflows/oscal-to-policy.yml .github/workflows/
+        cp -r $c2pdir/.github/workflows/run-oscal-to-policy.yml .github/workflows/
+        cp -r $c2pdir/oscal .
+        cp -r $c2pdir/policy-resources .
+        git checkout -B main
+        git add -A
+        git commit --allow-empty -m "Setup C2P configuration pipeline repo"
+        git push origin main -f
+
+  setup-evidence-repo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: ${{ env.c2p-repo-dir }}
+
+    - name: Setup git user
+      run: |
+        git --version
+        git config --global user.name "${{ env.name }}"
+        git config --global user.email "<>"
+
+    - name: Clone repo for C2P configuration pipeline
+      run: |
+        git clone https://${{ env.git-user }}:${{ secrets.PAT }}@github.com/${{ vars.EVIDENCE_REPOSITORY }}.git ${{ env.evidence-repo-dir }}
+
+    - name: Setup C2P evidence pipeline repo
+      run: |
+        c2pdir=${{ github.workspace }}/${{ env.c2p-repo-dir }}
+        cd ${{ github.workspace }}/${{ env.evidence-repo-dir }}
+        mkdir -p .github/workflows
+        mkdir -p .github/templates
+        cp -r $c2pdir/.github/templates/* .github/templates/
+        cp -r $c2pdir/.github/workflows/policy-to-report.yml .github/workflows/
+        cp -r $c2pdir/.github/workflows/run-policy-to-report.yml .github/workflows/
+        export repourl=https://github.com/${{ vars.CONFIGURATION_REPOSITORY }}
+        yq -i '.jobs.policy-to-report.with.c2p-base-repository="${{ vars.CONFIGURATION_REPOSITORY }}"' .github/workflows/run-policy-to-report.yml
+        yq -i '.jobs.policy-to-report.with.compliance-catalog-url=strenv(repourl)+"/oscal/catalog.json"' .github/workflows/run-policy-to-report.yml
+        yq -i '.jobs.policy-to-report.with.compliance-profile-url=strenv(repourl)+"/oscal/profile.json"' .github/workflows/run-policy-to-report.yml
+        yq -i '.jobs.policy-to-report.with.compliance-component-definition-url=strenv(repourl)+"/oscal/component-definition.json"' .github/workflows/run-policy-to-report.yml
+        git checkout -B main
+        git add -A
+        git commit --allow-empty -m "Setup C2P evidence pipeline repo"
+        git push origin main -f

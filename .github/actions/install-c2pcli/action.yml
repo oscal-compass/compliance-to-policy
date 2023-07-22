@@ -1,0 +1,19 @@
+name: Install C2PCLI
+description: Install C2PCLI
+inputs:
+  url:
+    description: c2pcli artifact (tar.gz) url
+    default: 'https://github.com/yana1205/compliance-to-policy/releases/download/v0.1.2/compliance-to-policy_0.1.2_linux_amd64.tar.gz'
+    required: false
+
+runs:
+  using: "composite"
+  
+  steps:
+  - name: Download and install c2pcli
+    shell: bash
+    run: |
+      wget ${{ inputs.url }} -O /tmp/c2pcli.tar.gz
+      cd /tmp
+      tar zxvf c2pcli.tar.gz
+      cp c2pcli /usr/local/bin

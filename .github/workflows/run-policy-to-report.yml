@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Policy to Report
+
+permissions: write-all
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+    paths:
+      - "ocm-policy-statuses/**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  policy-to-report:
+    uses: ./.github/workflows/policy-to-report.yml
+    with:
+      pr-head-branch: c2p
+      pr-base-branch: main
+      c2p-base-repository: yana1205/c2p-for-ocm-pipeline0712
+      compliance-catalog-url: https://github.com/yana1205/c2p-for-ocm-pipeline0712/oscal/catalog.json
+      compliance-profile-url: https://github.com/yana1205/c2p-for-ocm-pipeline0712/oscal/profile.json
+      compliance-component-definition-url: https://github.com/yana1205/c2p-for-ocm-pipeline0712/oscal/component-definition.json
+      policy-results-url: ./ocm-policy-statuses/
+      output-dir-for-compliance-results: ./compliance-results
+    secrets:
+      PAT: ${{ secrets.PAT }}

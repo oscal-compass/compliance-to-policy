@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Cleanup
+
+permissions: write-all
+
+on:
+  workflow_dispatch:
+
+env:
+  name: "GitHub Actions: Cleanup"
+  pr-head-branch: cleanup
+  pr-base-branch: main
+
+jobs:
+
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Cleanup artifact directories
+      run: |
+        for d in ./ocm-policy-manifests
+        do
+          rm -rf $d
+          mkdir $d
+          touch $d/.keep
+        done
+
+    - name: Push changes to ${{ inputs.pr-head-branch }}
+      run: |
+        git --version
+        git config user.name "${{ env.name }}"
+        git config user.email "<>"
+        git checkout -b ${{ env.pr-head-branch }}
+        git add -A
+        git commit --allow-empty -m "Update"
+        git push origin ${{ env.pr-head-branch }} -f
+
+    - name: Create PR to ${{ env.pr-base-branch }} if not exist
+      uses: ./.github/actions/create-pr-if-not-exist
+      with:
+        base-branch: ${{ env.pr-base-branch }}
+        head-branch: ${{ env.pr-head-branch }}
+        body: 'Created by ${{ env.name }}'
+        github-token: ${{ secrets.PAT }}

@@ -1,0 +1,69 @@
+name: Create C2P CR
+description: Create C2P CR
+inputs:
+  compliance-catalog-url:
+    description: OSCAL Catalog URL
+    default: ./oscal/catalog.json
+    required: false
+  compliance-profile-url:
+    description: OSCAL Profile URL
+    default: ./oscal/profile.json
+    required: false
+  compliance-component-definition-url:
+    description: OSCAL Component Definition URL
+    default: ./oscal/component-definition.json
+    required: false
+  policy-resources-url:
+    description: Policy Resources URL
+    default: ./path/to/policy-resources/
+    required: false
+  policy-results-url:
+    description: Policy Results URL
+    default: ./path/to/policy-results/
+    required: false
+  cluster-label:
+    description: 'Label (key: value) to which clusters belong'
+    default: 'nothing: matched'
+    required: false
+  c2p-namespace:
+    description: 'Namespace in Hub to which OCM Policy/Placement/PlacementBinding/Configmap are deployed'
+    default: ""
+    required: false
+outputs:
+  c2pcr:
+    description: Path to C2P CR yaml
+    value: ${{ steps.c2pcr.outputs.c2pcr }}
+
+runs:
+  using: "composite"
+  
+  steps:
+  - id: c2pcr
+    name: Create C2P CR yaml
+    shell: bash
+    run: |
+      cat << EOL > ${{ runner.temp }}/c2pcr.yaml
+      compliance:
+        name: Compliance
+        catalog:
+          url: ${{ inputs.compliance-catalog-url }}
+        profile:
+          url: ${{ inputs.compliance-profile-url }}
+        componentDefinition:
+          url: ${{ inputs.compliance-component-definition-url }}
+      policyResources: 
+        url: ${{ inputs.policy-resources-url }}
+      policyResults: 
+        url: ${{ inputs.policy-results-url }}
+      clusterGroups:
+        - name: cluster-group1
+          matchLabels:
+            ${{ inputs.cluster-label }}
+      binding:
+        compliance: Compliance
+        clusterGroups:
+        - cluster-group1
+      target:
+        namespace: ${{ inputs.c2p-namespace }} 
+      EOL
+      echo "c2pcr=${{ runner.temp }}/c2pcr.yaml" >> $GITHUB_OUTPUT

@@ -1,0 +1,20 @@
+  post-process:
+    needs: policy-to-report
+    runs-on: ubuntu-latest
+    timeout-minutes: 1 # unit is minute
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+    - name: Wait for generated resources to be pushed
+      run: |
+        git rev-parse HEAD
+        counter=0
+        while [[ $counter -lt 60 && "`git rev-parse HEAD`" != "${{ needs.policy-to-report.outputs.commit-sha }}" ]]
+        do
+          git pull
+          git rev-parse HEAD
+          sleep 5
+          let counter=counter+1
+        done
+        echo "generate report from policy results"

@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+
+name: OSCAL to Policy
+
+permissions: write-all
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+    paths:
+      - "oscal/**"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "oscal/**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  oscal-to-policy:
+    uses: ./.github/workflows/oscal-to-policy.yml
+    with:
+      pr-head-branch: c2p
+      pr-base-branch: main
+      compliance-catalog-url: ./oscal/catalog.json
+      compliance-profile-url: ./oscal/profile.json
+      compliance-component-definition-url: ./oscal/component-definition.json
+      policy-resources-url: ./policy-resources/
+      cluster-label: 'level: nist-high'
+      output-dir-for-ocm-policy-manifests: ./ocm-policy-manifests
+    secrets:
+      PAT: ${{ secrets.PAT }}

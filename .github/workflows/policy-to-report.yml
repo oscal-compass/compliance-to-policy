@@ -1,0 +1,119 @@
+# This is a basic workflow to help you get started with Actions
+
+permissions: write-all
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      pr-head-branch:
+        description: Head branch name which is merged into the base branch
+        required: true
+        type: string
+      pr-base-branch:
+        description: Base branch name into which the head branch is merged
+        required: true
+        type: string
+      c2p-base-repository:
+        description: Git repository for common actions for C2P
+        required: true
+        type: string
+      compliance-catalog-url:
+        description: OSCAL Catalog URL
+        required: true
+        type: string
+      compliance-profile-url:
+        description: OSCAL Profile URL
+        required: true
+        type: string
+      compliance-component-definition-url:
+        description: OSCAL Component Definition URL
+        required: true
+        type: string
+      policy-results-url:
+        description: Policy Results URL
+        required: true
+        type: string
+      output-dir-for-compliance-results:
+        description: Output directory for generated OCM manifests
+        required: true
+        type: string
+    secrets:
+      PAT:
+        description: Github token (need read and write permission for Push and PR)
+        required: true
+    outputs:
+      commit-sha:
+        description: "Commit SHA"
+        value: ${{ jobs.policy-to-report.outputs.commit-sha }}
+
+env:
+  name: "GitHub Actions: C2P to generate reports"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "compliance-to-policy"
+  policy-to-report:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    outputs:
+      commit-sha: ${{ steps.output.outputs.output }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:          
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: yana1205/c2p-for-ocm-pipeline0712/.github/actions/install-c2pcli@main
+
+      - id: create-c2pcr
+        uses: yana1205/c2p-for-ocm-pipeline0712/.github/actions/create-c2pcr@main
+        with:
+          compliance-catalog-url: ${{ inputs.compliance-catalog-url }}
+          compliance-profile-url: ${{ inputs.compliance-profile-url }}
+          compliance-component-definition-url: ${{ inputs.compliance-component-definition-url }}
+          policy-results-url: ${{ inputs.policy-results-url }}
+      - name: Generate compliance reports from policy results
+        run: |
+          rm -rf ${{ inputs.output-dir-for-compliance-results }}
+          c2pcli report --c2pcr ${{ steps.create-c2pcr.outputs.c2pcr }} --out ${{ inputs.output-dir-for-compliance-results }}
+          c2pcli report-utils --compliance-report ${{ inputs.output-dir-for-compliance-results }}/compliance-report.yaml --template ./.github/templates/template.md > ${{ inputs.output-dir-for-compliance-results }}/compliance-report.md
+        env:
+          username: c2p
+          token: ${{ secrets.PAT }}
+
+      - name: Setup git user
+        run: |
+          git --version
+          git config user.name "${{ env.name }}"
+          git config user.email "<>"
+          
+      - name: Push changes to ${{ inputs.pr-head-branch }}
+        if: inputs.pr-head-branch != inputs.pr-base-branch
+        run: |
+          git checkout -b ${{ inputs.pr-head-branch }}
+          git add ${{ inputs.output-dir-for-compliance-results }}
+          git commit --allow-empty -m "Update"
+          git push origin ${{ inputs.pr-head-branch }} -f
+
+      - name: Create PR to ${{ inputs.pr-base-branch }} if not exist
+        if: inputs.pr-head-branch != inputs.pr-base-branch
+        uses: yana1205/c2p-for-ocm-pipeline0712/.github/actions/create-pr-if-not-exist@main
+        with:
+          base-branch: ${{ inputs.pr-base-branch }}
+          head-branch: ${{ inputs.pr-head-branch }}
+          body: 'Created by ${{ env.name }}'
+          github-token: ${{ secrets.PAT }}
+
+      - name: Push changes to ${{ inputs.pr-head-branch }}
+        if: inputs.pr-head-branch == inputs.pr-base-branch
+        run: |
+          git checkout ${{ inputs.pr-head-branch }}
+          git add ${{ inputs.output-dir-for-compliance-results }}
+          git commit --allow-empty -m "Update"
+          git push origin ${{ inputs.pr-head-branch }}
+
+      - id: output
+        name: Output
+        run: |
+          echo "output=`git rev-parse HEAD`" >> $GITHUB_OUTPUT

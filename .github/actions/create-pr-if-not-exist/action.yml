@@ -1,0 +1,54 @@
+name: Check PR if not exist
+description: Check PR if not exist
+inputs:
+  base-branch:
+    description: Base branch name into which the head branch is merged
+    required: true
+  head-branch:
+    description: Head branch name which is merged into the base branch
+    required: true
+  github-token:
+    description: Github token (need read and write permission to PR)
+    required: true
+  body:
+    description: Body of PR contents
+    required: true
+
+runs:
+  using: "composite"
+  
+  # refer to https://stackoverflow.com/questions/73812503/github-action-stop-the-action-if-pr-already-exists
+  steps:
+  - id: check-if-pr
+    name: Check if PR exists
+    env:
+      GITHUB_TOKEN: ${{ inputs.github-token }}
+    shell: bash
+    run: |
+      prs=$(gh pr list \
+          --json baseRefName,headRefName \
+          --jq '
+              map(select(.baseRefName == "${{ inputs.base-branch }}" and .headRefName == "${{ inputs.head-branch }}"))
+              | length
+          ')
+      echo $prs
+      if ((prs > 0)); then
+          echo "exist=true" >> "$GITHUB_OUTPUT"
+      else
+          echo "exist=false" >> "$GITHUB_OUTPUT"
+      fi
+
+  # Create PR
+  - name: Create PR
+    if: steps.check-if-pr.outputs.exist != 'true'
+    shell: bash
+    env:
+      GITHUB_TOKEN: ${{ inputs.github-token }}
+    run: |
+      gh pr create -B ${{ inputs.base-branch }} --head ${{ inputs.head-branch }} --title "Merge ${{ inputs.head-branch }} into ${{ inputs.base-branch }}" --body '${{ inputs.body }}'
+
+  - name: Create PR
+    if: steps.check-if-pr.outputs.exist == 'true'
+    shell: bash
+    run: |
+      echo PR to merge ${{ inputs.head-branch }} into ${{ inputs.base-branch }} already exists.
