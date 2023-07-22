@@ -59,16 +59,25 @@ spec:
               done
             env:
               - name: GITHUB_USER
-                value: yana1205
+                valueFrom:
+                  secretKeyRef:
+                    name: collect-ocm-status-secret
+                    key: user
               - name: GITHUB_ORG
-                value: yana1205
+                valueFrom:
+                  secretKeyRef:
+                    name: collect-ocm-status-secret
+                    key: org
               - name: GITHUB_REPO
-                value: c2p-for-ocm-pipeline0712-evidence
+                valueFrom:
+                  secretKeyRef:
+                    name: collect-ocm-status-secret
+                    key: repo
               - name: GITHUB_TOKEN
                 valueFrom:
                   secretKeyRef:
                     name: collect-ocm-status-secret
-                    key: github-token
+                    key: token
               - name: INTERVAL
                 value: "0"
           restartPolicy: OnFailure

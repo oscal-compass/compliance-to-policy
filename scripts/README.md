@@ -19,7 +19,7 @@
 # Install collect cronjob
 1. Create github token in secret
 ```
-kubectl -n c2p create secret generic --save-config collect-ocm-status-secret --from-literal=github-token=$GITHUB_TOKEN
+kubectl -n c2p create secret generic --save-config collect-ocm-status-secret --from-literal=token=$GITHUB_TOKEN --from-literal=user=$GITHUB_USER --from-literal=repo=$GITHUB_REPO --from-literal=org=$GITHUB_ORG
 ```
 1. Deploy c2p status collector
 ```
