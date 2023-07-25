@@ -71,13 +71,17 @@ func GeneratePolicyGeneratorManifest(policyGeneratorManifestClaim PolicyGenerato
 			},
 		},
 	}
+	return BuildPolicyGeneratorManifest("policy", policyDefault, policyGeneratorManifestClaim.Policies)
+}
+
+func BuildPolicyGeneratorManifest(policyGeneratorName string, policyDefault policygenerator.PolicyDefaults, policies []policygenerator.PolicyConfig) policygenerator.PolicyGenerator {
 	return policygenerator.PolicyGenerator{
 		APIVersion: "policy.open-cluster-management.io/v1",
 		Kind:       "PolicyGenerator",
 		Metadata: struct {
 			Name string "json:\"name,omitempty\" yaml:\"name,omitempty\""
-		}{"policy"},
+		}{policyGeneratorName},
 		PolicyDefaults: policyDefault,
-		Policies:       policyGeneratorManifestClaim.Policies,
+		Policies:       policies,
 	}
 }

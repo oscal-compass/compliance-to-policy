@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+  namespace: c2p
+spec:
+  containers:
+  - name: test
+    image: ghcr.io/yana1205/compliance-to-policy-ocm-status-collector2:release
+    command:
+    - /bin/sh
+    - -c
+    - |
+      git clone https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_ORG/$GITHUB_REPO.git collect
+      git config --global user.name "C2P Status Collector"
+      git config --global user.email ""

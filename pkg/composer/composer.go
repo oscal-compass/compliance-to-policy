@@ -18,32 +18,41 @@ package composer
 
 import (
 	"fmt"
-	"os"
+	"strings"
 
-	policygenerator "github.com/IBM/compliance-to-policy/pkg/policygenerator"
-	. "github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
-	pgtype "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
-	cp "github.com/otiai10/copy"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/sets"
 
 	"github.com/IBM/compliance-to-policy/pkg"
+	"github.com/IBM/compliance-to-policy/pkg/oscal"
+	policygenerator "github.com/IBM/compliance-to-policy/pkg/policygenerator"
+	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
+	pgtype "github.com/IBM/compliance-to-policy/pkg/types/policygenerator"
+	cp "github.com/otiai10/copy"
 	"go.uber.org/zap"
+	"sigs.k8s.io/kustomize/api/resmap"
+	typekustomize "sigs.k8s.io/kustomize/api/types"
+	"sigs.k8s.io/kustomize/kyaml/resid"
 )
 
 var logger *zap.Logger = pkg.GetLogger("composer")
 
+var DummyNamespace string = "dummy-namespace-c2p"
+
 type Composer struct {
 	policiesDir string
-	tempDir     string
+	tempDir     pkg.TempDirectory
 }
 
 func NewComposer(policiesDir string, tempDir string) *Composer {
-	dir, err := os.MkdirTemp(tempDir, "tmp-")
-	if err != nil {
-		panic(err)
-	}
+	return NewComposerByTempDirectory(policiesDir, pkg.NewTempDirectory(tempDir))
+}
+
+func NewComposerByTempDirectory(policiesDir string, tempDir pkg.TempDirectory) *Composer {
 	return &Composer{
 		policiesDir: policiesDir,
-		tempDir:     dir,
+		tempDir:     tempDir,
 	}
 }
 
@@ -51,109 +60,195 @@ func (c *Composer) GetPoliciesDir() string {
 	return c.policiesDir
 }
 
-func (c *Composer) Compose(namespace string, compliance Compliance, clusterSelectors map[string]string) (*ComposedResult, error) {
+func (c *Composer) ComposeByC2PParsed(c2pParsed typec2pcr.C2PCRParsed) error {
+	return c.Compose(c2pParsed.Namespace, c2pParsed.ComponentObjects, c2pParsed.ClusterSelectors)
+}
+
+func (c *Composer) Compose(namespace string, componentObjects []oscal.ComponentObject, clusterSelectors map[string]string) error {
 
 	if clusterSelectors == nil {
 		clusterSelectors = map[string]string{"env": "dev"}
 	}
-	policyCompositions := []PolicyComposition{}
 
-	result := ComposedResult{}
-
-	count := 0
-	standard := compliance.Standard
-	for _, category := range standard.Categories {
-		for _, control := range category.Controls {
-			controlDir := c.tempDir + "/" + control.Name
-			for _, policy := range control.ControlRefs {
-				logger.Info(fmt.Sprintf("Start generating policy '%s'", policy))
-
-				sourceDir := fmt.Sprintf("%s/%s", c.policiesDir, policy)
-				policyCompositionDir := fmt.Sprintf("%s/%s", controlDir, policy)
-				destDir := policyCompositionDir + "/resources"
-				err := cp.Copy(sourceDir, destDir)
-				if err != nil {
-					return nil, err
-				}
-				entries, err := os.ReadDir(destDir)
-				if err != nil {
-					return nil, err
-				}
-				configPolicyDirs := []string{}
-				for _, entry := range entries {
-					if entry.IsDir() {
-						configPolicyDirs = append(configPolicyDirs, "./resources/"+entry.Name())
-					}
-				}
-				manifests := []pgtype.Manifest{}
-				for _, path := range configPolicyDirs {
-					manifest := pgtype.Manifest{
-						Path: path,
-					}
-					manifests = append(manifests, manifest)
-				}
-				policyConfig := pgtype.PolicyConfig{
-					Name:      policy,
-					Manifests: manifests,
-				}
-				claim := policygenerator.PolicyGeneratorManifestClaim{
-					Namespace:        namespace,
-					Standards:        []string{standard.Name},
-					Categories:       []string{category.Name},
-					Controls:         []string{control.Name},
-					Policies:         []pgtype.PolicyConfig{policyConfig},
-					ClusterSelectors: clusterSelectors,
-				}
-				policyGeneratorPath := policyCompositionDir + "/policy-generator.yaml"
-				logger.Info(fmt.Sprintf("Create policy-generator.yaml in '%s'", policyGeneratorPath))
-				policyGenerator := policygenerator.GeneratePolicyGeneratorManifest(claim)
-				if err := pkg.WriteObjToYamlFile(policyGeneratorPath, policyGenerator); err != nil {
-					return nil, err
-				}
-				kustomize := map[string]interface{}{
-					"generators": []string{"./policy-generator.yaml"},
-				}
-				kustomizePath := policyCompositionDir + "/kustomization.yaml"
-				if err := pkg.WriteObjToYamlFile(kustomizePath, kustomize); err != nil {
-					return nil, err
-				}
-				logger.Info(fmt.Sprintf("Generate policy '%s' by PolicyGenerator", policyGeneratorPath))
-				generatedManifests, err := policygenerator.Kustomize(policyCompositionDir)
-				if err != nil {
-					logger.Sugar().Error(err, "failed to run kustomize")
-					return nil, err
-				}
-				configPolicyAbsoluteDirs := []string{}
-				for _, configPolicyDir := range configPolicyDirs {
-					configPolicyAbsoluteDirs = append(configPolicyAbsoluteDirs, policyCompositionDir+"/"+configPolicyDir)
-				}
-				policyComposition := PolicyComposition{
-					Id:                   policy,
-					PolicyCompositionDir: policyCompositionDir,
-					configPolicyDirs:     configPolicyAbsoluteDirs,
-					composedManifests:    &generatedManifests,
-				}
-				policyCompositions = append(policyCompositions, policyComposition)
-				logger.Info(fmt.Sprintf("Finish generating policy '%s'", policy))
-				count = count + 1
+	logger.Info("Start composing policySets")
+	parameters := map[string]string{}
+	policyConfigMap := map[string]pgtype.PolicyConfig{}
+	policySets := []pgtype.PolicySetConfig{}
+	policySetPatches := []typekustomize.Patch{}
+	for _, componentObject := range componentObjects {
+		logger := logger.With(zap.Namespace(fmt.Sprintf("component %s", componentObject.ComponentTitle)))
+		logger.Info("Start generating policy")
+		for _, ruleObject := range componentObject.RuleObjects {
+			sourceDir := fmt.Sprintf("%s/%s", c.policiesDir, ruleObject.PolicyId)
+			destDir := fmt.Sprintf("%s/%s", c.tempDir.GetTempDir(), ruleObject.PolicyId)
+			err := cp.Copy(sourceDir, destDir)
+			if err != nil {
+				return err
 			}
 		}
+
+		for idx, controlImpleObject := range componentObject.ControlImpleObjects {
+			policyListPerControlImple := []string{}
+			for _, param := range controlImpleObject.SetParameters {
+				parameters[param.ParamID] = param.Values[0]
+			}
+			for _, controlObject := range controlImpleObject.ControlObjects {
+				for _, ruleId := range controlObject.RuleIds {
+					ruleObject, ok := oscal.FindRulesByRuleId(ruleId, componentObject.RuleObjects)
+					if ok {
+						policyId := ruleObject.PolicyId
+						destDir := fmt.Sprintf("%s/%s", c.tempDir.GetTempDir(), policyId)
+						policyGeneratorManifestPath := destDir + "/policy-generator.yaml"
+						var policyGeneratorManifest pgtype.PolicyGenerator
+						if err := pkg.LoadYamlFileToObject(policyGeneratorManifestPath, &policyGeneratorManifest); err != nil {
+							return err
+						}
+						policyGeneratorManifest.PolicyDefaults.Namespace = namespace
+						policyGeneratorManifest.PolicyDefaults.PolicyOptions.Standards = []string{""}
+						policyGeneratorManifest.PolicyDefaults.PolicyOptions.Categories = []string{""}
+						policyGeneratorManifest.PolicyDefaults.PolicyOptions.Controls = []string{controlObject.ControlId}
+						policyGeneratorManifest.PolicyDefaults.PolicyOptions.Placement.ClusterSelectors = clusterSelectors
+						if err := pkg.WriteObjToYamlFileByGoYaml(policyGeneratorManifestPath, policyGeneratorManifest); err != nil {
+							return err
+						}
+						// For policySet
+						policyListPerControlImple = appendUnique(policyListPerControlImple, policyId)
+						policyConfig, ok := policyConfigMap[policyId]
+						if ok {
+							policyConfig.Standards = appendUnique(policyConfig.Standards, policyGeneratorManifest.PolicyDefaults.Standards...)
+							policyConfig.Categories = appendUnique(policyConfig.Categories, policyGeneratorManifest.PolicyDefaults.Categories...)
+							policyConfig.Controls = appendUnique(policyConfig.Controls, policyGeneratorManifest.PolicyDefaults.Controls...)
+							policyConfigMap[policyId] = policyConfig
+						} else {
+							policyConfig := policyGeneratorManifest.Policies[0]
+							policyConfig.Standards = policyGeneratorManifest.PolicyDefaults.Standards
+							policyConfig.Categories = policyGeneratorManifest.PolicyDefaults.Categories
+							policyConfig.Controls = policyGeneratorManifest.PolicyDefaults.Controls
+							for idx, manifest := range policyConfig.Manifests {
+								policyConfig.Manifests[idx].Path = strings.Replace(manifest.Path, "./", fmt.Sprintf("./%s/", policyId), 1)
+							}
+							policyConfigMap[policyId] = policyConfig
+						}
+					}
+				}
+			}
+			suffix := ""
+			if idx > 0 {
+				suffix = fmt.Sprintf("-%d", idx)
+			}
+			policySetConfig := pgtype.PolicySetConfig{
+				Name:     toDNSCompliant(componentObject.ComponentTitle + suffix),
+				Policies: policyListPerControlImple,
+			}
+			policySets = append(policySets, policySetConfig)
+			policySetPatch := typekustomize.Patch{
+				Target: &typekustomize.Selector{
+					ResId: resid.FromString(fmt.Sprintf("PolicySet../%s.", policySetConfig.Name)),
+				},
+				Patch: fmt.Sprintf(`[{"op": "replace", "path": "/metadata/annotations/%s", "value": "%s"}]`, pkg.ANNOTATION_COMPONENT_TITLE, componentObject.ComponentTitle),
+			}
+			policySetPatches = append(policySetPatches, policySetPatch)
+		}
 	}
-	result.policyCompositions = policyCompositions
-	result.internalCompliance = compliance
 
+	policyDefaults := pgtype.PolicyDefaults{
+		Namespace: namespace,
+		PolicyOptions: pgtype.PolicyOptions{
+			Placement: pgtype.PlacementConfig{
+				LabelSelector: clusterSelectors,
+			},
+		},
+		ConfigurationPolicyOptions: pgtype.ConfigurationPolicyOptions{
+			NamespaceSelector: pgtype.NamespaceSelector{
+				Exclude: []string{"kube-system", "open-cluster-management", "open-cluster-management-agent", "open-cluster-management-agent-addon"},
+				Include: []string{"*"},
+			},
+		},
+	}
+	policyConfigs := []pgtype.PolicyConfig{}
+	for _, policyConfig := range policyConfigMap {
+		policyConfigs = append(policyConfigs, policyConfig)
+	}
+	policySetGeneratorManifest := policygenerator.BuildPolicyGeneratorManifest("policy-set", policyDefaults, policyConfigs)
+	policySetGeneratorManifest.PlacementBindingDefaults.Name = "policy-set"
+	policySetGeneratorManifest.PolicySets = policySets
+	policySetGeneratorManifest.PolicySetDefaults = pgtype.PolicySetDefaults{
+		PolicySetOptions: pgtype.PolicySetOptions{
+			Placement: policyDefaults.Placement,
+		},
+	}
+
+	if policySetGeneratorManifest.PolicyDefaults.Namespace == "" {
+		policySetGeneratorManifest.PolicyDefaults.Namespace = DummyNamespace
+	}
+	if err := pkg.WriteObjToYamlFileByGoYaml(c.tempDir.GetTempDir()+"/policy-generator.yaml", policySetGeneratorManifest); err != nil {
+		return err
+	}
+
+	logger.Info("Create configmapt for templatized parameters")
+	parametersConfigmap := corev1.ConfigMap{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "ConfigMap",
+			APIVersion: "v1",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "c2p-parameters",
+			Namespace: namespace,
+		},
+		Data: parameters,
+	}
+	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/parameters.yaml", parametersConfigmap); err != nil {
+		return err
+	}
+
+	kustomize := typekustomize.Kustomization{
+		Generators: []string{"./policy-generator.yaml"},
+		Resources:  []string{"./parameters.yaml"},
+		Patches:    policySetPatches,
+	}
+	if err := pkg.WriteObjToYamlFile(c.tempDir.GetTempDir()+"/kustomization.yaml", kustomize); err != nil {
+		return err
+	}
 	logger.Info("")
-	logger.Info(fmt.Sprintf("%d policies are created", count))
 
-	return &result, nil
+	return nil
 }
 
-func (c *Composer) CopyPoliciesDirTo(destDir string) error {
+func (c *Composer) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}
-	if err := cp.Copy(c.policiesDir, destDir); err != nil {
+	if err := cp.Copy(c.tempDir.GetTempDir(), destDir); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (c *Composer) GeneratePolicySet() (*resmap.ResMap, error) {
+	generatedManifests, err := policygenerator.Kustomize(c.tempDir.GetTempDir())
+	if err != nil {
+		logger.Sugar().Error(err, "failed to run kustomize")
+		return nil, err
+	}
+	// TODO: Workaround to allow to run PolicyGenerator with empty namespace.
+	for _, resource := range generatedManifests.Resources() {
+		if resource.GetNamespace() == DummyNamespace {
+			if err := resource.SetNamespace(""); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return &generatedManifests, nil
+}
+
+func toDNSCompliant(name string) string {
+	var result string
+	result = strings.ToLower(name)
+	result = strings.ReplaceAll(result, " ", "-")
+	return result
+}
+
+func appendUnique(slice []string, elems ...string) []string {
+	a := append(slice, elems...)
+	return sets.List[string](sets.New[string](a...))
 }

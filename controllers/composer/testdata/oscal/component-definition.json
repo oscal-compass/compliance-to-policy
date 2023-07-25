@@ -1,0 +1,150 @@
+{
+  "component-definition": {
+    "uuid": "e3f74636-b63c-4406-bbc7-cf9dee495816",
+    "metadata": {
+      "title": "Test Component Definition",
+      "last-modified": "2023-05-22T04:20:26+00:00",
+      "version": "20210826",
+      "oscal-version": "1.0.4"
+    },
+    "components": [
+      {
+        "uuid": "5ccc0047-6b10-4f9d-90d4-5f2bc4141fa8",
+        "type": "Service",
+        "title": "My Test Service",
+        "description": "My Test Service...",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule1",
+            "class": "scc_class",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule1...",
+            "class": "scc_class",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "add-chrony",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule2",
+            "class": "scc_class",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule2...",
+            "class": "scc_class",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "install-odf-lvm-operator",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule3",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "rule3...",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-nginx-deployment",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "minimum_nginx_deployment_replicas",
+            "class": "scc_class",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Minimum # of NGINX pod",
+            "class": "scc_class",
+            "remarks": "rule_set_02"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "18c98b61-9561-4fc6-b65a-7715bf61e17f",
+            "source": "https://github.com/usnistgov/oscal-content/blob/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+            "description": "NIST Special Publication 800-53 Revision 5 HIGH IMPACT BASELINE",
+            "set-parameters": [
+              {
+                "param-id": "minimum_nginx_deployment_replicas",
+                "values": [
+                  "3"
+                ]             
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "bdc3a56a-d12e-46d7-bd39-db909a3daabd",
+                "control-id": "ac-1",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "rule1",
+                    "class": "scc_class"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "rule2",
+                    "class": "scc_class"
+                  }
+                ]
+              },
+              {
+                "uuid": "8a2cb5a3-f3d1-480f-8463-dd4ecf45a8cd",
+                "control-id": "ac-2.1",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "rule2",
+                    "class": "scc_class"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "rule3",
+                    "class": "scc_class"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

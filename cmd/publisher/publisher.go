@@ -21,10 +21,10 @@ import (
 	"os"
 
 	compliancetopolicycontrollerv1alpha1 "github.com/IBM/compliance-to-policy/api/v1alpha1"
+	"github.com/IBM/compliance-to-policy/controllers/composer"
 	"github.com/IBM/compliance-to-policy/controllers/utils/gitrepo"
 	"github.com/IBM/compliance-to-policy/controllers/utils/publisher"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/composer"
 )
 
 func main() {

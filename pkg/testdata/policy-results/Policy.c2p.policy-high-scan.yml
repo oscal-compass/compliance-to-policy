@@ -1,0 +1,119 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"cm-6","policy.open-cluster-management.io/standards":""},"name":"policy-high-scan","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ScanSettingBinding","metadata":{"name":"high","namespace":"openshift-compliance"},"profiles":[{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high"},{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"Profile","name":"ocp4-high-node"}],"settingsRef":{"apiGroup":"compliance.openshift.io/v1alpha1","kind":"ScanSetting","name":"default"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan2"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"musthave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceSuite","metadata":{"name":"high","namespace":"openshift-compliance"},"status":{"phase":"DONE"}}}],"remediationAction":"inform","severity":"high"}}},{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-high-scan3"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"compliance.openshift.io/v1alpha1","kind":"ComplianceCheckResult","metadata":{"labels":{"compliance.openshift.io/check-status":"FAIL","compliance.openshift.io/suite":"high"},"namespace":"openshift-compliance"}}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: cm-6
+    policy.open-cluster-management.io/standards: ""
+  creationTimestamp: "2023-07-05T16:10:56Z"
+  generation: 2
+  name: policy-high-scan
+  namespace: c2p
+  resourceVersion: "58952"
+  uid: 1e829f28-a2e6-4b5b-9b58-d18c11730841
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: high
+                  namespace: openshift-compliance
+                profiles:
+                  - apiGroup: compliance.openshift.io/v1alpha1
+                    kind: Profile
+                    name: ocp4-high
+                  - apiGroup: compliance.openshift.io/v1alpha1
+                    kind: Profile
+                    name: ocp4-high-node
+                settingsRef:
+                  apiGroup: compliance.openshift.io/v1alpha1
+                  kind: ScanSetting
+                  name: default
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan2
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ComplianceSuite
+                metadata:
+                  name: high
+                  namespace: openshift-compliance
+                status:
+                  phase: DONE
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-high-scan3
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: mustnothave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ComplianceCheckResult
+                metadata:
+                  labels:
+                    compliance.openshift.io/check-status: FAIL
+                    compliance.openshift.io/suite: high
+                  namespace: openshift-compliance
+          remediationAction: inform
+          severity: high
+  remediationAction: inform
+status:
+  compliant: NonCompliant
+  placement:
+    - placement: placement-managed-kubernetes
+      placementBinding: policy-set
+      policySet: managed-kubernetes
+  status:
+    - clustername: cluster1
+      clusternamespace: cluster1
+      compliant: NonCompliant
+    - clustername: cluster2
+      clusternamespace: cluster2
+      compliant: NonCompliant

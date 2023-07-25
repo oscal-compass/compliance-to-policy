@@ -29,9 +29,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	compliancetopolicycontrollerv1alpha1 "github.com/IBM/compliance-to-policy/api/v1alpha1"
+	"github.com/IBM/compliance-to-policy/controllers/composer"
 	"github.com/IBM/compliance-to-policy/controllers/utils"
 	"github.com/IBM/compliance-to-policy/controllers/utils/ocmk8sclients"
-	"github.com/IBM/compliance-to-policy/pkg/composer"
 	"github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	typesplacement "github.com/IBM/compliance-to-policy/pkg/types/placements"
 	typespolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"

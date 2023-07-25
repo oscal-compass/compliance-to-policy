@@ -1,0 +1,2 @@
+generators:
+- ./policy-generator.yaml

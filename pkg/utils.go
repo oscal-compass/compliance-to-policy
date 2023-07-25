@@ -30,6 +30,7 @@ import (
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 
+	goyaml "gopkg.in/yaml.v3"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	k8syaml "k8s.io/apimachinery/pkg/runtime/serializer/yaml"
 	utilyaml "k8s.io/apimachinery/pkg/util/yaml"
@@ -37,6 +38,10 @@ import (
 )
 
 var logger *zap.Logger
+
+const (
+	ANNOTATION_COMPONENT_TITLE string = "compliance-to-policy.component-title"
+)
 
 func init() {
 	var err error
@@ -118,6 +123,16 @@ func WriteObjToYamlFile(path string, in interface{}) error {
 	} else {
 		return os.WriteFile(path, yamlData, os.ModePerm)
 	}
+}
+
+func WriteObjToYamlFileByGoYaml(path string, in interface{}) error {
+	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	encoder := goyaml.NewEncoder(file)
+	encoder.SetIndent(2)
+	return encoder.Encode(in)
 }
 
 func WriteObjToJsonFile(path string, in interface{}) error {
@@ -243,4 +258,20 @@ func ChdirFromPkgDirectory(relativePath string) string {
 		panic(err)
 	}
 	return dir
+}
+
+type TempDirectory struct {
+	tempDir string
+}
+
+func NewTempDirectory(tempDir string) TempDirectory {
+	dir, err := os.MkdirTemp(tempDir, "tmp-")
+	if err != nil {
+		panic(err)
+	}
+	return TempDirectory{tempDir: dir}
+}
+
+func (t *TempDirectory) GetTempDir() string {
+	return t.tempDir
 }

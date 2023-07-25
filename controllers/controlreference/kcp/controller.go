@@ -33,10 +33,10 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	c2pv1alpha1 "github.com/IBM/compliance-to-policy/api/v1alpha1"
+	"github.com/IBM/compliance-to-policy/controllers/composer"
 	"github.com/IBM/compliance-to-policy/controllers/utils"
 	"github.com/IBM/compliance-to-policy/controllers/utils/kcpclient"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/composer"
 	"github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	"github.com/go-logr/logr"
 )

@@ -1,0 +1,333 @@
+{
+  "catalog": {
+    "uuid": "fdac0321-959f-43ec-a91d-322da7d9761c",
+    "metadata": {
+      "title": "Test Catalog",
+      "last-modified": "2022-08-23T10:36:49.1330265-04:00",
+      "version": "5.1.2",
+      "oscal-version": "1.0.0"
+    },
+    "groups": [
+      {
+        "id": "ac",
+        "class": "family",
+        "title": "Access Control",
+        "controls": [
+          {
+            "id": "ac-1",
+            "class": "SP800-53",
+            "title": "Policy and Procedures"
+          },
+          {
+            "id": "ac-2",
+            "class": "SP800-53",
+            "title": "Account Management",
+            "controls": [
+              {
+                "id": "ac-2.1",
+                "class": "SP800-53-enhancement",
+                "title": "Automated System Account Management",
+                "params": [
+                  {
+                    "id": "ac-02.01_odp",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "ac-2.1_prm_1"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(01)_ODP",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "automated mechanisms",
+                    "guidelines": [
+                      {
+                        "prose": "automated mechanisms used to support the management of system accounts are defined; "
+                      }
+                    ]
+                  }
+                ],
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "AC-2(1)"
+                  },
+                  {
+                    "name": "label",
+                    "value": "AC-02(01)",
+                    "class": "sp800-53a"
+                  },
+                  {
+                    "name": "sort-id",
+                    "value": "ac-02.01"
+                  }
+                ],
+                "links": [
+                  {
+                    "href": "#ac-2",
+                    "rel": "required"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "ac-2.1_smt",
+                    "name": "statement",
+                    "prose": "Support the management of system accounts using {{ insert: param, ac-02.01_odp }}."
+                  },
+                  {
+                    "id": "ac-2.1_gdn",
+                    "name": "guidance",
+                    "prose": "Automated system account management includes using automated mechanisms to create, enable, modify, disable, and remove accounts; notify account managers when an account is created, enabled, modified, disabled, or removed, or when users are terminated or transferred; monitor system account usage; and report atypical system account usage. Automated mechanisms can include internal system functions and email, telephonic, and text messaging notifications."
+                  },
+                  {
+                    "id": "ac-2.1_obj",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "AC-02(01)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "the management of system accounts is supported using {{ insert: param, ac-02.01_odp }}."
+                  },
+                  {
+                    "id": "ac-2.1_asm-examine",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "EXAMINE"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(01)-Examine",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Access control policy\n\nprocedures for addressing account management\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ac-2.1_asm-interview",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "INTERVIEW"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(01)-Interview",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Organizational personnel with account management responsibilities\n\nsystem/network administrators\n\norganizational personnel with information security with information security responsibilities\n\nsystem developers"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ac-2.1_asm-test",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "TEST"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(01)-Test",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Automated mechanisms for implementing account management functions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ac-2.2",
+                "class": "SP800-53-enhancement",
+                "title": "Automated Temporary and Emergency Account Management",
+                "params": [
+                  {
+                    "id": "ac-02.02_odp.01",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "ac-2.2_prm_1"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)_ODP[01]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "select": {
+                      "choice": [
+                        "remove",
+                        "disable"
+                      ]
+                    }
+                  },
+                  {
+                    "id": "ac-02.02_odp.02",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "ac-2.2_prm_2"
+                      },
+                      {
+                        "name": "alt-label",
+                        "value": "time period for each type of account",
+                        "class": "sp800-53"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)_ODP[02]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "time period",
+                    "guidelines": [
+                      {
+                        "prose": "the time period after which to automatically remove or disable temporary or emergency accounts is defined;"
+                      }
+                    ]
+                  }
+                ],
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "AC-2(2)"
+                  },
+                  {
+                    "name": "label",
+                    "value": "AC-02(02)",
+                    "class": "sp800-53a"
+                  },
+                  {
+                    "name": "sort-id",
+                    "value": "ac-02.02"
+                  }
+                ],
+                "links": [
+                  {
+                    "href": "#ac-2",
+                    "rel": "required"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "ac-2.2_smt",
+                    "name": "statement",
+                    "prose": "Automatically {{ insert: param, ac-02.02_odp.01 }} temporary and emergency accounts after {{ insert: param, ac-02.02_odp.02 }}."
+                  },
+                  {
+                    "id": "ac-2.2_gdn",
+                    "name": "guidance",
+                    "prose": "Management of temporary and emergency accounts includes the removal or disabling of such accounts automatically after a predefined time period rather than at the convenience of the system administrator. Automatic removal or disabling of accounts provides a more consistent implementation."
+                  },
+                  {
+                    "id": "ac-2.2_obj",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "temporary and emergency accounts are automatically {{ insert: param, ac-02.02_odp.01 }} after {{ insert: param, ac-02.02_odp.02 }}."
+                  },
+                  {
+                    "id": "ac-2.2_asm-examine",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "EXAMINE"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)-Examine",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Access control policy\n\nprocedures for addressing account management\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\nsystem-generated list of temporary accounts removed and/or disabled\n\nsystem-generated list of emergency accounts removed and/or disabled\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ac-2.2_asm-interview",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "INTERVIEW"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)-Interview",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Organizational personnel with account management responsibilities\n\nsystem/network administrators\n\norganizational personnel with information security with information security responsibilities\n\nsystem developers"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ac-2.2_asm-test",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "TEST"
+                      },
+                      {
+                        "name": "label",
+                        "value": "AC-02(02)-Test",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Automated mechanisms for implementing account management functions"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

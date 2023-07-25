@@ -1,0 +1,68 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"policy.open-cluster-management.io/v1","kind":"Policy","metadata":{"annotations":{"policy.open-cluster-management.io/categories":"","policy.open-cluster-management.io/controls":"ac-6","policy.open-cluster-management.io/standards":""},"name":"policy-disallowed-roles","namespace":"c2p"},"spec":{"disabled":false,"policy-templates":[{"objectDefinition":{"apiVersion":"policy.open-cluster-management.io/v1","kind":"ConfigurationPolicy","metadata":{"name":"policy-disallowed-roles"},"spec":{"namespaceSelector":{"exclude":["kube-system","open-cluster-management","open-cluster-management-agent","open-cluster-management-agent-addon"],"include":["*"]},"object-templates":[{"complianceType":"mustnothave","objectDefinition":{"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]}]}}],"remediationAction":"inform","severity":"high"}}}],"remediationAction":"inform"}}
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: ac-6
+    policy.open-cluster-management.io/standards: ""
+  creationTimestamp: "2023-07-05T23:52:32Z"
+  generation: 1
+  labels:
+    policy.open-cluster-management.io/cluster-name: cluster1
+    policy.open-cluster-management.io/cluster-namespace: cluster1
+    policy.open-cluster-management.io/root-policy: c2p.policy-disallowed-roles
+  name: c2p.policy-disallowed-roles
+  namespace: cluster1
+  resourceVersion: "58962"
+  uid: dea67078-25f4-4c45-9e55-01796af1999e
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-disallowed-roles
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: mustnothave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: Role
+                rules:
+                  - apiGroups:
+                      - '*'
+                    resources:
+                      - '*'
+                    verbs:
+                      - '*'
+          remediationAction: inform
+          severity: high
+  remediationAction: inform
+status:
+  compliant: Compliant
+  details:
+    - compliant: Compliant
+      history:
+        - eventName: c2p.policy-disallowed-roles.176f1dcdc4c8d17e
+          lastTimestamp: "2023-07-05T23:52:34Z"
+          message: Compliant; notification - roles in namespace cluster1; in namespace default; in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage missing as expected, therefore this Object template is compliant
+        - eventName: c2p.policy-disallowed-roles.176f1cd7a1623786
+          lastTimestamp: "2023-07-05T23:34:57Z"
+          message: Compliant; notification - roles in namespace cluster1; in namespace default; in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage missing as expected, therefore this Object template is compliant
+        - eventName: c2p.policy-disallowed-roles.176f1bee3d61b1f3
+          lastTimestamp: "2023-07-05T23:18:15Z"
+          message: Compliant; notification - roles in namespace cluster1; in namespace default; in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage missing as expected, therefore this Object template is compliant
+      templateMeta:
+        creationTimestamp: null
+        name: policy-disallowed-roles

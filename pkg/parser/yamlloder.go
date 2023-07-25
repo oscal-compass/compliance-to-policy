@@ -37,10 +37,10 @@ func loadYaml(r io.Reader) ([]interface{}, error) {
 		err := dec.Decode(&objInput)
 		if errors.Is(err, io.EOF) {
 			break
-		} else if objInput == nil {
-			continue
 		} else if err != nil {
 			return objects, err
+		} else if objInput == nil {
+			continue
 		}
 		objects = append(objects, &objInput)
 	}

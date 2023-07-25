@@ -38,7 +38,7 @@ type PolicyGenerator struct {
 	PolicyDefaults    PolicyDefaults    `json:"policyDefaults,omitempty" yaml:"policyDefaults,omitempty"`
 	PolicySetDefaults PolicySetDefaults `json:"policySetDefaults,omitempty" yaml:"policySetDefaults,omitempty"`
 	Policies          []PolicyConfig    `json:"policies" yaml:"policies"`
-	PolicySets        []PolicySetConfig `json:"policySets" yaml:"policySets"`
+	PolicySets        []PolicySetConfig `json:"policySets,omitempty" yaml:"policySets,omitempty"`
 	// A set of all placement names that have been processed or generated
 	allPlcs map[string]bool
 	// The base of the directory tree to restrict all manifest files to be within
@@ -68,8 +68,8 @@ type PolicyOptions struct {
 	OrderManifests                 bool               `json:"orderManifests" yaml:"orderManifests"`
 	Disabled                       bool               `json:"disabled,omitempty" yaml:"disabled,omitempty"`
 	IgnorePending                  bool               `json:"ignorePending,omitempty" yaml:"ignorePending,omitempty"`
-	InformGatekeeperPolicies       bool               `json:"informGatekeeperPolicies,omitempty" yaml:"informGatekeeperPolicies,omitempty"`
-	InformKyvernoPolicies          bool               `json:"informKyvernoPolicies,omitempty" yaml:"informKyvernoPolicies,omitempty"`
+	InformGatekeeperPolicies       bool               `json:"informGatekeeperPolicies" yaml:"informGatekeeperPolicies"`
+	InformKyvernoPolicies          bool               `json:"informKyvernoPolicies" yaml:"informKyvernoPolicies"`
 	GeneratePolicyPlacement        bool               `json:"generatePolicyPlacement,omitempty" yaml:"generatePolicyPlacement,omitempty"`
 	GeneratePlacementWhenInSet     bool               `json:"generatePlacementWhenInSet,omitempty" yaml:"generatePlacementWhenInSet,omitempty"`
 	PolicySets                     []string           `json:"policySets,omitempty" yaml:"policySets,omitempty"`

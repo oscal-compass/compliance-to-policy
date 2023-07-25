@@ -1,0 +1,17 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy
+policyDefaults:
+  consolidateManifests: false
+  orderManifests: false
+  namespace: namespace
+policies:
+  - consolidateManifests: true
+    orderManifests: false
+    remediationAction: enforce
+    severity: low
+    complianceType: musthave
+    name: policy-nginx-deployment
+    manifests:
+      - path: ./policy-nginx-deployment
