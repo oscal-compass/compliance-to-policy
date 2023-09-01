@@ -1,0 +1,76 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    apps.open-cluster-management.io/cluster-admin: "true"
+    apps.open-cluster-management.io/hosting-subscription: c2p/c2p-policy-resource
+    apps.open-cluster-management.io/reconcile-option: merge
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: cm-6
+    policy.open-cluster-management.io/standards: ""
+  creationTimestamp: "2023-09-01T11:02:03Z"
+  generation: 1
+  name: policy-kyverno-image-pull-policy
+  namespace: c2p
+  resourceVersion: "3906"
+  uid: 5980bb84-1138-425c-9192-af0b8976bf4e
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-kyverno-image-pull-policy
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-system
+              - open-cluster-management
+              - open-cluster-management-agent
+              - open-cluster-management-agent-addon
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: kyverno.io/v1
+                kind: ClusterPolicy
+                metadata:
+                  annotations:
+                    policies.kyverno.io/category: Sample
+                    policies.kyverno.io/description: By default, images that have already been pulled can be accessed by other Pods without re-pulling them if the name and tag are known. In multi-tenant scenarios, this may be undesirable. This policy mutates all incoming Pods to set their imagePullPolicy to Always. An alternative to the Kubernetes admission controller AlwaysPullImages.
+                    policies.kyverno.io/severity: medium
+                    policies.kyverno.io/subject: Pod
+                    policies.kyverno.io/title: Always Pull Images
+                  name: always-pull-images
+                spec:
+                  background: false
+                  rules:
+                    - match:
+                        resources:
+                          kinds:
+                            - Pod
+                      mutate:
+                        patchStrategicMerge:
+                          spec:
+                            containers:
+                              - (name): ?*
+                                imagePullPolicy: Always
+                      name: always-pull-images
+          remediationAction: inform
+          severity: low
+  remediationAction: inform
+status:
+  compliant: NonCompliant
+  placement:
+    - placement: placement-managed-kubernetes
+      placementBinding: policy-set
+      policySet: managed-kubernetes
+  status:
+    - clustername: cluster1
+      clusternamespace: cluster1
+      compliant: NonCompliant
+    - clustername: cluster2
+      clusternamespace: cluster2
+      compliant: NonCompliant
