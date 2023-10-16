@@ -2,6 +2,9 @@
 Compliance-to-Policy (C2P) provides the framework to bridge the gap between compliance and policy administration.
 
 ## C2P as pipeline task
+
+https://github.com/IBM/compliance-to-policy/assets/113283236/da3518d0-53de-4bd6-8703-04ce94e9dfba
+
 ### Setup pipeline
 1. Create two repositories (one is configuration repository that's used for pipeline from OSCAL to Policy and another is evidence repository that's used for pipeline from OCM statuses to Compliance result)
     - For example, c2p-for-ocm-pipeline01-config and c2p-for-ocm-pipeline01-evidence
