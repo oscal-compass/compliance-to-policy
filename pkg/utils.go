@@ -52,7 +52,7 @@ func init() {
 }
 
 func GetLogger(name string) *zap.Logger {
-	return logger.Named(name)
+	return logger.Named(name).WithOptions(zap.AddStacktrace(zap.ErrorLevel))
 }
 
 func LoadYaml(path string) ([]*unstructured.Unstructured, error) {
@@ -240,7 +240,7 @@ func (fc *filenameCreator) Get(fname string) string {
 			break
 		}
 		suffix++
-		_fname := fmt.Sprintf("%s.%d.%s", fname, suffix, fc.fnameExt)
+		_fname = fmt.Sprintf("%s.%d%s", fname, suffix, fc.fnameExt)
 		_, found = fc.currentFilenames[_fname]
 	}
 	return _fname
