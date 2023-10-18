@@ -14,42 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package cmd
+package subcommands
 
 import (
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
-	"github.com/IBM/compliance-to-policy/cmd/c2pcli/subcommands"
-	composecmd "github.com/IBM/compliance-to-policy/cmd/compose/cmd"
-	reportutilscmd "github.com/IBM/compliance-to-policy/cmd/report-utils/cmd"
-	reportcmd "github.com/IBM/compliance-to-policy/cmd/report/cmd"
+	composecmd "github.com/IBM/compliance-to-policy/cmd/compose-kyverno/cmd"
 )
 
-func New() *cobra.Command {
+func NewKyvernoSubCommand() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "c2pcli",
-		Short: "C2P CLI",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := opts.Complete(); err != nil {
-				return err
-			}
-
-			if err := opts.Validate(); err != nil {
-				return err
-			}
-			return nil
-		},
+		Use:   "kyverno",
+		Short: "C2P CLI Kyverno plugin",
 	}
 
 	opts.AddFlags(command.Flags())
 
 	command.AddCommand(composecmd.New())
-	command.AddCommand(reportcmd.New())
-	command.AddCommand(reportutilscmd.New())
-	command.AddCommand(subcommands.NewKyvernoSubCommand())
 
 	return command
 }

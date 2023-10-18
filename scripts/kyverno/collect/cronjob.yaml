@@ -1,0 +1,86 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: collect-kyverno-policy-report
+  namespace: c2p
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: collector
+            image: ghcr.io/yana1205/compliance-to-policy-ocm-status-collector:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - |
+              git clone https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_ORG/$GITHUB_REPO.git collect
+              git config --global user.name "C2P Status Collector"
+              git config --global user.email ""
+
+              cd collect
+              resultdir=./policy-reports
+              mkdir -p $resultdir
+              while true
+              do
+                git pull
+                rm -rf  $resultdir/*
+                cd $resultdir
+                kubectl get policies.kyverno.io -A -o yaml > 00.policies.kyverno.io.yaml
+                kubectl get clusterpolicies.kyverno.io -o yaml > 00.clusterpolicies.kyverno.io.yaml
+                kubectl get policyreports.wgpolicyk8s.io -A -o yaml > 00.policyreports.wgpolicyk8s.io.yaml
+                kubectl get clusterpolicyreports.wgpolicyk8s.io -o yaml > 00.clusterpolicyreports.wgpolicyk8s.io.yaml
+
+                yq '.items[]' 00.policies.kyverno.io.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
+                yq '.items[]' 00.clusterpolicies.kyverno.io.yaml -s '.kind + ".." + .metadata.name'
+                yq '.items[]' 00.policyreports.wgpolicyk8s.io.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
+                yq '.items[]' 00.clusterpolicyreports.wgpolicyk8s.io.yaml -s '.kind + ".." + .metadata.name'
+                cd ..
+
+                echo "git diff"
+                git diff
+                echo ""
+                
+                git add $resultdir 
+                git commit -m "Push $resultdir at `date`"
+                if [[ "$?" == "0" ]];then
+                  echo "Push $resultdir to github"
+                  git push
+                else
+                  echo "Nothing to push $resultdir to github"
+                fi
+                
+                if [[ "$INTERVAL" == "0" || "$INTERVAL" == "" ]];then
+                  break
+                fi
+                sleep $INTERVAL
+              done
+            env:
+              - name: GITHUB_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: kyverno-policy-report-secret
+                    key: user
+              - name: GITHUB_ORG
+                valueFrom:
+                  secretKeyRef:
+                    name: kyverno-policy-report-secret
+                    key: org
+              - name: GITHUB_REPO
+                valueFrom:
+                  secretKeyRef:
+                    name: kyverno-policy-report-secret
+                    key: repo
+              - name: GITHUB_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: kyverno-policy-report-secret
+                    key: token
+              - name: INTERVAL
+                value: "0"
+          restartPolicy: OnFailure
+          serviceAccountName: collector

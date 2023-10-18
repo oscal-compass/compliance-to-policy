@@ -40,6 +40,7 @@ type ControlImpleObject struct {
 
 type ComponentObject struct {
 	ComponentTitle      string
+	ComponentType       string
 	RuleObjects         []RuleObject
 	ControlImpleObjects []ControlImpleObject
 }
@@ -106,6 +107,7 @@ func ParseComponentDefinition(cd ComponentDefinitionRoot) []ComponentObject {
 		}
 		componentObjects = append(componentObjects, ComponentObject{
 			ComponentTitle:      component.Title,
+			ComponentType:       component.Type,
 			RuleObjects:         ruleObjects,
 			ControlImpleObjects: controlImpleObjects,
 		})

@@ -1,0 +1,88 @@
+{
+  "component-definition": {
+    "uuid": "a065e23d-6ac0-4b73-a7a6-c3f76d2b59d2",
+    "metadata": {
+      "title": "Component Definition for Kube",
+      "last-modified": "2023-10-17T22:21:08+00:00",
+      "version": "1.0",
+      "oscal-version": "1.0.4"
+    },
+    "components": [
+      {
+        "uuid": "04d90c66-6249-42d2-ad12-e94f2ecbeaed",
+        "type": "software",
+        "title": "Kubernetes",
+        "description": "Kubernetes",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+            "value": "advanced-restrict-image-registries",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+            "value": "In instances where a ClusterPolicy defines all the approved image registries is insufficient, more granular control may be needed to set permitted registries, especially in multi-tenant use cases where some registries may be based on the Namespace. This policy shows an advanced version of the Restrict Image Registries policy which gets a global approved registry from a ConfigMap and, based upon an annotation at the Namespace level, gets the registry approved for that Namespace.",
+            "remarks": "rule_set_0"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "bcdb290a-e726-4350-a06a-b7726b826e72",
+            "source": "https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+            "description": "NIST r5",
+            "implemented-requirements": [
+              {
+                "uuid": "850a08cf-eaeb-425f-9587-b3e18153862a",
+                "control-id": "cm-8.3",
+                "description": "",
+                "statements": [
+                  {
+                    "statement-id": "cm-8.3_smt.a",
+                    "uuid": "7c0ac8ea-5613-451f-8242-7702791727a2",
+                    "description": "",
+                    "props": [
+                      {
+                        "name": "Rule_Id",
+                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+                        "value": "advanced-restrict-image-registries"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "e3e0eb21-c1a5-44d8-b87a-aa983fe703ac",
+        "type": "validation",
+        "title": "Kyverno",
+        "description": "Kyverno",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "value": "advanced-restrict-image-registries",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "value": "advanced-restrict-image-registries",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "value": "advanced-restrict-image-registries",
+            "remarks": "rule_set_1"
+          }
+        ],
+        "control-implementations": []
+      }
+    ]
+  }
+}

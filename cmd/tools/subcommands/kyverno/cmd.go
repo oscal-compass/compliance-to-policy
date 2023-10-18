@@ -56,11 +56,20 @@ func New() *cobra.Command {
 }
 
 type policyResourceIndex struct {
-	Kind       string
-	ApiVersion string
-	Name       string
-	SourcePath string
-	HasContext bool
+	Kind       string `json:"kind,omitempty"`
+	ApiVersion string `json:"apiVersion,omitempty"`
+	Name       string `json:"name,omitempty"`
+	SrcPath    string `json:"srcPath,omitempty"`
+	DestPath   string `json:"destPath,omitempty"`
+	HasContext bool   `json:"hasContext,omitempty"`
+}
+
+type Summary struct {
+	ResourcesHavingContext []string `json:"resourcesHavingContext,omitempty"`
+}
+type Result struct {
+	PolicyResourceIndice []policyResourceIndex `json:"policyResourceIndice,omitempty"`
+	Summary              Summary               `json:"summary,omitempty"`
 }
 
 func mapLoadedObject(unstObj *unstructured.Unstructured, path string) *policyResourceIndex {
@@ -70,7 +79,7 @@ func mapLoadedObject(unstObj *unstructured.Unstructured, path string) *policyRes
 		ApiVersion: unstObj.GetAPIVersion(),
 		Kind:       unstObj.GetKind(),
 		Name:       name,
-		SourcePath: path,
+		SrcPath:    path,
 	}
 }
 
@@ -165,46 +174,55 @@ func Run(options *Options) error {
 		return err
 	}
 
-	inverseMap := map[string][]policyResourceIndex{}
-	for _, pri := range policyResourceIndice {
+	inverseMap := map[string][]*policyResourceIndex{}
+	for idx, pri := range policyResourceIndice {
 		_, found := inverseMap[pri.Name]
 		if found {
-			inverseMap[pri.Name] = append(inverseMap[pri.Name], pri)
+			inverseMap[pri.Name] = append(inverseMap[pri.Name], &policyResourceIndice[idx])
 		} else {
-			inverseMap[pri.Name] = []policyResourceIndex{pri}
+			inverseMap[pri.Name] = []*policyResourceIndex{&policyResourceIndice[idx]}
 		}
 	}
 	for name, pris := range inverseMap {
 		if len(pris) > 1 {
 			logger.Warn(fmt.Sprintf("There are duplicate policies for %s", name))
 			for _, pri := range pris {
-				logger.Warn(fmt.Sprintf("  - %s", pri.SourcePath))
+				logger.Warn(fmt.Sprintf("  - %s", pri.SrcPath))
 			}
 		}
 	}
 
 	fnameCreator := pkg.NewFilenameCreator("", &pkg.FilenameCreatorOption{UnlabelToZero: true})
 	for name, pris := range inverseMap {
-		for _, pri := range pris {
+		for idx, pri := range pris {
 			numberedName := fnameCreator.Get(name)
 			targetDir, err := pkg.MakeDir(destDir + "/" + numberedName)
 			if err != nil {
 				return err
 			}
-			if err := cp.Copy(pri.SourcePath, targetDir+"/"+pri.Name+".yaml"); err != nil {
-				logger.Error(fmt.Sprintf("Failed to copy %s", pri.SourcePath))
+			pris[idx].DestPath = targetDir + "/" + pri.Name + ".yaml"
+			if err := cp.Copy(pri.SrcPath, pris[idx].DestPath); err != nil {
+				logger.Error(fmt.Sprintf("Failed to copy %s", pri.SrcPath))
 				return err
 			}
 		}
 	}
 
+	resourcesHavingContext := []string{}
 	for name, pris := range inverseMap {
 		for _, pri := range pris {
 			if pri.HasContext {
-				println(fmt.Sprintf("%s has 'context' field: source %s", name, pri.SourcePath))
+				resourcesHavingContext = append(resourcesHavingContext, name)
 			}
 		}
 	}
 
-	return nil
+	result := Result{
+		PolicyResourceIndice: policyResourceIndice,
+		Summary: Summary{
+			ResourcesHavingContext: resourcesHavingContext,
+		},
+	}
+
+	return pkg.WriteObjToJsonFile(destDir+"/result.json", result)
 }

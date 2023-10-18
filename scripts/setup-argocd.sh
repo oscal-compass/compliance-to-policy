@@ -60,6 +60,7 @@ argocd login localhost:8080 --username=admin --password="${admin_pass}" --insecu
 argocd repocreds add --upsert https://github.com/$org/$repo --username $user --password $token
 # argocd app create $appname --repo https://github.com/$org/$repo.git --path $path --dest-server https://kubernetes.default.svc --dest-namespace $ns --sync-option Replace=true --sync-policy automated --allow-empty --auto-prune
 argocd app create $appname --repo https://github.com/$org/$repo.git --path $path --dest-server https://kubernetes.default.svc --dest-namespace $ns --sync-option Replace=true --sync-policy automated --allow-empty
+argocd app set $appname --directory-recurse
 argocd app get $appname
 
 kill $pid
