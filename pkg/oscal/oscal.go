@@ -23,6 +23,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg/tables/resources"
 	"github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	"github.com/IBM/compliance-to-policy/pkg/types/oscal"
+	typecommon "github.com/IBM/compliance-to-policy/pkg/types/oscal/common"
 	cd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
 	"github.com/google/uuid"
 )
@@ -59,6 +60,15 @@ func listRules(props []cd.Prop) []cd.Prop {
 		}
 	}
 	return newProps
+}
+
+func FindProp(name string, props []typecommon.Prop) (typecommon.Prop, bool) {
+	for _, prop := range props {
+		if prop.Name == name {
+			return prop, true
+		}
+	}
+	return typecommon.Prop{}, false
 }
 
 func GenerateUUID() string {

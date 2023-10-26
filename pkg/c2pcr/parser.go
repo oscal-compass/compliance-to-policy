@@ -69,6 +69,14 @@ func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
 		return parsed, err
 	}
 
+	if c2pcrSpec.Compliance.AssessmentResults.Url != "" {
+		logger.Info(fmt.Sprintf("Assessment-results is loaded from %s", c2pcrSpec.Compliance.AssessmentResults.Url))
+		if err := p.gitUtils.LoadFromWeb(c2pcrSpec.Compliance.AssessmentResults.Url, &parsed.AssessmentResults); err != nil {
+			logger.Sugar().Error(err, "Failed to load assessment-results")
+			return parsed, err
+		}
+	}
+
 	parsed.ComponentObjects = oscal.ParseComponentDefinition(parsed.ComponentDefinition)
 
 	return parsed, err

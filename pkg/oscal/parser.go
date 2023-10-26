@@ -102,7 +102,7 @@ func ParseComponentDefinition(cd ComponentDefinitionRoot) []ComponentObject {
 				ruleIds := []string{}
 				if implReq.Statements != nil && len(implReq.Statements) > 0 {
 					for _, statement := range implReq.Statements {
-						for _, prop := range listRules(implReq.Props) {
+						for _, prop := range listRules(statement.Props) {
 							ruleIds = append(ruleIds, prop.Value)
 						}
 						controlObjects = append(controlObjects, ControlObject{

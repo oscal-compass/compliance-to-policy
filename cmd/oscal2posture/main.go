@@ -14,28 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package subcommands
+package main
 
 import (
-	"github.com/spf13/cobra"
+	"os"
 
-	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
-	composecmd "github.com/IBM/compliance-to-policy/cmd/compose-kyverno/cmd"
-	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/oscal2posture/cmd"
+	"github.com/IBM/compliance-to-policy/cmd/oscal2posture/cmd"
 )
 
-func NewKyvernoSubCommand() *cobra.Command {
-	opts := options.NewOptions()
-
-	command := &cobra.Command{
-		Use:   "kyverno",
-		Short: "C2P CLI Kyverno plugin",
+func main() {
+	err := cmd.New().Execute()
+	if err != nil {
+		os.Exit(1)
 	}
-
-	opts.AddFlags(command.Flags())
-
-	command.AddCommand(composecmd.New())
-	command.AddCommand(oscal2posturecmd.New())
-
-	return command
 }

@@ -19,6 +19,7 @@ package c2pcr
 import (
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	typesoscal "github.com/IBM/compliance-to-policy/pkg/types/oscal"
+	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
 	typecd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
 )
 
@@ -29,6 +30,7 @@ type C2PCRParsed struct {
 	Catalog             typesoscal.CatalogRoot
 	Profile             typesoscal.ProfileRoot
 	ComponentDefinition typecd.ComponentDefinitionRoot
+	AssessmentResults   typear.AssessmentResultsRoot
 	ComponentObjects    []oscal.ComponentObject
 	ClusterSelectors    map[string]string
 }

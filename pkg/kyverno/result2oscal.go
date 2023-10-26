@@ -53,7 +53,7 @@ type PolicyResourceIndexContainer struct {
 
 func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed) *ResultToOscal {
 	r := ResultToOscal{
-		logger:                  pkg.GetLogger("kyverno/reporter"),
+		logger:                  pkg.GetLogger("kyverno/result2oscal"),
 		c2pParsed:               c2pParsed,
 		policyReportList:        &typepolr.PolicyReportList{},
 		clusterPolicyReportList: &typepolr.ClusterPolicyReportList{},
@@ -95,10 +95,10 @@ func (r *ResultToOscal) findControls(ruleId string) []oscal.ControlObject {
 			continue
 		}
 		for _, cio := range componentObject.ControlImpleObjects {
-			for _, cos := range cio.ControlObjects {
-				for _, _ruleId := range cos.RuleIds {
+			for _, co := range cio.ControlObjects {
+				for _, _ruleId := range co.RuleIds {
 					if ruleId == _ruleId {
-						controls = append(controls, cos)
+						controls = append(controls, co)
 					}
 				}
 			}
@@ -134,7 +134,7 @@ func makeProp(name string, value string) typeoscalcommon.Prop {
 	}
 }
 
-func (r *ResultToOscal) GenerateAssessmentResults() (*typear.AssessmentResults, error) {
+func (r *ResultToOscal) GenerateAssessmentResults() (*typear.AssessmentResultsRoot, error) {
 	var polList kyvernov1.PolicyList
 	if err := r.loadData("/policies.kyverno.io.yaml", &polList); err != nil {
 		return nil, err
@@ -232,6 +232,6 @@ func (r *ResultToOscal) GenerateAssessmentResults() (*typear.AssessmentResults, 
 	}
 
 	ar.Results = append(ar.Results, result)
-
-	return &ar, nil
+	arRoot := typear.AssessmentResultsRoot{AssessmentResults: ar}
+	return &arRoot, nil
 }
