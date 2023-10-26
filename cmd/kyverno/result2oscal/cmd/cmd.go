@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/IBM/compliance-to-policy/cmd/compose-kyverno/options"
+	"github.com/IBM/compliance-to-policy/cmd/kyverno/result2oscal/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/kyverno"
@@ -32,8 +32,8 @@ func New() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "compose",
-		Short: "Compose deliverable Kyverno policies from OSCAL",
+		Use:   "result2oscal",
+		Short: "Generate OSCAL Assessment Results from Kyverno policies and the policy reports",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
@@ -52,32 +52,33 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	if err := os.MkdirAll(options.OutputDir, os.ModePerm); err != nil {
-		return err
+	outputDir, c2pcrPath, tempDirPath := options.OutputDir, options.C2PCRPath, options.TempDirPath
+	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+		panic(err)
 	}
 
 	var c2pcrSpec typec2pcr.Spec
-	if err := pkg.LoadYamlFileToObject(options.C2PCRPath, &c2pcrSpec); err != nil {
-		return err
+	if err := pkg.LoadYamlFileToObject(c2pcrPath, &c2pcrSpec); err != nil {
+		panic(err)
 	}
 
-	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(options.TempDirPath))
+	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
 	c2pcrParser := c2pcr.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
+	if err != nil {
+		panic(err)
+	}
+
+	r := kyverno.NewResultToOscal(c2pcrParsed)
+	ar, err := r.GenerateAssessmentResults()
 	if err != nil {
 		return err
 	}
 
-	tmpdir := pkg.NewTempDirectory(options.TempDirPath)
-	composer := kyverno.NewComposer(c2pcrParsed.PolicyResoureDir, tmpdir)
-	if err := composer.Compose(c2pcrParsed); err != nil {
+	err = pkg.WriteObjToJsonFile(outputDir+"/assessment-results.json", ar)
+	if err != nil {
 		return err
 	}
 
-	if options.OutputDir != "" {
-		if err := composer.CopyAllTo(options.OutputDir); err != nil {
-			return err
-		}
-	}
 	return nil
 }

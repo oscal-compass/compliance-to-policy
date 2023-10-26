@@ -19,7 +19,7 @@ package main
 import (
 	"os"
 
-	"github.com/IBM/compliance-to-policy/cmd/oscal2posture/cmd"
+	"github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/cmd"
 )
 
 func main() {

@@ -20,8 +20,8 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
-	composecmd "github.com/IBM/compliance-to-policy/cmd/compose-kyverno/cmd"
-	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/oscal2posture/cmd"
+	composecmd "github.com/IBM/compliance-to-policy/cmd/kyverno/compose-kyverno/cmd"
+	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/cmd"
 )
 
 func NewKyvernoSubCommand() *cobra.Command {

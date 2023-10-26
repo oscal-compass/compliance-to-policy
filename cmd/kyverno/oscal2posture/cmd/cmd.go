@@ -22,7 +22,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/IBM/compliance-to-policy/cmd/oscal2posture/options"
+	"github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/kyverno"
