@@ -33,9 +33,9 @@ func NewOptions() *Options {
 }
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
-	fs.StringVar(&o.C2PCRPath, "c2pcr", "", "path to c2p CR")
+	fs.StringVarP(&o.C2PCRPath, "config", "c", "", "path to c2p-config.yaml")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
-	fs.StringVar(&o.OutputDir, "out", ".", "path to a directory for output files")
+	fs.StringVarP(&o.OutputDir, "out", "o", ".", "path to a directory for output files")
 }
 
 func (o *Options) Complete() error {
@@ -44,7 +44,7 @@ func (o *Options) Complete() error {
 
 func (o *Options) Validate() error {
 	if o.C2PCRPath == "" {
-		return errors.New("--c2pcr is required")
+		return errors.New("-c or --config <c2p-config.yaml> is required")
 	}
 	return nil
 }

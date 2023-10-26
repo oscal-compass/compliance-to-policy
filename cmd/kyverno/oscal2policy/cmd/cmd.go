@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/IBM/compliance-to-policy/cmd/kyverno/compose-kyverno/options"
+	"github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2policy/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/kyverno"
@@ -32,7 +32,7 @@ func New() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "compose",
+		Use:   "oscal2policy",
 		Short: "Compose deliverable Kyverno policies from OSCAL",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
@@ -69,8 +69,8 @@ func Run(options *options.Options) error {
 	}
 
 	tmpdir := pkg.NewTempDirectory(options.TempDirPath)
-	composer := kyverno.NewComposer(c2pcrParsed.PolicyResoureDir, tmpdir)
-	if err := composer.Compose(c2pcrParsed); err != nil {
+	composer := kyverno.NewOscal2Policy(c2pcrParsed.PolicyResoureDir, tmpdir)
+	if err := composer.Generate(c2pcrParsed); err != nil {
 		return err
 	}
 

@@ -25,21 +25,21 @@ import (
 	"go.uber.org/zap"
 )
 
-type Composer struct {
+type Oscal2Policy struct {
 	policiesDir string
 	tempDir     pkg.TempDirectory
 	logger      *zap.Logger
 }
 
-func NewComposer(policiesDir string, tempDir pkg.TempDirectory) *Composer {
-	return &Composer{
+func NewOscal2Policy(policiesDir string, tempDir pkg.TempDirectory) *Oscal2Policy {
+	return &Oscal2Policy{
 		policiesDir: policiesDir,
 		tempDir:     tempDir,
 		logger:      pkg.GetLogger("kyverno/composer"),
 	}
 }
 
-func (c *Composer) Compose(c2pParsed typec2pcr.C2PCRParsed) error {
+func (c *Oscal2Policy) Generate(c2pParsed typec2pcr.C2PCRParsed) error {
 	for _, componentObject := range c2pParsed.ComponentObjects {
 		if componentObject.ComponentType == "validation" {
 			continue
@@ -56,7 +56,7 @@ func (c *Composer) Compose(c2pParsed typec2pcr.C2PCRParsed) error {
 	return nil
 }
 
-func (c *Composer) CopyAllTo(destDir string) error {
+func (c *Oscal2Policy) CopyAllTo(destDir string) error {
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		return err
 	}

@@ -26,7 +26,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestComposer(t *testing.T) {
+func TestOscal2Policy(t *testing.T) {
 	policyDir := pkg.PathFromPkgDirectory("./testdata/kyverno/policy-resources")
 	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/catalog.json")
 	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/profile.json")
@@ -75,7 +75,7 @@ func TestComposer(t *testing.T) {
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
-	composer := NewComposer(c2pcrParsed.PolicyResoureDir, tempDir)
-	err = composer.Compose(c2pcrParsed)
+	o2p := NewOscal2Policy(c2pcrParsed.PolicyResoureDir, tempDir)
+	err = o2p.Generate(c2pcrParsed)
 	assert.NoError(t, err, "Should not happen")
 }
