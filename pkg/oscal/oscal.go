@@ -61,7 +61,7 @@ func listRules(props []cd.Prop) []cd.Prop {
 	return newProps
 }
 
-func generateUUID() string {
+func GenerateUUID() string {
 	uuid, err := uuid.NewUUID()
 	if err != nil {
 		return "01234567-yyyy-zzzz-1111-0123456789ab"
@@ -90,14 +90,14 @@ func makeComponentDefinitionFromMasterData(resourceTable *resources.Table) *cd.C
 					props = append(props, ruleProp)
 				}
 				implementedRequirements = append(implementedRequirements, cd.ImplementedRequirement{
-					UUID:      generateUUID(),
+					UUID:      GenerateUUID(),
 					ControlID: controlId,
 					Props:     props,
 				})
 			}
 		}
 		controlImplementations = append(controlImplementations, cd.ControlImplementation{
-			UUID:                    generateUUID(),
+			UUID:                    GenerateUUID(),
 			Source:                  standard,
 			ImplementedRequirements: implementedRequirements,
 		})

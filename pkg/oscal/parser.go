@@ -29,8 +29,16 @@ type RuleObject struct {
 }
 
 type ControlObject struct {
-	ControlId string
-	RuleIds   []string
+	ControlId   string
+	StatementId string
+	RuleIds     []string
+}
+
+func (c *ControlObject) GetControlId() string {
+	if c.StatementId != "" {
+		return c.StatementId
+	}
+	return c.ControlId
 }
 
 type ControlImpleObject struct {
@@ -92,13 +100,26 @@ func ParseComponentDefinition(cd ComponentDefinitionRoot) []ComponentObject {
 			controlObjects := []ControlObject{}
 			for _, implReq := range controlImpl.ImplementedRequirements {
 				ruleIds := []string{}
-				for _, prop := range listRules(implReq.Props) {
-					ruleIds = append(ruleIds, prop.Value)
+				if implReq.Statements != nil && len(implReq.Statements) > 0 {
+					for _, statement := range implReq.Statements {
+						for _, prop := range listRules(implReq.Props) {
+							ruleIds = append(ruleIds, prop.Value)
+						}
+						controlObjects = append(controlObjects, ControlObject{
+							ControlId:   implReq.ControlID,
+							RuleIds:     ruleIds,
+							StatementId: statement.StatementId,
+						})
+					}
+				} else {
+					for _, prop := range listRules(implReq.Props) {
+						ruleIds = append(ruleIds, prop.Value)
+					}
+					controlObjects = append(controlObjects, ControlObject{
+						ControlId: implReq.ControlID,
+						RuleIds:   ruleIds,
+					})
 				}
-				controlObjects = append(controlObjects, ControlObject{
-					ControlId: implReq.ControlID,
-					RuleIds:   ruleIds,
-				})
 			}
 			controlImpleObjects = append(controlImpleObjects, ControlImpleObject{
 				SetParameters:  controlImpl.SetParameters,
