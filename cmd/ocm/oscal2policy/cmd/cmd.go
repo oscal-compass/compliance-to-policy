@@ -18,13 +18,14 @@ package cmd
 
 import (
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
-	"github.com/IBM/compliance-to-policy/cmd/report/options"
+	"github.com/IBM/compliance-to-policy/cmd/ocm/oscal2policy/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
-	"github.com/IBM/compliance-to-policy/pkg/reporter"
+	"github.com/IBM/compliance-to-policy/pkg/ocm"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
 
@@ -32,8 +33,8 @@ func New() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "report",
-		Short: "Generate report from statuses of OCM policies",
+		Use:   "oscal2policy",
+		Short: "Compose deliverable OCM Policies from OSCAL",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
@@ -52,42 +53,49 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	outputDir, c2pcrPath, tempDirPath := options.OutputDir, options.C2PCRPath, options.TempDirPath
-	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+	if err := os.MkdirAll(options.OutputDir, os.ModePerm); err != nil {
 		panic(err)
 	}
 
 	var c2pcrSpec typec2pcr.Spec
-	if err := pkg.LoadYamlFileToObject(c2pcrPath, &c2pcrSpec); err != nil {
+	if err := pkg.LoadYamlFileToObject(options.C2PCRPath, &c2pcrSpec); err != nil {
 		panic(err)
 	}
 
-	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
+	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(options.TempDirPath))
 	c2pcrParser := c2pcr.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	if err != nil {
 		panic(err)
 	}
 
-	r := reporter.NewReporter(c2pcrParsed)
-	r.SetGenerationType(reporter.GenerationTypePolicyReport)
-	report, err := r.Generate()
+	tmpdir := pkg.NewTempDirectory(options.TempDirPath)
+	composer := ocm.NewComposerByTempDirectory(c2pcrParsed.PolicyResoureDir, tmpdir)
+	if err := composer.ComposeByC2PParsed(c2pcrParsed); err != nil {
+		panic(err)
+	}
+	policySet, err := composer.GeneratePolicySet()
 	if err != nil {
 		panic(err)
 	}
 
-	err = pkg.WriteObjToYamlFile(outputDir+"/compliance-report.yaml", report)
-	if err != nil {
-		panic(err)
-	}
-
-	for _, pr := range r.GetPolicyReports() {
-		nspath, err := pkg.MakeDir(outputDir + "/" + pr.Namespace)
+	for _, resource := range (*policySet).Resources() {
+		name := resource.GetName()
+		kind := resource.GetKind()
+		namespace := resource.GetNamespace()
+		yamlByte, err := resource.AsYAML()
 		if err != nil {
 			panic(err)
 		}
-		err = pkg.WriteObjToYamlFile(nspath+"/"+pr.Name+".yaml", pr)
-		if err != nil {
+		fnamesTokens := []string{kind, namespace, name}
+		fname := strings.Join(fnamesTokens, ".") + ".yaml"
+		if err := os.WriteFile(options.OutputDir+"/"+fname, yamlByte, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
+
+	if options.OutputDirForPolicyGenerator != "" {
+		if err := composer.CopyAllTo(options.OutputDirForPolicyGenerator); err != nil {
 			panic(err)
 		}
 	}

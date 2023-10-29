@@ -19,7 +19,7 @@ package main
 import (
 	"os"
 
-	"github.com/IBM/compliance-to-policy/cmd/report/cmd"
+	"github.com/IBM/compliance-to-policy/cmd/ocm/result2oscal/cmd"
 )
 
 func main() {

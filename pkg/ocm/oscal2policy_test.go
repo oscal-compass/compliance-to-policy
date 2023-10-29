@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package composer
+package ocm
 
 import (
 	"os"
@@ -26,7 +26,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestComposer(t *testing.T) {
+func TestOscal2Policy(t *testing.T) {
 	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
 	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/catalog.json")
 	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/profile.json")

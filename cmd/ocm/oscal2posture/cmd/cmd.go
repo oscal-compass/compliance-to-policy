@@ -22,9 +22,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/IBM/compliance-to-policy/cmd/report-utils/options"
+	"github.com/IBM/compliance-to-policy/cmd/ocm/oscal2posture/options"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/reporter"
+	"github.com/IBM/compliance-to-policy/pkg/ocm/reporter"
 	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
 )
 
@@ -32,8 +32,8 @@ func New() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "report-utils",
-		Short: "Utilities for reporting",
+		Use:   "oscal2posture",
+		Short: "Generate Compliance Posture from OSCAL artifacts",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
