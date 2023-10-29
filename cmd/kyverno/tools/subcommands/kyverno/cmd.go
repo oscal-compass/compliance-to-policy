@@ -32,7 +32,7 @@ func New() *cobra.Command {
 	opts := NewOptions()
 
 	command := &cobra.Command{
-		Use:   "kyverno-policy-resource",
+		Use:   "load-policy-resources",
 		Short: "Retrieve policies from Kyverno policy collection and create policy resource directory",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {

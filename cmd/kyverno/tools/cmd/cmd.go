@@ -20,7 +20,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
-	kyvernocmd "github.com/IBM/compliance-to-policy/cmd/tools/subcommands/kyverno"
+	kyvernocmd "github.com/IBM/compliance-to-policy/cmd/kyverno/tools/subcommands/kyverno"
 )
 
 func New() *cobra.Command {
@@ -28,7 +28,7 @@ func New() *cobra.Command {
 
 	command := &cobra.Command{
 		Use:   "tools",
-		Short: "C2P CLI Tools",
+		Short: "Tools",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
