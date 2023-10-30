@@ -1,3 +1,16 @@
+1. Install Kyverno
+    ```
+    kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.10.0/install.yaml
+    ```
+1. Install ArgoCD
+    ```
+    ./scripts/install-argocd.sh --interval 60s
+    ```
+1. Setup ArgoCD
+    ```
+    ./scripts/setup-argocd.sh --user yana1205 --token <PAT> --org yana1205 --repo c2p-for-kyverno1008-config --path kyverno-policies --appname c2p
+    ```
+
 ## 
 1. Set environment variables
     ```

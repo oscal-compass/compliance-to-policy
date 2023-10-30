@@ -30,15 +30,11 @@ spec:
                 git pull
                 rm -rf  $resultdir/*
                 cd $resultdir
-                kubectl get policies.kyverno.io -A -o yaml > 00.policies.kyverno.io.yaml
-                kubectl get clusterpolicies.kyverno.io -o yaml > 00.clusterpolicies.kyverno.io.yaml
-                kubectl get policyreports.wgpolicyk8s.io -A -o yaml > 00.policyreports.wgpolicyk8s.io.yaml
-                kubectl get clusterpolicyreports.wgpolicyk8s.io -o yaml > 00.clusterpolicyreports.wgpolicyk8s.io.yaml
+                kubectl get policies.kyverno.io -A -o yaml > policies.kyverno.io.yaml
+                kubectl get clusterpolicies.kyverno.io -o yaml > clusterpolicies.kyverno.io.yaml
+                kubectl get policyreports.wgpolicyk8s.io -A -o yaml > policyreports.wgpolicyk8s.io.yaml
+                kubectl get clusterpolicyreports.wgpolicyk8s.io -o yaml > clusterpolicyreports.wgpolicyk8s.io.yaml
 
-                yq '.items[]' 00.policies.kyverno.io.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
-                yq '.items[]' 00.clusterpolicies.kyverno.io.yaml -s '.kind + ".." + .metadata.name'
-                yq '.items[]' 00.policyreports.wgpolicyk8s.io.yaml -s '.kind + "." + .metadata.namespace + "." + .metadata.name'
-                yq '.items[]' 00.clusterpolicyreports.wgpolicyk8s.io.yaml -s '.kind + ".." + .metadata.name'
                 cd ..
 
                 echo "git diff"
