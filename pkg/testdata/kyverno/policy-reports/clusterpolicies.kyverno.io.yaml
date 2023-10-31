@@ -1,0 +1,174 @@
+apiVersion: v1
+items:
+- apiVersion: kyverno.io/v1
+  kind: ClusterPolicy
+  metadata:
+    annotations:
+      kyverno.io/kubernetes-version: "1.23"
+      kyverno.io/kyverno-version: 1.7.0
+      policies.kyverno.io/category: Other
+      policies.kyverno.io/description: Building images which specify a base as their
+        origin is a good start to improving supply chain security, but over time organizations
+        may want to build an allow list of specific base images which are allowed
+        to be used when constructing containers. This policy ensures that a container's
+        base, found in an OCI annotation, is in a cluster-wide allow list.
+      policies.kyverno.io/minversion: 1.7.0
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Allowed Base Images
+    creationTimestamp: "2023-10-18T05:41:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/instance: c2p
+    name: allowed-base-images
+    resourceVersion: "55817"
+    uid: 2fe80492-772f-424e-a259-1b5b43f74005
+  spec:
+    background: true
+    rules:
+    - context:
+      - configMap:
+          name: baseimages
+          namespace: platform
+        name: baseimages
+      match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+      name: allowed-base-images
+      preconditions:
+        all:
+        - key: '{{request.operation || ''BACKGROUND''}}'
+          operator: NotEquals
+          value: DELETE
+      validate:
+        foreach:
+        - context:
+          - imageRegistry:
+              reference: '{{ element.image }}'
+            name: imageData
+          - name: basename
+            variable:
+              default: ""
+              jmesPath: imageData.manifest.annotations."org.opencontainers.image.base.name"
+          deny:
+            conditions:
+              all:
+              - key: '{{ basename }}'
+                operator: AnyNotIn
+                value: '{{ baseimages.data.allowedbaseimages }}'
+          list: request.object.spec.containers
+        message: This container image's base is not in the approved list or is not
+          specified. Only pre-approved base images may be used. Please contact the
+          platform team for assistance.
+    validationFailureAction: audit
+  status:
+    autogen:
+      rules:
+      - context:
+        - configMap:
+            name: baseimages
+            namespace: platform
+          name: baseimages
+        exclude:
+          resources: {}
+        generate:
+          clone: {}
+          cloneList: {}
+        match:
+          any:
+          - resources:
+              kinds:
+              - DaemonSet
+              - Deployment
+              - Job
+              - StatefulSet
+              - ReplicaSet
+              - ReplicationController
+          resources: {}
+        mutate: {}
+        name: autogen-allowed-base-images
+        preconditions:
+          all:
+          - key: '{{request.operation || ''BACKGROUND''}}'
+            operator: NotEquals
+            value: DELETE
+        validate:
+          foreach:
+          - context:
+            - imageRegistry:
+                reference: '{{ element.image }}'
+              name: imageData
+            - name: basename
+              variable:
+                default: ""
+                jmesPath: imageData.manifest.annotations."org.opencontainers.image.base.name"
+            deny:
+              conditions:
+                all:
+                - key: '{{ basename }}'
+                  operator: AnyNotIn
+                  value: '{{ baseimages.data.allowedbaseimages }}'
+            list: request.object.spec.template.spec.containers
+          message: This container image's base is not in the approved list or is not
+            specified. Only pre-approved base images may be used. Please contact the
+            platform team for assistance.
+      - context:
+        - configMap:
+            name: baseimages
+            namespace: platform
+          name: baseimages
+        exclude:
+          resources: {}
+        generate:
+          clone: {}
+          cloneList: {}
+        match:
+          any:
+          - resources:
+              kinds:
+              - CronJob
+          resources: {}
+        mutate: {}
+        name: autogen-cronjob-allowed-base-images
+        preconditions:
+          all:
+          - key: '{{request.operation || ''BACKGROUND''}}'
+            operator: NotEquals
+            value: DELETE
+        validate:
+          foreach:
+          - context:
+            - imageRegistry:
+                reference: '{{ element.image }}'
+              name: imageData
+            - name: basename
+              variable:
+                default: ""
+                jmesPath: imageData.manifest.annotations."org.opencontainers.image.base.name"
+            deny:
+              conditions:
+                all:
+                - key: '{{ basename }}'
+                  operator: AnyNotIn
+                  value: '{{ baseimages.data.allowedbaseimages }}'
+            list: request.object.spec.jobTemplate.spec.template.spec.containers
+          message: This container image's base is not in the approved list or is not
+            specified. Only pre-approved base images may be used. Please contact the
+            platform team for assistance.
+    conditions:
+    - lastTransitionTime: "2023-10-18T05:53:47Z"
+      message: Ready
+      reason: Succeeded
+      status: "True"
+      type: Ready
+    ready: true
+    rulecount:
+      generate: 0
+      mutate: 0
+      validate: 1
+      verifyimages: 0
+kind: List
+metadata:
+  resourceVersion: ""

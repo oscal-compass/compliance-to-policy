@@ -1,0 +1,8 @@
+compliance:
+  name: Demo Compliance
+  componentDefinition:
+    url: ./pkg/testdata/kyverno/component-definition.json
+policyResources: 
+  url: ./pkg/testdata/kyverno/policy-resources
+policyResults: 
+  url: ./pkg/testdata/kyverno/policy-reports

@@ -64,17 +64,22 @@ type Result struct {
 }
 
 func Run(options *Options) error {
-	srcDir, destDir := options.SourceDir, options.DestinationDir
+	srcUrl, destDir, tempDirPath := options.SourceUrl, options.DestinationDir, options.TempDirPath
 
 	if _, err := pkg.MakeDir(destDir); err != nil {
 		logger.Error(fmt.Sprintf("Failed to create a destination directory %s", destDir))
 		return err
 	}
 
-	fl := kyverno.NewFileLoader()
-
-	err := fl.LoadFromDirectory(srcDir)
+	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
+	cloneDir, path, err := gitUtils.GitClone(srcUrl)
 	if err != nil {
+		return err
+	}
+	srcDir := cloneDir + "/" + path
+
+	fl := kyverno.NewFileLoader()
+	if err := fl.LoadFromDirectory(srcDir); err != nil {
 		return err
 	}
 

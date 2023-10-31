@@ -23,8 +23,9 @@ import (
 )
 
 type Options struct {
-	SourceDir      string
+	SourceUrl      string
 	DestinationDir string
+	TempDirPath    string
 }
 
 func NewOptions() *Options {
@@ -32,8 +33,9 @@ func NewOptions() *Options {
 }
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
-	fs.StringVar(&o.SourceDir, "src", "", "path to a directory of Kyverno policy collection")
+	fs.StringVar(&o.SourceUrl, "src", "", "url or path to a directory of Kyverno policy collection")
 	fs.StringVar(&o.DestinationDir, "dest", "", "path to a directory for output retrieved Kyverno policies")
+	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory (default: system-defined temporary directory)")
 }
 
 func (o *Options) Complete() error {
@@ -41,7 +43,7 @@ func (o *Options) Complete() error {
 }
 
 func (o *Options) Validate() error {
-	if o.SourceDir == "" {
+	if o.SourceUrl == "" {
 		return errors.New("--src is required")
 	}
 	if o.DestinationDir == "" {
