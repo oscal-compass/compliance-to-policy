@@ -23,9 +23,10 @@ import (
 )
 
 type Options struct {
-	C2PCRPath   string
-	TempDirPath string
-	Out         string
+	C2PCRPath         string
+	AssessmentResults string
+	TempDirPath       string
+	Out               string
 }
 
 func NewOptions() *Options {
@@ -34,6 +35,7 @@ func NewOptions() *Options {
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVarP(&o.C2PCRPath, "config", "c", "", "path to c2p-config.yaml")
+	fs.StringVar(&o.AssessmentResults, "assessment-results", "", "path or url to assessment-results.json")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
 	fs.StringVarP(&o.Out, "out", "o", "-", "path to output file. Use '-' for stdout. Default '-'.")
 }
@@ -45,6 +47,9 @@ func (o *Options) Complete() error {
 func (o *Options) Validate() error {
 	if o.C2PCRPath == "" {
 		return errors.New("-c or --config <c2p-config.yaml> is required")
+	}
+	if o.AssessmentResults == "" {
+		return errors.New("--assessment-results <assessment-results.json> is required")
 	}
 	return nil
 }

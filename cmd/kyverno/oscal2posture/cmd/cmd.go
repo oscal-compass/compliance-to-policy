@@ -24,7 +24,6 @@ import (
 
 	"github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/options"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/kyverno"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
@@ -61,13 +60,18 @@ func Run(options *options.Options) error {
 	}
 
 	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := kyverno.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	r := kyverno.NewOscal2Posture(c2pcrParsed, nil)
+	arRoot, err := c2pcrParser.LoadAssessmentResults(options.AssessmentResults)
+	if err != nil {
+		return err
+	}
+
+	r := kyverno.NewOscal2Posture(c2pcrParsed, arRoot, nil)
 	data, err := r.Generate()
 	if err != nil {
 		return err

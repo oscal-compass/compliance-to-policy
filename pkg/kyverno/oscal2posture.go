@@ -36,9 +36,10 @@ import (
 var embeddedResources embed.FS
 
 type Oscal2Posture struct {
-	logger       *zap.Logger
-	c2pParsed    typec2pcr.C2PCRParsed
-	templateFile *string
+	logger            *zap.Logger
+	c2pParsed         typec2pcr.C2PCRParsed
+	assessmentResults typear.AssessmentResultsRoot
+	templateFile      *string
 }
 
 type TemplateValues struct {
@@ -47,18 +48,18 @@ type TemplateValues struct {
 	AssessmentResult typear.AssessmentResults
 }
 
-func NewOscal2Posture(c2pParsed typec2pcr.C2PCRParsed, templateFile *string) *Oscal2Posture {
+func NewOscal2Posture(c2pParsed typec2pcr.C2PCRParsed, assessmentResults typear.AssessmentResultsRoot, templateFile *string) *Oscal2Posture {
 	return &Oscal2Posture{
-		logger:       pkg.GetLogger("kyverno/oscal2posture"),
-		c2pParsed:    c2pParsed,
-		templateFile: templateFile,
+		logger:            pkg.GetLogger("kyverno/oscal2posture"),
+		c2pParsed:         c2pParsed,
+		assessmentResults: assessmentResults,
+		templateFile:      templateFile,
 	}
 }
 
 func (r *Oscal2Posture) findSubjects(ruleId string) []typear.Subject {
 	subjects := []typear.Subject{}
-	ars := r.c2pParsed.AssessmentResults
-	for _, ar := range ars.AssessmentResults.Results {
+	for _, ar := range r.assessmentResults.AssessmentResults.Results {
 		for _, ob := range ar.Observations {
 			prop, found := oscal.FindProp("assessment-rule-id", ob.Props)
 			if found && prop.Value == ruleId {

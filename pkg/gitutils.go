@@ -124,6 +124,9 @@ func (g *GitUtils) GitClone(url string) (string, string, error) {
 }
 
 func splitGitUrl(u *neturl.URL) (repoUrl string, path string, err error) {
+	if u.Scheme == "" {
+		return
+	}
 	paths := strings.Split(u.Path, "/")
 	if len(paths) < 3 {
 		err = fmt.Errorf("url path should have at least 3 tokens. url: %v", u)

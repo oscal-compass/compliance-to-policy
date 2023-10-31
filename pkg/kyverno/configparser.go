@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package c2pcr
+package kyverno
 
 import (
 	"fmt"
@@ -22,26 +22,26 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	"github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
+	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
 	"go.uber.org/zap"
 )
 
-var logger *zap.Logger = pkg.GetLogger("c2pcr")
-
 type C2PCRParser struct {
+	logger   *zap.Logger
 	gitUtils pkg.GitUtils
 }
 
 func NewParser(gitUtils pkg.GitUtils) C2PCRParser {
 	return C2PCRParser{
+		logger:   pkg.GetLogger("kyverno/c2pcr"),
 		gitUtils: gitUtils,
 	}
 }
 
 func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
+	logger := p.logger
 	var err error
 	parsed := c2pcr.C2PCRParsed{}
-	parsed.Namespace = c2pcrSpec.Target.Namespace
-	parsed.ClusterSelectors = *c2pcrSpec.ClusterGroups[0].MatchLabels
 	parsed.PolicyResoureDir, err = p.loadResourceFromUrl(c2pcrSpec.PolicyResources.Url)
 	if err != nil {
 		return parsed, err
@@ -81,8 +81,18 @@ func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
 func (p *C2PCRParser) loadResourceFromUrl(url string) (dirpath string, err error) {
 	cloneDir, path, err := p.gitUtils.GitClone(url)
 	if err != nil {
-		logger.Sugar().Error(err, fmt.Sprintf("Failed to load %v", url))
+		p.logger.Sugar().Error(err, fmt.Sprintf("Failed to load %v", url))
 		return dirpath, err
 	}
 	return cloneDir + "/" + path, nil
+}
+
+func (p *C2PCRParser) LoadAssessmentResults(url string) (typear.AssessmentResultsRoot, error) {
+	var arRoot typear.AssessmentResultsRoot
+	p.logger.Info(fmt.Sprintf("Assessment-results is loaded from %s", url))
+	if err := p.gitUtils.LoadFromWeb(url, &arRoot); err != nil {
+		p.logger.Sugar().Error(err, "Failed to load assessment-results")
+		return arRoot, err
+	}
+	return arRoot, nil
 }
