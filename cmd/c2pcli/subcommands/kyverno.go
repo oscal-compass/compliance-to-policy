@@ -14,37 +14,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package cmd
+package subcommands
 
 import (
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
-	"github.com/IBM/compliance-to-policy/cmd/c2pcli/subcommands"
+	oscal2policycmd "github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2policy/cmd"
+	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/cmd"
+	result2oscalcmd "github.com/IBM/compliance-to-policy/cmd/kyverno/result2oscal/cmd"
+	toolscmd "github.com/IBM/compliance-to-policy/cmd/kyverno/tools/cmd"
 )
 
-func New() *cobra.Command {
+func NewKyvernoSubCommand() *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
-		Use:   "c2pcli",
-		Short: "C2P CLI",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := opts.Complete(); err != nil {
-				return err
-			}
-
-			if err := opts.Validate(); err != nil {
-				return err
-			}
-			return nil
-		},
+		Use:   "kyverno",
+		Short: "C2P CLI Kyverno plugin",
 	}
 
 	opts.AddFlags(command.Flags())
 
-	command.AddCommand(subcommands.NewKyvernoSubCommand())
-	command.AddCommand(subcommands.NewOcmSubCommand())
+	command.AddCommand(oscal2policycmd.New())
+	command.AddCommand(result2oscalcmd.New())
+	command.AddCommand(oscal2posturecmd.New())
+	command.AddCommand(toolscmd.New())
 
 	return command
 }

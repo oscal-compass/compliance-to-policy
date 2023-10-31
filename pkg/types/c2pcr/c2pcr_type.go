@@ -34,6 +34,8 @@ type Compliance struct {
 	Profile ResourceRef `json:"profile,omitempty"`
 	// Reference to OSCAL Component Definition json
 	ComponentDefinition ResourceRef `json:"componentDefinition,omitempty"`
+	// Reference to OSCAL Assessment Results json
+	AssessmentResults ResourceRef `json:"assessmentResults,omitempty"`
 }
 
 type ClusterGroup struct {

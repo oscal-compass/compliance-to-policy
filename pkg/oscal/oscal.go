@@ -23,6 +23,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg/tables/resources"
 	"github.com/IBM/compliance-to-policy/pkg/types/internalcompliance"
 	"github.com/IBM/compliance-to-policy/pkg/types/oscal"
+	typecommon "github.com/IBM/compliance-to-policy/pkg/types/oscal/common"
 	cd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
 	"github.com/google/uuid"
 )
@@ -61,7 +62,16 @@ func listRules(props []cd.Prop) []cd.Prop {
 	return newProps
 }
 
-func generateUUID() string {
+func FindProp(name string, props []typecommon.Prop) (typecommon.Prop, bool) {
+	for _, prop := range props {
+		if prop.Name == name {
+			return prop, true
+		}
+	}
+	return typecommon.Prop{}, false
+}
+
+func GenerateUUID() string {
 	uuid, err := uuid.NewUUID()
 	if err != nil {
 		return "01234567-yyyy-zzzz-1111-0123456789ab"
@@ -90,14 +100,14 @@ func makeComponentDefinitionFromMasterData(resourceTable *resources.Table) *cd.C
 					props = append(props, ruleProp)
 				}
 				implementedRequirements = append(implementedRequirements, cd.ImplementedRequirement{
-					UUID:      generateUUID(),
+					UUID:      GenerateUUID(),
 					ControlID: controlId,
 					Props:     props,
 				})
 			}
 		}
 		controlImplementations = append(controlImplementations, cd.ControlImplementation{
-			UUID:                    generateUUID(),
+			UUID:                    GenerateUUID(),
 			Source:                  standard,
 			ImplementedRequirements: implementedRequirements,
 		})

@@ -1,0 +1,879 @@
+apiVersion: v1
+items:
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2023-10-18T05:41:49Z"
+    generation: 6
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "55817"
+    name: cpol-allowed-base-images
+    namespace: argocd
+    resourceVersion: "56336"
+    uid: f50076f9-c979-4605-addc-050a60688f4a
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-application-controller-0
+      namespace: argocd
+      uid: 0b1adf1c-f6e2-46af-889e-39255e669655
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608494
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-server-5985b6cf6f-5cbcw
+      namespace: argocd
+      uid: 3c7a83c8-abc9-4041-aafd-16da906f9efc
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608466
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-repo-server-7ccbc8cb48-f4nxv
+      namespace: argocd
+      uid: 4db11e78-ef68-4003-bef7-c24d35a48951
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608485
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-notifications-controller-5557f7bb5b-knkhk
+      namespace: argocd
+      uid: 66c9292a-091b-4325-ac28-44080e305f8c
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608481
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-redis-b5d6bf5f5-hx2bh
+      namespace: argocd
+      uid: 89fc793e-e686-4653-a838-3fe4ac37b1bf
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608471
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-dex-server-bb76f899c-crpgz
+      namespace: argocd
+      uid: e7a4e6fe-7380-4c59-86ad-6a5f1a924e39
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608482
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: argocd-applicationset-controller-787bfd9669-64886
+      namespace: argocd
+      uid: fc29d94c-115f-4351-94eb-4839d3e30a78
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608500
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: argocd-server
+      namespace: argocd
+      uid: 23d25075-da9c-41aa-a73e-e317770c377d
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608434
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-applicationset-controller-787bfd9669
+      namespace: argocd
+      uid: 247d76c2-b43c-49ec-a501-efdbb9752b67
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607707
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-notifications-controller-5557f7bb5b
+      namespace: argocd
+      uid: 25313824-108c-43e4-a6d7-d404702d6e66
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607689
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-dex-server-bb76f899c
+      namespace: argocd
+      uid: 2d022b83-c9ab-4b49-be03-95b60dc4ec0f
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607690
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-redis-b5d6bf5f5
+      namespace: argocd
+      uid: 391726d5-ac35-41b7-bd4f-67ef345b2677
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607695
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-repo-server-7ccbc8cb48
+      namespace: argocd
+      uid: 71ef51a8-67ca-4e57-8d77-24f4206ac841
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607714
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-server-5985b6cf6f
+      namespace: argocd
+      uid: 81797cb9-31c0-4872-a958-b167836b6cff
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607715
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: argocd-repo-server-56998dcf9c
+      namespace: argocd
+      uid: ca513c3b-2054-4db1-8df3-23ec18b5680d
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607709
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: StatefulSet
+      name: argocd-application-controller
+      namespace: argocd
+      uid: cf61f7f0-cd9a-44f6-ab07-ddc83a31c6de
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608439
+  summary:
+    error: 0
+    fail: 16
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2023-10-18T05:42:11Z"
+    generation: 5
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "55817"
+    name: cpol-allowed-base-images
+    namespace: kube-system
+    resourceVersion: "56257"
+    uid: 4e139043-7067-4b05-b710-6a84d553ccdf
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: etcd-kind-control-plane
+      namespace: kube-system
+      uid: 18b1d403-dde5-4b77-97e1-af25f8dd5f97
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608486
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-proxy-wsl9b
+      namespace: kube-system
+      uid: 1c99caf6-f89a-493e-86cc-654a7987d2c1
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608463
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-pwc6s
+      namespace: kube-system
+      uid: 4861beaf-4981-4e21-9b62-a65310b3d6af
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608469
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kindnet-9gpsc
+      namespace: kube-system
+      uid: 67b1d4ca-2d17-4c02-983b-cca88998688a
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608473
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-scheduler-kind-control-plane
+      namespace: kube-system
+      uid: 96b4a7a8-69e7-4487-a5fb-55e6cef6d81f
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608474
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-v4bzh
+      namespace: kube-system
+      uid: a1ff9879-6c0c-4199-8b6a-e8002bdb5468
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608462
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-controller-manager-kind-control-plane
+      namespace: kube-system
+      uid: c59c011a-3a47-47bc-8abf-9bab2b228b4f
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608487
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-apiserver-kind-control-plane
+      namespace: kube-system
+      uid: d945abb0-0b11-4e32-b4fa-2dabcc325be0
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608507
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kube-proxy
+      namespace: kube-system
+      uid: 3850baa8-0b50-4cee-b3ae-e2ca857bd2f1
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608448
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kindnet
+      namespace: kube-system
+      uid: 8c1de00f-7c26-408c-89ae-40c4af347467
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608448
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: coredns-5d78c9869d
+      namespace: kube-system
+      uid: fe901839-d4d0-4614-a83d-f1747cba5905
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607699
+  summary:
+    error: 0
+    fail: 11
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2023-10-18T05:41:49Z"
+    generation: 18
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "55817"
+    name: cpol-allowed-base-images
+    namespace: kyverno
+    resourceVersion: "66439"
+    uid: 6fd534bc-f4dd-4d68-abab-0f1492ffbe9d
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-cluster-admission-reports-28293520-hml9q
+      namespace: kyverno
+      uid: 16e915d2-816c-4560-811b-3b68d32f9669
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697611239
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-admission-reports-28293520-4ck6h
+      namespace: kyverno
+      uid: 372c612a-5548-4925-9916-ce8c5b070eb6
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697611239
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-background-controller-74599787cf-69cc2
+      namespace: kyverno
+      uid: 47e9644c-4ec5-4655-a157-be4330c7cad5
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608477
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-admission-controller-7cd788c8dd-gmhzv
+      namespace: kyverno
+      uid: 956e9d43-c37c-47fe-8d12-46ffa00cf081
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608488
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-controller-ddf458755-zjdhx
+      namespace: kyverno
+      uid: a1035b1f-4555-467a-8c24-f319a5f77387
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608488
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-reports-controller-7f94855747-t2pbd
+      namespace: kyverno
+      uid: e5f132fc-c45f-42e8-8c64-04d1a9b10a94
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608477
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-cleanup-controller-ddf458755
+      namespace: kyverno
+      uid: 19fe628b-828c-4ac6-b0f8-c74112466334
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607699
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-cleanup-controller
+      namespace: kyverno
+      uid: 9777357f-3598-4ba0-9142-f554601b7544
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608435
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-reports-controller-7f94855747
+      namespace: kyverno
+      uid: 9a97ba34-8310-4a60-a5a6-112f17b2bfe5
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607702
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-background-controller-74599787cf
+      namespace: kyverno
+      uid: 9bf6595a-21af-4d05-b054-7db0e37638e8
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607721
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-admission-controller-7cd788c8dd
+      namespace: kyverno
+      uid: f2185ef7-aa43-48cb-abd1-e21fbfb79b0a
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607717
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-cluster-admission-reports
+      namespace: kyverno
+      uid: 1f7dd3fe-6995-4205-a34e-dabbbe2081f9
+    result: fail
+    rule: autogen-cronjob-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608454
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-admission-reports
+      namespace: kyverno
+      uid: 54aecd37-31c1-490f-a963-0079e9e1bc37
+    result: fail
+    rule: autogen-cronjob-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608452
+  summary:
+    error: 0
+    fail: 13
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2023-10-18T05:42:17Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "55817"
+    name: cpol-allowed-base-images
+    namespace: local-path-storage
+    resourceVersion: "56373"
+    uid: 32bf44e2-5ed8-4bc7-a4cb-801c7a062f2b
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: local-path-provisioner-6bc4bddd6b-4tbp5
+      namespace: local-path-storage
+      uid: 851841df-c869-4fce-b745-4d2c65f81aa4
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697608504
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: local-path-provisioner-6bc4bddd6b
+      namespace: local-path-storage
+      uid: bfe41dbc-02cc-4378-bbf8-532a5bc570b6
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1697607704
+  summary:
+    error: 0
+    fail: 2
+    pass: 0
+    skip: 0
+    warn: 0
+kind: List
+metadata:
+  resourceVersion: ""

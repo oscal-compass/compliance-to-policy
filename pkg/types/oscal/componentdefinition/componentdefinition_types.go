@@ -54,10 +54,18 @@ type ControlImplementation struct {
 }
 
 type ImplementedRequirement struct {
+	UUID        string      `json:"uuid"`
+	ControlID   string      `json:"control-id"`
+	Description string      `json:"description"`
+	Props       []Prop      `json:"props"`
+	Statements  []Statement `json:"statements,omitempty"`
+}
+
+type Statement struct {
+	StatementId string `json:"statement-id"`
 	UUID        string `json:"uuid"`
-	ControlID   string `json:"control-id"`
-	Description string `json:"description"`
-	Props       []Prop `json:"props"`
+	Description string `json:"description,omitempty"`
+	Props       []Prop `json:"props,omitempty"`
 }
 
 type Prop struct {
