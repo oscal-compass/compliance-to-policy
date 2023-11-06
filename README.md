@@ -3,7 +3,7 @@ Compliance-to-Policy (C2P) provides the framework to bridge Compliance administr
 
 ## Continuous Compliance by C2P 
 
-https://github.com/IBM/compliance-to-policy/assets/113283236/da3518d0-53de-4bd6-8703-04ce94e9dfba
+https://github.com/IBM/compliance-to-policy/assets/113283236/4b0b5357-4025-46c8-8d88-1f4c00538795
 
 ## Usage of C2P commands
 
