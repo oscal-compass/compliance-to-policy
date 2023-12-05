@@ -18,9 +18,6 @@ package ocm
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/IBM/compliance-to-policy/pkg"
@@ -69,15 +66,29 @@ func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed) *ResultToOscal {
 }
 
 func (r *ResultToOscal) Generate() (*typear.AssessmentResultsRoot, error) {
-	traverseFunc := genTraverseFunc(
-		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
-		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
-		func(placementDecision typeplacementdecision.PlacementDecision) {
-			r.placementDecisions = append(r.placementDecisions, &placementDecision)
-		},
-	)
-	if err := filepath.Walk(r.c2pParsed.PolicyResultsDir, traverseFunc); err != nil {
-		logger.Error(err.Error())
+
+	var policyList typepolicy.PolicyList
+	if err := r.loadData("policies.policy.open-cluster-management.io.yaml", &policyList); err != nil {
+		return nil, err
+	}
+	for idx := range policyList.Items {
+		r.policies = append(r.policies, &policyList.Items[idx])
+	}
+
+	var policySetList typepolicy.PolicySetList
+	if err := r.loadData("policysets.policy.open-cluster-management.io.yaml", &policySetList); err != nil {
+		return nil, err
+	}
+	for idx := range policySetList.Items {
+		r.policySets = append(r.policySets, &policySetList.Items[idx])
+	}
+
+	var placementDecisionLost typeplacementdecision.PlacementDecisionList
+	if err := r.loadData("placementdecisions.cluster.open-cluster-management.io.yaml", &placementDecisionLost); err != nil {
+		return nil, err
+	}
+	for idx := range placementDecisionLost.Items {
+		r.placementDecisions = append(r.placementDecisions, &placementDecisionLost.Items[idx])
 	}
 
 	inventories := []typear.InventoryItem{}
@@ -264,6 +275,13 @@ func (r *ResultToOscal) GenerateReasonsFromRawPolicies(policy typepolicy.Policy)
 
 }
 
+func (r *ResultToOscal) loadData(path string, out interface{}) error {
+	if err := pkg.LoadYamlFileToK8sTypedObject(r.c2pParsed.PolicyResultsDir+path, &out); err != nil {
+		return err
+	}
+	return nil
+}
+
 func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.RuleStatus {
 	switch complianceState {
 	case typepolicy.Compliant:
@@ -275,51 +293,4 @@ func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.Rule
 	default:
 		return typereport.RuleStatusError
 	}
-}
-
-func genTraverseFunc(onPolicy func(typepolicy.Policy), onPolicySet func(typepolicy.PolicySet), onPlacementDesicion func(typeplacementdecision.PlacementDecision)) func(path string, info os.FileInfo, err error) error {
-	return func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if !info.IsDir() {
-			kind, _, _, ok := parseFileName(info.Name())
-			if ok {
-				switch kind {
-				case "Policy":
-					var policy typepolicy.Policy
-					if err := pkg.LoadYamlFileToK8sTypedObject(path, &policy); err != nil {
-						return err
-					}
-					onPolicy(policy)
-				case "PolicySet":
-					var policySet typepolicy.PolicySet
-					if err := pkg.LoadYamlFileToK8sTypedObject(path, &policySet); err != nil {
-						return err
-					}
-					onPolicySet(policySet)
-				case "PlacementDecision":
-					var placementDecision typeplacementdecision.PlacementDecision
-					if err := pkg.LoadYamlFileToK8sTypedObject(path, &placementDecision); err != nil {
-						return err
-					}
-					onPlacementDesicion(placementDecision)
-				}
-			}
-		}
-		return nil
-	}
-}
-
-func parseFileName(fname string) (kind string, namespace string, name string, ok bool) {
-	splitted := strings.Split(fname, ".")
-	if len(splitted) >= 4 {
-		kind = splitted[0]
-		namespace = splitted[1]
-		name = strings.Join(splitted[2:len(splitted)-2], ".")
-		ok = true
-	} else {
-		ok = false
-	}
-	return
 }

@@ -58,3 +58,10 @@ type PolicySet struct {
 	Spec              PolicySetSpec   `json:"spec"`
 	Status            PolicySetStatus `json:"status,omitempty"`
 }
+
+// PolicySetList contains a list of PolicySet
+type PolicySetList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []PolicySet `json:"items"`
+}
