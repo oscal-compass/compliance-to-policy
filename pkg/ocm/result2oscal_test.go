@@ -21,7 +21,6 @@ import (
 	"testing"
 
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
 	"github.com/google/go-cmp/cmp"
@@ -75,7 +74,7 @@ func TestResult2Oscal(t *testing.T) {
 			Namespace: "c2p",
 		},
 	}
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 

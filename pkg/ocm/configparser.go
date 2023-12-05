@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package c2pcr
+package ocm
 
 import (
 	"fmt"
@@ -22,10 +22,7 @@ import (
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	"github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
-	"go.uber.org/zap"
 )
-
-var logger *zap.Logger = pkg.GetLogger("c2pcr")
 
 type C2PCRParser struct {
 	gitUtils pkg.GitUtils
