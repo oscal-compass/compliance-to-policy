@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package reporter
+package ocm
 
 import (
 	typeconfigpolicy "github.com/IBM/compliance-to-policy/pkg/types/configurationpolicy"

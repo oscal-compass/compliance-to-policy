@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package reporter
+package ocm
 
 import (
 	"fmt"
@@ -24,7 +24,6 @@ import (
 	"time"
 
 	"github.com/IBM/compliance-to-policy/pkg"
-	"go.uber.org/zap"
 	sigyaml "sigs.k8s.io/yaml"
 
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -39,9 +38,7 @@ import (
 	typeutils "github.com/IBM/compliance-to-policy/pkg/types/utils"
 )
 
-var logger *zap.Logger = pkg.GetLogger("reporter")
-
-type Reporter struct {
+type ResultToOscal struct {
 	c2pParsed          typec2pcr.C2PCRParsed
 	policies           []*typepolicy.Policy
 	policySets         []*typepolicy.PolicySet
@@ -61,8 +58,8 @@ const (
 	GenerationTypePolicyReport GenerationType = "policy-report"
 )
 
-func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
-	r := Reporter{
+func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed) *ResultToOscal {
+	r := ResultToOscal{
 		c2pParsed:          c2pParsed,
 		policies:           []*typepolicy.Policy{},
 		policySets:         []*typepolicy.PolicySet{},
@@ -71,7 +68,7 @@ func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 	return &r
 }
 
-func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
+func (r *ResultToOscal) Generate() (*typear.AssessmentResultsRoot, error) {
 	traverseFunc := genTraverseFunc(
 		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
 		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
@@ -243,7 +240,7 @@ func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 	return &arRoot, nil
 }
 
-func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Reason {
+func (r *ResultToOscal) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Reason {
 	reasons := []Reason{}
 	for _, status := range policy.Status.Status {
 		clusterName := status.ClusterName

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package reporter
+package ocm
 
 import (
 	"os"
@@ -29,7 +29,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestReporter(t *testing.T) {
+func TestResult2Oscal(t *testing.T) {
 
 	policyDir := pkg.PathFromPkgDirectory("./testdata/ocm/policies")
 	policyResultsDir := pkg.PathFromPkgDirectory("./testdata/ocm/policy-results")
@@ -79,7 +79,7 @@ func TestReporter(t *testing.T) {
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
-	reporter := NewReporter(c2pcrParsed)
+	reporter := NewResultToOscal(c2pcrParsed)
 	arRoot, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 

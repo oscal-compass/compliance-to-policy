@@ -24,7 +24,7 @@ import (
 	"github.com/IBM/compliance-to-policy/cmd/ocm/result2oscal/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
-	"github.com/IBM/compliance-to-policy/pkg/ocm/reporter"
+	"github.com/IBM/compliance-to-policy/pkg/ocm"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
 
@@ -69,7 +69,7 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	r := reporter.NewReporter(c2pcrParsed)
+	r := ocm.NewResultToOscal(c2pcrParsed)
 	arRoot, err := r.Generate()
 	if err != nil {
 		panic(err)
