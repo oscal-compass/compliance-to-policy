@@ -25,7 +25,7 @@ import (
 type Options struct {
 	C2PCRPath   string
 	TempDirPath string
-	OutputDir   string
+	OutputPath  string
 }
 
 func NewOptions() *Options {
@@ -35,7 +35,7 @@ func NewOptions() *Options {
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVarP(&o.C2PCRPath, "config", "c", "", "path to c2p-config.yaml")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
-	fs.StringVarP(&o.OutputDir, "out", "o", ".", "path to a directory for output files")
+	fs.StringVarP(&o.OutputPath, "out", "o", "./assessment-results.json", "path to output OSCAL Assessment Results")
 }
 
 func (o *Options) Complete() error {

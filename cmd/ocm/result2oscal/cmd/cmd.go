@@ -17,8 +17,6 @@ limitations under the License.
 package cmd
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/ocm/result2oscal/options"
@@ -52,10 +50,7 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	outputDir, c2pcrPath, tempDirPath := options.OutputDir, options.C2PCRPath, options.TempDirPath
-	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
-		panic(err)
-	}
+	outputPath, c2pcrPath, tempDirPath := options.OutputPath, options.C2PCRPath, options.TempDirPath
 
 	var c2pcrSpec typec2pcr.Spec
 	if err := pkg.LoadYamlFileToObject(c2pcrPath, &c2pcrSpec); err != nil {
@@ -75,9 +70,9 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	err = pkg.WriteObjToJsonFile(outputDir+"/assessment-results.json", arRoot)
+	err = pkg.WriteObjToJsonFile(outputPath, arRoot)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	return nil
