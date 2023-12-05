@@ -36,7 +36,7 @@ func TestConvertToPolicyReport(t *testing.T) {
 		func(policySet typepolicy.PolicySet) {},
 		func(placementDecision typeplacementdecision.PlacementDecision) {},
 	)
-	err := filepath.Walk(pkg.PathFromPkgDirectory("./testdata/policy-results"), traverseFunc)
+	err := filepath.Walk(pkg.PathFromPkgDirectory("./testdata/ocm/policy-results"), traverseFunc)
 	assert.NoError(t, err, "Should not happen")
 
 	tempDirPath := pkg.PathFromPkgDirectory("./testdata/_test")

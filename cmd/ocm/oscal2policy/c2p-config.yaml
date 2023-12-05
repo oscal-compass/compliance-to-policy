@@ -7,7 +7,7 @@ compliance:
   componentDefinition:
     url: ./pkg/composer/testdata/oscal/component-definition.json
 policyResources: 
-  url: ./pkg/composer/testdata/policies
+  url: ./pkg/composer/testdata/ocm/policies
 policyResults: 
   url: a/b/c
 clusterGroups:

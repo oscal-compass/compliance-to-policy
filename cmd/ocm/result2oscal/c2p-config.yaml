@@ -7,9 +7,9 @@ compliance:
   componentDefinition:
     url: ./pkg/testdata/oscal/reporter-test/component-definition.json
 policyResources: 
-  url: ./pkg/testdata/policies
+  url: ./pkg/testdata/ocm/policies
 policyResults: 
-  url: ./pkg/testdata/policy-results
+  url: ./pkg/testdata/ocm/policy-results
 clusterGroups:
   - name: test-group # name of clusterGroup
     matchLabels:

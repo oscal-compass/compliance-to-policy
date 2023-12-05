@@ -32,6 +32,8 @@ import (
 
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
+	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
+	typeoscalcommon "github.com/IBM/compliance-to-policy/pkg/types/oscal/common"
 	typeplacementdecision "github.com/IBM/compliance-to-policy/pkg/types/placementdecision"
 	typepolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
 	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
@@ -79,11 +81,7 @@ func (r *Reporter) SetGenerationType(generationType GenerationType) {
 	r.generationType = generationType
 }
 
-func (r *Reporter) GetPolicyReports() []*typepolr.PolicyReport {
-	return r.policyReports
-}
-
-func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
+func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 	traverseFunc := genTraverseFunc(
 		func(policy typepolicy.Policy) { r.policies = append(r.policies, &policy) },
 		func(policySet typepolicy.PolicySet) { r.policySets = append(r.policySets, &policySet) },
@@ -94,11 +92,30 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 	if err := filepath.Walk(r.c2pParsed.PolicyResultsDir, traverseFunc); err != nil {
 		logger.Error(err.Error())
 	}
+
+	inventories := []typear.InventoryItem{}
+	clusternameIndex := map[string]bool{}
 	for _, policy := range r.policies {
 		polr := ConvertToPolicyReport(*policy)
 		r.policyReports = append(r.policyReports, &polr)
+		if policy.Namespace == r.c2pParsed.Namespace {
+			for _, s := range policy.Status.Status {
+				_, exist := clusternameIndex[s.ClusterName]
+				if !exist {
+					clusternameIndex[s.ClusterName] = true
+					item := typear.InventoryItem{
+						UUID: oscal.GenerateUUID(),
+						Props: []typeoscalcommon.Prop{{
+							Name:  "cluster-name",
+							Value: s.ClusterName,
+						}},
+					}
+					inventories = append(inventories, item)
+				}
+			}
+		}
 	}
-	reportComponents := []typereport.Component{}
+	observations := []typear.Observation{}
 	for _, cdobj := range r.c2pParsed.ComponentObjects {
 		policySets := typeutils.FilterByAnnotation(r.policySets, pkg.ANNOTATION_COMPONENT_TITLE, cdobj.ComponentTitle)
 		clusterNameSets := sets.NewString()
@@ -119,7 +136,6 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 			}
 		}
 		for _, controlImpleObj := range cdobj.ControlImpleObjects {
-			controlResults := []typereport.ControlResult{}
 			requiredControls := sets.NewString()
 			checkedControls := sets.NewString()
 			for _, controlObj := range controlImpleObj.ControlObjects {
@@ -140,8 +156,8 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 						if policySet != nil {
 							policy = typeutils.FindByNamespaceName(r.policies, policySet.Namespace, policyId)
 						}
-						var reason string
 						var ruleStatus typereport.RuleStatus
+						subjects := []typear.Subject{}
 						if policy != nil {
 							var reasons []Reason
 							if r.generationType == GenerationTypePolicyReport {
@@ -149,62 +165,98 @@ func (r *Reporter) Generate() (typereport.ComplianceReport, error) {
 							} else {
 								reasons = r.GenerateReasonsFromRawPolicies(*policy)
 							}
-							if statusByte, err := sigyaml.Marshal(reasons); err == nil {
-								reason = string(statusByte)
-							} else {
-								reason = err.Error()
-							}
 							ruleStatus = mapToRuleStatus(policy.Status.ComplianceState)
+							for _, reason := range reasons {
+								var clusterName string
+								var inventoryUuid string
+								for _, inventory := range inventories {
+									prop, ok := oscal.FindProp("cluster-name", inventory.Props)
+									if ok {
+										clusterName = prop.Value
+										inventoryUuid = inventory.UUID
+									} else {
+										clusterName = "N/A"
+										inventoryUuid = ""
+									}
+								}
+								if inventoryUuid != "" {
+									var message string
+									if messageByte, err := sigyaml.Marshal(reason.Messages); err == nil {
+										message = string(messageByte)
+									} else {
+										message = err.Error()
+									}
+									subject := typear.Subject{
+										SubjectUUID: inventoryUuid,
+										Type:        "resource",
+										Title:       "Cluster Name: " + clusterName,
+										Props: []typeoscalcommon.Prop{{
+											Name:  "result",
+											Value: string(mapToRuleStatus(reason.ComplianceState)),
+										}, {
+											Name:  "reason",
+											Value: message,
+										}},
+									}
+									subjects = append(subjects, subject)
+								}
+							}
 						} else {
-							reason = fmt.Sprintf("Unable to find policy status for policy %s", policyId)
 							ruleStatus = typereport.RuleStatusError
 						}
-						ruleResult := typereport.RuleResult{
-							RuleId:   ruleId,
-							PolicyId: policyId,
-							Status:   ruleStatus,
-							Reason:   reason,
+						observation := typear.Observation{
+							UUID:        oscal.GenerateUUID(),
+							Description: fmt.Sprintf("Observation of policy %s", policyId),
+							Methods:     []string{"TEST-AUTOMATED"},
+							Props: []typeoscalcommon.Prop{{
+								Name:  "assessment-rule-id",
+								Value: ruleId,
+							}, {
+								Name:  "policy-id",
+								Value: policyId,
+							}, {
+								Name:  "control-id",
+								Value: controlId,
+							}, {
+								Name:  "result",
+								Value: string(ruleStatus),
+							}},
+							Subjects: subjects,
 						}
-						ruleResults = append(ruleResults, ruleResult)
+						observations = append(observations, observation)
 						checkedControls.Insert(controlId)
 					}
 				}
-				controlResult := typereport.ControlResult{
-					ControlId:        controlId,
-					RuleResults:      ruleResults,
-					ComplianceStatus: aggregateRuleResults(ruleResults),
-				}
-				controlResults = append(controlResults, controlResult)
 			}
-			parameters := map[string]string{}
-			for _, setParam := range controlImpleObj.SetParameters {
-				parameters[setParam.ParamID] = setParam.Values[0]
-			}
-			reportComponent := typereport.Component{
-				ComponentTitle:   cdobj.ComponentTitle,
-				RequiredControls: requiredControls.List(),
-				CheckedControls:  checkedControls.List(),
-				Parameters:       parameters,
-				ControlResults:   controlResults,
-				ComplianceStatus: aggregateControlResults(controlResults),
-			}
-			reportComponents = append(reportComponents, reportComponent)
 		}
 	}
-	spec := typereport.Spec{
-		Catalog:    r.c2pParsed.Catalog.Metadata.Title,
-		Profile:    r.c2pParsed.Profile.Metadata.Title,
-		Components: reportComponents,
-	}
-	complianceReport := typereport.ComplianceReport{
-		ObjectMeta: v1.ObjectMeta{
-			Name:              "compliance-report",
-			CreationTimestamp: v1.Now(),
-		},
-		Spec: spec,
-	}
 
-	return complianceReport, nil
+	metadata := typear.Metadata{
+		Title:        "OSCAL Assessment Results",
+		LastModified: time.Now(),
+		Version:      "0.0.1",
+		OscalVersion: "1.0.4",
+	}
+	importAp := typear.ImportAp{
+		Href: "http://...",
+	}
+	ar := typear.AssessmentResults{
+		UUID:     oscal.GenerateUUID(),
+		Metadata: metadata,
+		ImportAp: importAp,
+		Results:  []typear.Result{},
+	}
+	result := typear.Result{
+		UUID:         oscal.GenerateUUID(),
+		Title:        "Assessment Results by OCM",
+		Description:  "Assessment Results by OCM...",
+		Start:        time.Now(),
+		Observations: observations,
+	}
+	ar.Results = append(ar.Results, result)
+	arRoot := typear.AssessmentResultsRoot{AssessmentResults: ar}
+
+	return &arRoot, nil
 }
 
 func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Reason {
@@ -273,46 +325,6 @@ func aggregatePolicyReportSummaryToComplianceState(summary typepolr.PolicyReport
 	} else {
 		return typepolicy.Compliant
 	}
-}
-
-func aggregateRuleResults(ruleResults []typereport.RuleResult) typereport.ComplianceStatus {
-	countPass := 0
-	countFail := 0
-	countError := 0
-	countUnimple := 0
-	for _, ruleResult := range ruleResults {
-		switch ruleResult.Status {
-		case typereport.RuleStatusPass:
-			countPass++
-		case typereport.RuleStatusFail:
-			countFail++
-		case typereport.RuleStatusError:
-			countError++
-		case typereport.RuleStatusUnImplemented:
-			countUnimple++
-		}
-	}
-	if countPass != 0 && countPass == len(ruleResults) {
-		return typereport.ComplianceStatusCompliant
-	}
-	return typereport.ComplianceStatusNonCompliant
-}
-
-func aggregateControlResults(controlResults []typereport.ControlResult) typereport.ComplianceStatus {
-	countCompiant := 0
-	countNonCompiant := 0
-	for _, controlResult := range controlResults {
-		switch controlResult.ComplianceStatus {
-		case typereport.ComplianceStatusCompliant:
-			countCompiant++
-		case typereport.ComplianceStatusNonCompliant:
-			countNonCompiant++
-		}
-	}
-	if countCompiant != 0 && countCompiant == len(controlResults) {
-		return typereport.ComplianceStatusCompliant
-	}
-	return typereport.ComplianceStatusNonCompliant
 }
 
 func genTraverseFunc(onPolicy func(typepolicy.Policy), onPolicySet func(typepolicy.PolicySet), onPlacementDesicion func(typeplacementdecision.PlacementDecision)) func(path string, info os.FileInfo, err error) error {

@@ -1,0 +1,16 @@
+Field of OSCAL Assessment Result,How is OCM Policy status mapped,Field of OCM Policy status
+local-definitions.inventory-items[],Per cluster,status_status = policies[].find(x -> x.namespace == hub ns).flatmap(x1 -> status.status[].map(x2 -> x2))
+local-definitions.inventory-items[].props[].(cluster-name),Cluster name,status_status.clustername
+observations[],Per rule (= per policy),OSCAL CDef Rule Ids
+observations[].props[].(assessment-rule-id),Rule Id,OSCAL CDef Rule Id
+observations[].props[].(policy-id),Policy Id,OSCAL CDef Policy Id
+observations[].props[].(control-id),Control Id,OSCAL CDef Control Id
+observations[].props[].(result),Aggregated status of compliance over clusters (=subjects),policies[].find(x -> x.namespace == hub ns && x -> x.metadata.name == policy-id).status.compliant == “Compliant” ? “pass” : “fail”
+observations[].subjects[],Per policy status of cluster,status[i] := policies[].find(x -> x.metadata.name == policy-id).status.status[]
+observations[].subjects[].subject-uuid,Inventory item id of the check,inventory-items[].find(x -> x.props[].(cluster-name) == status[i].clustername).id
+observations[].subjects[].props[].(result),Status of compliance (pass/fail),status[i].compliant == “Compliant” ? “pass” : “fail”
+observations[].subjects[].props[].(reason),Reason of the status,details := policies[].find(x -> x.namespace == clustername && x.metadata.name == policy-id).status.details
+observations[].subjects[].props[].(evaluate-on),Evaluation timestamp,details.map(x -> x.history[0].lastTimestamp).sort_by_descend()[0]
+observations[].relevant_references[].description,Evidence description,TBD
+observations[].relevant_references[].href,Evidence urls,TBD
+observations[].links[].href,Report urls,TBD

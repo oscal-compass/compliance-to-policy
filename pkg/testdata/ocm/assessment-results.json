@@ -1,0 +1,204 @@
+{
+	"assessment-results": {
+		"uuid": "9913b24e-931f-11ee-82cf-62f79297f1b7",
+		"metadata": {
+			"title": "OSCAL Assessment Results",
+			"last-modified": "2023-12-05T12:37:21.653819+09:00",
+			"version": "0.0.1",
+			"oscal-version": "1.0.4"
+		},
+		"import-ap": {
+			"href": "http://..."
+		},
+		"results": [
+			{
+				"uuid": "9913b258-931f-11ee-82cf-62f79297f1b7",
+				"title": "Assessment Results by OCM",
+				"description": "Assessment Results by OCM...",
+				"start": "2023-12-05T12:37:21.65382+09:00",
+				"local-definitions": {
+					"inventory-items": null
+				},
+				"observations": [
+					{
+						"uuid": "9913a92a-931f-11ee-82cf-62f79297f1b7",
+						"description": "Observation of policy policy-high-scan",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_configuration_check"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-high-scan"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-6"
+							},
+							{
+								"name": "result",
+								"value": "fail"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-high-scan.176f1dcdc2b51b01\n  lastTimestamp: \"2023-07-05T23:52:34Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.176f1ddc44adf035\n  lastTimestamp: \"2023-07-05T23:53:37Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.176f1ddc441457e5\n  lastTimestamp: \"2023-07-05T23:53:37Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult,\n    please check if you have CRD deployed\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-high-scan.176f1dc3684f9eb6\n  lastTimestamp: \"2023-07-05T23:51:50Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.176f1dc426d20948\n  lastTimestamp: \"2023-07-05T23:51:53Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.176f1dc4e29e1221\n  lastTimestamp: \"2023-07-05T23:51:56Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult,\n    please check if you have CRD deployed\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					},
+					{
+						"uuid": "9913adf8-931f-11ee-82cf-62f79297f1b7",
+						"description": "Observation of policy policy-deployment",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_proxy_check"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-deployment"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-2"
+							},
+							{
+								"name": "result",
+								"value": "fail"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-deployment.176f1ddc5591cb1c\n  lastTimestamp: \"2023-07-05T23:53:37Z\"\n  message: 'NonCompliant; violation - deployments not found: [nginx-deployment] in\n    namespace cluster1 missing; [nginx-deployment] in namespace kube-node-lease missing;\n    [nginx-deployment] in namespace kube-public missing; [nginx-deployment] in namespace\n    local-path-storage missing'\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-deployment.176f1dc4e7de17cb\n  lastTimestamp: \"2023-07-05T23:51:56Z\"\n  message: 'NonCompliant; violation - deployments not found: [nginx-deployment] in\n    namespace cluster2 missing; [nginx-deployment] in namespace default missing; [nginx-deployment]\n    in namespace kube-node-lease missing; [nginx-deployment] in namespace kube-public\n    missing; [nginx-deployment] in namespace local-path-storage missing'\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					},
+					{
+						"uuid": "9913b244-931f-11ee-82cf-62f79297f1b7",
+						"description": "Observation of policy policy-disallowed-roles",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_rbac_check"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-disallowed-roles"
+							},
+							{
+								"name": "control-id",
+								"value": "ac-6"
+							},
+							{
+								"name": "result",
+								"value": "pass"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "pass"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-disallowed-roles.176f1dcdc4c8d17e\n  lastTimestamp: \"2023-07-05T23:52:34Z\"\n  message: Compliant; notification - roles in namespace cluster1; in namespace default;\n    in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage\n    missing as expected, therefore this Object template is compliant\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "pass"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-disallowed-roles.176f1dc36e36b7b2\n  lastTimestamp: \"2023-07-05T23:51:50Z\"\n  message: Compliant; notification - roles in namespace cluster2; in namespace default;\n    in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage\n    missing as expected, therefore this Object template is compliant\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					}
+				]
+			}
+		]
+	}
+}

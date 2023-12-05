@@ -33,7 +33,7 @@ func New() *cobra.Command {
 
 	command := &cobra.Command{
 		Use:   "result2oscal",
-		Short: "Generate OSCAL Assessment Results from Kyverno policies and the policy reports",
+		Short: "Generate OSCAL Assessment Results from OCM Policy statuses",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
@@ -71,25 +71,14 @@ func Run(options *options.Options) error {
 
 	r := reporter.NewReporter(c2pcrParsed)
 	r.SetGenerationType(reporter.GenerationTypePolicyReport)
-	report, err := r.Generate()
+	arRoot, err := r.Generate()
 	if err != nil {
 		panic(err)
 	}
 
-	err = pkg.WriteObjToYamlFile(outputDir+"/compliance-report.yaml", report)
+	err = pkg.WriteObjToJsonFile(outputDir+"/assessment-results.json", arRoot)
 	if err != nil {
 		panic(err)
-	}
-
-	for _, pr := range r.GetPolicyReports() {
-		nspath, err := pkg.MakeDir(outputDir + "/" + pr.Namespace)
-		if err != nil {
-			panic(err)
-		}
-		err = pkg.WriteObjToYamlFile(nspath+"/"+pr.Name+".yaml", pr)
-		if err != nil {
-			panic(err)
-		}
 	}
 
 	return nil

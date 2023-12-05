@@ -27,11 +27,10 @@ import (
 )
 
 func TestOscal2Policy(t *testing.T) {
-	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
+	policyDir := pkg.PathFromPkgDirectory("./testdata/ocm/policies")
 	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/catalog.json")
 	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/profile.json")
-	cdPath := pkg.PathFromPkgDirectory("./testdata/oscal/component-definition.json")
-	// expectedDir := pkg.PathFromPkgDirectory("./composer/testdata/expected/c2pcr-parser-composed-policies")
+	cdPath := pkg.PathFromPkgDirectory("./testdata/ocm/component-definition.json")
 
 	tempDirPath := pkg.PathFromPkgDirectory("./testdata/_test")
 	err := os.MkdirAll(tempDirPath, os.ModePerm)

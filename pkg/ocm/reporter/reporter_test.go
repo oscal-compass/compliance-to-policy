@@ -17,24 +17,25 @@ limitations under the License.
 package reporter
 
 import (
-	"fmt"
 	"os"
 	"testing"
 
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
-	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
+	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestReporter(t *testing.T) {
 
-	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
-	policyResultsDir := pkg.PathFromPkgDirectory("./testdata/policy-results")
-	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/catalog.json")
-	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/profile.json")
-	cdPath := pkg.PathFromPkgDirectory("./testdata/oscal/reporter-test/component-definition.json")
+	policyDir := pkg.PathFromPkgDirectory("./testdata/ocm/policies")
+	policyResultsDir := pkg.PathFromPkgDirectory("./testdata/ocm/policy-results")
+	catalogPath := pkg.PathFromPkgDirectory("./testdata/ocm/catalog.json")
+	profilePath := pkg.PathFromPkgDirectory("./testdata/ocm/profile.json")
+	cdPath := pkg.PathFromPkgDirectory("./testdata/ocm/component-definition.json")
 
 	tempDirPath := pkg.PathFromPkgDirectory("./testdata/_test")
 	err := os.MkdirAll(tempDirPath, os.ModePerm)
@@ -79,34 +80,23 @@ func TestReporter(t *testing.T) {
 	assert.NoError(t, err, "Should not happen")
 
 	reporter := NewReporter(c2pcrParsed)
-	report, err := reporter.Generate()
+	arRoot, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 
-	err = pkg.WriteObjToYamlFile(tempDir.GetTempDir()+"/compliance-report.yaml", report)
+	err = pkg.WriteObjToJsonFile(tempDir.GetTempDir()+"/assessment-results.json", arRoot)
 	assert.NoError(t, err, "Should not happen")
 
-	var expected typereport.ComplianceReport
-	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/reports/compliance-report.yaml"), &expected)
-
-	// Timestamp is currently set by Now(). Since the timestamp should be always different from expected one, reset creationTimestamp of expected one to actual one.
-	expected.CreationTimestamp = report.CreationTimestamp
+	var expected typear.AssessmentResultsRoot
+	err = pkg.LoadYamlFileToK8sTypedObject(pkg.PathFromPkgDirectory("./testdata/ocm/assessment-results.json"), &expected)
 
 	assert.NoError(t, err, "Should not happen")
-	assert.Equal(t, expected, report)
-
-	reporter.SetGenerationType("policy-report")
-	reportFromPolicyReports, err := reporter.Generate()
-	assert.NoError(t, err, "Should not happen")
-
-	// Timestamp is currently set by Now(). Since the timestamp should be always different from expected one, reset creationTimestamp of expected one to actual one.
-	reportFromPolicyReports.CreationTimestamp = report.CreationTimestamp
-
-	assert.Equal(t, report, reportFromPolicyReports)
-
-	for _, policyReport := range reporter.policyReports {
-		fname := fmt.Sprintf("policy-report.%s.%s.yaml", policyReport.Namespace, policyReport.Name)
-		err := pkg.WriteObjToYamlFile(tempDir.GetTempDir()+"/"+fname, policyReport)
-		assert.NoError(t, err, "Should not happen")
-	}
-
+	diff := cmp.Diff(expected, *arRoot,
+		cmpopts.IgnoreFields(typear.AssessmentResults{}, "UUID"),
+		cmpopts.IgnoreFields(typear.Metadata{}, "LastModified"),
+		cmpopts.IgnoreFields(typear.Result{}, "UUID", "Start"),
+		cmpopts.IgnoreFields(typear.InventoryItem{}, "UUID"),
+		cmpopts.IgnoreFields(typear.Subject{}, "SubjectUUID"),
+		cmpopts.IgnoreFields(typear.Observation{}, "UUID"),
+	)
+	assert.Equal(t, diff, "", "assessment-result matched")
 }
