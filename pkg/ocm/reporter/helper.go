@@ -17,15 +17,9 @@ limitations under the License.
 package reporter
 
 import (
-	"fmt"
-	"strings"
-
-	"github.com/IBM/compliance-to-policy/pkg"
 	typeconfigpolicy "github.com/IBM/compliance-to-policy/pkg/types/configurationpolicy"
 	typepolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
-	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	typepolr "sigs.k8s.io/wg-policy-prototypes/policy-report/pkg/api/wgpolicyk8s.io/v1beta1"
 )
 
@@ -52,65 +46,6 @@ const (
 	// the policy was not selected based on user inputs or applicability
 	PolicyResultSkip PolicyResult = "skip"
 )
-
-func ConvertToPolicyReport(policy typepolicy.Policy) typepolr.PolicyReport {
-	results := []*typepolr.PolicyReportResult{}
-	for _, pt := range policy.Spec.PolicyTemplates {
-		var configPolicy typeconfigpolicy.ConfigurationPolicy
-		if err := pkg.LoadByteToK8sTypedObject(pt.ObjectDefinition.Raw, &configPolicy); err != nil {
-			logger.Error(err.Error())
-			continue
-		}
-		subjects := []*corev1.ObjectReference{}
-		descriptions := []string{}
-		for _, ot := range configPolicy.Spec.ObjectTemplates {
-			var unstObj unstructured.Unstructured
-			if err := pkg.LoadByteToK8sTypedObject(ot.ObjectDefinition.Raw, &unstObj); err != nil {
-				logger.Error(err.Error())
-				continue
-			}
-			subject := corev1.ObjectReference{
-				Kind:       unstObj.GetKind(),
-				APIVersion: unstObj.GetAPIVersion(),
-				Name:       unstObj.GetName(),
-				Namespace:  unstObj.GetNamespace(),
-			}
-			subjects = append(subjects, &subject)
-			descriptions = append(descriptions, fmt.Sprintf("%s Kind:%s Name:%s", ot.ComplianceType, unstObj.GetKind(), unstObj.GetName()))
-		}
-		details := findConfigPolicyStatus(policy, configPolicy)
-		result := typepolr.PolicyReportResult{
-			Policy:      configPolicy.GetName(),
-			Description: strings.Join(descriptions, ","),
-			Subjects:    subjects,
-			Result:      mapToPolicyResult(details.ComplianceState),
-			Severity:    mapToSeverity(configPolicy.Spec.Severity),
-			Properties:  mapToProps(details),
-			Timestamp:   mapToTimestamp(details),
-		}
-		results = append(results, &result)
-	}
-	policyReport := typepolr.PolicyReport{
-		TypeMeta: metav1.TypeMeta{
-			Kind:       "PolicyReport",
-			APIVersion: "wgpolicyk8s.io/v1beta1",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Namespace:         policy.Namespace,
-			Name:              policy.Name,
-			CreationTimestamp: metav1.Now(),
-		},
-		Scope: &corev1.ObjectReference{
-			Kind:       "Policy",
-			APIVersion: "policy.open-cluster-management.io/v1",
-			Namespace:  policy.Namespace,
-			Name:       policy.Name,
-		},
-		Results: results,
-	}
-	policyReport.Summary = summary(policyReport)
-	return policyReport
-}
 
 func mapToPolicyResult(complianceState typepolicy.ComplianceState) typepolr.PolicyResult {
 	var result PolicyResult

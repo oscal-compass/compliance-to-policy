@@ -27,7 +27,6 @@ import (
 	"go.uber.org/zap"
 	sigyaml "sigs.k8s.io/yaml"
 
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
@@ -38,7 +37,6 @@ import (
 	typepolicy "github.com/IBM/compliance-to-policy/pkg/types/policy"
 	typereport "github.com/IBM/compliance-to-policy/pkg/types/report"
 	typeutils "github.com/IBM/compliance-to-policy/pkg/types/utils"
-	typepolr "sigs.k8s.io/wg-policy-prototypes/policy-report/pkg/api/wgpolicyk8s.io/v1beta1"
 )
 
 var logger *zap.Logger = pkg.GetLogger("reporter")
@@ -48,8 +46,6 @@ type Reporter struct {
 	policies           []*typepolicy.Policy
 	policySets         []*typepolicy.PolicySet
 	placementDecisions []*typeplacementdecision.PlacementDecision
-	policyReports      []*typepolr.PolicyReport
-	generationType     GenerationType
 }
 
 type Reason struct {
@@ -71,14 +67,8 @@ func NewReporter(c2pParsed typec2pcr.C2PCRParsed) *Reporter {
 		policies:           []*typepolicy.Policy{},
 		policySets:         []*typepolicy.PolicySet{},
 		placementDecisions: []*typeplacementdecision.PlacementDecision{},
-		policyReports:      []*typepolr.PolicyReport{},
-		generationType:     GenerationTypeRaw,
 	}
 	return &r
-}
-
-func (r *Reporter) SetGenerationType(generationType GenerationType) {
-	r.generationType = generationType
 }
 
 func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
@@ -96,8 +86,6 @@ func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 	inventories := []typear.InventoryItem{}
 	clusternameIndex := map[string]bool{}
 	for _, policy := range r.policies {
-		polr := ConvertToPolicyReport(*policy)
-		r.policyReports = append(r.policyReports, &polr)
 		if policy.Namespace == r.c2pParsed.Namespace {
 			for _, s := range policy.Status.Status {
 				_, exist := clusternameIndex[s.ClusterName]
@@ -159,12 +147,7 @@ func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 						var ruleStatus typereport.RuleStatus
 						subjects := []typear.Subject{}
 						if policy != nil {
-							var reasons []Reason
-							if r.generationType == GenerationTypePolicyReport {
-								reasons = r.GenerateReasonsFromPolicyReports(*policy)
-							} else {
-								reasons = r.GenerateReasonsFromRawPolicies(*policy)
-							}
+							reasons := r.GenerateReasonsFromRawPolicies(*policy)
 							ruleStatus = mapToRuleStatus(policy.Status.ComplianceState)
 							for _, reason := range reasons {
 								clusterName := "N/A"
@@ -284,29 +267,6 @@ func (r *Reporter) GenerateReasonsFromRawPolicies(policy typepolicy.Policy) []Re
 
 }
 
-func (r *Reporter) GenerateReasonsFromPolicyReports(policy typepolicy.Policy) []Reason {
-	reasons := []Reason{}
-	for _, status := range policy.Status.Status {
-		clusterName := status.ClusterName
-		policyReport := findPolicyReportByNamespaceName(r.policyReports, clusterName, policy.Namespace+"."+policy.Name)
-		clusterHistories := []typepolicy.ComplianceHistory{}
-		for _, result := range policyReport.Results {
-			clusterHistory := typepolicy.ComplianceHistory{
-				LastTimestamp: v1.NewTime(time.Unix(result.Timestamp.Seconds, int64(result.Timestamp.Nanos))),
-				EventName:     result.Properties["eventName"],
-				Message:       result.Properties["details"],
-			}
-			clusterHistories = append(clusterHistories, clusterHistory)
-		}
-		reasons = append(reasons, Reason{
-			ClusterName:     policyReport.Namespace,
-			ComplianceState: aggregatePolicyReportSummaryToComplianceState(policyReport.Summary),
-			Messages:        clusterHistories,
-		})
-	}
-	return reasons
-}
-
 func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.RuleStatus {
 	switch complianceState {
 	case typepolicy.Compliant:
@@ -317,14 +277,6 @@ func mapToRuleStatus(complianceState typepolicy.ComplianceState) typereport.Rule
 		return typereport.RuleStatusFail
 	default:
 		return typereport.RuleStatusError
-	}
-}
-
-func aggregatePolicyReportSummaryToComplianceState(summary typepolr.PolicyReportSummary) typepolicy.ComplianceState {
-	if summary.Pass == 0 {
-		return typepolicy.NonCompliant
-	} else {
-		return typepolicy.Compliant
 	}
 }
 

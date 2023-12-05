@@ -70,7 +70,6 @@ func Run(options *options.Options) error {
 	}
 
 	r := reporter.NewReporter(c2pcrParsed)
-	r.SetGenerationType(reporter.GenerationTypePolicyReport)
 	arRoot, err := r.Generate()
 	if err != nil {
 		panic(err)
