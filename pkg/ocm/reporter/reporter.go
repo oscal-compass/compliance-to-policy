@@ -167,16 +167,14 @@ func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 							}
 							ruleStatus = mapToRuleStatus(policy.Status.ComplianceState)
 							for _, reason := range reasons {
-								var clusterName string
-								var inventoryUuid string
+								clusterName := "N/A"
+								inventoryUuid := ""
 								for _, inventory := range inventories {
 									prop, ok := oscal.FindProp("cluster-name", inventory.Props)
-									if ok {
+									if ok && prop.Value == reason.ClusterName {
 										clusterName = prop.Value
 										inventoryUuid = inventory.UUID
-									} else {
-										clusterName = "N/A"
-										inventoryUuid = ""
+										break
 									}
 								}
 								if inventoryUuid != "" {
@@ -247,10 +245,13 @@ func (r *Reporter) Generate() (*typear.AssessmentResultsRoot, error) {
 		Results:  []typear.Result{},
 	}
 	result := typear.Result{
-		UUID:         oscal.GenerateUUID(),
-		Title:        "Assessment Results by OCM",
-		Description:  "Assessment Results by OCM...",
-		Start:        time.Now(),
+		UUID:        oscal.GenerateUUID(),
+		Title:       "Assessment Results by OCM",
+		Description: "Assessment Results by OCM...",
+		Start:       time.Now(),
+		LocalDefinitions: typear.LocalDefinitions{
+			InventoryItems: inventories,
+		},
 		Observations: observations,
 	}
 	ar.Results = append(ar.Results, result)

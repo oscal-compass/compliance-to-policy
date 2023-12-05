@@ -21,8 +21,9 @@ import (
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
 	oscal2policycmd "github.com/IBM/compliance-to-policy/cmd/ocm/oscal2policy/cmd"
-	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/ocm/oscal2posture/cmd"
 	result2oscalcmd "github.com/IBM/compliance-to-policy/cmd/ocm/result2oscal/cmd"
+	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/pvpcommon/oscal2posture/cmd"
+	"github.com/IBM/compliance-to-policy/pkg"
 )
 
 func NewOcmSubCommand() *cobra.Command {
@@ -37,7 +38,7 @@ func NewOcmSubCommand() *cobra.Command {
 
 	command.AddCommand(oscal2policycmd.New())
 	command.AddCommand(result2oscalcmd.New())
-	command.AddCommand(oscal2posturecmd.New())
+	command.AddCommand(oscal2posturecmd.New(pkg.GetLogger("ocm/oscal2posture")))
 
 	return command
 }

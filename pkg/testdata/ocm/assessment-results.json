@@ -1,9 +1,9 @@
 {
 	"assessment-results": {
-		"uuid": "9913b24e-931f-11ee-82cf-62f79297f1b7",
+		"uuid": "50436d5c-933d-11ee-a9ed-62f79297f1b7",
 		"metadata": {
 			"title": "OSCAL Assessment Results",
-			"last-modified": "2023-12-05T12:37:21.653819+09:00",
+			"last-modified": "2023-12-05T16:10:04.394838+09:00",
 			"version": "0.0.1",
 			"oscal-version": "1.0.4"
 		},
@@ -12,16 +12,37 @@
 		},
 		"results": [
 			{
-				"uuid": "9913b258-931f-11ee-82cf-62f79297f1b7",
+				"uuid": "50436d5c-933d-11ee-a9ee-62f79297f1b7",
 				"title": "Assessment Results by OCM",
 				"description": "Assessment Results by OCM...",
-				"start": "2023-12-05T12:37:21.65382+09:00",
+				"start": "2023-12-05T16:10:04.394839+09:00",
 				"local-definitions": {
-					"inventory-items": null
+					"inventory-items": [
+						{
+							"uuid": "5042d8ec-933d-11ee-a9ed-62f79297f1b7",
+							"description": "",
+							"props": [
+								{
+									"name": "cluster-name",
+									"value": "cluster1"
+								}
+							]
+						},
+						{
+							"uuid": "5042df04-933d-11ee-a9ed-62f79297f1b7",
+							"description": "",
+							"props": [
+								{
+									"name": "cluster-name",
+									"value": "cluster2"
+								}
+							]
+						}
+					]
 				},
 				"observations": [
 					{
-						"uuid": "9913a92a-931f-11ee-82cf-62f79297f1b7",
+						"uuid": "50436320-933d-11ee-a9ed-62f79297f1b7",
 						"description": "Observation of policy policy-high-scan",
 						"props": [
 							{
@@ -46,9 +67,9 @@
 						],
 						"subjects": [
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042d8ec-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
-								"title": "Cluster Name: cluster2",
+								"title": "Cluster Name: cluster1",
 								"props": [
 									{
 										"name": "result",
@@ -61,7 +82,7 @@
 								]
 							},
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042df04-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
 								"title": "Cluster Name: cluster2",
 								"props": [
@@ -80,7 +101,7 @@
 						"expires": "0001-01-01T00:00:00Z"
 					},
 					{
-						"uuid": "9913adf8-931f-11ee-82cf-62f79297f1b7",
+						"uuid": "50436898-933d-11ee-a9ed-62f79297f1b7",
 						"description": "Observation of policy policy-deployment",
 						"props": [
 							{
@@ -105,9 +126,9 @@
 						],
 						"subjects": [
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042d8ec-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
-								"title": "Cluster Name: cluster2",
+								"title": "Cluster Name: cluster1",
 								"props": [
 									{
 										"name": "result",
@@ -120,7 +141,7 @@
 								]
 							},
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042df04-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
 								"title": "Cluster Name: cluster2",
 								"props": [
@@ -139,7 +160,7 @@
 						"expires": "0001-01-01T00:00:00Z"
 					},
 					{
-						"uuid": "9913b244-931f-11ee-82cf-62f79297f1b7",
+						"uuid": "50436d52-933d-11ee-a9ed-62f79297f1b7",
 						"description": "Observation of policy policy-disallowed-roles",
 						"props": [
 							{
@@ -164,9 +185,9 @@
 						],
 						"subjects": [
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042d8ec-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
-								"title": "Cluster Name: cluster2",
+								"title": "Cluster Name: cluster1",
 								"props": [
 									{
 										"name": "result",
@@ -179,7 +200,7 @@
 								]
 							},
 							{
-								"subject-uuid": "99133e9a-931f-11ee-82cf-62f79297f1b7",
+								"subject-uuid": "5042df04-933d-11ee-a9ed-62f79297f1b7",
 								"type": "resource",
 								"title": "Cluster Name: cluster2",
 								"props": [

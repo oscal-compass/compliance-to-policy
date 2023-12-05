@@ -48,8 +48,5 @@ func (o *Options) Validate() error {
 	if o.C2PCRPath == "" {
 		return errors.New("-c or --config <c2p-config.yaml> is required")
 	}
-	if o.AssessmentResults == "" {
-		return errors.New("--assessment-results <assessment-results.json> is required")
-	}
 	return nil
 }

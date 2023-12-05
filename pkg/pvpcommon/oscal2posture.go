@@ -14,19 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package kyverno
+package pvpcommon
 
 import (
 	"bytes"
 	"embed"
 	"html/template"
 	"os"
+	"strings"
 
-	"github.com/IBM/compliance-to-policy/pkg"
 	"go.uber.org/zap"
 
-	tp "github.com/IBM/compliance-to-policy/pkg/kyverno/template"
 	"github.com/IBM/compliance-to-policy/pkg/oscal"
+	tp "github.com/IBM/compliance-to-policy/pkg/pvpcommon/template"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	typear "github.com/IBM/compliance-to-policy/pkg/types/oscal/assessmentresults"
 	typecd "github.com/IBM/compliance-to-policy/pkg/types/oscal/componentdefinition"
@@ -48,9 +48,8 @@ type TemplateValues struct {
 	AssessmentResult typear.AssessmentResults
 }
 
-func NewOscal2Posture(c2pParsed typec2pcr.C2PCRParsed, assessmentResults typear.AssessmentResultsRoot, templateFile *string) *Oscal2Posture {
+func NewOscal2Posture(c2pParsed typec2pcr.C2PCRParsed, assessmentResults typear.AssessmentResultsRoot, templateFile *string, logger *zap.Logger) *Oscal2Posture {
 	return &Oscal2Posture{
-		logger:            pkg.GetLogger("kyverno/oscal2posture"),
 		c2pParsed:         c2pParsed,
 		assessmentResults: assessmentResults,
 		templateFile:      templateFile,
@@ -138,8 +137,18 @@ func (r *Oscal2Posture) Generate() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	funcmap := template.FuncMap{
+		"newline_with_indent": func(text string, indent int) string {
+			newText := strings.ReplaceAll(text, "\n", "\n"+strings.Repeat(" ", indent))
+			return newText
+		},
+	}
+
 	templateString := string(templateData)
-	tmpl, err := template.New("report.md").Parse(templateString)
+	tmpl := template.New("report.md")
+	tmpl.Funcs(funcmap)
+	tmpl, err = tmpl.Parse(templateString)
 	if err != nil {
 		return nil, err
 	}

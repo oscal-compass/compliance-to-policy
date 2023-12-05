@@ -21,14 +21,16 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"go.uber.org/zap"
 
-	"github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/options"
+	"github.com/IBM/compliance-to-policy/cmd/pvpcommon/oscal2posture/options"
 	"github.com/IBM/compliance-to-policy/pkg"
 	"github.com/IBM/compliance-to-policy/pkg/kyverno"
+	"github.com/IBM/compliance-to-policy/pkg/pvpcommon"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
 
-func New() *cobra.Command {
+func New(logger *zap.Logger) *cobra.Command {
 	opts := options.NewOptions()
 
 	command := &cobra.Command{
@@ -42,7 +44,7 @@ func New() *cobra.Command {
 			if err := opts.Validate(); err != nil {
 				return err
 			}
-			return Run(opts)
+			return Run(opts, logger)
 		},
 	}
 
@@ -51,7 +53,7 @@ func New() *cobra.Command {
 	return command
 }
 
-func Run(options *options.Options) error {
+func Run(options *options.Options, logger *zap.Logger) error {
 	output, c2pcrPath, tempDirPath := options.Out, options.C2PCRPath, options.TempDirPath
 
 	var c2pcrSpec typec2pcr.Spec
@@ -71,7 +73,7 @@ func Run(options *options.Options) error {
 		return err
 	}
 
-	r := kyverno.NewOscal2Posture(c2pcrParsed, arRoot, nil)
+	r := pvpcommon.NewOscal2Posture(c2pcrParsed, arRoot, nil, logger)
 	data, err := r.Generate()
 	if err != nil {
 		return err

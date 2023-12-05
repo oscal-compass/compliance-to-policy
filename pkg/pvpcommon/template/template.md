@@ -18,7 +18,7 @@ Rule ID: {{$ruleResult.RuleId}}
     - Result: {{$subject.Result}}
     - Reason:
       ```
-      {{$subject.Reason}}
+      {{ newline_with_indent $subject.Reason 6}}
       ```
 {{- end}}
 </details>
