@@ -3,6 +3,31 @@
 ### Prerequisites
 1. Install [Policy Generator Plugin](https://github.com/open-cluster-management-io/policy-generator-plugin#as-a-kustomize-plugin)
 
+### Manual end-to-end use case
+1. Run oscal2policy
+    ```
+    c2pcli ocm oscal2policy -c c2p-config.yaml -o ./ocm-policies
+    ```
+1. Deploy generated OCM Policies to OCM Hub
+    ```
+    kubectl create -f ./ocm-policies
+    ```
+1. Get OCM Policies from OCM Hub
+    ```
+    mkdir results
+    kubectl get policies.policy.open-cluster-management.io -A -o yaml > ./results/policies.policy.open-cluster-management.io.yaml
+    kubectl get policies.policy.open-cluster-management.io -A -o yaml > ./results/policies.policy.open-cluster-management.io.yaml
+    kubectl get policysets.policy.open-cluster-management.io -A -o yaml > ./results/policysets.policy.open-cluster-management.io.yaml
+    ```
+1. Run result2oscal
+    ```
+    c2pcli ocm result2oscal -c c2p-config.yaml --results ./results -o ./assessment-results.json
+    ```
+1. (Optional) Prettify OSCAL Assessment Results in .md format
+    ```
+    c2pcli ocm oscal2posture -c c2p-config.yaml --assessment-results ./assessment-results.json -o compliance-posture.md
+    ```
+
 ### C2P Decomposer
 Decompose OCM poicy collection to kubernetes resources composing each OCM policy (we call it policy resource).
 

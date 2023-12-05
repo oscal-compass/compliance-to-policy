@@ -59,17 +59,10 @@ func TestResult2Oscal(t *testing.T) {
 		PolicyResources: typec2pcr.ResourceRef{
 			Url: policyDir,
 		},
-		PolicyRersults: typec2pcr.ResourceRef{
-			Url: policyResultsDir,
-		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
 			MatchLabels: &map[string]string{"environment": "test"},
 		}},
-		Binding: typec2pcr.Binding{
-			Compliance:    "Test Compliance",
-			ClusterGroups: []string{"test-group"},
-		},
 		Target: typec2pcr.Target{
 			Namespace: "c2p",
 		},
@@ -78,7 +71,7 @@ func TestResult2Oscal(t *testing.T) {
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
-	reporter := NewResultToOscal(c2pcrParsed)
+	reporter := NewResultToOscal(c2pcrParsed, policyResultsDir)
 	arRoot, err := reporter.Generate()
 	assert.NoError(t, err, "Should not happen")
 

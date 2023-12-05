@@ -37,6 +37,7 @@ import (
 
 type ResultToOscal struct {
 	c2pParsed          typec2pcr.C2PCRParsed
+	policyResultsDir   string
 	policies           []*typepolicy.Policy
 	policySets         []*typepolicy.PolicySet
 	placementDecisions []*typeplacementdecision.PlacementDecision
@@ -55,9 +56,10 @@ const (
 	GenerationTypePolicyReport GenerationType = "policy-report"
 )
 
-func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed) *ResultToOscal {
+func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed, policyResultsDir string) *ResultToOscal {
 	r := ResultToOscal{
 		c2pParsed:          c2pParsed,
+		policyResultsDir:   policyResultsDir,
 		policies:           []*typepolicy.Policy{},
 		policySets:         []*typepolicy.PolicySet{},
 		placementDecisions: []*typeplacementdecision.PlacementDecision{},
@@ -276,7 +278,7 @@ func (r *ResultToOscal) GenerateReasonsFromRawPolicies(policy typepolicy.Policy)
 }
 
 func (r *ResultToOscal) loadData(path string, out interface{}) error {
-	if err := pkg.LoadYamlFileToK8sTypedObject(r.c2pParsed.PolicyResultsDir+path, &out); err != nil {
+	if err := pkg.LoadYamlFileToK8sTypedObject(r.policyResultsDir+"/"+path, &out); err != nil {
 		return err
 	}
 	return nil

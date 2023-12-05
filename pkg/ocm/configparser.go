@@ -43,10 +43,6 @@ func (p *C2PCRParser) Parse(c2pcrSpec c2pcr.Spec) (c2pcr.C2PCRParsed, error) {
 	if err != nil {
 		return parsed, err
 	}
-	parsed.PolicyResultsDir, err = p.loadResourceFromUrl(c2pcrSpec.PolicyRersults.Url)
-	if err != nil {
-		return parsed, err
-	}
 
 	logger.Info(fmt.Sprintf("Component-definition is loaded from %s", c2pcrSpec.Compliance.ComponentDefinition.Url))
 	if err := p.gitUtils.LoadFromGit(c2pcrSpec.Compliance.ComponentDefinition.Url, &parsed.ComponentDefinition); err != nil {

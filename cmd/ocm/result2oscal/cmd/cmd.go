@@ -49,7 +49,7 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	outputPath, c2pcrPath, tempDirPath := options.OutputPath, options.C2PCRPath, options.TempDirPath
+	outputPath, c2pcrPath, policyResultsDir, tempDirPath := options.OutputPath, options.C2PCRPath, options.PolicyResultsDir, options.TempDirPath
 
 	var c2pcrSpec typec2pcr.Spec
 	if err := pkg.LoadYamlFileToObject(c2pcrPath, &c2pcrSpec); err != nil {
@@ -63,7 +63,7 @@ func Run(options *options.Options) error {
 		panic(err)
 	}
 
-	r := ocm.NewResultToOscal(c2pcrParsed)
+	r := ocm.NewResultToOscal(c2pcrParsed, policyResultsDir)
 	arRoot, err := r.Generate()
 	if err != nil {
 		panic(err)

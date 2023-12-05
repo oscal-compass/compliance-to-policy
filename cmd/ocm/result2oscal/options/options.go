@@ -23,9 +23,10 @@ import (
 )
 
 type Options struct {
-	C2PCRPath   string
-	TempDirPath string
-	OutputPath  string
+	C2PCRPath        string
+	PolicyResultsDir string
+	TempDirPath      string
+	OutputPath       string
 }
 
 func NewOptions() *Options {
@@ -34,6 +35,7 @@ func NewOptions() *Options {
 
 func (o *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVarP(&o.C2PCRPath, "config", "c", "", "path to c2p config file")
+	fs.StringVar(&o.PolicyResultsDir, "results", "", "path to directory containing OCM Policy List (placementdecisions.cluster.open-cluster-management.io.yaml), OCM PolicySet List (policysets.policy.open-cluster-management.io.yaml), and OCM PlacementDecisions List (placementdecisions.cluster.open-cluster-management.io.yaml)")
 	fs.StringVar(&o.TempDirPath, "temp-dir", "", "path to temp directory")
 	fs.StringVarP(&o.OutputPath, "out", "o", "./assessment-results.json", "path to output OSCAL Assessment Results")
 }
@@ -45,6 +47,9 @@ func (o *Options) Complete() error {
 func (o *Options) Validate() error {
 	if o.C2PCRPath == "" {
 		return errors.New("-c or --config is required")
+	}
+	if o.PolicyResultsDir == "" {
+		return errors.New("--results is required")
 	}
 	return nil
 }

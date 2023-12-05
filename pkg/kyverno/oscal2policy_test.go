@@ -55,9 +55,6 @@ func TestOscal2Policy(t *testing.T) {
 		PolicyResources: typec2pcr.ResourceRef{
 			Url: policyDir,
 		},
-		PolicyRersults: typec2pcr.ResourceRef{
-			Url: "/1/2/3",
-		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
 			MatchLabels: &map[string]string{"environment": "test"},
