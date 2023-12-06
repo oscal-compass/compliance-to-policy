@@ -35,7 +35,7 @@ $ tree /tmp/assessment-results
 
 #### Reformat in human-friendly format (markdown file)
 ```
-$ go run cmd/c2pcli/main.go kyverno oscal2posture -c ./pkg/testdata/kyverno/c2p-config.yaml --assessment-results /tmp/assessment-results/assessment-results.json -o /tmp/compliance-report.md
+$ go run cmd/c2pcli/main.go kyverno tools oscal2posture -c ./pkg/testdata/kyverno/c2p-config.yaml --assessment-results /tmp/assessment-results/assessment-results.json -o /tmp/compliance-report.md
 ```
 
 ```

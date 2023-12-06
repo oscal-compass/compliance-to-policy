@@ -9,9 +9,9 @@ Usage:
   c2pcli ocm [command]
 
 Available Commands:
-  oscal2policy  Compose deliverable OCM Policies from OSCAL
-  oscal2posture Generate Compliance Posture from OSCAL artifacts
-  result2oscal  Generate OSCAL Assessment Results from OCM Policy statuses
+  oscal2policy Compose deliverable OCM Policies from OSCAL
+  result2oscal Generate OSCAL Assessment Results from OCM Policy statuses
+  tools        Tools
 
 Flags:
   -h, --help   help for ocm
@@ -84,7 +84,7 @@ Use "c2pcli ocm [command] --help" for more information about a command.
     ```
 1. Prettify OSCAL Assessment Results in .md format
     ```
-    c2pcli ocm oscal2posture -c ./docs/ocm/c2p-config.yaml --assessment-results /tmp/assessment-results.json -o /tmp/compliance-posture.md
+    c2pcli ocm tools oscal2posture -c ./docs/ocm/c2p-config.yaml --assessment-results /tmp/assessment-results.json -o /tmp/compliance-posture.md
     ```
     - You can view the compliance posture like [./final-outputs/compliance-posture.md](./final-outputs/compliance-posture.md)
 
