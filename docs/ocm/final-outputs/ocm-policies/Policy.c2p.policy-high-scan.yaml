@@ -1,0 +1,100 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: cm-6
+    policy.open-cluster-management.io/standards: ""
+  name: policy-high-scan
+  namespace: c2p
+spec:
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-high-scan
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-system
+          - open-cluster-management
+          - open-cluster-management-agent
+          - open-cluster-management-agent-addon
+          include:
+          - '*'
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: compliance.openshift.io/v1alpha1
+            kind: ScanSettingBinding
+            metadata:
+              name: high
+              namespace: openshift-compliance
+            profiles:
+            - apiGroup: compliance.openshift.io/v1alpha1
+              kind: Profile
+              name: ocp4-high
+            - apiGroup: compliance.openshift.io/v1alpha1
+              kind: Profile
+              name: ocp4-high-node
+            settingsRef:
+              apiGroup: compliance.openshift.io/v1alpha1
+              kind: ScanSetting
+              name: default
+        remediationAction: inform
+        severity: high
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-high-scan2
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-system
+          - open-cluster-management
+          - open-cluster-management-agent
+          - open-cluster-management-agent-addon
+          include:
+          - '*'
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: compliance.openshift.io/v1alpha1
+            kind: ComplianceSuite
+            metadata:
+              name: high
+              namespace: openshift-compliance
+            status:
+              phase: DONE
+        remediationAction: inform
+        severity: high
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-high-scan3
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-system
+          - open-cluster-management
+          - open-cluster-management-agent
+          - open-cluster-management-agent-addon
+          include:
+          - '*'
+        object-templates:
+        - complianceType: mustnothave
+          objectDefinition:
+            apiVersion: compliance.openshift.io/v1alpha1
+            kind: ComplianceCheckResult
+            metadata:
+              labels:
+                compliance.openshift.io/check-status: FAIL
+                compliance.openshift.io/suite: high
+              namespace: openshift-compliance
+        remediationAction: inform
+        severity: high
+  remediationAction: inform

@@ -1,0 +1,17 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator
+policyDefaults:
+  consolidateManifests: false
+  orderManifests: false
+  namespace: namespace
+policies:
+  - consolidateManifests: false
+    orderManifests: false
+    name: policy-install-kyverno-from-manifests
+    manifests:
+      - remediationAction: enforce
+        severity: low
+        complianceType: musthave
+        path: ./policy-install-kyverno-from-manifests

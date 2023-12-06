@@ -1,0 +1,14 @@
+Field of OSCAL Assessment Result,How is Auditree check_results.json mapped,Field of Auditree check_results.json
+local-definitions.inventory-items[],Per check_result,check_results[]
+local-definitions.inventory-items[].props[].check_path,check_result key name,check_results[].$key
+local-definitions.inventory-items[].props[].accreditations,accreditations in check_result,check_results[].accreditations
+observations[],Per rule,
+observations[].subjects[],"Per check (filter(check_id in rule, check_results.$key.checks))","filter(lambda check: check in rule, check_results[].checks)"
+observations[].subjects[].subject_uuid,Inventory item id of the check,local-definitions.inventory-items[].uuid
+observations[].subjects[].props[].result,Status of check (pass/fail),check.status
+observations[].subjects[].props[].reason,Reason of the status,str(check.successes/failures/warnings)
+observations[].subjects[].props[].resource-id,Fully qualified check name ,f‘{check_result.$key}.{check.$key}’
+observations[].subjects[].props[].evaluate-on,Evaluation timestamp,check.timestamp_formatted
+observations[].relevant_references[].description,Evidence description,check_result.evidence[].description
+observations[].relevant_references[].href,Evidence urls,locker_url + check_result.evidence[].path
+observations[].links[].href,Report urls,locker_url + check_result.reports[]

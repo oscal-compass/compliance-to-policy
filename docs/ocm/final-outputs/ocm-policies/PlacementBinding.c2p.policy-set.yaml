@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-set
+  namespace: c2p
+placementRef:
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+  name: placement-managed-kubernetes
+subjects:
+- apiGroup: policy.open-cluster-management.io
+  kind: PolicySet
+  name: managed-kubernetes

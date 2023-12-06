@@ -1,32 +1,92 @@
 ## C2P for OCM
 
+### Usage
+```
+$ c2pcli ocm -h
+C2P CLI OCM plugin
+
+Usage:
+  c2pcli ocm [command]
+
+Available Commands:
+  oscal2policy  Compose deliverable OCM Policies from OSCAL
+  oscal2posture Generate Compliance Posture from OSCAL artifacts
+  result2oscal  Generate OSCAL Assessment Results from OCM Policy statuses
+
+Flags:
+  -h, --help   help for ocm
+
+Use "c2pcli ocm [command] --help" for more information about a command.
+```
+
 ### Prerequisites
 1. Install [Policy Generator Plugin](https://github.com/open-cluster-management-io/policy-generator-plugin#as-a-kustomize-plugin)
 
 ### Manual end-to-end use case
+
+1. Prerequisites
+    1. OCM is configured to manage two k8s clusters (cluster1 and cluster2) and installed Policy Governance Framework.
+    1. Namespace `c2p` is created in OCM Hub
+    1. The managed clusters are labeled `my-cluster=true` and bound to `c2p` namespace
+        ```
+        $ clusteradm get clustersets
+
+        <ManagedClusterSet> 
+        └── <default> 
+        │   ├── <BoundNamespace> 
+        │   ├── <Status> 2 ManagedClusters selected
+        │   ├── <Clusters> [cluster1 cluster2]
+        └── <global> 
+        │   ├── <BoundNamespace> 
+        │   ├── <Status> 2 ManagedClusters selected
+        │   ├── <Clusters> [cluster1 cluster2]
+        └── <myclusterset> 
+            └── <BoundNamespace> c2p
+            └── <Status> 2 ManagedClusters selected
+            └── <Clusters> [cluster1 cluster2]
+        ```
 1. Run oscal2policy
     ```
-    c2pcli ocm oscal2policy -c c2p-config.yaml -o ./ocm-policies
+    c2pcli ocm oscal2policy -c ./docs/ocm/c2p-config.yaml -o /tmp/ocm-policies
     ```
+    - The generated ocm-policies directory looks like [./final-outputs/ocm-policies](./final-outputs/ocm-policies)
 1. Deploy generated OCM Policies to OCM Hub
     ```
-    kubectl create -f ./ocm-policies
+    kubectl create -f /tmp/ocm-policies
     ```
-1. Get OCM Policies from OCM Hub
+1. Wait for policies to be delivered
     ```
-    mkdir results
-    kubectl get policies.policy.open-cluster-management.io -A -o yaml > ./results/policies.policy.open-cluster-management.io.yaml
-    kubectl get policies.policy.open-cluster-management.io -A -o yaml > ./results/policies.policy.open-cluster-management.io.yaml
-    kubectl get policysets.policy.open-cluster-management.io -A -o yaml > ./results/policysets.policy.open-cluster-management.io.yaml
+    $ kubectl get policy -A
+    NAMESPACE   NAME                                        REMEDIATION ACTION   COMPLIANCE STATE   AGE
+    c2p         policy-deployment                           inform               NonCompliant       5m15s
+    c2p         policy-high-scan                            inform               NonCompliant       5m15s
+    c2p         policy-install-kyverno-from-manifests       enforce              Compliant          5m14s
+    c2p         policy-kyverno-require-labels                                    NonCompliant       5m14s
+    cluster1    c2p.policy-deployment                       inform               NonCompliant       2m15s
+    cluster1    c2p.policy-high-scan                        inform               NonCompliant       2m15s
+    cluster1    c2p.policy-install-kyverno-from-manifests   enforce              Compliant          2m14s
+    cluster1    c2p.policy-kyverno-require-labels                                NonCompliant       2m11s
+    cluster2    c2p.policy-deployment                       inform               NonCompliant       2m15s
+    cluster2    c2p.policy-high-scan                        inform               NonCompliant       2m15s
+    cluster2    c2p.policy-install-kyverno-from-manifests   enforce              Compliant          2m14s
+    cluster2    c2p.policy-kyverno-require-labels                                NonCompliant       2m11s
+    ```
+1. Get OCM Policy Results (Policy, PolicySet, PlacementDecision) from OCM Hub
+    ```
+    mkdir /tmp/results
+    kubectl get policies.policy.open-cluster-management.io -A -o yaml > /tmp/results/policies.policy.open-cluster-management.io.yaml
+    kubectl get policysets.policy.open-cluster-management.io -A -o yaml > /tmp/results/policysets.policy.open-cluster-management.io.yaml
+    kubectl get placementdecisions.cluster.open-cluster-management.io -A -o yaml > /tmp/results/placementdecisions.cluster.open-cluster-management.io.yaml
     ```
 1. Run result2oscal
     ```
-    c2pcli ocm result2oscal -c c2p-config.yaml --results ./results -o ./assessment-results.json
+    c2pcli ocm result2oscal -c ./docs/ocm/c2p-config.yaml --results /tmp/results -o /tmp/assessment-results.json
     ```
-1. (Optional) Prettify OSCAL Assessment Results in .md format
+1. Prettify OSCAL Assessment Results in .md format
     ```
-    c2pcli ocm oscal2posture -c c2p-config.yaml --assessment-results ./assessment-results.json -o compliance-posture.md
+    c2pcli ocm oscal2posture -c ./docs/ocm/c2p-config.yaml --assessment-results /tmp/assessment-results.json -o /tmp/compliance-posture.md
     ```
+    - You can view the compliance posture like [./final-outputs/compliance-posture.md](./final-outputs/compliance-posture.md)
 
 ### C2P Decomposer
 Decompose OCM poicy collection to kubernetes resources composing each OCM policy (we call it policy resource).

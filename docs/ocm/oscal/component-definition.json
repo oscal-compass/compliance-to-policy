@@ -1,0 +1,201 @@
+{
+  "component-definition": {
+    "uuid": "f0373e90-c75b-4400-bfb9-50056cd89a1a",
+    "metadata": {
+      "title": "OCM",
+      "last-modified": "2023-07-11T23:04:11+00:00",
+      "version": "20210826",
+      "oscal-version": "1.0.4"
+    },
+    "components": [
+      {
+        "uuid": "5bfee926-9a73-40ef-9c93-30bc53986976",
+        "type": "Service",
+        "title": "Managed Kubernetes",
+        "description": "Managed Kubernetes cluster",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "test_configuration_check",
+            "class": "scc_class",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Ensure deployment configuration is securely set up",
+            "class": "scc_class",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "test_configuration_check",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-high-scan",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "test_proxy_check",
+            "class": "scc_class",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Ensure Nginx is properly configured",
+            "class": "scc_class",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "minimum_nginx_deployment_replicas",
+            "class": "scc_class",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Minimum number of NGINX pod",
+            "class": "scc_class",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "3",
+            "class": "scc_class",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "test_proxy_check",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-deployment",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "install_kyverno",
+            "class": "scc_class",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Install Kyverno",
+            "class": "scc_class",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-install-kyverno-from-manifests",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-install-kyverno-from-manifests",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "test_required_label",
+            "class": "scc_class",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "By Kyverno, ensure required labels are set",
+            "class": "scc_class",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-kyverno-require-labels",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Policy_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "policy-kyverno-require-labels",
+            "remarks": "rule_set_3"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "d872a255-e447-46c6-9164-1419f016c953",
+            "source": "https://github.com/usnistgov/oscal-content/blob/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+            "description": "NIST Special Publication 800-53 Revision 5 HIGH IMPACT BASELINE",
+            "set-parameters": [
+              {
+                "param-id": "minimum_nginx_deployment_replicas",
+                "values": [
+                  "3"
+                ]
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "699e41bc-1f42-4893-abdc-7a77b42ac44c",
+                "control-id": "cm-6",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "test_configuration_check",
+                    "class": "scc_class"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "install_kyverno",
+                    "class": "scc_class"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "test_required_label",
+                    "class": "scc_class"
+                  }
+                ]
+              },
+              {
+                "uuid": "01de518e-4d49-4c88-8338-7c75826d7272",
+                "control-id": "cm-2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "test_proxy_check",
+                    "class": "scc_class"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
