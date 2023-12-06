@@ -1,6 +1,6 @@
 ## C2P for OCM
 
-### Usage
+### Usage of C2P CLI
 ```
 $ c2pcli ocm -h
 C2P CLI OCM plugin
@@ -21,6 +21,9 @@ Use "c2pcli ocm [command] --help" for more information about a command.
 
 ### Prerequisites
 1. Install [Policy Generator Plugin](https://github.com/open-cluster-management-io/policy-generator-plugin#as-a-kustomize-plugin)
+1. Prepare OCM Policy Resources
+    - You can use [policy-resources for test](/pkg/testdata/ocm/policies)
+    - You can also use [Policy Collection](https://github.com/open-cluster-management-io/policy-collection). Please see [C2P Decomposer](#c2p-decomposer)
 
 ### Manual end-to-end use case
 
@@ -150,7 +153,10 @@ Compose OCM Policy from policy resources from compliance information (for exampl
     └── policy-sets.yaml
     ```
 
-### Setup pipeline
+### GitOps automation use case
+
+https://github.com/IBM/compliance-to-policy/assets/113283236/da3518d0-53de-4bd6-8703-04ce94e9dfba
+
 1. Create two repositories (one is configuration repository that's used for pipeline from OSCAL to Policy and another is evidence repository that's used for pipeline from OCM statuses to Compliance result)
     - For example, c2p-for-ocm-pipeline01-config and c2p-for-ocm-pipeline01-evidence
 1. Create Github Personal Access Token having following permissions

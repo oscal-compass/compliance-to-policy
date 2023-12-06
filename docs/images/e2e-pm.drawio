@@ -1,0 +1,165 @@
+<mxfile host="65bd71144e">
+    <diagram id="7VQMfgThc92STI9vpq6_" name="Page-1">
+        <mxGraphModel dx="1512" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="347" width="180" height="205" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="370" width="140" height="172.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="K8s/Kyverno" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="381" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="K8s/Kube-bench" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="421" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="K8s/ OPA Gatekeeper" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="461" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="K8s / Falco" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="501" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.362;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;startFill=0;fillColor=#a20025;strokeColor=#6F0000;strokeWidth=2;" parent="1" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="315" y="230" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=none;startFill=0;fillColor=#d80073;strokeColor=#A50040;strokeWidth=2;" parent="1" target="30" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="541" y="390" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="Compliance &amp;amp; Policy Administration Center" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontStyle=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="389" y="180" width="150" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="" style="shape=actor;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="193.5" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="" style="shape=actor;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="383.5" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="Compliance Officers or Auditors" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="460" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="Regulators" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="263.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="shape=actor;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="130" y="268.5" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="Vendors or Service Providers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="338.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=none;startFill=0;fillColor=#d80073;strokeColor=#A50040;strokeWidth=2;exitX=0.007;exitY=0.638;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="541" y="401" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="610" y="471"/>
+                            <mxPoint x="610" y="401"/>
+                        </Array>
+                        <mxPoint x="700.98" y="471.05500000000006" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="&lt;p&gt;&lt;span style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0pt; vertical-align: baseline;&quot;&gt;Policy Validation /&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0pt; vertical-align: baseline;&quot;&gt;Enforcement Points (PVPs / PEPs)&lt;/span&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" parent="1" vertex="1">
+                    <mxGeometry x="670" y="57.5" width="190" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="Policy (Desired State)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="183.5" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="Result" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="584" y="471" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="" style="shape=actor;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="110" y="93.5" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="CISO/CTO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="153.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="PVP/PEP Management" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fillColor=#fad9d5;strokeColor=#ae4132;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="404" y="246" width="120" height="61.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="PCI, SOC2, HIPAA, FedRAMP, IRAP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry y="180" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="SSP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="57" y="117.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=classic;startFill=1;fillColor=#a20025;strokeColor=#6F0000;strokeWidth=2;entryX=0.002;entryY=0.558;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" parent="1" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="310" y="420" as="sourcePoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="GRC" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="390" width="110" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="Trestle" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+                    <mxGeometry x="195" y="201" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="OSCAL (CL/Profile/CDef)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="163.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="OSCAL (Assessment Result)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="315" y="443.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="Kubernetes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="735" y="342" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="Policy Desired State Generator" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fillColor=#fad9d5;strokeColor=#ae4132;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="404" y="312" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="Policy (Desired State)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="360" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="133.5" width="180" height="205" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" style="edgeStyle=none;html=1;exitX=-0.002;exitY=0.439;exitDx=0;exitDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;strokeColor=#A50040;strokeWidth=2;exitPerimeter=0;entryX=0.993;entryY=0.343;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="92" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="540" y="280" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="630" y="232"/>
+                            <mxPoint x="630" y="276"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="92" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="156.5" width="140" height="172.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="K8s/Kyverno" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="167.5" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="K8s/Kube-bench" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="207.5" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="K8s/ OPA Gatekeeper" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="247.5" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="K8s / Falco" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="710" y="287.5" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="Kubernetes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="735" y="126.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.368;entryDx=0;entryDy=0;startArrow=none;startFill=0;fillColor=#d80073;strokeColor=#A50040;strokeWidth=2;exitX=1;exitY=0.304;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" source="24" target="92" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="551" y="400" as="sourcePoint"/>
+                        <mxPoint x="710" y="466.25" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="104" value="Result" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="570" y="277.5" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" value="C2P bridges Compliance administration and Policy administration" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="560" width="296" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;direction=north;" parent="1" vertex="1">
+                    <mxGeometry x="344" y="520" width="255" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
