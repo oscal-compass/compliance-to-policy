@@ -21,7 +21,6 @@ import (
 	"testing"
 
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	"github.com/stretchr/testify/assert"
 )
@@ -56,9 +55,6 @@ func TestOscal2Policy(t *testing.T) {
 		PolicyResources: typec2pcr.ResourceRef{
 			Url: policyDir,
 		},
-		PolicyRersults: typec2pcr.ResourceRef{
-			Url: "/1/2/3",
-		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
 			MatchLabels: &map[string]string{"environment": "test"},
@@ -71,7 +67,7 @@ func TestOscal2Policy(t *testing.T) {
 			Namespace: "",
 		},
 	}
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 

@@ -35,6 +35,7 @@ import (
 type ResultToOscal struct {
 	logger                  *zap.Logger
 	c2pParsed               typec2pcr.C2PCRParsed
+	policyResultsDir        string
 	policyReportList        *typepolr.PolicyReportList
 	clusterPolicyReportList *typepolr.ClusterPolicyReportList
 	policyList              *kyvernov1.PolicyList
@@ -51,10 +52,11 @@ type PolicyResourceIndexContainer struct {
 	ControlIds          []string
 }
 
-func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed) *ResultToOscal {
+func NewResultToOscal(c2pParsed typec2pcr.C2PCRParsed, policyResultsDir string) *ResultToOscal {
 	r := ResultToOscal{
 		logger:                  pkg.GetLogger("kyverno/result2oscal"),
 		c2pParsed:               c2pParsed,
+		policyResultsDir:        policyResultsDir,
 		policyReportList:        &typepolr.PolicyReportList{},
 		clusterPolicyReportList: &typepolr.ClusterPolicyReportList{},
 		policyList:              &kyvernov1.PolicyList{},
@@ -121,7 +123,7 @@ func (r *ResultToOscal) retrievePolicyReportResults(name string) []*typepolr.Pol
 }
 
 func (r *ResultToOscal) loadData(path string, out interface{}) error {
-	if err := pkg.LoadYamlFileToK8sTypedObject(r.c2pParsed.PolicyResultsDir+path, &out); err != nil {
+	if err := pkg.LoadYamlFileToK8sTypedObject(r.policyResultsDir+"/"+path, &out); err != nil {
 		return err
 	}
 	return nil

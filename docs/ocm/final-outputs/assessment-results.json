@@ -1,0 +1,284 @@
+{
+	"assessment-results": {
+		"uuid": "6fae0aac-93fc-11ee-a02a-62f79297f1b7",
+		"metadata": {
+			"title": "OSCAL Assessment Results",
+			"last-modified": "2023-12-06T14:58:10.97827+09:00",
+			"version": "0.0.1",
+			"oscal-version": "1.0.4"
+		},
+		"import-ap": {
+			"href": "http://..."
+		},
+		"results": [
+			{
+				"uuid": "6fae0aac-93fc-11ee-a02b-62f79297f1b7",
+				"title": "Assessment Results by OCM",
+				"description": "Assessment Results by OCM...",
+				"start": "2023-12-06T14:58:10.97827+09:00",
+				"local-definitions": {
+					"inventory-items": [
+						{
+							"uuid": "6fade0d6-93fc-11ee-a029-62f79297f1b7",
+							"description": "",
+							"props": [
+								{
+									"name": "cluster-name",
+									"value": "cluster1"
+								}
+							]
+						},
+						{
+							"uuid": "6fade374-93fc-11ee-a029-62f79297f1b7",
+							"description": "",
+							"props": [
+								{
+									"name": "cluster-name",
+									"value": "cluster2"
+								}
+							]
+						}
+					]
+				},
+				"observations": [
+					{
+						"uuid": "6fade810-93fc-11ee-a029-62f79297f1b7",
+						"description": "Observation of policy policy-high-scan",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_configuration_check"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-high-scan"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-6"
+							},
+							{
+								"name": "result",
+								"value": "fail"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "6fade0d6-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster1",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-high-scan.179e2849d01e8567\n  lastTimestamp: \"2023-12-06T05:53:26Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.179e2848595f9ba9\n  lastTimestamp: \"2023-12-06T05:53:20Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.179e284a97812778\n  lastTimestamp: \"2023-12-06T05:53:30Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult,\n    please check if you have CRD deployed\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "6fade374-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-high-scan.179e284863bfbfab\n  lastTimestamp: \"2023-12-06T05:53:20Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ScanSettingBinding,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.179e284a53812e10\n  lastTimestamp: \"2023-12-06T05:53:28Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceSuite,\n    please check if you have CRD deployed\n- eventName: c2p.policy-high-scan.179e2849950d51e5\n  lastTimestamp: \"2023-12-06T05:53:25Z\"\n  message: NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult,\n    please check if you have CRD deployed\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					},
+					{
+						"uuid": "6fae067e-93fc-11ee-a029-62f79297f1b7",
+						"description": "Observation of policy policy-install-kyverno-from-manifests",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "install_kyverno"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-install-kyverno-from-manifests"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-6"
+							},
+							{
+								"name": "result",
+								"value": "pass"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "6fade0d6-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster1",
+								"props": [
+									{
+										"name": "result",
+										"value": "pass"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-install-kyverno-from-manifests.179e284be703d42d\n  lastTimestamp: \"2023-12-06T05:53:35Z\"\n  message: Compliant; notification - clusterroles [kyverno] found as specified, therefore\n    this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284c7ace2ebf\n  lastTimestamp: \"2023-12-06T05:53:38Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-generaterequest]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284c9f4c379e\n  lastTimestamp: \"2023-12-06T05:53:38Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-policies] found as\n    specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28504ffc7000\n  lastTimestamp: \"2023-12-06T05:53:54Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-policyreport] found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284befa43976\n  lastTimestamp: \"2023-12-06T05:53:35Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-reports] found as\n    specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284e6ff55461\n  lastTimestamp: \"2023-12-06T05:53:46Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-updaterequest] found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285349215bae\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - clusterroles [kyverno:events] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284d380ed6df\n  lastTimestamp: \"2023-12-06T05:53:41Z\"\n  message: Compliant; notification - clusterroles [kyverno:generate] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853548333b1\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - clusterroles [kyverno:policies] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284f80c03d5d\n  lastTimestamp: \"2023-12-06T05:53:51Z\"\n  message: Compliant; notification - clusterroles [kyverno:userinfo] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284ba3c9f6ea\n  lastTimestamp: \"2023-12-06T05:53:34Z\"\n  message: Compliant; notification - clusterroles [kyverno:view] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28535e612839\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - clusterroles [kyverno:webhook] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284fcb71f4df\n  lastTimestamp: \"2023-12-06T05:53:52Z\"\n  message: Compliant; notification - clusterrolebindings [kyverno] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285680fe6ac8\n  lastTimestamp: \"2023-12-06T05:54:21Z\"\n  message: Compliant; notification - configmaps [kyverno-metrics] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28524f386c75\n  lastTimestamp: \"2023-12-06T05:54:03Z\"\n  message: Compliant; notification - configmaps [kyverno] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284bf8f4b48b\n  lastTimestamp: \"2023-12-06T05:53:35Z\"\n  message: Compliant; notification - customresourcedefinitions [admissionreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284bba53764a\n  lastTimestamp: \"2023-12-06T05:53:34Z\"\n  message: Compliant; notification - customresourcedefinitions [backgroundscanreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284fd5dac2d0\n  lastTimestamp: \"2023-12-06T05:53:52Z\"\n  message: Compliant; notification - customresourcedefinitions [clusteradmissionreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284f91c7ac2d\n  lastTimestamp: \"2023-12-06T05:53:51Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterbackgroundscanreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853336f0121\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterpolicies.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853ae517829\n  lastTimestamp: \"2023-12-06T05:54:09Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterpolicyreports.wgpolicyk8s.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853bb96886f\n  lastTimestamp: \"2023-12-06T05:54:09Z\"\n  message: Compliant; notification - customresourcedefinitions [generaterequests.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28567b4ab101\n  lastTimestamp: \"2023-12-06T05:54:21Z\"\n  message: Compliant; notification - customresourcedefinitions [policies.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285155b5a7dc\n  lastTimestamp: \"2023-12-06T05:53:58Z\"\n  message: Compliant; notification - customresourcedefinitions [policyreports.wgpolicyk8s.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285258c5e5f7\n  lastTimestamp: \"2023-12-06T05:54:03Z\"\n  message: Compliant; notification - customresourcedefinitions [updaterequests.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2856c0192717\n  lastTimestamp: \"2023-12-06T05:54:22Z\"\n  message: Compliant; notification - deployments [kyverno] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851d0ebe5d4\n  lastTimestamp: \"2023-12-06T05:54:01Z\"\n  message: Compliant; notification - namespaces [kyverno] found as specified, therefore\n    this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851d422c597\n  lastTimestamp: \"2023-12-06T05:54:01Z\"\n  message: Compliant; notification - roles [kyverno:leaderelection] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28526cb03284\n  lastTimestamp: \"2023-12-06T05:54:03Z\"\n  message: Compliant; notification - rolebindings [kyverno:leaderelection] in namespace\n    kyverno found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285684956927\n  lastTimestamp: \"2023-12-06T05:54:21Z\"\n  message: Compliant; notification - services [kyverno-svc-metrics] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285277e643d2\n  lastTimestamp: \"2023-12-06T05:54:03Z\"\n  message: Compliant; notification - services [kyverno-svc] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2855b441709c\n  lastTimestamp: \"2023-12-06T05:54:17Z\"\n  message: Compliant; notification - serviceaccounts [kyverno] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "6fade374-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "pass"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-install-kyverno-from-manifests.179e284c9a97c784\n  lastTimestamp: \"2023-12-06T05:53:38Z\"\n  message: Compliant; notification - clusterroles [kyverno] found as specified, therefore\n    this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284b35375584\n  lastTimestamp: \"2023-12-06T05:53:32Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-generaterequest]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284ef4862c6a\n  lastTimestamp: \"2023-12-06T05:53:48Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-policies] found as\n    specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284dfd646310\n  lastTimestamp: \"2023-12-06T05:53:44Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-policyreport] found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284dc9cf5a21\n  lastTimestamp: \"2023-12-06T05:53:43Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-reports] found as\n    specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284b3482ad78\n  lastTimestamp: \"2023-12-06T05:53:32Z\"\n  message: Compliant; notification - clusterroles [kyverno:admin-updaterequest] found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284f07938a0b\n  lastTimestamp: \"2023-12-06T05:53:49Z\"\n  message: Compliant; notification - clusterroles [kyverno:events] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284f17ff00f6\n  lastTimestamp: \"2023-12-06T05:53:49Z\"\n  message: Compliant; notification - clusterroles [kyverno:generate] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284ca95ae428\n  lastTimestamp: \"2023-12-06T05:53:38Z\"\n  message: Compliant; notification - clusterroles [kyverno:policies] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284e30919d74\n  lastTimestamp: \"2023-12-06T05:53:45Z\"\n  message: Compliant; notification - clusterroles [kyverno:userinfo] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284e4527ba38\n  lastTimestamp: \"2023-12-06T05:53:45Z\"\n  message: Compliant; notification - clusterroles [kyverno:view] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284c5820f7b0\n  lastTimestamp: \"2023-12-06T05:53:37Z\"\n  message: Compliant; notification - clusterroles [kyverno:webhook] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284dccc3cae5\n  lastTimestamp: \"2023-12-06T05:53:43Z\"\n  message: Compliant; notification - clusterrolebindings [kyverno] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285889d4069c\n  lastTimestamp: \"2023-12-06T05:54:29Z\"\n  message: Compliant; notification - configmaps [kyverno-metrics] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853e3c830c7\n  lastTimestamp: \"2023-12-06T05:54:09Z\"\n  message: Compliant; notification - configmaps [kyverno] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851c8b54cb1\n  lastTimestamp: \"2023-12-06T05:54:00Z\"\n  message: Compliant; notification - customresourcedefinitions [admissionreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284dda99ee7e\n  lastTimestamp: \"2023-12-06T05:53:44Z\"\n  message: Compliant; notification - customresourcedefinitions [backgroundscanreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e284cbfda9c70\n  lastTimestamp: \"2023-12-06T05:53:39Z\"\n  message: Compliant; notification - customresourcedefinitions [clusteradmissionreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2854d3f7806a\n  lastTimestamp: \"2023-12-06T05:54:13Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterbackgroundscanreports.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2856e1ae7593\n  lastTimestamp: \"2023-12-06T05:54:22Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterpolicies.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851eb3a6bea\n  lastTimestamp: \"2023-12-06T05:54:01Z\"\n  message: Compliant; notification - customresourcedefinitions [clusterpolicyreports.wgpolicyk8s.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851282fb972\n  lastTimestamp: \"2023-12-06T05:53:58Z\"\n  message: Compliant; notification - customresourcedefinitions [generaterequests.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851fa561a0e\n  lastTimestamp: \"2023-12-06T05:54:01Z\"\n  message: Compliant; notification - customresourcedefinitions [policies.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2854e6af9e7a\n  lastTimestamp: \"2023-12-06T05:54:14Z\"\n  message: Compliant; notification - customresourcedefinitions [policyreports.wgpolicyk8s.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285334bd6234\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - customresourcedefinitions [updaterequests.kyverno.io]\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e28588a2bd302\n  lastTimestamp: \"2023-12-06T05:54:29Z\"\n  message: Compliant; notification - deployments [kyverno] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2851d0e23da9\n  lastTimestamp: \"2023-12-06T05:54:01Z\"\n  message: Compliant; notification - namespaces [kyverno] found as specified, therefore\n    this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2853398624f1\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - roles [kyverno:leaderelection] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2858b1db4b8e\n  lastTimestamp: \"2023-12-06T05:54:30Z\"\n  message: Compliant; notification - rolebindings [kyverno:leaderelection] in namespace\n    kyverno found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2857bc2aa4bd\n  lastTimestamp: \"2023-12-06T05:54:26Z\"\n  message: Compliant; notification - services [kyverno-svc-metrics] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e285346ad8e3c\n  lastTimestamp: \"2023-12-06T05:54:07Z\"\n  message: Compliant; notification - services [kyverno-svc] in namespace kyverno found\n    as specified, therefore this Object template is compliant\n- eventName: c2p.policy-install-kyverno-from-manifests.179e2857c388cf77\n  lastTimestamp: \"2023-12-06T05:54:26Z\"\n  message: Compliant; notification - serviceaccounts [kyverno] in namespace kyverno\n    found as specified, therefore this Object template is compliant\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					},
+					{
+						"uuid": "6fae08e0-93fc-11ee-a029-62f79297f1b7",
+						"description": "Observation of policy policy-kyverno-require-labels",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_required_label"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-kyverno-require-labels"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-6"
+							},
+							{
+								"name": "result",
+								"value": "fail"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "6fade0d6-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster1",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-kyverno-require-labels.179e2851c11fe04c\n  lastTimestamp: \"2023-12-06T05:54:00Z\"\n  message: Compliant; notification - clusterpolicies [require-labels] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-kyverno-require-labels.179e2862688eaee7\n  lastTimestamp: \"2023-12-06T05:55:12Z\"\n  message: 'NonCompliant; violation - policyreports found: [cpol-require-labels] in\n    namespace local-path-storage'\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "6fade374-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-kyverno-require-labels.179e2855f5ab92dd\n  lastTimestamp: \"2023-12-06T05:54:18Z\"\n  message: Compliant; notification - clusterpolicies [require-labels] found as specified,\n    therefore this Object template is compliant\n- eventName: c2p.policy-kyverno-require-labels.179e2862e1802d28\n  lastTimestamp: \"2023-12-06T05:55:14Z\"\n  message: 'NonCompliant; violation - policyreports found: [cpol-require-labels] in\n    namespace local-path-storage'\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					},
+					{
+						"uuid": "6fae0aac-93fc-11ee-a029-62f79297f1b7",
+						"description": "Observation of policy policy-deployment",
+						"props": [
+							{
+								"name": "assessment-rule-id",
+								"value": "test_proxy_check"
+							},
+							{
+								"name": "policy-id",
+								"value": "policy-deployment"
+							},
+							{
+								"name": "control-id",
+								"value": "cm-2"
+							},
+							{
+								"name": "result",
+								"value": "fail"
+							}
+						],
+						"methods": [
+							"TEST-AUTOMATED"
+						],
+						"subjects": [
+							{
+								"subject-uuid": "6fade0d6-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster1",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-deployment.179e284f776397b3\n  lastTimestamp: \"2023-12-06T05:53:50Z\"\n  message: 'NonCompliant; violation - deployments not found: [nginx-deployment] in\n    namespace cluster1 missing; [nginx-deployment] in namespace default missing; [nginx-deployment]\n    in namespace kube-node-lease missing; [nginx-deployment] in namespace kube-public\n    missing; [nginx-deployment] in namespace kyverno missing; [nginx-deployment] in\n    namespace local-path-storage missing'\n"
+									}
+								]
+							},
+							{
+								"subject-uuid": "6fade374-93fc-11ee-a029-62f79297f1b7",
+								"type": "resource",
+								"title": "Cluster Name: cluster2",
+								"props": [
+									{
+										"name": "result",
+										"value": "fail"
+									},
+									{
+										"name": "reason",
+										"value": "- eventName: c2p.policy-deployment.179e2854bed6d22e\n  lastTimestamp: \"2023-12-06T05:54:13Z\"\n  message: 'NonCompliant; violation - deployments not found: [nginx-deployment] in\n    namespace cluster2 missing; [nginx-deployment] in namespace default missing; [nginx-deployment]\n    in namespace kube-node-lease missing; [nginx-deployment] in namespace kube-public\n    missing; [nginx-deployment] in namespace kyverno missing; [nginx-deployment] in\n    namespace local-path-storage missing'\n"
+									}
+								]
+							}
+						],
+						"collected": "0001-01-01T00:00:00Z",
+						"expires": "0001-01-01T00:00:00Z"
+					}
+				]
+			}
+		]
+	}
+}

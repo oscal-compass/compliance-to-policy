@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  annotations:
+    compliance-to-policy.component-title: Managed Kubernetes
+  name: managed-kubernetes
+  namespace: c2p
+spec:
+  description: ""
+  policies:
+  - policy-deployment
+  - policy-high-scan
+  - policy-install-kyverno-from-manifests
+  - policy-kyverno-require-labels

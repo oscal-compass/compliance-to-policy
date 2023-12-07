@@ -21,7 +21,6 @@ import (
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
 	oscal2policycmd "github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2policy/cmd"
-	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/kyverno/oscal2posture/cmd"
 	result2oscalcmd "github.com/IBM/compliance-to-policy/cmd/kyverno/result2oscal/cmd"
 	toolscmd "github.com/IBM/compliance-to-policy/cmd/kyverno/tools/cmd"
 )
@@ -38,7 +37,6 @@ func NewKyvernoSubCommand() *cobra.Command {
 
 	command.AddCommand(oscal2policycmd.New())
 	command.AddCommand(result2oscalcmd.New())
-	command.AddCommand(oscal2posturecmd.New())
 	command.AddCommand(toolscmd.New())
 
 	return command

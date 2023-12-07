@@ -21,6 +21,8 @@ import (
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/options"
 	kyvernocmd "github.com/IBM/compliance-to-policy/cmd/kyverno/tools/subcommands/kyverno"
+	oscal2posturecmd "github.com/IBM/compliance-to-policy/cmd/pvpcommon/oscal2posture/cmd"
+	"github.com/IBM/compliance-to-policy/pkg"
 )
 
 func New() *cobra.Command {
@@ -44,6 +46,7 @@ func New() *cobra.Command {
 	opts.AddFlags(command.Flags())
 
 	command.AddCommand(kyvernocmd.New())
+	command.AddCommand(oscal2posturecmd.New(pkg.GetLogger("kyverno/oscal2posture")))
 
 	return command
 }

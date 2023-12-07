@@ -17,14 +17,11 @@ limitations under the License.
 package cmd
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
 
 	"github.com/IBM/compliance-to-policy/cmd/ocm/result2oscal/options"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
-	"github.com/IBM/compliance-to-policy/pkg/ocm/reporter"
+	"github.com/IBM/compliance-to-policy/pkg/ocm"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
 
@@ -33,7 +30,7 @@ func New() *cobra.Command {
 
 	command := &cobra.Command{
 		Use:   "result2oscal",
-		Short: "Generate OSCAL Assessment Results from Kyverno policies and the policy reports",
+		Short: "Generate OSCAL Assessment Results from OCM Policy statuses",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := opts.Complete(); err != nil {
 				return err
@@ -52,10 +49,7 @@ func New() *cobra.Command {
 }
 
 func Run(options *options.Options) error {
-	outputDir, c2pcrPath, tempDirPath := options.OutputDir, options.C2PCRPath, options.TempDirPath
-	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
-		panic(err)
-	}
+	outputPath, c2pcrPath, policyResultsDir, tempDirPath := options.OutputPath, options.C2PCRPath, options.PolicyResultsDir, options.TempDirPath
 
 	var c2pcrSpec typec2pcr.Spec
 	if err := pkg.LoadYamlFileToObject(c2pcrPath, &c2pcrSpec); err != nil {
@@ -63,33 +57,21 @@ func Run(options *options.Options) error {
 	}
 
 	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(tempDirPath))
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := ocm.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	if err != nil {
 		panic(err)
 	}
 
-	r := reporter.NewReporter(c2pcrParsed)
-	r.SetGenerationType(reporter.GenerationTypePolicyReport)
-	report, err := r.Generate()
+	r := ocm.NewResultToOscal(c2pcrParsed, policyResultsDir)
+	arRoot, err := r.Generate()
 	if err != nil {
 		panic(err)
 	}
 
-	err = pkg.WriteObjToYamlFile(outputDir+"/compliance-report.yaml", report)
+	err = pkg.WriteObjToJsonFile(outputPath, arRoot)
 	if err != nil {
-		panic(err)
-	}
-
-	for _, pr := range r.GetPolicyReports() {
-		nspath, err := pkg.MakeDir(outputDir + "/" + pr.Namespace)
-		if err != nil {
-			panic(err)
-		}
-		err = pkg.WriteObjToYamlFile(nspath+"/"+pr.Name+".yaml", pr)
-		if err != nil {
-			panic(err)
-		}
+		return err
 	}
 
 	return nil

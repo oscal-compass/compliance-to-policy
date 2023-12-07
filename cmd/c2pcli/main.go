@@ -17,13 +17,36 @@ limitations under the License.
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/IBM/compliance-to-policy/cmd/c2pcli/cmd"
+	"github.com/spf13/cobra"
 )
 
+var (
+	version = "none"
+	commit  = "none"
+	date    = "unknown"
+)
+
+func newVersionSubCommand() *cobra.Command {
+	command := &cobra.Command{
+		Use:   "version",
+		Short: "Display version",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			message := fmt.Sprintf("version: %s, commit: %s, date: %s", version, commit, date)
+			fmt.Fprintln(os.Stdout, message)
+			return nil
+		},
+	}
+	return command
+}
+
 func main() {
-	err := cmd.New().Execute()
+	command := cmd.New()
+	command.AddCommand(newVersionSubCommand())
+	err := command.Execute()
 	if err != nil {
 		os.Exit(1)
 	}

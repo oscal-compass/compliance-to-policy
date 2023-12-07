@@ -1,0 +1,73 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/controls: cm-6
+    policy.open-cluster-management.io/standards: ""
+  name: policy-kyverno-require-labels
+  namespace: c2p
+spec:
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-kyverno-require-labels
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-system
+          - open-cluster-management
+          - open-cluster-management-agent
+          - open-cluster-management-agent-addon
+          include:
+          - '*'
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: kyverno.io/v1
+            kind: ClusterPolicy
+            metadata:
+              name: require-labels
+            spec:
+              rules:
+              - match:
+                  resources:
+                    kinds:
+                    - Pod
+                name: check-for-labels
+                validate:
+                  message: label `app.kubernetes.io/name` is required
+                  pattern:
+                    metadata:
+                      labels:
+                        app.kubernetes.io/name: ?*
+              validationFailureAction: audit
+        remediationAction: enforce
+        severity: low
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-kyverno-require-labels2
+      spec:
+        namespaceSelector:
+          exclude:
+          - kube-system
+          - open-cluster-management
+          - open-cluster-management-agent
+          - open-cluster-management-agent-addon
+          include:
+          - '*'
+        object-templates:
+        - complianceType: mustnothave
+          objectDefinition:
+            apiVersion: wgpolicyk8s.io/v1alpha2
+            kind: PolicyReport
+            results:
+            - policy: require-labels
+              result: fail
+        remediationAction: inform
+        severity: low

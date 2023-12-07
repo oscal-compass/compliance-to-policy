@@ -24,7 +24,6 @@ import (
 
 	"github.com/IBM/compliance-to-policy/cmd/ocm/oscal2policy/options"
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	"github.com/IBM/compliance-to-policy/pkg/ocm"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 )
@@ -63,7 +62,7 @@ func Run(options *options.Options) error {
 	}
 
 	gitUtils := pkg.NewGitUtils(pkg.NewTempDirectory(options.TempDirPath))
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := ocm.NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	if err != nil {
 		panic(err)

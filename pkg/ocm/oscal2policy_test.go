@@ -21,17 +21,15 @@ import (
 	"testing"
 
 	"github.com/IBM/compliance-to-policy/pkg"
-	"github.com/IBM/compliance-to-policy/pkg/c2pcr"
 	typec2pcr "github.com/IBM/compliance-to-policy/pkg/types/c2pcr"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestOscal2Policy(t *testing.T) {
-	policyDir := pkg.PathFromPkgDirectory("./testdata/policies")
+	policyDir := pkg.PathFromPkgDirectory("./testdata/ocm/policies")
 	catalogPath := pkg.PathFromPkgDirectory("./testdata/oscal/catalog.json")
 	profilePath := pkg.PathFromPkgDirectory("./testdata/oscal/profile.json")
-	cdPath := pkg.PathFromPkgDirectory("./testdata/oscal/component-definition.json")
-	// expectedDir := pkg.PathFromPkgDirectory("./composer/testdata/expected/c2pcr-parser-composed-policies")
+	cdPath := pkg.PathFromPkgDirectory("./testdata/ocm/component-definition.json")
 
 	tempDirPath := pkg.PathFromPkgDirectory("./testdata/_test")
 	err := os.MkdirAll(tempDirPath, os.ModePerm)
@@ -56,9 +54,6 @@ func TestOscal2Policy(t *testing.T) {
 		PolicyResources: typec2pcr.ResourceRef{
 			Url: policyDir,
 		},
-		PolicyRersults: typec2pcr.ResourceRef{
-			Url: "/1/2/3",
-		},
 		ClusterGroups: []typec2pcr.ClusterGroup{{
 			Name:        "test-group",
 			MatchLabels: &map[string]string{"environment": "test"},
@@ -71,7 +66,7 @@ func TestOscal2Policy(t *testing.T) {
 			Namespace: "",
 		},
 	}
-	c2pcrParser := c2pcr.NewParser(gitUtils)
+	c2pcrParser := NewParser(gitUtils)
 	c2pcrParsed, err := c2pcrParser.Parse(c2pcrSpec)
 	assert.NoError(t, err, "Should not happen")
 
