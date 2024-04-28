@@ -63,8 +63,44 @@ endif
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
+GOOS ?= darwin
+GOARCH ?= arm64
+GIT_TAG := $(shell git describe --tags --abbrev=0)
+VERSION_FROM_GIT_TAG := $(shell echo "$(GIT_TAG)" | sed 's/^go\///')
+DIRTY := $(shell [ -n "$(git status -s)" ] && echo '-snapshot')
+REPO_NAME := $(shell git remote get-url origin | sed -r 's/.*:(.*)\.git/\1/')
+VERSIONED_SUFFIX := $(if $(DIRTY),$(VERSION_FROM_GIT_TAG)_$(GOOS)_$(GOARCH),$(VERSION_FROM_GIT_TAG)_SNAPSHOT_$(GOOS)_$(GOARCH))
+
+repo_name:
+	echo $(REPO_NAME)
+
 .PHONY: all
 all: build
+
+.PHONY: build
+build: 
+	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o ./bin/c2pcli_$(VERSIONED_SUFFIX) ./cmd/c2pcli
+
+.PHONY: test
+test:
+	go test ./pkg/... -coverprofile cover.out
+
+artifact: build
+	mkdir -p ./dist/artifacts
+	tar zcvf ./dist/artifacts/c2pcli_$(VERSIONED_SUFFIX).tar.gz -C ./bin c2pcli_$(VERSIONED_SUFFIX)
+	shasum -a 256 ./dist/artifacts/c2pcli_$(VERSIONED_SUFFIX).tar.gz > ./dist/artifacts/c2pcli_$(VERSIONED_SUFFIX).sha256
+
+# echo $PAT | gh auth login --with-token -h github.com
+release: GITHUB_HOST ?= github.com
+release: artifact
+	@(gh release --repo $(GITHUB_HOST)/$(REPO_NAME) view $(GIT_TAG) ;\
+	if [[ "$$?" != "0" ]];then \
+		echo create release $(GIT_TAG) ;\
+		gh release --repo $(GITHUB_HOST)/$(REPO_NAME) create $(GIT_TAG) --generate-notes ;\
+	fi)
+	gh release --repo $(GITHUB_HOST)/$(REPO_NAME) upload $(GIT_TAG) ./dist/artifacts/c2pcli_$(VERSIONED_SUFFIX).*
+
+## OLM
 
 ##@ General
 
@@ -105,17 +141,10 @@ vet: ## Run go vet against code.
 test-controllers: manifests generate fmt vet envtest ## Run tests.
 	KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) --bin-dir $(LOCALBIN) -p path)" go test ./controllers/... -coverprofile cover.controllers.out -p=1
 
-.PHONY: test-pkg
-test-pkg:
-	go test ./pkg/... -coverprofile cover.out
-
-.PHONY: test
-test: test-pkg test-controllers
-
 ##@ Build
 
-.PHONY: build
-build: generate fmt vet ## Build manager binary.
+.PHONY: build-controllers
+build-controllers: generate fmt vet ## Build manager binary.
 	go build -o bin/manager main.go
 
 .PHONY: run
@@ -126,7 +155,7 @@ run: manifests generate fmt vet ## Run a controller from your host.
 # (i.e. docker build --platform linux/arm64 ). However, you must enable docker buildKit for it.
 # More info: https://docs.docker.com/develop/develop-images/build_enhancements/
 .PHONY: docker-build
-docker-build: test ## Build docker image with the manager.
+docker-build: test-controllers ## Build docker image with the manager.
 	docker build -t ${IMG} .
 
 .PHONY: docker-push
@@ -141,7 +170,7 @@ docker-push: ## Push docker image with the manager.
 # To properly provided solutions that supports more than one platform you should use this option.
 PLATFORMS ?= linux/arm64,linux/amd64,linux/s390x,linux/ppc64le
 .PHONY: docker-buildx
-docker-buildx: test ## Build and push docker image for the manager for cross-platform support
+docker-buildx: test-controllers ## Build and push docker image for the manager for cross-platform support
 	# copy existing Dockerfile and insert --platform=${BUILDPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
 	sed -e '1 s/\(^FROM\)/FROM --platform=\$$\{BUILDPLATFORM\}/; t' -e ' 1,// s//FROM --platform=\$$\{BUILDPLATFORM\}/' Dockerfile > Dockerfile.cross
 	- docker buildx create --name project-v3-builder
