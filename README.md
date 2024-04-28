@@ -10,9 +10,10 @@ C2P supports Compliance and PVP as follows:
 
 C2P reduces the cost to implement the interchange between Compliance artifacts and PVP proprietary artifacts. C2P is extensible to various PVPs through plugin.
 
-## Install 
+## C2P in Go language (deprecated)
+C2P was originally maintained in Go language but now it's maintained in Python. The Go verion is moved to [/go](/go/README.md). 
 
-Tested Python version: `3.10.12`. (We recommend to use `venv`.)
+## Install 
 
 #### From git repo
 ```
@@ -25,13 +26,13 @@ You may be asked passphrase of SSH key to access to the git repo.
     ```
     git clone https://github.com/oscal-compass/compliance-to-policy.git
     ```
-1. Go to `c2p-python`
+1. Go to `compliance-to-policy`
     ```
-    cd c2p-python
+    cd compliance-to-policy
     ```
 1. Install
     ```
-    pip install .
+    make install
     ```
 
 ## Quick demo
@@ -247,7 +248,7 @@ C2P framework will instantiate `PluginSpec` with `PluginConfig`.
 
 ## Development
 
-### At the beginning
+### Developing
 1. Install Python
     ```
     $ python --version
@@ -257,28 +258,13 @@ C2P framework will instantiate `PluginSpec` with `PluginConfig`.
     ```
     python -m venv .venv
     ```
-1. Install Detect Secret and pre-commit
+1. Install dependant modules
     ```
-    pip install --upgrade "git+https://github.com/ibm/detect-secrets.git@master#egg=detect-secrets"
-    pip install pre-commit
+    make install-dev
     ```
 1. Enable detect-secret
     ```
     pre-commit install
-    ```
-1. Install Setup tool
-    ```
-    pip install  --upgrade pip setuptools
-    ```
-
-### Developing
-1. Activate venv
-    ```
-    source .venv/bin/activate
-    ```
-1. Install modules
-    ```
-    make install-dev
     ```
 
 ### Test
