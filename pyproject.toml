@@ -77,10 +77,12 @@ pythonpath = ["c2p", "plugins_public/tests"]
 
 [tool.isort]
 profile = "black"
+extend_skip_glob = "go"
 
 [tool.black]
 line-length = 120
 skip-string-normalization = true
+extend-exclude = "go"
 
 [tool.pylint.master]
 ignore = "oscal"
