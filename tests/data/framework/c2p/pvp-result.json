@@ -1,0 +1,79 @@
+{
+  "observations_by_check": [
+    {
+      "check_id": "policy-deployment",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Cluster \"cluster1\"",
+          "type": "cluster",
+          "resource_id": "cluster1",
+          "result": "failure",
+          "evaluated_on": "2023-07-05T23:53:37.000+00:00",
+          "reason": "[c2p.policy-deployment.176f1ddc5591cb1c] NonCompliant; violation - deployments not found: [nginx-deployment] in namespace cluster1 missing; [nginx-deployment] in namespace kube-node-lease missing; [nginx-deployment] in namespace kube-public missing; [nginx-deployment] in namespace local-path-storage missing"
+        },
+        {
+          "title": "Cluster \"cluster2\"",
+          "type": "cluster",
+          "resource_id": "cluster2",
+          "result": "failure",
+          "evaluated_on": "2023-07-05T23:51:56.000+00:00",
+          "reason": "[c2p.policy-deployment.176f1dc4e7de17cb] NonCompliant; violation - deployments not found: [nginx-deployment] in namespace cluster2 missing; [nginx-deployment] in namespace default missing; [nginx-deployment] in namespace kube-node-lease missing; [nginx-deployment] in namespace kube-public missing; [nginx-deployment] in namespace local-path-storage missing"
+        }
+      ],
+      "collected": "2024-03-22T08:17:46.000+00:00"
+    },
+    {
+      "check_id": "policy-disallowed-roles",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Cluster \"cluster1\"",
+          "type": "cluster",
+          "resource_id": "cluster1",
+          "result": "pass",
+          "evaluated_on": "2023-07-05T23:52:34.000+00:00",
+          "reason": "[c2p.policy-disallowed-roles.176f1dcdc4c8d17e] Compliant; notification - roles in namespace cluster1; in namespace default; in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage missing as expected, therefore this Object template is compliant"
+        },
+        {
+          "title": "Cluster \"cluster2\"",
+          "type": "cluster",
+          "resource_id": "cluster2",
+          "result": "pass",
+          "evaluated_on": "2023-07-05T23:51:50.000+00:00",
+          "reason": "[c2p.policy-disallowed-roles.176f1dc36e36b7b2] Compliant; notification - roles in namespace cluster2; in namespace default; in namespace kube-node-lease; in namespace kube-public; in namespace local-path-storage missing as expected, therefore this Object template is compliant"
+        }
+      ],
+      "collected": "2024-03-22T08:17:46.000+00:00"
+    },
+    {
+      "check_id": "policy-high-scan",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Cluster \"cluster1\"",
+          "type": "cluster",
+          "resource_id": "cluster1",
+          "result": "failure",
+          "evaluated_on": "2023-07-05T23:53:37.000+00:00",
+          "reason": "[c2p.policy-high-scan.176f1ddc441457e5] NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed"
+        },
+        {
+          "title": "Cluster \"cluster2\"",
+          "type": "cluster",
+          "resource_id": "cluster2",
+          "result": "failure",
+          "evaluated_on": "2023-07-05T23:51:56.000+00:00",
+          "reason": "[c2p.policy-high-scan.176f1dc4e29e1221] NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed"
+        }
+      ],
+      "collected": "2024-03-22T08:17:46.000+00:00"
+    }
+  ]
+}

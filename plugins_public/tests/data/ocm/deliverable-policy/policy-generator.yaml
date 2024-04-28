@@ -1,0 +1,89 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-set
+placementBindingDefaults:
+  name: policy-set
+policies:
+- categories: []
+  complianceType: musthave
+  consolidateManifests: true
+  controls: []
+  informGatekeeperPolicies: false
+  informKyvernoPolicies: false
+  manifests:
+  - ignorePending: false
+    path: ./policy-deployment/policy-nginx-deployment
+  name: policy-deployment
+  orderManifests: false
+  remediationAction: inform
+  severity: low
+  standards: []
+- categories: []
+  complianceType: mustnothave
+  consolidateManifests: true
+  controls: []
+  informGatekeeperPolicies: false
+  informKyvernoPolicies: false
+  manifests:
+  - ignorePending: false
+    path: ./policy-disallowed-roles/policy-disallowed-roles-sample-role
+  name: policy-disallowed-roles
+  orderManifests: false
+  remediationAction: inform
+  severity: high
+  standards: []
+- categories: []
+  complianceType: mustnothave
+  consolidateManifests: false
+  controls: []
+  informGatekeeperPolicies: false
+  informKyvernoPolicies: false
+  manifests:
+  - complianceType: musthave
+    ignorePending: false
+    path: ./policy-high-scan/compliance-high-scan
+    remediationAction: inform
+    severity: high
+  - complianceType: musthave
+    ignorePending: false
+    path: ./policy-high-scan/compliance-suite-high
+    remediationAction: inform
+    severity: high
+  - complianceType: mustnothave
+    ignorePending: false
+    path: ./policy-high-scan/compliance-suite-high-results
+    remediationAction: inform
+    severity: high
+  name: policy-high-scan
+  orderManifests: false
+  remediationAction: inform
+  severity: high
+  standards: []
+policyDefaults:
+  consolidateManifests: false
+  informGatekeeperPolicies: false
+  informKyvernoPolicies: false
+  namespace: c2p
+  namespaceSelector:
+    exclude:
+    - kube-system
+    - open-cluster-management
+    - open-cluster-management-agent
+    - open-cluster-management-agent-addon
+    include:
+    - '*'
+  orderManifests: false
+  placement:
+    labelSelector:
+      environment: dev
+policySetDefaults:
+  placement:
+    labelSelector:
+      environment: dev
+policySets:
+- name: c2p-test
+  policies:
+  - policy-deployment
+  - policy-disallowed-roles
+  - policy-high-scan

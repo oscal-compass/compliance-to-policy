@@ -1,0 +1,97 @@
+{
+  "uuid": "490aa57a-b508-46f4-9552-1231d9468805",
+  "metadata": {
+    "title": "TEST Assessment Results",
+    "last_modified": "2024-03-22T08:28:11.000+00:00",
+    "version": "2.2.1",
+    "oscal_version": "1.0.4"
+  },
+  "import_ap": {
+    "href": "https://not-available-for-now"
+  },
+  "results": [
+    {
+      "uuid": "2dc21238-a61e-48b4-9794-9d12f999c73c",
+      "title": "TEST Assessment Results",
+      "description": "OSCAL Assessment Results from TEST",
+      "start": "2024-03-22T08:28:11.000+00:00",
+      "reviewed_controls": {
+        "control_selections": [
+          {
+            "include_controls": [
+              {
+                "control_id": "cm-6",
+                "statement_ids": []
+              }
+            ]
+          }
+        ]
+      },
+      "observations": [
+        {
+          "uuid": "c282e204-0f8f-4311-9c37-8dfe56464993",
+          "title": "policy-high-scan",
+          "description": "policy-high-scan",
+          "props": [
+            {
+              "name": "assessment-rule-id",
+              "value": "test_configuration_check"
+            }
+          ],
+          "methods": [
+            "AUTOMATED"
+          ],
+          "subjects": [
+            {
+              "subject_uuid": "58ecbe30-9416-4804-a1aa-a3553fb21099",
+              "type": "cluster",
+              "title": "Cluster \"cluster1\"",
+              "props": [
+                {
+                  "name": "resource-id",
+                  "value": "cluster1"
+                },
+                {
+                  "name": "result",
+                  "value": "failure"
+                },
+                {
+                  "name": "evaluated-on",
+                  "value": "2023-07-05T23:53:37+00:00"
+                },
+                {
+                  "name": "reason",
+                  "value": "[c2p.policy-high-scan.176f1ddc441457e5] NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed"
+                }
+              ]
+            },
+            {
+              "subject_uuid": "a4f602d7-acf1-428d-8f03-79855ea6aafb",
+              "type": "cluster",
+              "title": "Cluster \"cluster2\"",
+              "props": [
+                {
+                  "name": "resource-id",
+                  "value": "cluster2"
+                },
+                {
+                  "name": "result",
+                  "value": "failure"
+                },
+                {
+                  "name": "evaluated-on",
+                  "value": "2023-07-05T23:51:56+00:00"
+                },
+                {
+                  "name": "reason",
+                  "value": "[c2p.policy-high-scan.176f1dc4e29e1221] NonCompliant; violation - couldn't find mapping resource with kind ComplianceCheckResult, please check if you have CRD deployed"
+                }
+              ]
+            }
+          ],
+          "collected": "2024-03-22T08:17:46.000+00:00"
+        }
+      ]
+    }
+  ]
+}

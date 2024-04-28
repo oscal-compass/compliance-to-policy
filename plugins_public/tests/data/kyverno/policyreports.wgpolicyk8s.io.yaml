@@ -1,0 +1,1311 @@
+apiVersion: v1
+items:
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:19Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "22432"
+    name: cpol-allowed-base-images
+    namespace: kube-system
+    resourceVersion: "22649"
+    uid: 5d36af80-eaf8-432e-b7dd-c9c993e13c10
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-scheduler-kind-control-plane
+      namespace: kube-system
+      uid: 5c5d8e06-724c-439f-a9be-3ae34b0c6083
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-gc25q
+      namespace: kube-system
+      uid: 621caa1d-897d-4366-8906-841ba56c1fdd
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kindnet-pbb9l
+      namespace: kube-system
+      uid: 74db5c25-74ca-457d-96e3-0d7d0dc39b19
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: etcd-kind-control-plane
+      namespace: kube-system
+      uid: 8f2aebd7-7957-4037-8509-34596db786ac
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079156
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-apiserver-kind-control-plane
+      namespace: kube-system
+      uid: a0703256-75e4-4bba-83c8-c8df32866156
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-proxy-zbddb
+      namespace: kube-system
+      uid: aee2dfc5-9c05-4b6f-b7a7-6d87bdbd2eab
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-2rbnq
+      namespace: kube-system
+      uid: d053eefe-8d34-4ffa-9550-8d68e6f37e08
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-controller-manager-kind-control-plane
+      namespace: kube-system
+      uid: d420e878-2ba7-45e3-afb4-af859d0891af
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079158
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kindnet
+      namespace: kube-system
+      uid: 73917941-f4d3-444f-8d0f-be93ba1e4e2b
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kube-proxy
+      namespace: kube-system
+      uid: 78cf0d9f-c3b2-488d-b596-0e4729025aee
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: coredns-5d78c9869d
+      namespace: kube-system
+      uid: 919c840d-63cf-4293-8a64-0fd0de15121f
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079129
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: coredns
+      namespace: kube-system
+      uid: d7418bd6-4c02-4344-864b-d710ee03b7e2
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  summary:
+    error: 0
+    fail: 12
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:19Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/disallow-capabilities: "22434"
+    name: cpol-disallow-capabilities
+    namespace: kube-system
+    resourceVersion: "22763"
+    uid: 570a67ea-3fde-496c-afd7-5e9dfa417601
+  results:
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-scheduler-kind-control-plane
+      namespace: kube-system
+      uid: 5c5d8e06-724c-439f-a9be-3ae34b0c6083
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-gc25q
+      namespace: kube-system
+      uid: 621caa1d-897d-4366-8906-841ba56c1fdd
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Pod Security Standards (Baseline)
+    message: Any capabilities added beyond the allowed list (AUDIT_WRITE, CHOWN, DAC_OVERRIDE,
+      FOWNER, FSETID, KILL, MKNOD, NET_BIND_SERVICE, SETFCAP, SETGID, SETPCAP, SETUID,
+      SYS_CHROOT) are disallowed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kindnet-pbb9l
+      namespace: kube-system
+      uid: 74db5c25-74ca-457d-96e3-0d7d0dc39b19
+    result: fail
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: etcd-kind-control-plane
+      namespace: kube-system
+      uid: 8f2aebd7-7957-4037-8509-34596db786ac
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079156
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-apiserver-kind-control-plane
+      namespace: kube-system
+      uid: a0703256-75e4-4bba-83c8-c8df32866156
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-proxy-zbddb
+      namespace: kube-system
+      uid: aee2dfc5-9c05-4b6f-b7a7-6d87bdbd2eab
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: coredns-5d78c9869d-2rbnq
+      namespace: kube-system
+      uid: d053eefe-8d34-4ffa-9550-8d68e6f37e08
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kube-controller-manager-kind-control-plane
+      namespace: kube-system
+      uid: d420e878-2ba7-45e3-afb4-af859d0891af
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079158
+  - category: Pod Security Standards (Baseline)
+    message: Any capabilities added beyond the allowed list (AUDIT_WRITE, CHOWN, DAC_OVERRIDE,
+      FOWNER, FSETID, KILL, MKNOD, NET_BIND_SERVICE, SETFCAP, SETGID, SETPCAP, SETUID,
+      SYS_CHROOT) are disallowed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kindnet
+      namespace: kube-system
+      uid: 73917941-f4d3-444f-8d0f-be93ba1e4e2b
+    result: fail
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kube-proxy
+      namespace: kube-system
+      uid: 78cf0d9f-c3b2-488d-b596-0e4729025aee
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: coredns-5d78c9869d
+      namespace: kube-system
+      uid: 919c840d-63cf-4293-8a64-0fd0de15121f
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: coredns
+      namespace: kube-system
+      uid: d7418bd6-4c02-4344-864b-d710ee03b7e2
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079150
+  summary:
+    error: 0
+    fail: 2
+    pass: 10
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:29Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "22432"
+    name: cpol-allowed-base-images
+    namespace: kyverno
+    resourceVersion: "22693"
+    uid: e1f75f6e-c64e-40e4-b162-5ab8f5831392
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-admission-controller-7cd788c8dd-gdnhp
+      namespace: kyverno
+      uid: 149a831c-bfbd-487e-83f5-59685cc3e7ae
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079155
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-reports-controller-7f94855747-tmnhr
+      namespace: kyverno
+      uid: 3113da8b-778d-4650-a00b-8244f46383b6
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-admission-reports-28551310-cc4k7
+      namespace: kyverno
+      uid: 815cbb34-eeea-43ab-977a-ee509cd3c8b4
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-cluster-admission-reports-28551310-m4ld4
+      namespace: kyverno
+      uid: ad02a4a0-765d-41fe-ba8d-4d8bc1f4bbb1
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-controller-ddf458755-9bnlb
+      namespace: kyverno
+      uid: d593fd38-2d90-4178-acd2-673a6b9dcbe7
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079156
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-background-controller-74599787cf-s6nm2
+      namespace: kyverno
+      uid: dd188800-5da7-4449-8e97-4333b5c71762
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079155
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-cleanup-controller
+      namespace: kyverno
+      uid: 0ec446db-1759-4c62-b08f-c56cd15ae133
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079152
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: Job
+      name: kyverno-cleanup-cluster-admission-reports-28551310
+      namespace: kyverno
+      uid: 1bbefe68-2a6f-4f98-a578-7830ab2ddba7
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079153
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-admission-controller-7cd788c8dd
+      namespace: kyverno
+      uid: 2dce65ca-0421-4189-a2d9-c5b0f3509eb0
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079139
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: Job
+      name: kyverno-cleanup-admission-reports-28551310
+      namespace: kyverno
+      uid: 7e7fd9ee-2663-45ec-8fc5-2b8224af97be
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-background-controller
+      namespace: kyverno
+      uid: a061c459-8d2d-4dfd-95a5-3a74d74be6ad
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079151
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-cleanup-controller-ddf458755
+      namespace: kyverno
+      uid: b64c38ba-5d41-4b05-85c2-04a0fa92d671
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079140
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-background-controller-74599787cf
+      namespace: kyverno
+      uid: bdd4f14b-5f6b-463d-a5d2-3ee155150f41
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079138
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-reports-controller
+      namespace: kyverno
+      uid: c07941a1-6078-4f18-bd94-ad1ecbd401b0
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079152
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-reports-controller-7f94855747
+      namespace: kyverno
+      uid: c50add3f-7021-4272-8b17-17dc894a1d14
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079140
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-admission-controller
+      namespace: kyverno
+      uid: d76bafdd-ff22-4179-a8b2-ee74991635fc
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079151
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-cluster-admission-reports
+      namespace: kyverno
+      uid: 61fb66f3-6ae6-4502-9945-f82c37bf1a11
+    result: fail
+    rule: autogen-cronjob-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079149
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-admission-reports
+      namespace: kyverno
+      uid: 88974b3b-c9df-440f-aeb4-039221c8aa6c
+    result: fail
+    rule: autogen-cronjob-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079149
+  summary:
+    error: 0
+    fail: 18
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:29Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/disallow-capabilities: "22434"
+    name: cpol-disallow-capabilities
+    namespace: kyverno
+    resourceVersion: "22694"
+    uid: 216df56b-52cb-4fdc-a356-263a0d03a6a4
+  results:
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-admission-controller-7cd788c8dd-gdnhp
+      namespace: kyverno
+      uid: 149a831c-bfbd-487e-83f5-59685cc3e7ae
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079155
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-reports-controller-7f94855747-tmnhr
+      namespace: kyverno
+      uid: 3113da8b-778d-4650-a00b-8244f46383b6
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-admission-reports-28551310-cc4k7
+      namespace: kyverno
+      uid: 815cbb34-eeea-43ab-977a-ee509cd3c8b4
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-cluster-admission-reports-28551310-m4ld4
+      namespace: kyverno
+      uid: ad02a4a0-765d-41fe-ba8d-4d8bc1f4bbb1
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079157
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-cleanup-controller-ddf458755-9bnlb
+      namespace: kyverno
+      uid: d593fd38-2d90-4178-acd2-673a6b9dcbe7
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079156
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: kyverno-background-controller-74599787cf-s6nm2
+      namespace: kyverno
+      uid: dd188800-5da7-4449-8e97-4333b5c71762
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079155
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-cleanup-controller
+      namespace: kyverno
+      uid: 0ec446db-1759-4c62-b08f-c56cd15ae133
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079152
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: batch/v1
+      kind: Job
+      name: kyverno-cleanup-cluster-admission-reports-28551310
+      namespace: kyverno
+      uid: 1bbefe68-2a6f-4f98-a578-7830ab2ddba7
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079153
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-admission-controller-7cd788c8dd
+      namespace: kyverno
+      uid: 2dce65ca-0421-4189-a2d9-c5b0f3509eb0
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079129
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: batch/v1
+      kind: Job
+      name: kyverno-cleanup-admission-reports-28551310
+      namespace: kyverno
+      uid: 7e7fd9ee-2663-45ec-8fc5-2b8224af97be
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079154
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-background-controller
+      namespace: kyverno
+      uid: a061c459-8d2d-4dfd-95a5-3a74d74be6ad
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079151
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-cleanup-controller-ddf458755
+      namespace: kyverno
+      uid: b64c38ba-5d41-4b05-85c2-04a0fa92d671
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079140
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-background-controller-74599787cf
+      namespace: kyverno
+      uid: bdd4f14b-5f6b-463d-a5d2-3ee155150f41
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079139
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-reports-controller
+      namespace: kyverno
+      uid: c07941a1-6078-4f18-bd94-ad1ecbd401b0
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079152
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: kyverno-reports-controller-7f94855747
+      namespace: kyverno
+      uid: c50add3f-7021-4272-8b17-17dc894a1d14
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079140
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-admission-controller
+      namespace: kyverno
+      uid: d76bafdd-ff22-4179-a8b2-ee74991635fc
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079151
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-cronjob-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-cluster-admission-reports
+      namespace: kyverno
+      uid: 61fb66f3-6ae6-4502-9945-f82c37bf1a11
+    result: pass
+    rule: autogen-cronjob-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079149
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-cronjob-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: batch/v1
+      kind: CronJob
+      name: kyverno-cleanup-admission-reports
+      namespace: kyverno
+      uid: 88974b3b-c9df-440f-aeb4-039221c8aa6c
+    result: pass
+    rule: autogen-cronjob-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079149
+  summary:
+    error: 0
+    fail: 0
+    pass: 18
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:22Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/allowed-base-images: "22432"
+    name: cpol-allowed-base-images
+    namespace: local-path-storage
+    resourceVersion: "22670"
+    uid: 7475e833-54a2-413c-b54a-648ce5d9abf9
+  results:
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: local-path-provisioner-6bc4bddd6b-vlmww
+      namespace: local-path-storage
+      uid: 5863d467-1533-4721-8387-d620c959800e
+    result: fail
+    rule: allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079160
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: local-path-provisioner-6bc4bddd6b
+      namespace: local-path-storage
+      uid: 5bc38239-ae62-4d6c-bd51-ffda62e44843
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079132
+  - category: Other
+    message: 'validation failure: This container image''s base is not in the approved
+      list or is not specified. Only pre-approved base images may be used. Please
+      contact the platform team for assistance.'
+    policy: allowed-base-images
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: local-path-provisioner
+      namespace: local-path-storage
+      uid: 94957b8f-76ce-457e-a3ed-628e4403ebc5
+    result: fail
+    rule: autogen-allowed-base-images
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079153
+  summary:
+    error: 0
+    fail: 3
+    pass: 0
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2024-04-14T07:19:22Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      cpol.kyverno.io/disallow-capabilities: "22434"
+    name: cpol-disallow-capabilities
+    namespace: local-path-storage
+    resourceVersion: "22671"
+    uid: adcdbdac-c1cc-4bd3-9077-ba67684e35f3
+  results:
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: v1
+      kind: Pod
+      name: local-path-provisioner-6bc4bddd6b-vlmww
+      namespace: local-path-storage
+      uid: 5863d467-1533-4721-8387-d620c959800e
+    result: pass
+    rule: adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079160
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: local-path-provisioner-6bc4bddd6b
+      namespace: local-path-storage
+      uid: 5bc38239-ae62-4d6c-bd51-ffda62e44843
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079159
+  - category: Pod Security Standards (Baseline)
+    message: validation rule 'autogen-adding-capabilities' passed.
+    policy: disallow-capabilities
+    resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: local-path-provisioner
+      namespace: local-path-storage
+      uid: 94957b8f-76ce-457e-a3ed-628e4403ebc5
+    result: pass
+    rule: autogen-adding-capabilities
+    scored: true
+    severity: medium
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1713079153
+  summary:
+    error: 0
+    fail: 0
+    pass: 3
+    skip: 0
+    warn: 0
+kind: List
+metadata:
+  resourceVersion: ""

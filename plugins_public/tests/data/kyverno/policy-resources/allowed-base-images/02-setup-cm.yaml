@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: platform
+  name: baseimages
+data:
+  allowedbaseimages: '{{ allowed_baseimages|default("path/to/base/image:tag", true) }}'
