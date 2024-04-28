@@ -44,7 +44,9 @@ make test
 ```
 
 ## Release
-```
-echo $PAT | gh auth login --with-token -h github.com
-make release 
-```
+1. Create a git tag of the following format `go/<version>` (e.g. `go/v0.1.2`)
+1. Run release command
+    ```
+    echo $PAT | gh auth login --with-token -h github.com
+    make release 
+    ```
