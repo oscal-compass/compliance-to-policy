@@ -2,7 +2,7 @@
 
 ### Continuous Compliance by C2P 
 
-https://github.com/IBM/compliance-to-policy/assets/113283236/4b0b5357-4025-46c8-8d88-1f4c00538795
+https://github.com/oscal-compass/compliance-to-policy/assets/113283236/4b0b5357-4025-46c8-8d88-1f4c00538795
 
 ### Usage of C2P CLI
 ```
@@ -26,7 +26,7 @@ Use "c2pcli kyverno [command] --help" for more information about a command.
 ### Prerequisites
 
 1. Prepare Kyverno Policy Resources
-    - You can use [policy-resources for test](/pkg/testdata/kyverno/policy-resources)
+    - You can use [policy-resources for test](/go/pkg/testdata/kyverno/policy-resources)
     - For bring your own policies, please see [Bring your own Kyverno Policy Resources](#bring-your-own-kyverno-policy-resources)
 
 #### Convert OSCAL to Kyverno Policy

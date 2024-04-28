@@ -22,14 +22,14 @@ Use "c2pcli ocm [command] --help" for more information about a command.
 ### Prerequisites
 1. Install [Policy Generator Plugin](https://github.com/open-cluster-management-io/policy-generator-plugin#as-a-kustomize-plugin)
 1. Prepare OCM Policy Resources
-    - You can use [policy-resources for test](/pkg/testdata/ocm/policies)
+    - You can use [policy-resources for test](/go/pkg/testdata/ocm/policies)
     - You can also use [Policy Collection](https://github.com/open-cluster-management-io/policy-collection). Please see [C2P Decomposer](#c2p-decomposer)
 
 ### Manual end-to-end use case
 
 #### Outline
 1. Create OSCAL Component Definition
-    - Use example one. In real cases, a user writes OSCAL by Authoring tool like [Trestle](https://ibm.github.io/compliance-trestle/))
+    - Use example one. In real cases, a user writes OSCAL by Authoring tool like [Trestle](https://github.com/oscal-compass/compliance-trestle))
 1. Run oscal2policy to generate OCM Policies from OSCAL
 1. Deploy generated OCM Policies to OCM Hub
 1. Get OCM Policies from OCM Hub
@@ -213,7 +213,7 @@ Decompose OCM poicy collection to kubernetes resources composing each OCM policy
     │   ├── kustomization.yaml
     ```
 ### C2P Composer
-Compose OCM Policy from policy resources from compliance information (for example, [compliance.yaml](cmd/compose/compliance.yaml))
+Compose OCM Policy from policy resources from compliance information (for example, [compliance.yaml](/go/cmd/compose/compliance.yaml))
 
 1. Run C2P Composer
     ```
