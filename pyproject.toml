@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools", "setuptools-git-versioning"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
+count_commits_from_version_file = true
+dev_template = "{tag}.post{ccount}+git.{sha}.dirty"
+dirty_template = "{tag}.post{ccount}+git.{sha}.dirty"
+
+[tool.setuptools]
+package-dir = { "c2p" = "c2p" }
+
+[tool.setuptools.packages.find]
+include = ["c2p*"]
+
+[project]
+dynamic = ["version"]
+name = "compliance-to-policy"
+authors = [{ name = "Takumi Yanagawa", email = "yana1205dev@gmail.com" }]
+description = "Tools to bridge Compliance and Policy"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "compliance-trestle==2.2.1",
+  "PyGithub==1.58.0",
+  "jq==1.6.0",
+  "pluggy",
+]
+
+[project.scripts]
+c2p = "c2p.cli:run"
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.0.3",
+  "pyclean",
+  "pytest>=8.0.0",
+  "pre-commit>=2.4.0",
+  "pep8-naming",
+  "types-PyYAML",
+  "types-setuptools",
+  ## Docs website
+  "mkdocs",
+  "mkdocs-redirects",
+  "mkdocstrings-python",
+  ## Constrain system
+  "black",
+  "isort",
+  "pylint",
+  ## Security tools
+  "detect-secrets@git+https://github.com/ibm/detect-secrets.git@master#egg=detect-secrets"
+]
+
+[project.urls]
+Homepage = "https://github.com/oscal-compass/compliance-to-policy"
+Issues = "https://github.com/oscal-compass/compliance-to-policy/issues"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests", "plugins_public/tests"]
+pythonpath = ["c2p", "plugins_public/tests"]
+
+[tool.isort]
+profile = "black"
+extend_skip_glob = "go"
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+extend-exclude = "go"
+
+[tool.pylint.master]
+ignore = "oscal"
+extension-pkg-whitelist = "pydantic"
+
+[tool.pylint.messages_control]
+disable = ["W1203", "W1201"]
+
+[tool.pylint.format]
+max-line-length = 120

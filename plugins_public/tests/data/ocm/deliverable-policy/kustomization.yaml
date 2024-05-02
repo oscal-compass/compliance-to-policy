@@ -1,0 +1,10 @@
+generators:
+- ./policy-generator.yaml
+patches:
+- patch: '[{"op": "replace", "path": "/metadata/annotations/compliance-to-policy.component-title",
+    "value": "c2p test"}]'
+  target:
+    kind: PolicySet
+    name: c2p-test
+resources:
+- ./parameters.yaml

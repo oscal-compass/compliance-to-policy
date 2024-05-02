@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator
+policies:
+- consolidateManifests: false
+  manifests:
+  - complianceType: musthave
+    path: ./compliance-high-scan
+    remediationAction: inform
+    severity: high
+  - complianceType: musthave
+    path: ./compliance-suite-high
+    remediationAction: inform
+    severity: high
+  - complianceType: mustnothave
+    path: ./compliance-suite-high-results
+    remediationAction: inform
+    severity: high
+  name: policy-high-scan
+  orderManifests: false
+policyDefaults:
+  categories: []
+  consolidateManifests: false
+  controls: []
+  namespace: c2p
+  orderManifests: false
+  placement:
+    clusterSelectors:
+      environment: dev
+  standards: []
