@@ -48,7 +48,7 @@ publish: GIT_TAG ?=
 publish:
 	@toml set --toml-path pyproject.toml project.version $(GIT_TAG)
 	@git add pyproject.toml
-	@git commit -m "update version to $(GIT_TAG)"
+	@git commit -S -s -m "update version to $(GIT_TAG)"
 	@git tag $(GIT_TAG)
 
 clean: .venv
