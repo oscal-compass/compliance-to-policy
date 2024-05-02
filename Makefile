@@ -43,6 +43,14 @@ test-plugin: TARGET ?= plugins_public/tests/
 test-plugin: .venv
 	@OUTPUT_PATH=/dev/null $(PYTHON) -m pytest $(ARGS) $(TARGET)
 
+# After published, the branch must be merged first-forwardly. TODO: Integrate with CI
+publish: GIT_TAG ?=
+publish:
+	@toml set --toml-path pyproject.toml project.version $(GIT_TAG)
+	@git add pyproject.toml
+	@git commit -m "update version to $(GIT_TAG)"
+	@git tag $(GIT_TAG)
+
 clean: .venv
 	@rm -rf build *.egg-info dist
 	@find ./plugins -type d \( -name '*.egg-info' -o -name 'dist' \) | while read x; do echo $$x; rm -r $$x ; done 

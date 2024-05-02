@@ -1,12 +1,6 @@
 [build-system]
-requires = ["setuptools", "setuptools-git-versioning"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
-
-[tool.setuptools-git-versioning]
-enabled = true
-count_commits_from_version_file = true
-dev_template = "{tag}.post{ccount}+git.{sha}.dirty"
-dirty_template = "{tag}.post{ccount}+git.{sha}.dirty"
 
 [tool.setuptools]
 package-dir = { "c2p" = "c2p" }
@@ -15,7 +9,7 @@ package-dir = { "c2p" = "c2p" }
 include = ["c2p*"]
 
 [project]
-dynamic = ["version"]
+version = "v0.3.0"
 name = "compliance-to-policy"
 authors = [{ name = "Takumi Yanagawa", email = "yana1205dev@gmail.com" }]
 description = "Tools to bridge Compliance and Policy"
@@ -47,6 +41,7 @@ dev = [
   "pytest>=8.0.0",
   "pre-commit>=2.4.0",
   "pep8-naming",
+  "toml-cli",
   "types-PyYAML",
   "types-setuptools",
   ## Docs website
