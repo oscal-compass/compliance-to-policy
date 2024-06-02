@@ -1,0 +1,211 @@
+{
+  "component-definition": {
+    "uuid": "fff86296-a55f-4b4c-bec6-f89d0fef3569",
+    "metadata": {
+      "title": "Sample Component Definition using Auditree as PVP",
+      "last-modified": "2024-06-02T07:14:14+00:00",
+      "version": "1.0",
+      "oscal-version": "1.0.4"
+    },
+    "components": [
+      {
+        "uuid": "ec59c356-4df9-412c-97df-52880e4c1c2c",
+        "type": "Service",
+        "title": "GitHub",
+        "description": "GitHub",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "GitHub API returns any supported version.",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Check whether there are any supported versions.",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "GitHub org is not empty.",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "org.gh.orgs",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "List of organization name",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "nasa,esa",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Check whether the GitHub org is not empty.",
+            "remarks": "rule_set_1"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "0c336b5b-9258-4129-8406-805faf2ce198",
+            "source": "https://github.com/usnistgov/oscal-content/blob/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+            "description": "NIST Special Publication 800-53 Revision 5 HIGH IMPACT BASELINE",
+            "set-parameters": [
+              {
+                "param-id": "org.gh.orgs",
+                "values": [
+                  "nasa",
+                  "esa"
+                ]
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "30ed7cc3-b00d-45e0-b885-bd981a93654a",
+                "control-id": "cm-2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions"
+                  }
+                ]
+              },
+              {
+                "uuid": "54de05af-90b2-40ac-8a58-84dd3b42e388",
+                "control-id": "ac-2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "b6beb914-7b59-4f87-9a6c-2855052fe7a8",
+        "type": "Validation",
+        "title": "Auditree",
+        "description": "Auditree",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "GitHub API returns any supported version.",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Check whether there are any supported versions.",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "GitHub org is not empty.",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
+            "remarks": "rule_set_3"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "value": "Check whether the GitHub org is not empty.",
+            "remarks": "rule_set_3"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "0d6f2a85-ec23-42c3-b678-a54139fd7190",
+            "source": "https://github.com/usnistgov/oscal-content/blob/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+            "description": "NIST Special Publication 800-53 Revision 5 HIGH IMPACT BASELINE",
+            "implemented-requirements": [
+              {
+                "uuid": "2a00b1a6-e7c0-4767-b802-71d5831525d3",
+                "control-id": "na",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
