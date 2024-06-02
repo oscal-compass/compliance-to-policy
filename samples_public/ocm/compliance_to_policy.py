@@ -8,7 +8,7 @@ from c2p.framework.c2p import C2P
 from c2p.framework.models.c2p_config import C2PConfig, ComplianceOscal
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
-from plugins_public.plugins.ocm import PluginOCM, PluginConfigOCM
+from plugins_public.plugins.ocm import PluginConfigOCM, PluginOCM
 
 TEST_DATA_DIR = 'plugins_public/tests/data/ocm'
 

@@ -15,7 +15,7 @@
 # limitations under the License.
 
 import pathlib
-from typing import Dict, Union, List
+from typing import Dict, List, Union
 
 import yaml
 

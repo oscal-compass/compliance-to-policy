@@ -14,6 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from c2p.framework.models.policy import Parameter, Policy, RuleSet
 from c2p.framework.models.pvp_result import PVPResult
 from c2p.framework.models.raw_result import RawResult
-from c2p.framework.models.policy import Policy, Parameter, RuleSet
