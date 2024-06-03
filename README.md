@@ -5,8 +5,9 @@ C2P supports Compliance and PVP as follows:
 - Compliance framework
     - Open Security Controls Assessment Language (OSCAL)
 - PVP
-    - Kyverno
-    - Open Cluster Management Governance Policy Framework
+    - [Kyverno](https://kyverno.io/)
+    - [Open Cluster Management Governance Policy Framework](https://open-cluster-management.io/)
+    - [Auditree](https://auditree.github.io/)
 
 C2P reduces the cost to implement the interchange between Compliance artifacts and PVP proprietary artifacts. C2P is extensible to various PVPs through plugin.
 
@@ -93,6 +94,11 @@ You may be asked passphrase of SSH key to access to the git repo.
     c2p tools viewer -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -o /tmp/assessment_results.md
     ```
     ![assessment-results-md.kyverno.jpg](/docs/public/images/assessment-results-md.kyverno.jpg)
+
+## Usage of C2P Plugins
+- [Kyverno](docs/public/kyverno.md)
+- [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
+- [Auditree](docs/public/auditree.md)
 
 ## Usage of C2P as a library
 

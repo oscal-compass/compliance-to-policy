@@ -1,0 +1,148 @@
+{
+  "observations_by_check": [
+    {
+      "check_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_arboretum_version",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_arboretum_version",
+          "type": "inventory-item",
+          "resource_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_arboretum_version",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.289+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.289+00:00"
+    },
+    {
+      "check_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_framework_version",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_framework_version",
+          "type": "inventory-item",
+          "resource_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_framework_version",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.323+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.323+00:00"
+    },
+    {
+      "check_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_harvest_version",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_harvest_version",
+          "type": "inventory-item",
+          "resource_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_auditree_harvest_version",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.358+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.358+00:00"
+    },
+    {
+      "check_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_python_package_deltas",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_python_package_deltas",
+          "type": "inventory-item",
+          "resource_id": "arboretum.auditree.checks.test_python_packages.PythonPackageCheck.test_python_package_deltas",
+          "result": "failure",
+          "evaluated_on": "2024-06-02T02:18:29.392+00:00",
+          "reason": "{'Python Package Deltas': ['No evidence found on or prior to Jun 01, 2024']}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.392+00:00"
+    },
+    {
+      "check_id": "demo_examples.checks.test_github.GitHubAPIVersionsCheck.test_supported_versions",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: demo_examples.checks.test_github.GitHubAPIVersionsCheck.test_supported_versions",
+          "type": "inventory-item",
+          "resource_id": "demo_examples.checks.test_github.GitHubAPIVersionsCheck.test_supported_versions",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.257+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.257+00:00"
+    },
+    {
+      "check_id": "demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_ctx_mgr",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_ctx_mgr",
+          "type": "inventory-item",
+          "resource_id": "demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_ctx_mgr",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.413+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.413+00:00"
+    },
+    {
+      "check_id": "demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_decorator",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_decorator",
+          "type": "inventory-item",
+          "resource_id": "demo_examples.checks.test_image_content.ImageCheck.test_image_content_with_decorator",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.427+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.427+00:00"
+    },
+    {
+      "check_id": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
+      "methods": [
+        "AUTOMATED"
+      ],
+      "subjects": [
+        {
+          "title": "Auditree Check: demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty_0_nasa",
+          "type": "inventory-item",
+          "resource_id": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty_0_nasa",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.394+00:00",
+          "reason": "{}"
+        },
+        {
+          "title": "Auditree Check: demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty_1_esa",
+          "type": "inventory-item",
+          "resource_id": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty_1_esa",
+          "result": "pass",
+          "evaluated_on": "2024-06-02T02:18:29.394+00:00",
+          "reason": "{}"
+        }
+      ],
+      "collected": "2024-06-02T02:18:29.394+00:00"
+    }
+  ]
+}
