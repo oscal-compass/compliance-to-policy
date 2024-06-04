@@ -99,6 +99,7 @@ You may be asked passphrase of SSH key to access to the git repo.
 - [Kyverno](docs/public/kyverno.md)
 - [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
 - [Auditree](docs/public/auditree.md)
+- [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
 
 ## Usage of C2P as a library
 
