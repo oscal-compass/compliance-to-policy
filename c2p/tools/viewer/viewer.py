@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from jinja2 import Template
 from pydantic import BaseModel
@@ -73,14 +73,21 @@ def get_pass_fail_icon(result):
 
 
 def render(assessment_results: AssessmentResults, component_definition: ComponentDefinition) -> str:
-    rule_sets = []
+    rule_sets_map: Dict[str, List[Dict[str, str]]] = {}
     for component in component_definition.components:
         if is_component_type_validation(component.type):
-            rule_sets = rule_sets + group_props_by_remarks(component)
+            rule_sets_map[component.title] = group_props_by_remarks(component)
 
     components: List[DefinedComponent] = list(
         filter(lambda x: not is_component_type_validation(x.type), component_definition.components)
     )
+
+    def get_pvp_rule_pair(rule_id):
+        for pvp, rule_sets in rule_sets_map.items():
+            for rule in rule_sets:
+                if rule['Rule_Id'] == rule_id:
+                    return (pvp, rule)
+        return None, None
 
     render_components = []
     for component in components:
@@ -91,9 +98,9 @@ def render(assessment_results: AssessmentResults, component_definition: Componen
                 control_result = ControlResult(id=control_id)
                 for prop in filter(lambda x: x.name == 'Rule_Id', imple_req.props):
                     rule_id = prop.value
-                    rule_set = next(filter(lambda x: x['Rule_Id'] == rule_id, rule_sets), None)
+                    pvp, rule_set = get_pvp_rule_pair(rule_id)
                     if rule_set != None:
-                        rule_result = RuleResult(id=rule_id, description=rule_set['Check_Description'])
+                        rule_result = RuleResult(id=f'{rule_id} ({pvp})', description=rule_set['Check_Description'])
                         o = find_observation(assessment_results.results[0].observations, rule_set['Check_Id'])
                         if o != None:
                             for subject in o.subjects:

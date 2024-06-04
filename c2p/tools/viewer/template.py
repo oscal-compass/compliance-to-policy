@@ -23,7 +23,9 @@ TEMPLATE = """
 
 {% for rule_result in control_result.rule_results %}
 {% if rule_result.subjects|length > 0 %}
-Rule {{ rule_result.id}}: {{ rule_result.description}}
+Rule `{{ rule_result.id}}`:
+- {{ rule_result.description}}
+
 <details><summary>Details</summary>
 {% for subject in rule_result.subjects %}
 

@@ -23,12 +23,20 @@ parser.add_argument(
     help='Path to a yaml file in which policies.policy.open-cluster-management.io resources are dumped.',
     required=False,
 )
+parser.add_argument(
+    '-c',
+    '--component_definition',
+    type=str,
+    default=f'{TEST_DATA_DIR}/component-definition.json',
+    help=f'Path to component-definition.json (default: {TEST_DATA_DIR}/component-definition.json',
+    required=False,
+)
 args = parser.parse_args()
 
 # Setup c2p_config
 c2p_config = C2PConfig()
 c2p_config.compliance = ComplianceOscal()
-c2p_config.compliance.component_definition = 'plugins_public/tests/data/ocm/component-definition.json'
+c2p_config.compliance.component_definition = args.component_definition
 c2p_config.pvp_name = 'OCM'
 c2p_config.result_title = 'OCM Assessment Results'
 c2p_config.result_description = 'OSCAL Assessment Results from OCM'
