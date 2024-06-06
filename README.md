@@ -1,5 +1,8 @@
+# <img alt="Logo" width="80px" src="./assets/compliance-to-policy-800x800-transparent.png" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
+
 ## Introduction
-C2P bridges Compliance and PVPs. C2P takes Compliance requirements and generates technical policies for PVP, and takes PVP native results and generates Compliance Assessment Results.
+
+Compliance-to-Policy (C2P) bridges Compliance and PVPs. C2P takes Compliance requirements and generates technical policies for PVP, and takes PVP native results and generates Compliance Assessment Results.
 
 C2P supports Compliance and PVP as follows:
 - Compliance framework
