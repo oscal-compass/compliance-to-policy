@@ -1,4 +1,4 @@
-# <img alt="Logo" width="80px" src="./assets/compliance-to-policy-800x800-transparent.png" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
+# <img alt="Logo" width="80px" src="./assets/compliance-to-policy-800x800.PNG" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
 
 ## Introduction
 
