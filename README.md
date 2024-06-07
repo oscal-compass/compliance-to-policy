@@ -14,8 +14,8 @@ C2P supports Compliance and PVP as follows:
 
 C2P reduces the cost to implement the interchange between Compliance artifacts and PVP proprietary artifacts. C2P is extensible to various PVPs through plugin.
 
-## C2P in Go language (deprecated)
-C2P was originally maintained in Go language but now it's maintained in Python. The Go verion is moved to [/go](/go/README.md). 
+## C2P in Go language
+The Go verion is available in the [go directory](/go/README.md). 
 
 ## Install 
 
