@@ -1,10 +1,16 @@
-## Plugin for Kyverno
+## Work on Kyverno as PVP
+
+Usecase of security checks against Kubernetes resources by Kyverno.
+
+![kyverno](https://github.com/oscal-compass/compliance-to-policy/assets/113283236/9ac79143-4b0a-4805-9fca-7e03a8e20a37)
 
 #### Prerequisite
 - Install KinD and Kyverno 1.10
 
 #### Example usage of C2P
 
+1. (Optional) Create OSCAL Component Defintion
+    - [component-definition.csv](/plugins_public/tests/data/heterogeneous/component-definition.csv)
 1. Generate Kyverno Policy (C2P Compliance to Policy)
     ```
     python samples_public/kyverno/compliance_to_policy.py -o /tmp/deliverable-policy
@@ -58,6 +64,8 @@
     ```
 1. OSCAL Assessment Results is not human readable format. You can see the merged report in markdown by a quick viewer.
     ```
-    c2p tools viewer -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -o /tmp/assessment_results.md
+    c2p tools viewer \
+      -cdef ./plugins_public/tests/data/kyverno/component-definition.json \
+      -ar /tmp/assessment_results.json
     ```
-    ![assessment-results-md.kyverno.jpg](/docs/public/images/assessment-results-md.kyverno.jpg)
+    e.g. [result.md](/docs/public/kyverno.result.md)

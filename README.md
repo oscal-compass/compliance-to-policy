@@ -1,18 +1,46 @@
 # <img alt="Logo" width="50px" src="./assets/compliance-to-policy-800x800.PNG" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
 
-## Introduction
+Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open Security Controls Assessment Language (OSCAL) and Policy as Code used by Policy Validation Point (PVP). It generates policies in native format of PVP from OSCAL Component Definitions and produces OSCAL Assessment Results from the native assessment results of PVP. C2P can be used both as a command-line tool and a Python library, making it easy and flexible to integrate into your Continuous Compliance pipelines, such as GitHub Actions, Tekton Pipelines, or Agile Authoring Pipelines. It supports multiple PVP engines, including [Kyverno](https://kyverno.io/), [Open Cluster Management Policy Framework](https://open-cluster-management.io/), and the open-source [Auditree](https://auditree.github.io/), through dedicated plugins for each. Custom plugins can be implemented with a small amount of Python code.
 
-Compliance-to-Policy (C2P) bridges Compliance and PVPs. C2P takes Compliance requirements and generates technical policies for PVP, and takes PVP native results and generates Compliance Assessment Results.
+![C2P Overview](/assets/architecture.png)
 
-C2P supports Compliance and PVP as follows:
-- Compliance framework
-    - Open Security Controls Assessment Language (OSCAL)
-- PVP
-    - [Kyverno](https://kyverno.io/)
-    - [Open Cluster Management Governance Policy Framework](https://open-cluster-management.io/)
-    - [Auditree](https://auditree.github.io/)
+1. Compliance-to-Policy (C2P) is running in GitOps Pipeline, Kubernetes controller, or Python/Go environment
+1. C2P receives Compliance as Code, for example OSCAL Component Definition that represents mapping between controls and policies (policy names/ids)
+1. C2P generates policies through plugin for each policy engine
+    - The plugin is responsible for implementing a function that takes policy names/ids and returns policies
+1. Policies are delivered to policy engines by GitOps sync, the subsequence pipeline task, Kubernetes controller, or a deployment automation program 
+1. Results are collected from policy engines by a scheduled task or Kubernetes controller
+1. C2P aggregates the results of policy engines by controls through plugin for each policy engine
+    - The plugin is responsible for implementing a function that takes the results of the policy engine and returns verdicts (pass/fail/error), reason, and/or resource name for each respective policy by its names/IDs.
+1. C2P produces Compliance Assessment Results, for example OSCAL Assessment Results that represents the assessment results of each control 
 
-C2P reduces the cost to implement the interchange between Compliance artifacts and PVP proprietary artifacts. C2P is extensible to various PVPs through plugin.
+Demo:
+- [Kyverno as PVP](docs/public/kyverno.md)
+- [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
+
+## Goals
+Provide seamless integration with compliance frameworks and existing policy engines, and enable to use heterogeneous policy engines in compliance check operation
+- Flexibility in choise of policy engines and compliance frameworks
+    - Provide plugins to cover various policy engines including proprietary/open source policy validation/enforcement engines, or in-house policy validation/enforcement program
+    - Cover various compliance frameworks not only OSCAL but also other GRC frameworks and Cloud Security Posture Management services
+- Community-driven plugin extension
+    - Provide an efficient plugin interface and development method
+
+## Supported Compliance Frameworks
+- [Open Security Controls Assessment Language (OSCAL)](https://pages.nist.gov/OSCAL/documentation/)
+    - OSCAL standard provides a compliance framework and the corresponding set of key compliance artifacts expressed in machine processable formats enabling all compliance documents to be treated as code and therefore processed and managed in the same manner.
+
+## Supported Policy Engines
+- [Kyverno](https://kyverno.io/) (for Kubernetes resources)
+    - Kyverno is a policy engine designed for Kubernetes, where policies are managed as Kubernetes resources. Kyverno policies can validate, mutate, generate, and clean up Kubernetes resources.
+- [Open Cluster Management Policy Framework](https://open-cluster-management.io/) (for Kubernetes resources)
+    - OCM is a multi-cluster management platform that provides governance of Kubernetes policies. [Its policy framework](https://open-cluster-management.io/concepts/policy/) allows for the validation and enforcement of policies across multiple clusters.
+- [Auditree](https://auditree.github.io/) (for any target, especially well-suited for resources of PaaS/SaaS/IaaS available through REST API.)
+    - Auditree is a GitOps based workflow automation that enables the collection and verification of evidence, building a long-term store of evidence in an git "evidence locker." Evidence is gathered by code scripts called "fetchers" and verified by "checks."
+
+Roadmap:
+- [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper) (for Kubernetes resources)
+- [Ansible](https://www.ansible.com/) (for any target, especially for VMs and OnPremise hosts)
 
 ## C2P in Go language
 The Go verion is available in the [go directory](/go/README.md). 
