@@ -19,15 +19,15 @@ from enum import Enum
 from typing import Any, Dict, List, Union
 from uuid import uuid4
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from trestle.common.common_types import TypeWithProps
 from trestle.common.list_utils import as_list
-from trestle.oscal.assessment_results import (
+from trestle.oscal.common import (
     ControlSelection,
+    Property,
     ReviewedControls,
     SelectControlById,
 )
-from trestle.oscal.common import Property
 from trestle.oscal.component import ComponentDefinition
 
 from c2p.common.oscal import is_component_type_validation

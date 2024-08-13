@@ -18,7 +18,7 @@ import json
 import pathlib
 from typing import Any, Dict, Tuple
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from trestle.oscal.assessment_results import AssessmentResults
 
 from c2p.framework.c2p import C2P

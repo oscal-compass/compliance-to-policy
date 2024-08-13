@@ -18,7 +18,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from c2p.common.c2p_base_model import C2PBaseModel
 

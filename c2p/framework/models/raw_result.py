@@ -16,7 +16,7 @@
 
 from typing import Any, Dict, Optional
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from c2p.common.c2p_base_model import C2PBaseModel
 

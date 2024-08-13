@@ -3,8 +3,8 @@
   "metadata": {
     "title": "TEST Assessment Results",
     "last_modified": "2024-03-22T08:28:11.000+00:00",
-    "version": "2.2.1",
-    "oscal_version": "1.0.4"
+    "version": "3.3.0",
+    "oscal_version": "1.1.2"
   },
   "import_ap": {
     "href": "https://not-available-for-now"

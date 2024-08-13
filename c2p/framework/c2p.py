@@ -17,7 +17,7 @@
 import pathlib
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from trestle import __version__ as TRESTLE_VERSION
 from trestle.oscal import OSCAL_VERSION
 from trestle.oscal.assessment_results import (

@@ -20,8 +20,8 @@ import pathlib
 from typing import Any, Dict, Optional, Type, TypeVar
 
 import orjson
-from pydantic import BaseModel
-from pydantic.parse import load_file
+from pydantic.v1 import BaseModel
+from pydantic.v1.parse import load_file
 from trestle.core.base_model import robust_datetime_serialization
 
 import c2p.common.err as err
