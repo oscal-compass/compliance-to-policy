@@ -21,8 +21,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
-from pydantic import Field
-from pydantic.utils import deep_update
+from pydantic.v1 import Field
+from pydantic.v1.utils import deep_update
 
 from c2p.common.logging import getLogger
 from c2p.common.utils import get_dict_safely

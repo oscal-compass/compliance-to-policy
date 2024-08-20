@@ -17,7 +17,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from c2p.framework.models.policy import Policy
 from c2p.framework.models.pvp_result import PVPResult

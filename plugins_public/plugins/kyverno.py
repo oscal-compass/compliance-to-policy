@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional
 
 import yaml
 from jinja2 import Template
-from pydantic import Field
+from pydantic.v1 import Field
 
 from c2p.common.err import C2PError
 from c2p.common.logging import getLogger

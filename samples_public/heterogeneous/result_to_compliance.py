@@ -2,10 +2,15 @@ import argparse
 import subprocess
 from typing import Dict, List
 
-from trestle.oscal.assessment_results import AssessmentResults, ControlSelection
+from trestle.oscal.assessment_results import AssessmentResults
 from trestle.oscal.assessment_results import Model as AssessmentResultsRoot
-from trestle.oscal.assessment_results import Result, ReviewedControls, SelectControlById
-from trestle.oscal.common import Metadata
+from trestle.oscal.assessment_results import Result
+from trestle.oscal.common import (
+    ControlSelection,
+    Metadata,
+    ReviewedControls,
+    SelectControlById,
+)
 
 from c2p.framework.oscal_utils import get_datetime, uuid
 

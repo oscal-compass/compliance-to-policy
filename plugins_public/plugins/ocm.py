@@ -21,7 +21,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, TypeVar
 
 import yaml
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from c2p.common.err import C2PError
 from c2p.common.logging import getLogger

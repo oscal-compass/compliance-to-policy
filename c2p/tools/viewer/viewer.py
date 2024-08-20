@@ -17,7 +17,7 @@
 from typing import Dict, List, Optional
 
 from jinja2 import Template
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from trestle.oscal.assessment_results import AssessmentResults, Observation
 from trestle.oscal.common import Property
 from trestle.oscal.component import ComponentDefinition, DefinedComponent
