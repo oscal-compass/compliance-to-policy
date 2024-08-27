@@ -101,7 +101,7 @@ def render(assessment_results: AssessmentResults, component_definition: Componen
                     pvp, rule_set = get_pvp_rule_pair(rule_id)
                     if rule_set != None:
                         rule_result = RuleResult(id=f'{rule_id} ({pvp})', description=rule_set['Check_Description'])
-                        o = find_observation(assessment_results.results[0].observations, rule_set['Check_Id'])
+                        o = find_observation(assessment_results.results[0].observations, rule_set['Rule_Id'])
                         if o != None:
                             for subject in o.subjects:
                                 result = get_prop_value(subject.props, 'result')
