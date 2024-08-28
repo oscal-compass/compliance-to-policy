@@ -1,0 +1,143 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# GitHub recommends pinning actions to a commit SHA.
+# To get a newer version, you will need to update the SHA.
+# You can also reference a tag or branch, but the action may change without warning.
+
+name: release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build with semantic versioning
+    runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ steps.release.outputs.tag }}
+      release-version: ${{ steps.release.outputs.version }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Python Semantic Release
+        id: release
+        uses: python-semantic-release/python-semantic-release@v9.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check release
+        if: steps.release.outputs.released == 'false'
+        run: |
+          echo 'No release will be made since there are no release commits. See also Commit Parsers configuration.'
+          exit 1
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install build tools
+        run: |
+          make install-dev
+      - name: Build
+        run: |
+          make build
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-github:
+    name: Publish to GitHub
+    needs:
+      - build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Sign the dists with Sigstore
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: |
+            ./dist/*.tar.gz
+            ./dist/*.whl
+      - name: Upload package distributions to GitHub Releases
+        run: gh release upload ${{needs.build.outputs.release-tag}} ./dist/*
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.REPOSITORY }}
+
+  publish-to-testpypi:
+    name: Publish to TestPyPI
+    needs:
+      - build
+      - publish-to-github
+    runs-on: ubuntu-latest
+
+    environment:
+      name: testpypi
+      url: https://pypi.org/p/compliance-to-policy
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+      - name: Download the distributions from release
+        run: gh release download ${{needs.build.outputs.release-tag}} -D dist -p '*.tar.gz' -p '*.whl'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.REPOSITORY }}
+      - name: Publish distribution 📦 to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  test:
+    name: Integration Test
+    needs:
+      - build
+      - publish-to-testpypi
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{needs.build.outputs.release-tag}}
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install
+        run: |
+          version=${{needs.build.outputs.release-version}}
+          version=${version/-rc./rc}
+          count=0
+          while :; do
+            count=$(($count+1))
+            echo "Check if ${version} is available or not ...$count"
+            if pip index versions -i https://test.pypi.org/simple/ compliance-to-policy | grep ${version};then
+              break
+            fi
+            [[ "$count" -gt 5 ]] && echo "Not found ${version}" && exit 1
+            sleep 5
+          done
+          pip index versions -i https://test.pypi.org/simple/ compliance-to-policy | grep ${version}
+          pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple compliance-to-policy==${version}
+          pip install pytest
+      - name: Run test
+        run: make it
