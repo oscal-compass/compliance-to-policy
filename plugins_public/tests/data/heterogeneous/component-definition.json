@@ -16,67 +16,67 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
             "remarks": "rule_set_00"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub API returns any supported version.",
             "remarks": "rule_set_00"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
             "remarks": "rule_set_00"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether there are any supported versions.",
             "remarks": "rule_set_00"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_01"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub org is not empty.",
             "remarks": "rule_set_01"
           },
           {
             "name": "Parameter_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "org.gh.orgs",
             "remarks": "rule_set_01"
           },
           {
             "name": "Parameter_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "List of organization name",
             "remarks": "rule_set_01"
           },
           {
             "name": "Parameter_Value_Alternatives",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "nasa,esa",
             "remarks": "rule_set_01"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_01"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether the GitHub org is not empty.",
             "remarks": "rule_set_01"
           }
@@ -103,7 +103,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions"
                   }
                 ]
@@ -115,7 +115,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty"
                   }
                 ]
@@ -132,157 +132,157 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_02"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_02"
           },
           {
             "name": "Parameter_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed_baseimages",
             "remarks": "rule_set_02"
           },
           {
             "name": "Parameter_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Allowed baseimages",
             "remarks": "rule_set_02"
           },
           {
             "name": "Parameter_Value_Alternatives",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "gcr.io/distroless/static:root",
             "remarks": "rule_set_02"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_02"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_02"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_03"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Images coming from certain registries require authentication in order to pull them, and the kubelet uses this information in the form of an imagePullSecret to pull those images on behalf of your Pod. This policy searches for images coming from a registry called `corp.reg.com` and, if found, will mutate the Pod to add an IimagePullSecret called `my-secret`.",
             "remarks": "rule_set_03"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_03"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Adding capabilities beyond those listed in the policy must be disallowed.",
             "remarks": "rule_set_03"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-deployment",
             "remarks": "rule_set_04"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure deployment configuration is securely set up",
             "remarks": "rule_set_04"
           },
           {
             "name": "Parameter_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "minimum_nginx_deployment_replicas",
             "remarks": "rule_set_04"
           },
           {
             "name": "Parameter_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Minimum number of NGINX pod",
             "remarks": "rule_set_04"
           },
           {
             "name": "Parameter_Value_Alternatives",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "3",
             "remarks": "rule_set_04"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-deployment",
             "remarks": "rule_set_04"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure NGINX is deployed and running with given minimum instances",
             "remarks": "rule_set_04"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-disallowed-roles",
             "remarks": "rule_set_05"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure roles are set to only allowed values",
             "remarks": "rule_set_05"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-disallowed-roles",
             "remarks": "rule_set_05"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure roles are set to only allowed values",
             "remarks": "rule_set_05"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-high-scan",
             "remarks": "rule_set_06"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure scan is enabled with high level",
             "remarks": "rule_set_06"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-high-scan",
             "remarks": "rule_set_06"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure scan is enabled with high level",
             "remarks": "rule_set_06"
           }
@@ -314,12 +314,12 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "allowed-base-images"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-deployment"
                   }
                 ]
@@ -331,7 +331,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "disallow-capabilities"
                   }
                 ]
@@ -343,7 +343,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-disallowed-roles"
                   }
                 ]
@@ -355,7 +355,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-high-scan"
                   }
                 ]
@@ -372,49 +372,49 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
             "remarks": "rule_set_07"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub API returns any supported version.",
             "remarks": "rule_set_07"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions",
             "remarks": "rule_set_07"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether there are any supported versions.",
             "remarks": "rule_set_07"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_08"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub org is not empty.",
             "remarks": "rule_set_08"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_08"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether the GitHub org is not empty.",
             "remarks": "rule_set_08"
           }
@@ -432,12 +432,12 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "demo_examples.checks.test_github.GitHubOrgs.test_supported_versions"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty"
                   }
                 ]
@@ -454,49 +454,49 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_09"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_09"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_09"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_09"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_10"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Images coming from certain registries require authentication in order to pull them, and the kubelet uses this information in the form of an imagePullSecret to pull those images on behalf of your Pod. This policy searches for images coming from a registry called `corp.reg.com` and, if found, will mutate the Pod to add an IimagePullSecret called `my-secret`.",
             "remarks": "rule_set_10"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_10"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Adding capabilities beyond those listed in the policy must be disallowed.",
             "remarks": "rule_set_10"
           }
@@ -514,12 +514,12 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "allowed-base-images"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "disallow-capabilities"
                   }
                 ]
@@ -536,73 +536,73 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-deployment",
             "remarks": "rule_set_11"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure NGINX is deployed and running with given minimum instances",
             "remarks": "rule_set_11"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-deployment",
             "remarks": "rule_set_11"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure NGINX is deployed and running with given minimum instances",
             "remarks": "rule_set_11"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-disallowed-roles",
             "remarks": "rule_set_12"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure roles are set to only allowed values",
             "remarks": "rule_set_12"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-disallowed-roles",
             "remarks": "rule_set_12"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure roles are set to only allowed values",
             "remarks": "rule_set_12"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-high-scan",
             "remarks": "rule_set_13"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure scan is enabled with high level",
             "remarks": "rule_set_13"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "policy-high-scan",
             "remarks": "rule_set_13"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Ensure scan is enabled with high level",
             "remarks": "rule_set_13"
           }
@@ -620,17 +620,17 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-deployment"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-disallowed-roles"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "policy-high-scan"
                   }
                 ]

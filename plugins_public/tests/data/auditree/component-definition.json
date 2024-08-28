@@ -16,67 +16,67 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "rule_github_org_member",
             "remarks": "rule_set_0"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub org is not empty.",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "org.gh.orgs",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "List of organization name",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Value_Alternatives",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "nasa,esa",
             "remarks": "rule_set_0"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_0"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether the GitHub org is not empty.",
             "remarks": "rule_set_0"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "rule_github_api_version",
             "remarks": "rule_set_1"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "GitHub API returns any supported version.",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubAPIVersionsCheck.test_supported_versions",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether there are any supported versions.",
             "remarks": "rule_set_1"
           }
@@ -103,7 +103,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "rule_github_org_member"
                   }
                 ]
@@ -115,7 +115,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "rule_github_api_version"
                   }
                 ]
@@ -132,37 +132,37 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "rule_github_org_member",
             "remarks": "rule_set_2"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubOrgs.test_members_is_not_empty",
             "remarks": "rule_set_2"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether the GitHub org is not empty.",
             "remarks": "rule_set_2"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "rule_github_api_version",
             "remarks": "rule_set_3"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "demo_examples.checks.test_github.GitHubAPIVersionsCheck.test_supported_versions",
             "remarks": "rule_set_3"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Check whether there are any supported versions.",
             "remarks": "rule_set_3"
           }

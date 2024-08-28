@@ -16,67 +16,67 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_0"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed_baseimages",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Allowed baseimages",
             "remarks": "rule_set_0"
           },
           {
             "name": "Parameter_Value_Alternatives",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "gcr.io/distroless/static:root",
             "remarks": "rule_set_0"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_0"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_0"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_1"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Images coming from certain registries require authentication in order to pull them, and the kubelet uses this information in the form of an imagePullSecret to pull those images on behalf of your Pod. This policy searches for images coming from a registry called `corp.reg.com` and, if found, will mutate the Pod to add an IimagePullSecret called `my-secret`.",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Adding capabilities beyond those listed in the policy must be disallowed.",
             "remarks": "rule_set_1"
           }
@@ -102,7 +102,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "allowed-base-images"
                   }
                 ]
@@ -114,7 +114,7 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "disallow-capabilities"
                   }
                 ]
@@ -131,49 +131,49 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_2"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_2"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "allowed-base-images",
             "remarks": "rule_set_2"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_2"
           },
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_3"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Images coming from certain registries require authentication in order to pull them, and the kubelet uses this information in the form of an imagePullSecret to pull those images on behalf of your Pod. This policy searches for images coming from a registry called `corp.reg.com` and, if found, will mutate the Pod to add an IimagePullSecret called `my-secret`.",
             "remarks": "rule_set_3"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "disallow-capabilities",
             "remarks": "rule_set_3"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
             "value": "Adding capabilities beyond those listed in the policy must be disallowed.",
             "remarks": "rule_set_3"
           }
@@ -191,12 +191,12 @@
                 "props": [
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "allowed-base-images"
                   },
                   {
                     "name": "Rule_Id",
-                    "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
+                    "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/ibmcloud",
                     "value": "disallow-capabilities"
                   }
                 ]
