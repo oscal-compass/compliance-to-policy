@@ -16,13 +16,13 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
             "value": "allowed-base-images",
             "remarks": "rule_set_0"
           },
           {
             "name": "Rule_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
             "value": "Building images which specify a base as their origin is a good start to improving supply chain security, but over time organizations may want to build an allow list of specific base images which are allowed to be used when constructing containers. This policy ensures that a container's base, found in an OCI annotation, is in a cluster-wide allow list.",
             "remarks": "rule_set_0"
           }
@@ -45,7 +45,7 @@
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kubernetes",
                         "value": "allowed-base-images"
                       }
                     ]
@@ -64,19 +64,19 @@
         "props": [
           {
             "name": "Rule_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
             "value": "allowed-base-images",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Id",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
             "value": "allowed-base-images",
             "remarks": "rule_set_1"
           },
           {
             "name": "Check_Description",
-            "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
+            "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd/kyverno",
             "value": "allowed-base-images",
             "remarks": "rule_set_1"
           }

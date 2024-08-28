@@ -35,13 +35,13 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-remove-self-provisioner",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-remove-kubeadmin",
                         "remarks": ""
                       }
@@ -54,7 +54,7 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-disallow-anonymous",
                         "remarks": ""
                       }
@@ -67,19 +67,19 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-configure-appworkloads-rbac",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-configure-clusterlevel-rbac",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-rbac-adminiterpolicies",
                         "remarks": ""
                       }
@@ -92,7 +92,7 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-disallowed-roles",
                         "remarks": ""
                       }
@@ -105,7 +105,7 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-config-audit",
                         "remarks": ""
                       }
@@ -118,19 +118,19 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-integrity-shield-events",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-integrity-shield-observer",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-integrity-shield",
                         "remarks": ""
                       }
@@ -143,31 +143,31 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-high-scan",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-hypershift-scan",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-moderate-scan",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-nerc-cip-scan",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-pci-dss-scan",
                         "remarks": ""
                       }
@@ -180,19 +180,19 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-oauth-htpasswd",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-oauth-ldap",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-openshift-servicemesh",
                         "remarks": ""
                       }
@@ -205,295 +205,295 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-ptp-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-site-nw-templatized",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-containerlivenessprobenotset",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-containerreadinessprobenotset",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kyverno-sample",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-clustercnf10-tag-workers",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-local-storage-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-rhoda-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-advanced-cluster-security-central",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-enableclusterlogforwarder",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-configure-subscription-admin-hub",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kyverno-image-pull-policy",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "openshift-gitops-policygenerator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-example-pod-disruption-budget",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-allowed-external-ips",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-idp-sample-github",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "sample-network-policy-99",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-file-integrity-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-image-pull-policy",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kernel-devel",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-sriov-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-annotation-owner",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kyverno-container-tgps",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-odf-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-pod-disruption-budget-templatized",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "image-policy",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "add-chrony",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-managed-clusterset-binding",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-opa-sample",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-enableclusterlogforwarder-templated",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "egress-example",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-config-exclude-namespaces",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-container-tgps",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-pao-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "upgrade-cluster",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-vsphere-machineset-infra",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-pod",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-idp-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kyverno-config-exclude-resources",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "install-odf-lvm-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-oauth-config",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-advanced-managed-cluster-security",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-cert-manager-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-gatekeeper-containerimagelatest",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-github-oauth",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "openshift-gitops-installed",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-proxy-protocol",
                         "remarks": ""
                       }
@@ -506,7 +506,7 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-blackduck",
                         "remarks": ""
                       }
@@ -519,19 +519,19 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-falco-app",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-falco",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-sysdig",
                         "remarks": ""
                       }
@@ -544,73 +544,73 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "create-tvk-helm-backup",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "create-tvk-label-backup",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "add-tvk-license",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-kyverno-tvk-create-ns-backup",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "create-tvk-operator-backup",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "install-tvk-helm",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "install-tvk",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-comp-operator",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "tvk-continuous-restore-backup",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "tvk-continuous-restore-event-target",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "tvk-continuous-restore",
                         "remarks": ""
                       },
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "create-tvk-ns-backup",
                         "remarks": ""
                       }
@@ -623,7 +623,7 @@ data:
                     "props": [
                       {
                         "name": "Rule_Id",
-                        "ns": "http://ibm.github.io/compliance-trestle/schemas/oscal/cd",
+                        "ns": "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
                         "value": "policy-crowdstrike-falcon-rhmp",
                         "remarks": ""
                       }

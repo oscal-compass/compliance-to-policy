@@ -33,7 +33,7 @@ var standardFromPolicyCollectionToOscal map[string]string = map[string]string{
 }
 
 const (
-	OscaleNamespace = "http://ibm.github.io/compliance-trestle/schemas/oscal/cd"
+	OscaleNamespace = "http://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd"
 )
 
 func controlIdFromPolicyCollectionToOscal(controlId string) (string, bool) {

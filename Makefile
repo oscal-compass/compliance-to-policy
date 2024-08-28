@@ -1,57 +1,67 @@
-PYTHON := $(shell pwd)/.venv/bin/python
+.PHONY: build
+build:
+	python -m build
 
-.venv:
-	@echo Please create venv firstly
+.PHONY: install
+install:
+	python -m pip install .
 
-build: .venv
-	@$(PYTHON) -m build
+.PHONY: install-dev
+install-dev:
+	python -m pip install ".[dev]"
 
-install: .venv
-	@$(PYTHON) -m pip install .
+# Direct dependency is not allowed for Pypi packaging even if the dependant module is defined as extra dependencies. 
+# Workaround: Move to manual installation by make
+.PHONY: install-detect-descret
+install-detect-descret:
+	python -m pip install detect-secrets@git+https://github.com/ibm/detect-secrets.git@master#egg=detect-secrets
 
-install-dev: .venv
-	@$(PYTHON) -m pip install ".[dev]"
+.PHONY: uninstall
+uninstall:
+	python -m pip uninstall compliance-to-policy
 
-uninstall: .venv
-	@$(PYTHON) -m pip uninstall compliance-to-policy
+.PHONY: format
+format:
+	python -m isort .
+	python -m black .
 
-
-format: .venv
-	@$(PYTHON) -m isort .
-	@$(PYTHON) -m black .
-
-lint: .venv
-	@$(PYTHON) -m pylint ./c2p ./tests
+.PHONY: lint
+lint:
+	python -m pylint ./c2p ./tests
 
 .PHONY: docs
-docs: .venv
-	@$(PYTHON) -m mkdocs build
+docs:
+	python -m mkdocs build
 
 .PHONY: gh-pages
- gh-pages: .venv
-	@$(PYTHON) -m mkdocs gh-deploy
+ gh-pages:
+	python -m mkdocs gh-deploy
 
 # make test ARGS="-n 2 --dist loadscope --log-cli-level DEBUG" TARGET="tests/c2p/test_cli.py"
 # TODO: -n 2 (pytest-xdist plugin) results in no logs displayed.
+.PHONY: test
 test: ARGS ?= 
 test: TARGET ?= tests/
-test: .venv test-plugin
-	@OUTPUT_PATH=/dev/null $(PYTHON) -m pytest $(ARGS) $(TARGET)
+test: test-plugin
+	@OUTPUT_PATH=/dev/null python -m pytest $(ARGS) $(TARGET)
 
+.PHONY: test-plugin
 test-plugin: ARGS ?= 
 test-plugin: TARGET ?= plugins_public/tests/
-test-plugin: .venv
-	@OUTPUT_PATH=/dev/null $(PYTHON) -m pytest $(ARGS) $(TARGET)
+test-plugin:
+	@OUTPUT_PATH=/dev/null python -m pytest $(ARGS) $(TARGET)
 
-# After published, the branch must be merged first-forwardly. TODO: Integrate with CI
-publish: GIT_TAG ?=
-publish:
-	@toml set --toml-path pyproject.toml project.version $(GIT_TAG)
-	@git add pyproject.toml
-	@git commit -S -s -m "update version to $(GIT_TAG)"
-	@git tag $(GIT_TAG)
+.PHONY: it
+it:
+	python samples_public/kyverno/compliance_to_policy.py
+	python samples_public/kyverno/result_to_compliance.py
+	python samples_public/ocm/compliance_to_policy.py
+	python samples_public/ocm/result_to_compliance.py
+	python samples_public/auditree/compliance_to_policy.py
+	python samples_public/auditree/result_to_compliance.py
 
-clean: .venv
+.PHONY: clean
+clean:
 	@rm -rf build *.egg-info dist
 	@find ./plugins -type d \( -name '*.egg-info' -o -name 'dist' \) | while read x; do echo $$x; rm -r $$x ; done 
-	@$(PYTHON) -m pyclean -v .
+	python -m pyclean -v .
