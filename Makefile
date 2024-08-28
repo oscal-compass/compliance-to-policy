@@ -43,13 +43,13 @@ docs:
 test: ARGS ?= 
 test: TARGET ?= tests/
 test: test-plugin
-	@OUTPUT_PATH=/dev/null $(PYTHON) -m pytest $(ARGS) $(TARGET)
+	@OUTPUT_PATH=/dev/null python -m pytest $(ARGS) $(TARGET)
 
 .PHONY: test-plugin
 test-plugin: ARGS ?= 
 test-plugin: TARGET ?= plugins_public/tests/
 test-plugin:
-	@OUTPUT_PATH=/dev/null $(PYTHON) -m pytest $(ARGS) $(TARGET)
+	@OUTPUT_PATH=/dev/null python -m pytest $(ARGS) $(TARGET)
 
 .PHONY: it
 it:
