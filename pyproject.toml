@@ -52,8 +52,6 @@ dev = [
   "black",
   "isort",
   "pylint",
-  ## Security tools
-  "detect-secrets@git+https://github.com/ibm/detect-secrets.git@master#egg=detect-secrets"
 ]
 
 [project.urls]
