@@ -331,6 +331,10 @@ tests/c2p/test_cli.py::test_version PASSED                                      
 make clean
 ```
 
+## License & Authors
+
+If you would like to see the detailed LICENSE click [here](LICENSE).
+Consult [contributors](https://github.com/oscal-compass/compliance-to-policy/graphs/contributors) for a list of authors and [maintainers](https://github.com/oscal-compass/community/blob/main/MAINTAINERS.md) for the core team.
 
 ```text
 # Copyright (c) 2024 The OSCAL Compass Authors. All rights reserved.
