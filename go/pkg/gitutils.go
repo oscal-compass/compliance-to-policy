@@ -25,8 +25,8 @@ import (
 	"os"
 	"strings"
 
-	"gopkg.in/src-d/go-git.v4"
-	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
+	"github.com/go-git/go-git/v5"
+	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 type GitUtils struct {

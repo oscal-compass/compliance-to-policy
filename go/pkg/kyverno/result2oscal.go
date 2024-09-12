@@ -115,7 +115,7 @@ func (r *ResultToOscal) retrievePolicyReportResults(name string) []*typepolr.Pol
 		for _, result := range polr.Results {
 			policy := result.Policy
 			if policy == name {
-				prrs = append(prrs, result)
+				prrs = append(prrs, &result)
 			}
 		}
 	}

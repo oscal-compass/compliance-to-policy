@@ -27,6 +27,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/go-git/go-git/v5"
+	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/go-logr/logr"
 	c2pv1alpha1 "github.com/oscal-compass/compliance-to-policy/go/api/v1alpha1"
 	edge "github.com/oscal-compass/compliance-to-policy/go/controllers/edge.kcp.io/v1alpha1"
@@ -36,8 +38,6 @@ import (
 	internalcompliance "github.com/oscal-compass/compliance-to-policy/go/pkg/types/internalcompliance"
 	typesoscal "github.com/oscal-compass/compliance-to-policy/go/pkg/types/oscal"
 	cd "github.com/oscal-compass/compliance-to-policy/go/pkg/types/oscal/componentdefinition"
-	"gopkg.in/src-d/go-git.v4"
-	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
 	"k8s.io/apimachinery/pkg/api/errors"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
