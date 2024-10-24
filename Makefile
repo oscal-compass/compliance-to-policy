@@ -4,11 +4,11 @@ build:
 
 .PHONY: install
 install:
-	python -m pip install .
+	python -m pip install -e .
 
 .PHONY: install-dev
 install-dev:
-	python -m pip install ".[dev]"
+	python -m pip install -e ".[dev]"
 
 # Direct dependency is not allowed for Pypi packaging even if the dependant module is defined as extra dependencies. 
 # Workaround: Move to manual installation by make
