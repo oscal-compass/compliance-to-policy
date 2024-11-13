@@ -162,6 +162,8 @@ class C2P:
             start=oscal_utils.get_datetime_str(),
             observations=self._get_observations(pvp_result),
             reviewed_controls=oscal_utils.reviewed_controls(self._component_root.component_definition),
+            local_definitions=pvp_result.local_definitions,
+            findings=pvp_result.findings,
         )
         if pvp_result.links != None:
             result.links = list(map(lambda x: Link(href=x.href, text=x.description), pvp_result.links))
@@ -183,7 +185,10 @@ class C2P:
                     oscal_utils.add_prop(props, 'evaluated-on', subject, ['evaluated_on'])
                     oscal_utils.add_prop(props, 'reason', subject, ['reason'])
                     s = SubjectReference(
-                        subject_uuid=oscal_utils.uuid(), title=subject.title, type=subject.type, props=props
+                        subject_uuid=subject.subject_uuid if subject.subject_uuid else oscal_utils.uuid(),
+                        title=subject.title,
+                        type=subject.type,
+                        props=props,
                     )
                     subjects.append(s)
 
@@ -197,7 +202,7 @@ class C2P:
                 if observation.props != None:
                     props = props + observation.props
                 o = Observation(
-                    uuid=oscal_utils.uuid(),
+                    uuid=observation.uuid if observation.uuid else oscal_utils.uuid(),
                     title=observation.title,
                     description=observation.title,
                     methods=observation.methods,
