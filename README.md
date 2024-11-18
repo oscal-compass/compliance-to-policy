@@ -43,7 +43,10 @@ Roadmap:
 - [Ansible](https://www.ansible.com/) (for any target, especially for VMs and OnPremise hosts)
 
 ## C2P in Go language
-The Go verion is available in the [go directory](/go/README.md). 
+
+**Note: The Go version has moved to a new repository.**
+
+The Go version is available in the [`compliance-to-policy-go`](https://github.com/oscal-compass/compliance-to-policy-go/blob/main/README.md) repository.
 
 ## Install 
 
