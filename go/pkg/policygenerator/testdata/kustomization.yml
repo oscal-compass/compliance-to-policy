@@ -1,4 +1,0 @@
-generators:
-- ./policyGenerator-kustomize.yaml
-commonLabels:
-  custom: myApp

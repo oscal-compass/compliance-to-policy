@@ -1,9 +1,0 @@
-resources:
-- ../base
-namePrefix: prod-
-labels:
-- pairs:
-    env: prod
-images:
-- name: nginx
-  newTag: latest

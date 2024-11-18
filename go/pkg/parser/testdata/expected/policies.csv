@@ -1,2 +1,0 @@
-name,group,standard,category,control,source,destination
-test_policy.yaml,test,NIST SP 800-53,AC Access Control,AC-3 Access Enforcement,,/Users/yana/git/trl/open-cluster-management/policy-collection-plus/pkg/parser/_test/test
