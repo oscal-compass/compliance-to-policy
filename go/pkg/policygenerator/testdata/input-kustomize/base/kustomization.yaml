@@ -1,5 +1,0 @@
-resources:
-- nginx-pod.yaml
-labels:
-  - pairs:
-      app: myapp
