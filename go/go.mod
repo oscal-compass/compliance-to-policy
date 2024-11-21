@@ -1,3 +1,4 @@
+// Deprecated: Use github.com/oscal-compass/compliance-to-policy-go instead.
 module github.com/oscal-compass/compliance-to-policy/go
 
 go 1.22.0
