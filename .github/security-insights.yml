@@ -1,0 +1,47 @@
+header:
+  schema-version: 2.0.0
+  last-updated: '2025-04-02'
+  last-reviewed: '2025-04-02'
+  url: https://github.com/oscal-compass/compliance-to-policy/blob/main/.github/security-insights.yml
+  project-si-source: https://raw.githubusercontent.com/oscal-compass/.github/refs/heads/main/.github/security-insights.yml
+  comment: |
+    This file contains only the repository information for the C2P project.
+
+repository:
+  url: https://github.com/oscal-compass/compliance-to-policy
+  status: active
+  bug-fixes-only: false
+  accepts-change-request: true
+  accepts-automated-change-request: true
+  no-third-party-packages: false
+  # From the MAINTAINER.md file
+  core-team:
+  - name:        Takumi Yanagawa
+    primary:     true
+  - name:        Yuji Watanabe
+    primary:     true
+  documentation:
+    contributing-guide: https://github.com/oscal-compass/compliance-to-policy/blob/main/CONTRIBUTING.md
+    security-policy: https://github.com/oscal-compass/community/blob/main/SECURITY.md
+  license:
+    url: https://github.com/oscal-compass/compliance-to-policy/blob/main/LICENSE
+    expression: Apache-2.0
+  release:
+    changelog: https://github.com/oscal-compass/compliance-to-policy/blob/main/CHANGELOG.md
+    automated-pipeline: true
+    attestations:
+      - name: PyPI Publish Attestation
+        location: https://pypi.org/project/compliance-to-policy/#compliance_to_policy-{version}.tar.gz
+        predicate-uri: https://docs.pypi.org/attestations/publish/v1
+        comment: |
+          This attestation communicates the Trusted Publisher identity
+          used to publish the project.
+    distribution-points:
+      - uri: https://github.com/oscal-compass/compliance-to-policy/releases
+        comment: GitHub Release Page
+      - uri: https://pypi.org/project/compliance-to-policy/
+  security:
+    assessments:
+      self:
+        comment: |
+          Self assessment has not yet been completed.
