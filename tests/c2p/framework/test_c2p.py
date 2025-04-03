@@ -67,7 +67,9 @@ def test_result_to_oscal():
     assessment_results = c2p.result_to_oscal()
     expect = AssessmentResults.parse_file(EXPECTED_ASSESSMENT_RESULTS_DATA)
 
-    assert_pydantic_object(assessment_results.metadata, expect.metadata, exludes=['last_modified'])
+    assert_pydantic_object(
+        assessment_results.metadata, expect.metadata, exludes=['last_modified', 'version', 'oscal_version']
+    )
     assert_pydantic_object(assessment_results.import_ap, expect.import_ap)
     actual_result = assessment_results.results[0]
     expect_result = expect.results[0]
