@@ -1,5 +1,69 @@
 # CHANGELOG
 
+## v0.5.0 (2024-11-13)
+
+### Feature
+
+* feat: add local-definitions and findings (#34)
+
+Signed-off-by: Takumi Yanagawa &lt;yana@jp.ibm.com&gt; ([`248e1ef`](https://github.com/oscal-compass/compliance-to-policy/commit/248e1effb48322e3aad0e9ca2479f0c6adebb5c1))
+
+### Fix
+
+* fix: trestle version in unit test
+
+Signed-off-by: Takumi Yanagawa &lt;yana@jp.ibm.com&gt; ([`0d86b0c`](https://github.com/oscal-compass/compliance-to-policy/commit/0d86b0c60c9768c9ddc64799367a4402d23d3daa))
+
+### Unknown
+
+* Merge pull request #35 from yana1205/feat34
+
+feat: add local-definitions and findings (#34) ([`389dc8f`](https://github.com/oscal-compass/compliance-to-policy/commit/389dc8fc7a79e2a0e076e975a0556cb0503aba8b))
+
+* Chore: update go modules (#31)
+
+* chore: update Go modules
+
+Signed-off-by: Takumi Yanagawa &lt;yana@jp.ibm.com&gt;
+
+* chore: upgrade go-git to v5
+
+Signed-off-by: Takumi Yanagawa &lt;yana@jp.ibm.com&gt;
+
+---------
+
+Signed-off-by: Takumi Yanagawa &lt;yana@jp.ibm.com&gt; ([`2b0b410`](https://github.com/oscal-compass/compliance-to-policy/commit/2b0b410a1542f32433ebe447b4ffe468ac25b514))
+
+* LF footer website guidelines (#30)
+
+* LF website
+
+https://github.com/cncf/foundation/blob/main/website-guidelines.md
+
+Signed-off-by: Lou DeGenaro &lt;lou.degenaro@gmail.com&gt;
+
+* Fix content in readme
+
+Signed-off-by: Yuji Watanabe &lt;muew@jp.ibm.com&gt;
+
+* maintainers &amp; cncf logo
+
+Signed-off-by: Lou DeGenaro &lt;lou.degenaro@gmail.com&gt;
+
+* license &amp; authors
+
+Signed-off-by: Lou DeGenaro &lt;lou.degenaro@gmail.com&gt;
+
+* fix contributors link
+
+Signed-off-by: Lou DeGenaro &lt;lou.degenaro@gmail.com&gt;
+
+---------
+
+Signed-off-by: Lou DeGenaro &lt;lou.degenaro@gmail.com&gt;
+Signed-off-by: Yuji Watanabe &lt;muew@jp.ibm.com&gt;
+Co-authored-by: Yuji Watanabe &lt;muew@jp.ibm.com&gt; ([`3c9e94e`](https://github.com/oscal-compass/compliance-to-policy/commit/3c9e94e4f38d0125b14ccb3f5d8f19e96b917179))
+
 ## v0.4.0 (2024-08-29)
 
 ### Documentation

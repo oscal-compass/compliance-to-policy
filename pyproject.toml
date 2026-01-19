@@ -9,7 +9,7 @@ package-dir = { "c2p" = "c2p" }
 include = ["c2p*"]
 
 [project]
-version = "0.4.0"
+version = "0.5.0"
 name = "compliance-to-policy"
 authors = [{ name = "Takumi Yanagawa", email = "yana1205dev@gmail.com" }]
 description = "Tools to bridge Compliance and Policy"

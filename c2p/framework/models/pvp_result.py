@@ -19,8 +19,11 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic.v1 import Field
+from trestle.oscal.assessment_results import LocalDefinitions1
 
 from c2p.common.c2p_base_model import C2PBaseModel
+from trestle.oscal.assessment_results import LocalDefinitions1
+from trestle.oscal.common import Finding
 
 
 class ResultEnum(str, Enum):
@@ -68,6 +71,11 @@ class Subject(C2PBaseModel):
     A human-oriented identifier reference to a resource. Use type to indicate whether the identified resource is a component, inventory item, location, user, or something else.
     """
 
+    subject_uuid: Optional[str] = Field(
+        None,
+        description="A machine-oriented identifier reference to a component, inventory-item, location, party, user, or resource using it's UUID.",
+        title='Subject Universally Unique Identifier Reference',
+    )
     title: str = Field(title='Name of the object')
     type: str = Field(
         ...,
@@ -89,6 +97,7 @@ class ObservationByCheck(C2PBaseModel):
     Describes an individual observation based on each Check_Id defined in Component Definition.
     """
 
+    uuid: Optional[str] = Field(None)
     title: Optional[str] = Field(
         None,
         description='The title for this observation for the check item. If not given, check id is used.',
@@ -118,6 +127,16 @@ class ObservationByCheck(C2PBaseModel):
 
 class PVPResult(C2PBaseModel):
     observations_by_check: Optional[List[ObservationByCheck]] = Field(None)
+    findings: Optional[List[Finding]] = Field(
+        None,
+        description='Equivalent to the "findings" defined in the OSCAL Assessment Results.',
+        title='Describes an individual finding',
+    )
+    local_definitions: Optional[LocalDefinitions1] = Field(
+        None,
+        description='Equivalent to the "local-definitions" defined in the OSCAL Assessment Results.',
+        title='Local Definitions',
+    )
     links: Optional[List[Link]] = Field(None)
 
 
