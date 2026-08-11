@@ -1,0 +1,117 @@
+[
+  {
+    "metadata": {
+      "event_code": "iam_root_mfa_enabled",
+      "product": {
+        "name": "Prowler",
+        "version": "5.37.1"
+      }
+    },
+    "status_code": "PASS",
+    "status_detail": "iam_root_mfa_enabled: PASS",
+    "finding_info": {
+      "title": "Root account has MFA enabled",
+      "uid": "prowler-iam_root_mfa_enabled-arn:aws:iam::123456789012:root"
+    },
+    "resources": [
+      {
+        "uid": "arn:aws:iam::123456789012:root",
+        "name": "root",
+        "type": "AwsIamUser",
+        "region": "us-east-1"
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "event_code": "iam_user_mfa_enabled_console_access",
+      "product": {
+        "name": "Prowler",
+        "version": "5.37.1"
+      }
+    },
+    "status_code": "PASS",
+    "status_detail": "iam_user_mfa_enabled_console_access: PASS",
+    "finding_info": {
+      "title": "IAM user has MFA enabled for console access",
+      "uid": "prowler-iam_user_mfa_enabled_console_access-arn:aws:iam::123456789012:user/alice"
+    },
+    "resources": [
+      {
+        "uid": "arn:aws:iam::123456789012:user/alice",
+        "name": "alice",
+        "type": "AwsIamUser",
+        "region": "us-east-1"
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "event_code": "iam_user_mfa_enabled_console_access",
+      "product": {
+        "name": "Prowler",
+        "version": "5.37.1"
+      }
+    },
+    "status_code": "FAIL",
+    "status_detail": "iam_user_mfa_enabled_console_access: FAIL",
+    "finding_info": {
+      "title": "IAM user has MFA enabled for console access",
+      "uid": "prowler-iam_user_mfa_enabled_console_access-arn:aws:iam::123456789012:user/contractor"
+    },
+    "resources": [
+      {
+        "uid": "arn:aws:iam::123456789012:user/contractor",
+        "name": "contractor",
+        "type": "AwsIamUser",
+        "region": "us-east-1"
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "event_code": "iam_administrator_access_with_mfa",
+      "product": {
+        "name": "Prowler",
+        "version": "5.37.1"
+      }
+    },
+    "status_code": "MUTED",
+    "status_detail": "iam_administrator_access_with_mfa: MUTED",
+    "finding_info": {
+      "title": "IAM group members granted AdministratorAccess have MFA enabled",
+      "uid": "prowler-iam_administrator_access_with_mfa-arn:aws:iam::123456789012:group/admins"
+    },
+    "resources": [
+      {
+        "uid": "arn:aws:iam::123456789012:group/admins",
+        "name": "admins",
+        "type": "AwsIamGroup",
+        "region": "us-east-1"
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "event_code": "cloudtrail_multi_region_enabled",
+      "product": {
+        "name": "Prowler",
+        "version": "5.37.1"
+      }
+    },
+    "status_code": "MANUAL",
+    "status_detail": "cloudtrail_multi_region_enabled: MANUAL",
+    "finding_info": {
+      "title": "CloudTrail is enabled in all regions",
+      "uid": "prowler-cloudtrail_multi_region_enabled-arn:aws:cloudtrail:us-east-1:123456789012:trail/main"
+    },
+    "resources": [
+      {
+        "uid": "arn:aws:cloudtrail:us-east-1:123456789012:trail/main",
+        "name": "main",
+        "type": "AwsCloudTrailTrail",
+        "region": "us-east-1"
+      }
+    ]
+  }
+]
