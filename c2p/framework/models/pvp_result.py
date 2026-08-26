@@ -20,10 +20,9 @@ from typing import List, Optional
 
 from pydantic.v1 import Field
 from trestle.oscal.assessment_results import LocalDefinitions1
+from trestle.oscal.common import Finding
 
 from c2p.common.c2p_base_model import C2PBaseModel
-from trestle.oscal.assessment_results import LocalDefinitions1
-from trestle.oscal.common import Finding
 
 
 class ResultEnum(str, Enum):

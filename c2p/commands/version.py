@@ -15,6 +15,7 @@
 # limitations under the License.
 
 """C2P Version Command."""
+
 import argparse
 from importlib.metadata import version
 
