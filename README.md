@@ -1,6 +1,6 @@
 # <img alt="Logo" width="50px" src="https://raw.githubusercontent.com/oscal-compass/compliance-to-policy/main/assets/compliance-to-policy-800x800.PNG" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
 
-Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open Security Controls Assessment Language (OSCAL) and Policy as Code used by Policy Validation Point (PVP). It generates policies in native format of PVP from OSCAL Component Definitions and produces OSCAL Assessment Results from the native assessment results of PVP. C2P can be used both as a command-line tool and a Python library, making it easy and flexible to integrate into your Continuous Compliance pipelines, such as GitHub Actions, Tekton Pipelines, or Agile Authoring Pipelines. It supports multiple PVP engines, including [Kyverno](https://kyverno.io/), [Open Cluster Management Policy Framework](https://open-cluster-management.io/), and the open-source [Auditree](https://auditree.github.io/), through dedicated plugins for each. Custom plugins can be implemented with a small amount of Python code.
+Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open Security Controls Assessment Language (OSCAL) and Policy as Code used by Policy Validation Point (PVP). It generates policies in native format of PVP from OSCAL Component Definitions and produces OSCAL Assessment Results from the native assessment results of PVP. C2P can be used both as a command-line tool and a Python library, making it easy and flexible to integrate into your Continuous Compliance pipelines, such as GitHub Actions, Tekton Pipelines, or Agile Authoring Pipelines. It supports multiple PVP engines, including [Kyverno](https://kyverno.io/), [Open Cluster Management Policy Framework](https://open-cluster-management.io/), the open-source [Auditree](https://auditree.github.io/), and [Prowler](https://github.com/prowler-cloud/prowler), through dedicated plugins for each. Custom plugins can be implemented with a small amount of Python code.
 
 ![C2P Overview](/assets/architecture.png)
 
@@ -37,6 +37,8 @@ Provide seamless integration with compliance frameworks and existing policy engi
     - OCM is a multi-cluster management platform that provides governance of Kubernetes policies. [Its policy framework](https://open-cluster-management.io/concepts/policy/) allows for the validation and enforcement of policies across multiple clusters.
 - [Auditree](https://auditree.github.io/) (for any target, especially well-suited for resources of PaaS/SaaS/IaaS available through REST API.)
     - Auditree is a GitOps based workflow automation that enables the collection and verification of evidence, building a long-term store of evidence in an git "evidence locker." Evidence is gathered by code scripts called "fetchers" and verified by "checks."
+- [Prowler](https://github.com/prowler-cloud/prowler) (for cloud and SaaS estates: AWS, Azure, GCP, Kubernetes, M365, GitHub, Google Workspace)
+    - Prowler is an open-source security scanner that ships its own library of checks. Because the checks already exist, the generated policy is a check selection and its tunable thresholds rather than policy source, and results are read back from Prowler's OCSF output.
 
 Roadmap:
 - [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper) (for Kubernetes resources)
@@ -130,6 +132,7 @@ You may be asked passphrase of SSH key to access to the git repo.
 - [Kyverno](docs/public/kyverno.md)
 - [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
 - [Auditree](docs/public/auditree.md)
+- [Prowler](docs/public/prowler.md)
 - [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
 
 ## Usage of C2P as a library

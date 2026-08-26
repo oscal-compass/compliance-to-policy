@@ -59,6 +59,8 @@ it:
 	python samples_public/ocm/result_to_compliance.py
 	python samples_public/auditree/compliance_to_policy.py
 	python samples_public/auditree/result_to_compliance.py
+	python samples_public/prowler/compliance_to_policy.py
+	python samples_public/prowler/result_to_compliance.py
 
 .PHONY: clean
 clean:
