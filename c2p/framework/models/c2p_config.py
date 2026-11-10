@@ -53,6 +53,9 @@ class ComplianceOscal(C2PBaseModel):
 class C2PConfig(C2PBaseModel):
     compliance: Optional[Union[ComplianceOscal]]
     pvp_result: Optional[PVPResult]
+    # Several engines' results, aggregated into one Assessment Results. Set through
+    # C2P.add_pvp_result; pvp_result remains the single-engine path.
+    pvp_results: Optional[List[PVPResult]]
     pvp_name: Optional[str]
     result_title: Optional[str]
     result_description: Optional[str]

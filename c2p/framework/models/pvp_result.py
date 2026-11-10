@@ -30,6 +30,9 @@ class ResultEnum(str, Enum):
     Pass = 'pass'
     Failure = 'failure'
     Error = 'error'
+    # An object that should have been rejected but was admitted. Distinct from Failure: the
+    # control is not merely violated, the engine that was supposed to enforce it did not.
+    Warning = 'warning'
 
 
 class Property(C2PBaseModel):
