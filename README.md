@@ -134,7 +134,7 @@ You may be asked passphrase of SSH key to access to the git repo.
     ```
     c2p tools viewer -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -o /tmp/assessment_results.md
     ```
-    ![assessment-results-md.kyverno.jpg](/docs/public/images/assessment-results-md.kyverno.jpg)
+    e.g. [kyverno.result.md](/docs/public/kyverno.result.md)
 1. (Optional) Render a control-level compliance posture instead. Unlike the viewer, the posture
    is a document in its own right -- `json` is the `c2p-posture/v1` model, and `md` and `html`
    are views over it -- so it can be diffed, served and re-rendered.
