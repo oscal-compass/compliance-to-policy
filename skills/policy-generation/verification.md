@@ -54,6 +54,13 @@ slogan. It is also the first thing to break when someone hand-formats a list ins
 Schema validity is not expressiveness. A generated policy can be accepted by the API server and
 still assert nothing.
 
+**Which cluster, and what you may do to it.** Everything in this section past the dry-run
+writes to a cluster: a Deny policy that lands on the wrong one rejects real workloads. Pass
+`--context` explicitly rather than inheriting `kubectl config current-context`, say which
+context you are about to act on, use a throwaway cluster created for this, and get the
+operator's agreement before the first write. See "Applying to a cluster" in
+[SKILL.md](SKILL.md).
+
 - **Dry-run** every generated document before trusting it. This catches a CEL compile error,
   which no offline check will. Use **server-side apply**:
 
@@ -65,8 +72,9 @@ still assert nothing.
   webhook** — so a policy the engine would reject is reported as accepted. Measured: a template
   set that showed 6 of 6 accepted this way was 2 of 6 under server-side apply, the other four
   rejected by Kyverno's own webhook.
-- **Confirm the negative.** Apply the policy and submit an object that should be rejected. A
-  check that has never refused anything is indistinguishable from a check that always passes.
+- **Confirm the negative.** On a throwaway cluster and with the operator's agreement, apply the
+  policy and submit an object that should be rejected. A check that has never refused anything
+  is indistinguishable from a check that always passes.
 - For a reporting engine, wait for the background scan before collecting. There is no fixed
   interval worth sleeping; poll until every declared check has a result, or the measurement is
   of the wrong set. Collecting too early produces an empty posture that looks like a clean one.
