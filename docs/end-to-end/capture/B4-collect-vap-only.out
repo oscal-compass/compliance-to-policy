@@ -1,0 +1,29 @@
+context: kind-storefront
+vap-cel: collected (probed) for 4 check(s)
+
+wrote out-vap/assessment-results.json (4 observations)
+wrote out-vap/posture.json and posture.html
+
+# Compliance Posture
+
+2 satisfied, 4 not satisfied, 3 not assessed
+
+## Component: container-supply-chain
+
+| Control | Status | Coverage | Checks | Notes |
+|---|---|---|---|---|
+| si-7.15<br/>Code Authentication | :large_orange_diamond: not-assessed | 0/2 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel | no evidence from any of the 2 check(s) this control expects |
+| si-7<br/>Software, Firmware, and Information Integrity | :x: not-satisfied | 1/5 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:x: vap-cel | 1 of 4 subject(s) failing, 1 of 5 expected check(s) reported |
+| cm-7.5<br/>Authorized Software — Allow-by-exception | :large_orange_diamond: not-assessed | 0/2 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel | no evidence from any of the 2 check(s) this control expects |
+| cm-8.3<br/>Automated Unauthorized Component Detection | :large_orange_diamond: not-assessed | 0/2 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel | no evidence from any of the 2 check(s) this control expects |
+| cm-2<br/>Baseline Configuration | :x: not-satisfied | 1/3 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:x: vap-cel | 1 of 4 subject(s) failing, 1 of 3 expected check(s) reported |
+
+## Component: three-tier-app
+
+| Control | Status | Coverage | Checks | Notes |
+|---|---|---|---|---|
+| ac-6<br/>Least Privilege | :white_check_mark: satisfied | 1/3 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:white_check_mark: vap-cel | all 4 subject(s) passing, 1 of 3 expected check(s) reported |
+| sc-39<br/>Process Isolation | :white_check_mark: satisfied | 1/3 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:white_check_mark: vap-cel | all 4 subject(s) passing, 1 of 3 expected check(s) reported |
+| cm-8<br/>System Component Inventory | :x: not-satisfied | 1/3 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:x: vap-cel | 1 of 4 subject(s) failing, 1 of 3 expected check(s) reported |
+| ia-5<br/>Authenticator Management | :x: not-satisfied | 1/3 | :large_orange_diamond: kyverno-dsl<br/>:large_orange_diamond: kyverno-cel<br/>:x: vap-cel | 1 of 4 subject(s) failing, 1 of 3 expected check(s) reported |
+

@@ -1,0 +1,21 @@
+context: kind-storefront
+applied 16 policy document(s) from out
+
+To take it off again:
+kubectl --context kind-storefront delete \
+    -f out/kyverno-cel/container-runs-unprivileged/kyverno-cel-container-runs-unprivileged.yaml \
+    -f out/kyverno-cel/db-credentials-from-secret/kyverno-cel-db-credentials-from-secret.yaml \
+    -f out/kyverno-cel/image-pinned-by-digest/kyverno-cel-image-pinned-by-digest.yaml \
+    -f out/kyverno-cel/image-registry-approved/kyverno-cel-image-registry-approved.yaml \
+    -f out/kyverno-cel/image-signature-verified/kyverno-cel-image-signature-verified.yaml \
+    -f out/kyverno-cel/workload-inventory-labelled/kyverno-cel-workload-inventory-labelled.yaml \
+    -f out/kyverno-dsl/container-runs-unprivileged/kyverno-dsl-container-runs-unprivileged.yaml \
+    -f out/kyverno-dsl/db-credentials-from-secret/kyverno-dsl-db-credentials-from-secret.yaml \
+    -f out/kyverno-dsl/image-pinned-by-digest/kyverno-dsl-image-pinned-by-digest.yaml \
+    -f out/kyverno-dsl/image-registry-approved/kyverno-dsl-image-registry-approved.yaml \
+    -f out/kyverno-dsl/image-signature-verified/kyverno-dsl-image-signature-verified.yaml \
+    -f out/kyverno-dsl/workload-inventory-labelled/kyverno-dsl-workload-inventory-labelled.yaml \
+    -f out/vap-cel/container-runs-unprivileged/vap-container-runs-unprivileged.yaml \
+    -f out/vap-cel/db-credentials-from-secret/vap-db-credentials-from-secret.yaml \
+    -f out/vap-cel/image-pinned-by-digest/vap-image-pinned-by-digest.yaml \
+    -f out/vap-cel/workload-inventory-labelled/vap-workload-inventory-labelled.yaml

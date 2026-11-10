@@ -1,0 +1,43 @@
+# Fails `vap-image-pinned-by-digest` and nothing else: the inventory labels are present, no
+# container runs privileged and the credential comes from a Secret. The single offence is an
+# image referenced by a mutable tag.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-image-pinned-by-digest
+  labels:
+    app.kubernetes.io/name: canary
+    app.kubernetes.io/part-of: storefront
+    compliance.example.com/data-classification: internal
+    compliance.example.com/owner: platform
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: canary
+  template:
+    metadata:
+      labels:
+        app: canary
+        app.kubernetes.io/name: canary
+        app.kubernetes.io/part-of: storefront
+        compliance.example.com/data-classification: internal
+        compliance.example.com/owner: platform
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: app
+          image: registry.example.com/canary:a-mutable-tag
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: canary
+                  key: password

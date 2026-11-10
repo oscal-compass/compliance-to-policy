@@ -1,0 +1,99 @@
+{
+  "profile": {
+    "uuid": "7559f985-5a1a-5329-b77d-f1851a2c7004",
+    "metadata": {
+      "title": "NIST SP 800-53 Rev 5 HIGH baseline \u2014 KubeCon three-tier demo subset",
+      "last-modified": "2022-08-23T10:36:49.133026-04:00",
+      "version": "0.1.0",
+      "oscal-version": "1.0.0",
+      "remarks": "Every control selected here is a member of the NIST SP 800-53 Rev 5 HIGH baseline. si-7.15 (Code Authentication) is HIGH-only, which is why this demo stands on HIGH rather than MODERATE. cm-14 (Signed Components) would be the intuitive control for image signing but is selected by no baseline, so si-7.15 carries that mapping and cm-14 appears only in the rule description."
+    },
+    "imports": [
+      {
+        "href": "trestle://catalogs/nist_800_53/catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "ac-6",
+              "cm-2",
+              "cm-7.5",
+              "cm-8",
+              "cm-8.3",
+              "ia-5",
+              "sc-39",
+              "si-7",
+              "si-7.15"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    },
+    "modify": {
+      "set-parameters": [
+        {
+          "param-id": "cm-02_odp.02",
+          "values": [
+            "changes to the storefront namespace manifests, the admission policy set, or the approved-registry ledger"
+          ]
+        },
+        {
+          "param-id": "cm-07.05_odp.01",
+          "values": [
+            "container images signed by the release workflow identity and pulled by digest from a registry listed in the approved-registry ledger"
+          ]
+        },
+        {
+          "param-id": "cm-08.03_odp.02",
+          "values": [
+            "Kyverno and ValidatingAdmissionPolicy admission controls"
+          ]
+        },
+        {
+          "param-id": "cm-08.03_odp.04",
+          "values": [
+            "continuously, at every admission request"
+          ]
+        },
+        {
+          "param-id": "cm-08_odp.01",
+          "values": [
+            "image digest, registry and repository, signing identity, workload name, and namespace"
+          ]
+        },
+        {
+          "param-id": "cm-08_odp.02",
+          "values": [
+            "continuously, as workloads are admitted to the cluster"
+          ]
+        },
+        {
+          "param-id": "ia-05_odp.02",
+          "values": [
+            "suspected or confirmed credential compromises"
+          ]
+        },
+        {
+          "param-id": "si-07.15_odp",
+          "values": [
+            "all container images admitted to the storefront namespace"
+          ]
+        },
+        {
+          "param-id": "si-07_odp.01",
+          "values": [
+            "the container images of every workload in the storefront namespace"
+          ]
+        },
+        {
+          "param-id": "si-07_odp.04",
+          "values": [
+            "blocking admission of the affected workload"
+          ]
+        }
+      ]
+    }
+  }
+}

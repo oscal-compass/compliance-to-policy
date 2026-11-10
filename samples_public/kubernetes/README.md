@@ -1,17 +1,21 @@
-# Kubernetes policy generation
+# Kubernetes end to end
 
-One control definition to deployable policy for three engines:
+One control definition to a compliance posture, against a real cluster:
 
 ```
 component-definition.json
   -> policy per engine        plugins_public/plugins/{kyverno_dsl,kyverno_cel,vap}.py
   -> read by a person         not automated, and not optional
+  -> applied to the cluster   docs/end-to-end/reference (an example, not the library)
+  -> results gathered         docs/end-to-end/reference (an example, not the library)
+  -> Assessment Results       c2p.result_to_oscal, one document for every engine
+  -> posture                  c2p/tools/posture
 ```
 
-Applying that policy to a cluster and collecting what the engines then decide is the other half
-of the chain, and it is not in this sample. C2P ships the conversion for it — the plugins'
-`generate_pvp_result`, `c2p.result_to_oscal` and `c2p tools posture` — but not the program that
-talks to a cluster, which carries the credentials and the decision to write.
+C2P ships everything but the two middle steps: applying the policy and collecting what the
+engines then decide needs a program that talks to a cluster, which carries the credentials and
+the decision to write. `docs/end-to-end/reference` is one such program, kept as a worked example
+rather than as part of the library.
 
 `plugins_public` is not an installed package, so the repository root has to be on the path:
 
@@ -20,6 +24,17 @@ export PYTHONPATH=.
 
 # generate, contacting no cluster
 python samples_public/kubernetes/generate.py -o out
+
+# read out/ -- see docs/end-to-end/reference/README.md for what to look for -- then apply it
+python docs/end-to-end/reference/deploy.py --context kind-storefront -f out
+
+# collect against the policy you applied
+python docs/end-to-end/reference/collect_and_assess.py --context kind-storefront -o out
+python docs/end-to-end/reference/collect_and_assess.py --context kind-storefront \
+  -e vap-cel -o out-vap
+c2p tools posture-compare -b out/posture.json -p out-vap/posture.json \
+  --baseline-label 'every engine' --posture-label 'vap-cel only' \
+  --condition 'when only ValidatingAdmissionPolicy is available'
 ```
 
 The generating and the applying are separate commands on purpose. The templates were written by
@@ -55,9 +70,8 @@ admission as a server-side dry run. And two of the six rules have no VAP check a
 they need I/O a CEL expression cannot do: verifying a signature against a registry and a
 transparency log, and consulting an in-cluster registry ledger.
 
-So generate with `-e vap-cel` alone and two of the six rules produce no policy at all, which is
-how those controls stop being reported in the posture that follows — not green, not red,
-absent. `tools posture-compare` names which ones. A control with no assessment capability
+So run the sample with `-e vap-cel` alone and controls stop being reported — not green, not
+red, absent. `tools posture-compare` names which ones. A control with no assessment capability
 behind it is neither compliant nor non-compliant, and a posture that quietly omits it is how an
 estate convinces itself it is fine.
 
@@ -65,8 +79,18 @@ estate convinces itself it is fine.
 
 `generate.py` contacts no cluster at all and is plain C2P: no `kubectl`, no credentials, no
 network. Generating is a function of files, which is what makes reading the result before any
-of it is applied possible at all.
+of it is applied possible at all. `deploy.py` and `collect_and_assess.py` need a cluster and are
+a reference implementation. They are separate programs rather than modes of one, so that the
+step between generating and applying has somewhere to be.
 
-What the generated policy needs is a cluster that will accept it. Kyverno 1.19 for both policy
-families — the CEL types need 1.19 or later and the legacy DSL is gone from 1.20; VAP is built
-in from Kubernetes 1.30.
+What the generated policy needs is a cluster that will accept it, and a context with permission
+to create cluster-scoped policy objects. Kyverno 1.19 for both policy families — the CEL types
+need 1.19 or later and the legacy DSL is gone from 1.20; VAP is built in from Kubernetes 1.30.
+
+The VAP probe creates a scratch namespace and one reporting binding per probed check, and
+deletes them by a label it wrote for that run. It never removes, modifies or weakens a policy or
+binding it did not create, so a probe that is killed leaves an empty namespace rather than a gap
+in enforcement. It does need permission to create and delete namespaces and
+`validatingadmissionpolicybindings`, which makes it more than a read-only tool —
+[`docs/end-to-end/reference/README.md`](../../docs/end-to-end/reference/README.md) lists every
+operation it performs.

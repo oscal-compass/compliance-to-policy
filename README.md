@@ -132,6 +132,7 @@ You may be asked passphrase of SSH key to access to the git repo.
 - [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
 - [Auditree](docs/public/auditree.md)
 - [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
+- [End-to-end walkthrough on Kubernetes](docs/end-to-end/README.md) — one NIST SP 800-53 control to a compliance posture, against a real cluster
 
 ## Usage of C2P as a library
 

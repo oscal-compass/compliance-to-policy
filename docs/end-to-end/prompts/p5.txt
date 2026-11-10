@@ -1,0 +1,1 @@
+Generate the vap-cel policy templates for this component definition, one per check vap-cel declares. Follow template-contract.md for the render context, and if the engine cannot express a check, do not write that check.

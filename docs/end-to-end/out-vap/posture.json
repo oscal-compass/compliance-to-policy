@@ -1,0 +1,563 @@
+{
+  "schemaVersion": "c2p-posture/v1",
+  "generatedAt": "2026-11-10T04:16:21+00:00",
+  "source": {
+    "assessmentResults": "out-vap/assessment-results.json",
+    "componentDefinition": "docs/end-to-end/oscal/component-definitions/kubecon-storefront/component-definition.json"
+  },
+  "components": [
+    {
+      "title": "container-supply-chain",
+      "controls": [
+        {
+          "controlId": "si-7.15",
+          "title": "Code Authentication",
+          "state": "not-assessed",
+          "reason": "other",
+          "remarks": "no evidence from any of the 2 check(s) this control expects",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 0
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-signature-verified",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "si-7",
+          "title": "Software, Firmware, and Information Integrity",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "1 of 4 subject(s) failing, 1 of 5 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 5,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-signature-verified",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                }
+              ]
+            },
+            {
+              "ruleId": "image-pinned-by-digest",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-image-pinned-by-digest",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-7.5",
+          "title": "Authorized Software — Allow-by-exception",
+          "state": "not-assessed",
+          "reason": "other",
+          "remarks": "no evidence from any of the 2 check(s) this control expects",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 0
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-registry-approved",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-8.3",
+          "title": "Automated Unauthorized Component Detection",
+          "state": "not-assessed",
+          "reason": "other",
+          "remarks": "no evidence from any of the 2 check(s) this control expects",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 0
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-registry-approved",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-2",
+          "title": "Baseline Configuration",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "1 of 4 subject(s) failing, 1 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-pinned-by-digest",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-image-pinned-by-digest",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "three-tier-app",
+      "controls": [
+        {
+          "controlId": "ac-6",
+          "title": "Least Privilege",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 4 subject(s) passing, 1 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "container-runs-unprivileged",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-container-runs-unprivileged",
+                  "engine": "vap-cel",
+                  "result": "pass",
+                  "remarks": "4 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "sc-39",
+          "title": "Process Isolation",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 4 subject(s) passing, 1 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "container-runs-unprivileged",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-container-runs-unprivileged",
+                  "engine": "vap-cel",
+                  "result": "pass",
+                  "remarks": "4 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-8",
+          "title": "System Component Inventory",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "1 of 4 subject(s) failing, 1 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "workload-inventory-labelled",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-workload-inventory-labelled",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "ia-5",
+          "title": "Authenticator Management",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "1 of 4 subject(s) failing, 1 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 1
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "db-credentials-from-secret",
+              "checks": [
+                {
+                  "engine": "kyverno-dsl",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "engine": "kyverno-cel",
+                  "result": "not-assessed",
+                  "remarks": "no evidence covered this check",
+                  "evidence": [],
+                  "subjects": []
+                },
+                {
+                  "checkId": "vap-db-credentials-from-secret",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)",
+                      "evaluatedOn": "2026-11-10T04:16:15+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "satisfied": 2,
+    "notSatisfied": 4,
+    "notAssessed": 3
+  }
+}

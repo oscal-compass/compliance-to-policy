@@ -1,0 +1,515 @@
+{
+  "assessment-results": {
+    "uuid": "e387754a-4e99-421e-b000-14166ccd55a9",
+    "metadata": {
+      "title": "Assessment Results",
+      "last-modified": "2026-11-10T04:16:21+00:00",
+      "version": "3.12.4",
+      "oscal-version": "1.1.3"
+    },
+    "import-ap": {
+      "href": "https://not-available-for-now"
+    },
+    "results": [
+      {
+        "uuid": "e760119e-6c99-4cbe-9162-b818051ccc3f",
+        "title": "Assessment Results",
+        "description": "Assessed by: vap-cel",
+        "start": "2026-11-10T04:16:21+00:00",
+        "reviewed-controls": {
+          "control-selections": [
+            {
+              "include-controls": [
+                {
+                  "control-id": "si-7.15"
+                },
+                {
+                  "control-id": "si-7"
+                },
+                {
+                  "control-id": "cm-7.5"
+                },
+                {
+                  "control-id": "cm-8.3"
+                },
+                {
+                  "control-id": "cm-2"
+                }
+              ]
+            },
+            {
+              "include-controls": [
+                {
+                  "control-id": "ac-6"
+                },
+                {
+                  "control-id": "sc-39"
+                },
+                {
+                  "control-id": "cm-8"
+                },
+                {
+                  "control-id": "ia-5"
+                }
+              ]
+            }
+          ]
+        },
+        "observations": [
+          {
+            "uuid": "32b9bf15-f822-49ca-a763-830fde453cee",
+            "title": "vap-container-runs-unprivileged",
+            "description": "vap-container-runs-unprivileged",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "container-runs-unprivileged"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-container-runs-unprivileged"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "7f59207a-f953-4e09-9da3-18ce81fcfe7d",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "5d4419f4-c1c9-4898-8c3b-99e68f8d2980",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "f613c8a3-fab2-43d3-b893-2af707434e10",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "f534723c-e4f1-4297-8d91-9f63735b85e5",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:21+00:00"
+          },
+          {
+            "uuid": "45be1607-6835-45c8-a111-39bdb72662f0",
+            "title": "vap-db-credentials-from-secret",
+            "description": "vap-db-credentials-from-secret",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "db-credentials-from-secret"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-db-credentials-from-secret"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "824c664c-cb2e-4657-a890-eef100fea94b",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "d44840a3-1e14-4471-996f-f5f073cb5079",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "1a2318c7-3df0-4e21-ab65-caeba8e123ce",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "4c9cae24-e037-48a3-9739-6da5f122fad2",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:21+00:00"
+          },
+          {
+            "uuid": "7059570a-b2e5-4851-97e2-4149cc6f546a",
+            "title": "vap-image-pinned-by-digest",
+            "description": "vap-image-pinned-by-digest",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-pinned-by-digest"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-image-pinned-by-digest"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "5eaddf8c-8961-4a6d-a9c4-35e686e2b153",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c924bd11-4b27-4604-83ba-c95736a71b5c",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "f3d54f6b-a924-4f31-b9a0-1ec8334d311a",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3521ca38-a082-4525-9c0f-782d2b76a414",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:21+00:00"
+          },
+          {
+            "uuid": "0dc98a19-2159-4d68-849f-b26bbd4e082e",
+            "title": "vap-workload-inventory-labelled",
+            "description": "vap-workload-inventory-labelled",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "workload-inventory-labelled"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-workload-inventory-labelled"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "c55ec3f6-56cd-415f-a9ba-00faf8a74273",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "744337be-1fd7-434f-9efc-e03e05aac92a",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "e914c76b-10ef-46e0-ad14-1300237d1b51",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3767a671-2138-4ecc-882b-fbcbfd2dad39",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:15+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:21+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
