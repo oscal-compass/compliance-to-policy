@@ -4,15 +4,6 @@ Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open
 
 **C2P++ is C2P with an agent skill added to its policy generation**, automating the production of the engine-specific policy templates. A component definition names the checks that verify each rule. C2P produces the target engine's native policy from the template that corresponds to each check. Until now those templates had to be prepared in advance. A check added to a component definition produced no policy until someone had written the template for it. In C2P++ an agent skill, [`skills/policy-generation`](skills/policy-generation/), produces that engine-specific template.
 
-**See it run.** One NIST SP 800-53 control becomes policy for three Kubernetes engines, runs
-against a live cluster, and comes back as OSCAL assessment results and a compliance posture.
-
-[![Watch the demo on YouTube](https://img.youtube.com/vi/pk3EsgA4EBQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=pk3EsgA4EBQ)
-
-The video moves at a presentation's pace, so it does not look command for command like the
-[end-to-end walkthrough](docs/end-to-end/README.md), which is where the same chain can be
-reproduced.
-
 ![C2P Overview](/assets/architecture.png)
 
 1. Compliance-to-Policy (C2P) is running in GitOps Pipeline, Kubernetes controller, or Python/Go environment
@@ -24,6 +15,11 @@ reproduced.
 1. C2P aggregates the results of policy engines by controls through plugin for each policy engine
     - The plugin is responsible for implementing a function that takes the results of the policy engine and returns verdicts (pass/fail/error), reason, and/or resource name for each respective policy by its names/IDs.
 1. C2P produces Compliance Assessment Results, for example OSCAL Assessment Results that represents the assessment results of each control 
+
+That chain run for real, step by step, is the
+[end-to-end walkthrough on Kubernetes](docs/end-to-end/README.md): one NIST SP 800-53 control to a
+compliance posture against a live cluster, with the captured output of every command. There is a
+[recording of the demo](https://www.youtube.com/watch?v=pk3EsgA4EBQ) as well.
 
 ## Goals
 Provide seamless integration with compliance frameworks and existing policy engines, and enable to use heterogeneous policy engines in compliance check operation
@@ -159,7 +155,6 @@ You may be asked passphrase of SSH key to access to the git repo.
 - [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
 - [Auditree](docs/public/auditree.md)
 - [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
-- [End-to-end walkthrough on Kubernetes](docs/end-to-end/README.md) — one NIST SP 800-53 control to a compliance posture, against a real cluster
 - [The compliance posture](docs/public/posture.md) — `c2p tools result2posture` and `posture-compare`, and the `c2p-posture/v1` document
 
 ## Usage of C2P as a library
