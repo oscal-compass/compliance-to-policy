@@ -1,0 +1,21 @@
+# Copyright 2026 IBM Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# APM package manifest (OpenAPM shape). Read by `apm` and by the compliance-authoring-skills
+# wrapper; ignored by Claude Code / OpenCode, which read only SKILL.md. This skill calls no MCP
+# server -- it writes template files and runs this repository's own renderer -- so it omits
+# `dependencies.mcp`. Do NOT add a `target:` field: APM rejects unknown target tokens at parse
+# time.
+name: policy-generation
+version: "1.0.0"
