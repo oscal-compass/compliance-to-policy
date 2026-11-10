@@ -19,7 +19,7 @@ TEMPLATE = """
 ## Component: {{ component.title }}
 
 {% for control_result in component.control_results %}
-#### Result of control {{ control_result.id }}: {{ control_result.description }}
+#### Result of control {{ control_result.id }}
 
 {% for rule_result in control_result.rule_results %}
 {% if rule_result.subjects|length > 0 %}

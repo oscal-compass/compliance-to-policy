@@ -66,7 +66,7 @@ def get_prop_value(props: List[Property], name):
 def get_pass_fail_icon(result):
     if result == 'pass':
         return ':white_check_mark:'
-    elif result == 'failure':
+    elif result in ['failure', 'fail', 'error']:
         return ':x:'
     else:
         return ':warning:'
@@ -100,7 +100,9 @@ def render(assessment_results: AssessmentResults, component_definition: Componen
                     rule_id = prop.value
                     pvp, rule_set = get_pvp_rule_pair(rule_id)
                     if rule_set != None:
-                        rule_result = RuleResult(id=f'{rule_id} ({pvp})', description=rule_set['Check_Description'])
+                        rule_result = RuleResult(
+                            id=f'{rule_id} ({pvp})', description=rule_set.get('Check_Description', '')
+                        )
                         o = find_observation(assessment_results.results[0].observations, rule_set['Rule_Id'])
                         if o != None:
                             for subject in o.subjects:

@@ -17,6 +17,8 @@
 from trestle.core.commands.command_docs import CommandBase
 
 from c2p.commands.tools.csv2oscal_cd import Csv2OscalCd
+from c2p.commands.tools.posture_compare import PostureCompare
+from c2p.commands.tools.result2posture import Result2Posture
 from c2p.commands.tools.viewer import Viewer
 
 
@@ -25,4 +27,4 @@ class Tools(CommandBase):
 
     name = 'tools'
 
-    subcommands = [Csv2OscalCd, Viewer]
+    subcommands = [Csv2OscalCd, Viewer, Result2Posture, PostureCompare]
