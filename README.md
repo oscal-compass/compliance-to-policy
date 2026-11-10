@@ -4,6 +4,15 @@ Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open
 
 **C2P++ is C2P with an agent skill added to its policy generation**, automating the production of the engine-specific policy templates. A component definition names the checks that verify each rule. C2P produces the target engine's native policy from the template that corresponds to each check. Until now those templates had to be prepared in advance. A check added to a component definition produced no policy until someone had written the template for it. In C2P++ an agent skill, [`skills/policy-generation`](skills/policy-generation/), produces that engine-specific template.
 
+**See it run.** One NIST SP 800-53 control becomes policy for three Kubernetes engines, runs
+against a live cluster, and comes back as OSCAL assessment results and a compliance posture.
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/pk3EsgA4EBQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=pk3EsgA4EBQ)
+
+The video moves at a presentation's pace, so it does not look command for command like the
+[end-to-end walkthrough](docs/end-to-end/README.md), which is where the same chain can be
+reproduced.
+
 ![C2P Overview](/assets/architecture.png)
 
 1. Compliance-to-Policy (C2P) is running in GitOps Pipeline, Kubernetes controller, or Python/Go environment

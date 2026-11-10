@@ -4,11 +4,6 @@ NIST SP 800-53 rev 5 → OSCAL → three Kubernetes policy engines → evidence 
 control-by-control compliance posture. On a real cluster, and every link in the chain is an OSCAL
 Compass component.
 
-[![Watch the demo on YouTube](https://img.youtube.com/vi/pk3EsgA4EBQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=pk3EsgA4EBQ)
-
-The video is an introduction and moves at a presentation's pace, so it does not look command for
-command like this page — it shows the shape of the chain, and this is where it can be reproduced.
-
 **What it shows.** Two components doing an entire compliance lifecycle between them. The
 [`agentic-agile-authoring`](https://github.com/oscal-compass/agentic-agile-authoring) skills author
 the OSCAL: a person writes two prose documents and gives five prompts, and the skills produce the
