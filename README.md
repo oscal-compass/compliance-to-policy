@@ -223,7 +223,7 @@ and so on.
 > | Where the value comes from | `Parameter_Value_Alternatives` only | `set-parameters`, then `Parameter_Value_Default`, then `Parameter_Value_Alternatives` |
 > | Which components are read | only the **last** non-validation component — the loop overwrote its accumulator each time round, so a component definition with several service components silently used one of them | every non-validation component |
 > | Numbered columns | only the unnumbered `Parameter_Id` | `Parameter_Id`, `Parameter_Id_2`, … |
-> | A parameter declared twice | — | the later value wins, silently: rendering folds the list into one `{id: value}` mapping |
+> | A parameter declared twice | — | the later value wins, silently, in every plugin that turns the list into a `{id: value}` mapping — the three Kubernetes plugins, `kyverno` and `ocm`. `auditree` iterates the list instead and sees both |
 
 **A parameter with no value anywhere renders as an empty string.** It is logged as a warning and
 substituted as `''`. `StrictUndefined` does not catch it — the variable is defined, it is empty —

@@ -75,8 +75,15 @@ and until then a reader of a posture needs to know about them:
   reliable signal in both cases.
 - **A rule with no checks is not in the coverage denominator.** `expectedChecks` counts checks
   declared by validation components. A rule that no validation component implements contributes
-  nothing to either side of the fraction, so a control whose rules are entirely unimplemented can
-  report `0 of 0` rather than naming the gap.
+  nothing to either side of the fraction, so a control whose rules are entirely unimplemented
+  reports `0 of 0` — with `state` `not-assessed`, which at least says something is wrong.
+
+  The misleading case is a partial one. A control with one implemented rule that passes and
+  another rule that no validation component implements reports `satisfied`, with `coverage`
+  `1 of 1`: the unimplemented rule is in neither side of the fraction, so nothing in the state
+  or the coverage says it is there. It survives in the JSON as a `rules[]` entry with an empty
+  `checks` list, and is absent from the `md` and `html` views altogether. Until this changes,
+  comparing a control's `rules[]` against the component definition is the only way to see it.
 
 ### `c2p tools posture-compare`
 
