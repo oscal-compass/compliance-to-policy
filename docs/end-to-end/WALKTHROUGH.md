@@ -646,11 +646,12 @@ Out: [`out/`](out/) — 16 policy documents, `assessment-results.json`, `posture
 
 Two operational notes. Kyverno's background scan is asynchronous, so on a cluster where the
 policies are new the scan may have no results yet and the posture under-reports; the remedy is to
-let it settle and run step 8d again — which is cheap, because 8c applies nothing. The capture above does not exercise that race, its policies
-having been on the cluster for hours. Separately, what step 8d leaves on the cluster: nothing. It
-creates a scratch namespace and one reporting binding per probed check, both labelled with a run
-identifier, and deletes them by that label. If it is killed in between, what survives is an empty
-namespace and bindings that deny nothing — never a gap in enforcement.
+let it settle and run step 8c again — which is cheap, because collecting applies nothing. The
+capture above does not exercise that race, its policies having been on the cluster for hours.
+Separately, what step 8c leaves on the cluster: nothing. It creates a scratch namespace and one
+reporting binding per probed check, both labelled with a run identifier, and deletes them by that
+label. If it is killed in between, what survives is an empty namespace and bindings that deny
+nothing — never a gap in enforcement.
 
 ## 9. The same component definition, assessed with one engine — needs a cluster
 
@@ -779,6 +780,7 @@ difference between two engines agreeing about a control and silently disagreeing
 | [`images/`](images/) | the frames embedded in steps 1 to 6 |
 
 Left out: the unresolved NIST catalog, which is large, upstream, and re-imported by step 3. There is
-no raw-evidence directory, because step 8d collects in process and writes the Assessment Results
-rather than an intermediate dump. There is no capture for step 8b either, because reading something
-produces no output — which is the one step here that a pipeline cannot be trusted to have done.
+no raw-evidence directory, because step 8c collects in process and writes the Assessment Results
+rather than an intermediate dump. There is no capture for the reading in 8a either, because reading
+something produces no output — which is the one step here that a pipeline cannot be trusted to have
+done.
