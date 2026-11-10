@@ -525,8 +525,9 @@ This is the first thing in the chain that needs a kubeconfig, and it is where th
 Holding cluster credentials and writing to a cluster are decisions about one particular cluster, so
 this lives in [`reference/`](reference/) as a worked example. `--context` is required rather than
 inherited, and the context is printed before anything is written. It prints the `kubectl delete`
-that undoes it — scoped by the check-id label every generated document carries — because removing
-policy is the one operation here that can only reduce enforcement and should stay a deliberate act.
+that undoes it, naming the same documents it applied — a label selector would reach every C2P
+policy on the cluster, including another component definition's — because removing policy is the
+one operation here that can only reduce enforcement and should stay a deliberate act.
 
 ### 8c. Collect what the engines decided, and turn it back into OSCAL
 

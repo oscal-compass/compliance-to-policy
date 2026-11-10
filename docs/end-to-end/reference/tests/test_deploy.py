@@ -22,11 +22,16 @@ to be sitting next to them.
 """
 
 import pathlib
+import sys
 
 import pytest
 
 from c2p.common.err import C2PError
 from platform_k8s import deploy
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+
+from deploy import deletion_command  # noqa: E402  -- the CLI beside platform_k8s/deploy.py
 
 
 class FakeClient:
@@ -103,3 +108,26 @@ def test_a_missing_tree_says_to_generate_first(tmp_path):
 
     with pytest.raises(C2PError, match='Generate the policy first'):
         deploy.deploy(client, str(tmp_path / 'nope'))
+
+
+def test_the_printed_deletion_names_the_same_files_and_nothing_else(tmp_path):
+    """The command `deploy.py` prints gets pasted, so it has to remove what this run applied.
+
+    Not a label selector: the template contract puts `compliance.oscal/check-id` on every policy
+    C2P generates, so selecting on it reaches every C2P policy on the cluster -- another
+    component definition's, another team's, whatever GitOps installed -- none of which this run
+    applied or read.
+    """
+    out = policy_tree(tmp_path)
+    client = FakeClient()
+    files = deploy.deploy(client, str(out))
+
+    command = deletion_command('kind-storefront', files)
+
+    assert '-l ' not in command, 'a label selector reaches policies this run did not apply'
+    assert '--selector' not in command
+    assert '-R' not in command
+    assert command.count('-f ') == len(files)
+    for path in files:
+        assert f'-f {path}' in command
+    assert '--context kind-storefront' in command

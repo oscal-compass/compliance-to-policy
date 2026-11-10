@@ -28,13 +28,20 @@ reproduce exactly, and the walkthrough says so where it shows them.
 
 Captured against the demo cluster: kind, Kubernetes v1.34.0, Kyverno v1.19.2.
 
-Some of these have been re-rendered since that run, so that what is committed here agrees with
-what the committed artefacts produce today rather than with the code as it stood in November.
-The posture tables in `B3` and `B4` are `result2posture` over the committed
-`assessment-results.json`, and were re-rendered when the roll-up stopped counting a check that
-could not evaluate as a failure -- the numbers are the same evidence, read correctly. `B1`'s
-last line lost the sentence `generate.py` used to print pointing here. Everything else,
-including every line that came from a cluster, is as it was.
+Some of these have been brought up to date since that run, so that what is committed here agrees
+with what the committed artefacts and the current code produce rather than with the code as it
+stood in November. In full:
+
+| | |
+|---|---|
+| `B1` last line | lost the sentence `generate.py` used to print pointing here |
+| `B2` first line, `B3` and `B4` first line | gained the `context:` line both programs now print before they write |
+| `B2` last lines | the `kubectl delete` the program prints, which now names the documents it applied |
+| `B3` and `B4` posture tables | `result2posture` over the committed `assessment-results.json`, re-rendered when the roll-up stopped counting a check that could not evaluate as a failure -- the numbers are the same evidence, read correctly |
+
+The posture tables were re-rendered by running the renderer. The rest were edited to match what
+the programs now print, not re-run -- the cluster they were recorded against is gone. Every line
+that came from that cluster is as it was.
 
 `B0`'s `.generated.yaml.tmpl` predates the template contract's rules on substituting a value
 from the component definition, so its header comment lacks the `oneline` filter the contract now

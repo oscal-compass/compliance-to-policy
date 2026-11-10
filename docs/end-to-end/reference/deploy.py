@@ -31,6 +31,7 @@ what to look for before running it.
 import argparse
 import pathlib
 import sys
+from typing import List
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[2]
@@ -68,29 +69,28 @@ def announce(args) -> None:
         print(f'kubeconfig: {args.kubeconfig}')
 
 
+def deletion_command(context: str, files: List[pathlib.Path]) -> str:
+    """The command that removes what was just applied, and only that.
+
+    The same enumeration `deploy` applied, named the same way. Not `-R -f <dir>`, which after a
+    collection run reaches `assessment-results.json` and `posture.json` as well. And not a label
+    selector either: the template contract puts `compliance.oscal/check-id` on every policy C2P
+    generates, so `-l compliance.oscal/check-id` matches every C2P policy on the cluster --
+    other component definitions, other teams, whatever GitOps put there -- and not the set this
+    run applied. A printed command gets pasted, so it has to be the narrow one.
+    """
+    continuation = ' \\\n    '
+    arguments = continuation.join(f'-f {path}' for path in files)
+    return f'kubectl --context {context} delete{continuation}{arguments}'
+
+
 def main():
     args = parse_args()
     announce(args)
     client = KubeClient(kubeconfig=args.kubeconfig, context=args.context, kubectl=args.kubectl)
     files = deploy.deploy(client, args.policy_dir)
     print(f'applied {len(files)} policy document(s) from {args.policy_dir}')
-    # By label, not `-R -f <dir>`: the directory reaches whatever else kubectl recognises in
-    # there, which after a collection run includes assessment-results.json and posture.json.
-    # Every document C2P generates carries the check id it was rendered from, so the label is
-    # exactly the set this applied and nothing a person put there by hand.
-    kinds = ','.join(
-        [
-            'clusterpolicies.kyverno.io',
-            'validatingpolicies.policies.kyverno.io',
-            'imagevalidatingpolicies.policies.kyverno.io',
-            'validatingadmissionpolicies.admissionregistration.k8s.io',
-            'validatingadmissionpolicybindings.admissionregistration.k8s.io',
-        ]
-    )
-    print(
-        f'\nTo take it off again: kubectl --context {args.context} delete {kinds} '
-        f'-l compliance.oscal/check-id'
-    )
+    print(f'\nTo take it off again:\n{deletion_command(args.context, files)}')
 
 
 if __name__ == '__main__':
