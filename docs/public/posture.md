@@ -37,16 +37,55 @@ c2p tools result2posture \
 **What it is accountable for.** The expected set of checks comes from the component definition,
 not from the evidence. A check the component definition declares and no engine reported is a
 `not-assessed` row rather than a missing one, and every control carries `coverage` alongside its
-state. A control nothing could evaluate is `not-assessed` — neither compliant nor
-non-compliant — because reporting it as either would invent a verdict the evidence does not
-carry.
+state.
 
 **An engine that could not decide has not found a violation.** An `error` from an engine, or a
 `skip` from a matching PolicyException, is the absence of a verdict. Neither is counted in the
 pass/fail tally; both reduce `assessedChecks`. A posture that counted them as failures would send
 someone looking for a breach that is not there.
 
+#### How a control's `state` is decided
+
+The first row that matches wins. `fail`, `warning` and `pass` are verdicts; `error` and `skip`
+are the absence of one.
+
+| Condition | `state` | `reason` |
+|---|---|---|
+| The component definition declares no check for the control | `not-assessed` | `other` |
+| It declares checks, but none of them reported | `not-assessed` | `other` |
+| Checks reported, and every one of them reached no verdict | `not-assessed` | `other` |
+| Any subject `fail`s | `not-satisfied` | `fail` |
+| Any subject is a `warning` — non-compliant, reported by the engine as a warning rather than scored | `not-satisfied` | `other` |
+| Subjects passed, and some subject reached no verdict | `not-assessed` | `other` |
+| Every subject passed | `satisfied` | `pass` |
+
+A check's own `result` follows the same idea one level down: the strongest verdict any of its
+subjects reached, or `error` if none of them reached one, or `not-assessed` if no evidence
+covered the check at all.
+
+#### Known limitations
+
+Two cases where the model does not yet say what it should. Both are tracked for a later change,
+and until then a reader of a posture needs to know about them:
+
+- **A check that errored and a check that stayed silent are not treated alike.** Two passing
+  checks plus one that errored give `not-assessed`. Two passing checks plus one that reported
+  nothing give `satisfied`, with `coverage` showing 2 of 3. Both are the same fact — one of the
+  three checks did not answer — so one of the two states is wrong. The coverage figure is the
+  reliable signal in both cases.
+- **A rule with no checks is not in the coverage denominator.** `expectedChecks` counts checks
+  declared by validation components. A rule that no validation component implements contributes
+  nothing to either side of the fraction, so a control whose rules are entirely unimplemented can
+  report `0 of 0` rather than naming the gap.
+
 ### `c2p tools posture-compare`
+
+The two inputs are `-f json` postures, so produce them first — one from each collection:
+
+```
+c2p tools result2posture -ar /tmp/assessment-results.json     -cdef <cdef> -f json -o /tmp/posture.json
+c2p tools result2posture -ar /tmp/assessment-results-vap.json -cdef <cdef> -f json -o /tmp/posture-vap-only.json
+```
 
 ```
 c2p tools posture-compare \
@@ -71,14 +110,19 @@ express stop being reported, and this names them.
 
 ### The `c2p-posture/v1` document
 
-`-f json` writes this. Serialization omits empty fields, so an unassessed check carries no
-`checkId` rather than a null one.
+`-f json` writes this, and is the default. Serialization omits empty fields, so a field marked
+`?` below is absent rather than null when it has no value.
+
+As it stands a `not-assessed` check carries no `checkId`, since there was no reported check to
+name. That is current behaviour rather than a guarantee — giving unassessed checks their declared
+check id is a change under consideration.
 
 ```
 schemaVersion  "c2p-posture/v1"
 framework      str?
 generatedAt    str?
 source         { assessmentResults?, componentDefinition?, catalog? }   the inputs, as paths
+               assessmentResults is one string: a repeated -ar is joined with ", "
 components[]
   title        str
   controls[]

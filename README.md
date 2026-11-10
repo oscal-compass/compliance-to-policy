@@ -136,13 +136,16 @@ You may be asked passphrase of SSH key to access to the git repo.
    model, and `md` and `html` are views over it -- so it can be diffed, served and re-rendered.
     ```
     c2p tools result2posture -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -f html -o /tmp/posture.html
+    # and as the c2p-posture/v1 document, which is what posture-compare reads
+    c2p tools result2posture -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -f json -o /tmp/posture.json
     ```
     The posture is accountable for every check the component definition declares, so a check
     no engine reported is a `not-assessed` row rather than an omission, and each control carries
     `coverage` alongside its state. Repeat `-ar` to combine several Assessment Results into one
     posture.
 1. (Optional) Compare two postures control by control, to see which controls stop being
-   assessed under a narrower set of engines.
+   assessed under a narrower set of engines. Both inputs are `-f json` postures, each produced
+   from its own collection -- below, a second one collected with `vap-cel` alone.
     ```
     c2p tools posture-compare -b /tmp/posture.json -p /tmp/posture-vap-only.json \
       --baseline-label 'every engine' --posture-label 'vap-cel only' \
@@ -205,15 +208,28 @@ You may be asked passphrase of SSH key to access to the git repo.
 
 `set-parameters` wins because it is the resolved value: trestle's `csv-to-oscal-cd` writes
 parameter values there and leaves only the id in the props, so reading the props alone yields
-parameters with nothing in them. A parameter with no value in any of the three is logged as a
-warning.
+parameters with nothing in them.
 
-> **Behaviour change.** Earlier releases read `Parameter_Value_Alternatives` and nothing else.
-> An existing component definition that carries `set-parameters` or `Parameter_Value_Default`
-> will now generate different policy. Check the generated output after upgrading.
+Parameters are read from **every** component that is not a validation component, and a rule can
+declare several by numbering the prop columns — `Parameter_Id_2`, `Parameter_Value_Default_2`,
+and so on.
 
-A rule can declare several parameters by numbering the prop columns — `Parameter_Id_2`,
-`Parameter_Value_Default_2`, and so on. Earlier releases read only the unnumbered `Parameter_Id`.
+> **Behaviour change — check your generated output after upgrading.** Four things differ from
+> earlier releases, and a component definition that generated correctly before can generate
+> different policy now:
+>
+> | | Before | Now |
+> |---|---|---|
+> | Where the value comes from | `Parameter_Value_Alternatives` only | `set-parameters`, then `Parameter_Value_Default`, then `Parameter_Value_Alternatives` |
+> | Which components are read | only the **last** non-validation component — the loop overwrote its accumulator each time round, so a component definition with several service components silently used one of them | every non-validation component |
+> | Numbered columns | only the unnumbered `Parameter_Id` | `Parameter_Id`, `Parameter_Id_2`, … |
+> | A parameter declared twice | — | the later value wins, silently: rendering folds the list into one `{id: value}` mapping |
+
+**A parameter with no value anywhere renders as an empty string.** It is logged as a warning and
+substituted as `''`. `StrictUndefined` does not catch it — the variable is defined, it is empty —
+so a check written as `image.startsWith({{ params.approved_registry | quote }})` becomes
+`image.startsWith("")` and asserts nothing. Read the generated policy, and treat a parameter
+warning in the log as a generation failure until the value is supplied.
 
 #### Generate Compliance Assessment Results from PVP native results
 1. Create `C2PConfig` object to supply compliance requirements and some metadata (See also [kyverno/compliance_to_policy.py](/samples_public/kyverno/result_to_compliance.py) for a real example)

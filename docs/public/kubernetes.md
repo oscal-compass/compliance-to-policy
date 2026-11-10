@@ -58,7 +58,9 @@ nine NIST SP 800-53 controls, each rule implemented by up to three engines.
     reports every workload compliant — which is only catchable by reading it.
 
     Applying needs a program that talks to a cluster, which carries the credentials and the
-    decision to write. C2P does not ship one.
+    decision to write. C2P does not ship one. A worked example of that half, kept as an example
+    rather than as part of the library, is
+    [`docs/end-to-end/reference/`](/docs/end-to-end/reference/README.md).
 
 1. Collect the engines' results and produce Assessment Results (C2P Result to Compliance)
 
@@ -101,6 +103,47 @@ plugin.generate_pvp_policy(policy)
 `policy` comes from `C2P(config).get_policy()`, as for any plugin — see
 [Usage of C2P as a library](/README.md#usage-of-c2p-as-a-library).
 
+#### What each plugin reads back
+
+`generate_pvp_result(RawResult(data=...))` converts what an engine reported. **Converting needs
+no configuration** — the two directories above are for generating — so a collector can construct
+the plugin with no arguments.
+
+**`kyverno_dsl` and `kyverno_cel`** take the engine's own reports: `PolicyReport` and
+`ClusterPolicyReport` objects (`wgpolicyk8s.io/v1alpha2`), either as a list or as the whole
+`kubectl get policyreport,clusterpolicyreport -A -o json` envelope — anything else in it is
+ignored. Each entry's `results[].policy` is read as the Check_Id, and `results[].result` maps as:
+
+| PolicyReport | C2P |
+|---|---|
+| `pass` | `pass` |
+| `fail` | `failure` |
+| `warn` | `warning` — non-compliant, reported as a warning rather than scored |
+| `skip` | `error` — evaluation was bypassed, so no verdict |
+| `error` | `error` |
+
+**`vap`** takes what a probe observed, in either of two shapes. ValidatingAdmissionPolicy has no
+report API, so there is no engine-side document to read — see
+[The engines are not interchangeable](#the-engines-are-not-interchangeable).
+
+- a list of outcomes, one per (check, object):
+  `{checkId, title, resourceId, result, reason, evaluatedOn, props}`, where `result` is `pass`,
+  `fail`, `warning` or `error`. Anything else becomes `error`, never a pass
+- a `c2p-evidence/v1` document — a mapping with `observations[]`, each carrying `checkId` and
+  `subjects[]`, where a subject has the fields above apart from `checkId`. Recognised by the
+  presence of `observations`
+
+```python
+import json
+
+from c2p.framework.models import RawResult
+from plugins_public.plugins.vap import PluginVap
+
+with open('probe-output.json') as f:
+    pvp_result = PluginVap().generate_pvp_result(RawResult(data=json.load(f)))
+c2p.add_pvp_result(pvp_result)
+```
+
 The template for a check is `<policy_template_dir>/<Check_Id>.yaml.tmpl`. A check the component
 definition declares with no template is an error, not a silent omission: generation raises
 `C2PError` rather than producing a policy set that quietly misses a control. The template
@@ -110,7 +153,13 @@ substituted — is [`skills/policy-generation/template-contract.md`](/skills/pol
 Templates are rendered in a Jinja2 sandbox with `StrictUndefined`, and what they rendered is
 parsed before it is written: every document must be a kind the plugin declares it generates,
 named after the check. A template is executable and its inputs come from a component definition,
-so neither is taken on trust.
+so neither is taken at face value.
+
+Two gaps are known and being worked on, so read the generated policy rather than relying on
+this alone. A value from the component definition containing `{{ … }}` survives into a
+`kyverno-dsl` policy, where Kyverno expands it when it evaluates — in `context.apiCall.urlPath`,
+in condition values and in messages. And the render context is one `params` mapping shared by
+every template in a call, so a template can change what a later one renders.
 
 #### The engines are not interchangeable
 
@@ -130,6 +179,11 @@ control then appears in the posture as *not assessed by that engine* rather than
 `c2p tools posture-compare` names which controls stop being reported when only that engine is
 available. A control with no assessment capability behind it is neither compliant nor
 non-compliant, and a posture that quietly omits it is how an estate convinces itself it is fine.
+
+This holds as long as some engine declares a check for the rule. A rule that **no** validation
+component implements is not counted in `expectedChecks` either, so the gap it leaves is not
+visible as coverage — see
+[Known limitations](posture.md#known-limitations).
 
 More on each engine's dialect, and the failures that recur when generating for it, in
 [`skills/policy-generation/engines.md`](/skills/policy-generation/engines.md).
