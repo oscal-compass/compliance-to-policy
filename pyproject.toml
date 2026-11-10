@@ -26,6 +26,10 @@ classifiers = [
 ]
 dependencies = [
   "compliance-trestle~=3.3",
+  # 3.1.6 or later: policy templates are rendered in a Jinja2 sandbox, and the sandbox
+  # escapes CVE-2024-56326 and CVE-2025-27516 are fixed in 3.1.5 and 3.1.6. An older jinja2
+  # would still import, and the sandbox would not hold.
+  "jinja2>=3.1.6",
   "PyGithub==1.58.0",
   "jq==1.6.0",
   "pluggy",

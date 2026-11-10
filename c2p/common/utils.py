@@ -40,7 +40,7 @@ class ControlList:
 
     def get_control_ids(self) -> List[str]:
         def custom_sort(key):
-            tokens = re.split('(\d+)', key)
+            tokens = re.split(r'(\d+)', key)
             return list(map(lambda x: int(x) if x.isdigit() else x, tokens))
 
         control_ids = set(map(lambda x: x.control_id, self.items))
@@ -98,3 +98,17 @@ def remove_none(obj):
         return type(obj)((remove_none(k), remove_none(v)) for k, v in obj.items() if k is not None and v is not None)
     else:
         return obj
+
+
+def strtobool(value: str) -> bool:
+    """`distutils.util.strtobool`, which Python 3.12 removed along with the rest of distutils.
+
+    Returns a bool rather than distutils' 0/1 int: every caller uses it in a condition, and an
+    int that is really a bool invites `== 1` somewhere downstream.
+    """
+    normalized = str(value).strip().lower()
+    if normalized in ('y', 'yes', 't', 'true', 'on', '1'):
+        return True
+    if normalized in ('n', 'no', 'f', 'false', 'off', '0'):
+        return False
+    raise ValueError(f'invalid truth value: {value!r}')

@@ -18,9 +18,9 @@ import json
 import os
 import shutil
 import tempfile
-from distutils.util import strtobool
 from pathlib import Path
 
+from c2p.common.utils import strtobool
 from c2p.framework.models import Parameter, Policy, PVPResult, RawResult
 from plugins_public.plugins.auditree import PluginAuditree, PluginConfigAuditree
 from plugins_public.tests.utils import load_yaml, load_yamls

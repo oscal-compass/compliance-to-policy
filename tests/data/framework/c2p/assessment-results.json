@@ -20,8 +20,7 @@
           {
             "include_controls": [
               {
-                "control_id": "cm-6",
-                "statement_ids": []
+                "control_id": "cm-6"
               }
             ]
           }
@@ -36,6 +35,10 @@
             {
               "name": "assessment-rule-id",
               "value": "test_configuration_check"
+            },
+            {
+              "name": "assessment-check-id",
+              "value": "policy-high-scan"
             }
           ],
           "methods": [

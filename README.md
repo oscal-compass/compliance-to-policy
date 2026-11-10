@@ -1,6 +1,8 @@
 # <img alt="Logo" width="50px" src="https://raw.githubusercontent.com/oscal-compass/compliance-to-policy/main/assets/compliance-to-policy-800x800.PNG" style="vertical-align: middle;" /> Compliance-to-Policy (also known as `C2P`)
 
-Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open Security Controls Assessment Language (OSCAL) and Policy as Code used by Policy Validation Point (PVP). It generates policies in native format of PVP from OSCAL Component Definitions and produces OSCAL Assessment Results from the native assessment results of PVP. C2P can be used both as a command-line tool and a Python library, making it easy and flexible to integrate into your Continuous Compliance pipelines, such as GitHub Actions, Tekton Pipelines, or Agile Authoring Pipelines. It supports multiple PVP engines, including [Kyverno](https://kyverno.io/), [Open Cluster Management Policy Framework](https://open-cluster-management.io/), and the open-source [Auditree](https://auditree.github.io/), through dedicated plugins for each. Custom plugins can be implemented with a small amount of Python code.
+Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open Security Controls Assessment Language (OSCAL) and Policy as Code used by Policy Validation Point (PVP). It generates policies in native format of PVP from OSCAL Component Definitions, and turns the native assessment results of PVP into OSCAL Assessment Results and a control-level compliance posture. C2P can be used both as a command-line tool and a Python library, making it easy and flexible to integrate into your Continuous Compliance pipelines, such as GitHub Actions, Tekton Pipelines, or Agile Authoring Pipelines. Custom plugins can be implemented with a small amount of Python code.
+
+**C2P++ is C2P with an agent skill added to its policy generation**, automating the production of the engine-specific policy templates. A component definition names the checks that verify each rule. C2P produces the target engine's native policy from the template that corresponds to each check. Until now those templates had to be prepared in advance. A check added to a component definition produced no policy until someone had written the template for it. In C2P++ an agent skill, [`skills/policy-generation`](skills/policy-generation/), produces that engine-specific template.
 
 ![C2P Overview](/assets/architecture.png)
 
@@ -13,10 +15,6 @@ Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open
 1. C2P aggregates the results of policy engines by controls through plugin for each policy engine
     - The plugin is responsible for implementing a function that takes the results of the policy engine and returns verdicts (pass/fail/error), reason, and/or resource name for each respective policy by its names/IDs.
 1. C2P produces Compliance Assessment Results, for example OSCAL Assessment Results that represents the assessment results of each control 
-
-Demo:
-- [Kyverno as PVP](docs/public/kyverno.md)
-- [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
 
 ## Goals
 Provide seamless integration with compliance frameworks and existing policy engines, and enable to use heterogeneous policy engines in compliance check operation
@@ -33,6 +31,9 @@ Provide seamless integration with compliance frameworks and existing policy engi
 ## Supported Policy Engines
 - [Kyverno](https://kyverno.io/) (for Kubernetes resources)
     - Kyverno is a policy engine designed for Kubernetes, where policies are managed as Kubernetes resources. Kyverno policies can validate, mutate, generate, and clean up Kubernetes resources.
+    - Two policy languages are supported, by separate plugins. `kyverno.io/v1 ClusterPolicy` is the original DSL, deprecated in Kyverno 1.19 and removed in 1.20; `policies.kyverno.io/v1` is its CEL-based replacement. Both are generated from the same component definition, which is the argument for authoring the control rather than the policy
+- [ValidatingAdmissionPolicy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) (for Kubernetes resources)
+    - Upstream Kubernetes, CEL evaluated inside the API server, no controller to install. It decides at admission time only: it runs no background scan over objects that already exist and publishes no report, so C2P obtains its verdicts by replaying a workload as a server-side dry run. What CEL in the API server cannot do — fetch from a registry, read another object — is a limit on which checks an estate can express with it, which is visible in the posture as coverage rather than hidden
 - [Open Cluster Management Policy Framework](https://open-cluster-management.io/) (for Kubernetes resources)
     - OCM is a multi-cluster management platform that provides governance of Kubernetes policies. [Its policy framework](https://open-cluster-management.io/concepts/policy/) allows for the validation and enforcement of policies across multiple clusters.
 - [Auditree](https://auditree.github.io/) (for any target, especially well-suited for resources of PaaS/SaaS/IaaS available through REST API.)
@@ -218,6 +219,13 @@ You may be asked passphrase of SSH key to access to the git repo.
 You can create a custom plugin by overriding `PluginSpec` and `PluginConfig`. 
 `PluginSpec` has two interfaces `generate_pvp_policy` and `generate_pvp_result`. 
 C2P framework will instantiate `PluginSpec` with `PluginConfig`.
+
+A plugin whose generated artifact is one document per check renders it from a template, and
+writing those templates is the part that needs engine knowledge rather than c2p knowledge. The
+agent skill in [`skills/policy-generation/`](skills/policy-generation/SKILL.md) covers it: the
+template contract, the three Kubernetes engines and the shape each one wants, what an engine
+cannot express (and why declaring no check is the right answer when it cannot), and how to
+verify generated policy byte for byte.
 
 #### PluginConfig
 1. Extend PluginConfig with custom fields as the plugin needs 

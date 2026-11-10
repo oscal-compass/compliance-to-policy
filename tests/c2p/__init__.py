@@ -16,9 +16,8 @@
 
 import os
 import pathlib
-from distutils.util import strtobool
-
 from c2p.common import logging
+from c2p.common.utils import strtobool
 
 logger = logging.getLogger(__name__)
 

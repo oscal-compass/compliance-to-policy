@@ -1,0 +1,29 @@
+[
+  {
+    "checkId": "vap-labels-present",
+    "title": "deployment.apps/api in storefront",
+    "resourceId": "apps/v1/deployment.apps/api/storefront",
+    "result": "fail",
+    "reason": "admission rejected: the workload is missing required inventory labels",
+    "evaluatedOn": "2026-11-05T07:00:00Z",
+    "props": {"engine.object": "vap-labels-present", "engine.action": "audit"}
+  },
+  {
+    "checkId": "vap-labels-present",
+    "title": "statefulset.apps/db in storefront",
+    "resourceId": "apps/v1/statefulset.apps/db/storefront",
+    "result": "error",
+    "reason": "could not evaluate vap-labels-present: the probe was rejected by another engine",
+    "evaluatedOn": "2026-11-05T07:00:01Z",
+    "props": {}
+  },
+  {
+    "checkId": "vap-digest-pinned",
+    "title": "deployment.apps/web in storefront",
+    "resourceId": "apps/v1/deployment.apps/web/storefront",
+    "result": "pass",
+    "reason": "server-side dry run admitted the object with only vap-digest-pinned bound",
+    "evaluatedOn": "2026-11-05T07:00:02Z",
+    "props": {}
+  }
+]

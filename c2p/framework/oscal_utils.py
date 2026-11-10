@@ -61,7 +61,14 @@ def reviewed_controls(component_definition: ComponentDefinition) -> ReviewedCont
                 statement_ids = []
                 for stmt in impl_req.statements if impl_req.statements != None else []:
                     statement_ids.append(stmt.statement_id)
-                selectControl = SelectControlById(control_id=impl_req.control_id, statement_ids=statement_ids)
+                # Omitted, not empty, when the requirement has no statements: OSCAL 1.2.1 gives
+                # `statement-ids` minItems 1, so `[]` is invalid and trestle 5.x rejects the
+                # whole Assessment Results over it. trestle 3.x accepts it, which is why this
+                # survived -- the document is still wrong.
+                selectControl = SelectControlById(
+                    control_id=impl_req.control_id,
+                    statement_ids=statement_ids if statement_ids != [] else None,
+                )
                 selectControls.append(selectControl)
             control_selections.append(ControlSelection(include_controls=selectControls))
     rval = ReviewedControls(control_selections=control_selections)
