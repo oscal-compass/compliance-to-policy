@@ -16,10 +16,13 @@
 """Generated policy, compared byte for byte against a committed reference.
 
 Driven from the bundled sample assets rather than from fixtures invented here, because the
-claim worth testing is not "the renderer substitutes variables" -- it is that this
-implementation produces *the same policy documents* as an independent
-implementation does from the same OSCAL component definition. The reference output under
-`samples_public/kubernetes/expected-policies` came from that implementation.
+claim worth testing is not "the renderer substitutes variables". `expected-policies` is a
+committed snapshot of this generator's output: the test holds generated policy byte for byte
+stable, so a change to a template or to the renderer has to be made deliberately and read as
+a diff. It is not independent of the generator and does not claim to be.
+
+The second test is the one that is independent of a snapshot: one authored parameter has to
+reach two different engines as the same CEL expression, which no reference file asserts.
 
 "Looks right" is not a criterion for generated policy. A CEL expression is compared as a
 string, by a cluster, and one space in a list literal is the difference between two engines
@@ -29,6 +32,7 @@ agreeing about a control and silently disagreeing.
 import pathlib
 
 import pytest
+import yaml
 
 from c2p.framework.c2p import C2P
 from c2p.framework.models.c2p_config import C2PConfig, ComplianceOscal
@@ -36,7 +40,7 @@ from plugins_public.plugins.kyverno_cel import PluginConfigKyvernoCel, PluginKyv
 from plugins_public.plugins.kyverno_dsl import PluginConfigKyvernoDsl, PluginKyvernoDsl
 from plugins_public.plugins.vap import PluginConfigVap, PluginVap
 
-SAMPLE = pathlib.Path('samples_public/kubernetes')
+SAMPLE = pathlib.Path(__file__).resolve().parents[3] / 'samples_public' / 'kubernetes'
 COMPONENT_DEFINITION = SAMPLE / 'component-definition.json'
 
 # The two CEL engines, which have to render one authored parameter to the same expression.
@@ -89,7 +93,15 @@ def test_one_parameter_renders_identically_in_both_cel_engines(tmp_path):
         generate(engine, plugin_cls, config_cls, tmp_path / engine)
 
     def required_expression(path):
-        return next(line for line in path.read_text().splitlines() if "- name: required" not in line and '["' in line)
+        """Read the variable out of the document, not out of the text.
+
+        Matched against the raw lines this went looking for a `["` and found
+        `apiGroups: ["apps"]` the moment the expression was quoted differently -- two engines
+        agreeing about a line neither test nor policy depends on.
+        """
+        documents = [d for d in yaml.safe_load_all(path.read_text()) if d != None]
+        policy = next(d for d in documents if 'variables' in d.get('spec', {}))
+        return next(v['expression'] for v in policy['spec']['variables'] if v['name'] == 'required')
 
     rule = 'workload-inventory-labelled'
     cel = required_expression(tmp_path / 'kyverno-cel' / rule / f'kyverno-cel-{rule}.yaml')
