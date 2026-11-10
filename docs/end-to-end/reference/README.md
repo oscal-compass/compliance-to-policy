@@ -82,8 +82,8 @@ Three things it does not do, each because the alternative was tried and rejected
   you in its message. What reaches Assessment Results is one line, capped.
 
 There is deliberately no `undeploy`. Removing policy from a cluster only ever reduces enforcement,
-so it stays a deliberate `kubectl delete -R -f <dir>` rather than a convenience sitting next to
-`deploy.py` — which prints that command rather than offering to run it.
+so it stays a deliberate `kubectl delete` rather than a convenience sitting next to `deploy.py`
+— which prints that command, naming the documents it applied, rather than offering to run it.
 
 ## Probing an admission-only engine
 
@@ -104,6 +104,11 @@ fail that check. If the check does not report the canary, the probe says `error`
 rather than `pass`. There is no flag to skip this, and a check with no canary is `error` too.
 
 ## Requirements
+
+`--context` is required by both programs, and each prints the context it is about to act on
+before it writes anything. There is no fallback to `kubectl config current-context`: these
+programs apply Deny policy and create objects, and inheriting the ambient context is how a run
+lands on a cluster nobody meant to change.
 
 `kubectl` on `PATH` (or `--kubectl`), and a context with permission to: read the workloads being
 assessed, read PolicyReports, apply the generated policy, and create and delete namespaces and

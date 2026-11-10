@@ -516,13 +516,17 @@ python docs/end-to-end/reference/deploy.py \
 
 [`capture/B2-apply.out`](capture/B2-apply.out). A command of its own rather than something 8a does
 on its way past, and that is the whole point: a step is easier to insist on than a flag. What it
-applies is exactly what was read in 8a — the same directory, unmodified — and it generates nothing.
+applies is exactly what was read in 8a — those documents, named one by one — and it generates
+nothing. Naming them is the point: handing `kubectl apply` the directory would also apply the
+`.json` and `.yml` files it recognises in there, and after 8c that directory holds the assessment
+results and the posture, which nobody read as policy.
 
 This is the first thing in the chain that needs a kubeconfig, and it is where the library stops.
 Holding cluster credentials and writing to a cluster are decisions about one particular cluster, so
-this lives in [`reference/`](reference/) as a worked example. It prints the `kubectl delete` that
-undoes it, because removing policy is the one operation here that can only reduce enforcement and
-should stay a deliberate act.
+this lives in [`reference/`](reference/) as a worked example. `--context` is required rather than
+inherited, and the context is printed before anything is written. It prints the `kubectl delete`
+that undoes it — scoped by the check-id label every generated document carries — because removing
+policy is the one operation here that can only reduce enforcement and should stay a deliberate act.
 
 ### 8c. Collect what the engines decided, and turn it back into OSCAL
 

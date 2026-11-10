@@ -45,13 +45,15 @@ def policy_files(policy_dir: str) -> List[pathlib.Path]:
 def deploy(client: KubeClient, policy_dir: str) -> List[pathlib.Path]:
     """Apply every generated policy document under `policy_dir`.
 
-    Applied as a directory rather than file by file so that a policy and the binding that
+    The enumerated files are applied in a single request so that a policy and the binding that
     activates it land together; a policy without its binding enforces nothing, and that is
-    indistinguishable in a posture from a policy that passed.
+    indistinguishable in a posture from a policy that passed. They are named individually
+    rather than by directory so that what is applied is what was enumerated, and therefore
+    what was read.
     """
     files = policy_files(policy_dir)
     if files == []:
         raise C2PError(f'No policy documents under {policy_dir}')
-    client.apply(pathlib.Path(policy_dir))
+    client.apply_files(files)
     logger.info(f'Applied {len(files)} policy document(s) from {policy_dir}')
     return files

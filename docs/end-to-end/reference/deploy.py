@@ -45,17 +45,52 @@ def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-f', '--policy-dir', type=str, default='out', help='The tree you just read')
     parser.add_argument('--kubeconfig', type=str, default=None)
-    parser.add_argument('--context', type=str, default=None)
+    parser.add_argument(
+        '--context',
+        type=str,
+        required=True,
+        help='kubectl context to act on. Required: this writes to a cluster, and inheriting '
+        'current-context is how a run lands on the wrong one',
+    )
     parser.add_argument('--kubectl', type=str, default='kubectl')
     return parser.parse_args()
 
 
+def announce(args) -> None:
+    """Say what is about to be written to, and where, before writing anything.
+
+    A Deny policy on the wrong cluster rejects real workloads. The context is named on the
+    command line, so this is not a confirmation prompt -- it is the record of which cluster the
+    run acted on, printed where the person running it will see it.
+    """
+    print(f'context: {args.context}')
+    if args.kubeconfig != None:
+        print(f'kubeconfig: {args.kubeconfig}')
+
+
 def main():
     args = parse_args()
+    announce(args)
     client = KubeClient(kubeconfig=args.kubeconfig, context=args.context, kubectl=args.kubectl)
     files = deploy.deploy(client, args.policy_dir)
     print(f'applied {len(files)} policy document(s) from {args.policy_dir}')
-    print('\nTo take it off again: kubectl delete -R -f ' + args.policy_dir)
+    # By label, not `-R -f <dir>`: the directory reaches whatever else kubectl recognises in
+    # there, which after a collection run includes assessment-results.json and posture.json.
+    # Every document C2P generates carries the check id it was rendered from, so the label is
+    # exactly the set this applied and nothing a person put there by hand.
+    kinds = ','.join(
+        [
+            'clusterpolicies.kyverno.io',
+            'validatingpolicies.policies.kyverno.io',
+            'imagevalidatingpolicies.policies.kyverno.io',
+            'validatingadmissionpolicies.admissionregistration.k8s.io',
+            'validatingadmissionpolicybindings.admissionregistration.k8s.io',
+        ]
+    )
+    print(
+        f'\nTo take it off again: kubectl --context {args.context} delete {kinds} '
+        f'-l compliance.oscal/check-id'
+    )
 
 
 if __name__ == '__main__':

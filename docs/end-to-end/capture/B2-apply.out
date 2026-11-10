@@ -1,3 +1,4 @@
+context: kind-storefront
 applied 16 policy document(s) from out
 
-To take it off again: kubectl delete -R -f out
+To take it off again: kubectl --context kind-storefront delete clusterpolicies.kyverno.io,validatingpolicies.policies.kyverno.io,imagevalidatingpolicies.policies.kyverno.io,validatingadmissionpolicies.admissionregistration.k8s.io,validatingadmissionpolicybindings.admissionregistration.k8s.io -l compliance.oscal/check-id

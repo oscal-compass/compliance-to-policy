@@ -89,7 +89,13 @@ def parse_args():
         help='One <check-id>.canary.yaml per probed check: an object that must fail that check',
     )
     parser.add_argument('--kubeconfig', type=str, default=None)
-    parser.add_argument('--context', type=str, default=None)
+    parser.add_argument(
+        '--context',
+        type=str,
+        required=True,
+        help='kubectl context to act on. Required: this writes to a cluster, and inheriting '
+        'current-context is how a run lands on the wrong one',
+    )
     parser.add_argument('--kubectl', type=str, default='kubectl')
     return parser.parse_args()
 
@@ -122,6 +128,11 @@ def collect_one(engine, args, client):
 
 def main():
     args = parse_args()
+    # Said before anything is written: the VAP probe creates a namespace and bindings, so this
+    # is not a read-only run, and which cluster it acted on belongs in its output.
+    print(f'context: {args.context}')
+    if args.kubeconfig != None:
+        print(f'kubeconfig: {args.kubeconfig}')
     out_root = pathlib.Path(args.out)
     out_root.mkdir(parents=True, exist_ok=True)
     client = KubeClient(kubeconfig=args.kubeconfig, context=args.context, kubectl=args.kubectl)

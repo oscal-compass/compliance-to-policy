@@ -129,10 +129,18 @@ class KubeClient:
         completed = self.run(args, check=False)
         return completed.stdout if completed.returncode == 0 else None
 
-    def apply(self, path: pathlib.Path, recursive: bool = True) -> None:
-        """Apply a directory of manifests that someone has read."""
+    def apply_files(self, paths: List[pathlib.Path]) -> None:
+        """Apply exactly the manifests named, in one request.
+
+        Named one `-f` at a time rather than by handing kubectl the directory. `apply -R -f
+        <dir>` applies whatever kubectl recognises under it, which is `.json` and `.yml` as
+        well as `.yaml` -- and the directory a collection run writes to also holds
+        `assessment-results.json` and `posture.json`. What a caller enumerated and what
+        kubectl would have applied are then two different sets, and only one of them was read.
+        """
         args = ['apply', '--server-side', '--force-conflicts', '--field-manager', self.field_manager]
-        args = args + (['-R', '-f', str(path)] if recursive else ['-f', str(path)])
+        for path in paths:
+            args = args + ['-f', str(path)]
         self.run(args)
 
     def apply_manifest(self, manifest: str, namespace: Optional[str] = None) -> None:

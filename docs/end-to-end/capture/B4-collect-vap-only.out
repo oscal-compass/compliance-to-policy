@@ -1,3 +1,4 @@
+context: kind-storefront
 vap-cel: collected (probed) for 4 check(s)
 
 wrote out-vap/assessment-results.json (4 observations)

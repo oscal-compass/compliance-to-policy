@@ -1,3 +1,4 @@
+context: kind-storefront
 kyverno-dsl: collected (reported) for 6 check(s)
 kyverno-cel: collected (reported) for 6 check(s)
 vap-cel: collected (probed) for 4 check(s)
