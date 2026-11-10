@@ -31,11 +31,46 @@ jobs:
         uses: python-semantic-release/python-semantic-release@v9.8.7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Sign the release commit and tag with an SSH key. The action writes the
+          # pair to ~/.ssh, loads it into an ssh-agent and sets commit.gpgsign and
+          # tag.gpgsign; those apply because semantic-release shells out to git
+          # rather than writing objects itself. The committer has to be the account
+          # that owns the signing key, with an email verified on it, or GitHub will
+          # not mark the signature Verified.
+          git_committer_name: ${{ vars.RELEASE_COMMITTER_NAME }}
+          git_committer_email: ${{ vars.RELEASE_COMMITTER_EMAIL }}
+          ssh_public_signing_key: ${{ vars.RELEASE_SSH_PUBLIC_KEY }}
+          ssh_private_signing_key: ${{ secrets.RELEASE_SSH_PRIVATE_KEY }}
       - name: Check release
         if: steps.release.outputs.released == 'false'
         run: |
           echo 'No release will be made since there are no release commits. See also Commit Parsers configuration.'
           exit 1
+      - name: Check signatures
+        if: steps.release.outputs.released == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          commit="$(git rev-list -n 1 "$TAG")"
+
+          # The objects first. A release that pushed unsigned ones has failed, and
+          # nothing later in this workflow would notice.
+          git cat-file commit "$commit" | grep -q '^gpgsig' \
+            || { echo "::error::release commit $commit is not signed"; exit 1; }
+          git cat-file tag "$TAG" | grep -q 'BEGIN SSH SIGNATURE' \
+            || { echo "::error::tag $TAG is not signed"; exit 1; }
+
+          # Then what GitHub makes of them. Verified additionally needs the key on
+          # the committer's account and the committer email verified there, neither
+          # of which the objects can tell us.
+          verification="$(gh api "repos/$GITHUB_REPOSITORY/commits/$commit" --jq '.commit.verification')"
+          echo "commit $commit: $verification"
+          [ "$(printf '%s' "$verification" | jq -r '.verified')" = "true" ] || {
+            echo "::error::GitHub did not verify the release commit: $(printf '%s' "$verification" | jq -r '.reason')"
+            exit 1
+          }
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
