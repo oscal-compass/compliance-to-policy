@@ -14,7 +14,7 @@
           "title": "Code Authentication",
           "state": "not-satisfied",
           "reason": "fail",
-          "remarks": "20 of 34 subject(s) failing, 2 of 2 expected check(s) reported",
+          "remarks": "13 of 34 subject(s) failing, 2 of 2 expected check(s) reported, 7 subject(s) could not be evaluated",
           "coverage": {
             "expectedChecks": 2,
             "assessedChecks": 2
@@ -28,7 +28,7 @@
                   "checkId": "kyverno-dsl-image-signature-verified",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "10 of 17 subject(s) not passing",
+                  "remarks": "10 failing, 7 passing, of 17 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -156,7 +156,7 @@
                   "checkId": "kyverno-cel-image-signature-verified",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "10 of 17 subject(s) not passing",
+                  "remarks": "3 failing, 7 passing, 7 not evaluated, of 17 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -289,7 +289,7 @@
           "title": "Software, Firmware, and Information Integrity",
           "state": "not-satisfied",
           "reason": "fail",
-          "remarks": "23 of 46 subject(s) failing, 5 of 5 expected check(s) reported",
+          "remarks": "16 of 46 subject(s) failing, 5 of 5 expected check(s) reported, 7 subject(s) could not be evaluated",
           "coverage": {
             "expectedChecks": 5,
             "assessedChecks": 5
@@ -303,7 +303,7 @@
                   "checkId": "kyverno-dsl-image-signature-verified",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "10 of 17 subject(s) not passing",
+                  "remarks": "10 failing, 7 passing, of 17 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -431,7 +431,7 @@
                   "checkId": "kyverno-cel-image-signature-verified",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "10 of 17 subject(s) not passing",
+                  "remarks": "3 failing, 7 passing, 7 not evaluated, of 17 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -564,7 +564,7 @@
                   "checkId": "kyverno-dsl-image-pinned-by-digest",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -601,7 +601,7 @@
                   "checkId": "kyverno-cel-image-pinned-by-digest",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -638,7 +638,7 @@
                   "checkId": "vap-image-pinned-by-digest",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -694,7 +694,7 @@
                   "checkId": "kyverno-dsl-image-registry-approved",
                   "engine": "kyverno-dsl",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -731,7 +731,7 @@
                   "checkId": "kyverno-cel-image-registry-approved",
                   "engine": "kyverno-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -787,7 +787,7 @@
                   "checkId": "kyverno-dsl-image-registry-approved",
                   "engine": "kyverno-dsl",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -824,7 +824,7 @@
                   "checkId": "kyverno-cel-image-registry-approved",
                   "engine": "kyverno-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -880,7 +880,7 @@
                   "checkId": "kyverno-dsl-image-pinned-by-digest",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -917,7 +917,7 @@
                   "checkId": "kyverno-cel-image-pinned-by-digest",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -954,7 +954,7 @@
                   "checkId": "vap-image-pinned-by-digest",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1015,7 +1015,7 @@
                   "checkId": "kyverno-dsl-container-runs-unprivileged",
                   "engine": "kyverno-dsl",
                   "result": "pass",
-                  "remarks": "8 subject(s) passing",
+                  "remarks": "8 passing, of 8 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1080,7 +1080,7 @@
                   "checkId": "kyverno-cel-container-runs-unprivileged",
                   "engine": "kyverno-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1117,7 +1117,7 @@
                   "checkId": "vap-container-runs-unprivileged",
                   "engine": "vap-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1173,7 +1173,7 @@
                   "checkId": "kyverno-dsl-container-runs-unprivileged",
                   "engine": "kyverno-dsl",
                   "result": "pass",
-                  "remarks": "8 subject(s) passing",
+                  "remarks": "8 passing, of 8 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1238,7 +1238,7 @@
                   "checkId": "kyverno-cel-container-runs-unprivileged",
                   "engine": "kyverno-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1275,7 +1275,7 @@
                   "checkId": "vap-container-runs-unprivileged",
                   "engine": "vap-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1331,7 +1331,7 @@
                   "checkId": "kyverno-dsl-workload-inventory-labelled",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1368,7 +1368,7 @@
                   "checkId": "kyverno-cel-workload-inventory-labelled",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1405,7 +1405,7 @@
                   "checkId": "vap-workload-inventory-labelled",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1461,7 +1461,7 @@
                   "checkId": "kyverno-dsl-db-credentials-from-secret",
                   "engine": "kyverno-dsl",
                   "result": "fail",
-                  "remarks": "1 of 2 subject(s) not passing",
+                  "remarks": "1 failing, 1 passing, of 2 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1484,7 +1484,7 @@
                   "checkId": "kyverno-cel-db-credentials-from-secret",
                   "engine": "kyverno-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -1521,7 +1521,7 @@
                   "checkId": "vap-db-credentials-from-secret",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {

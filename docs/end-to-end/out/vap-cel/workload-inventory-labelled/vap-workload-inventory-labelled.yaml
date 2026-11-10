@@ -20,7 +20,7 @@ spec:
         resources: ["deployments", "statefulsets"]
   variables:
     - name: required
-      expression: '["app.kubernetes.io/name","app.kubernetes.io/part-of","compliance.example.com/data-classification","compliance.example.com/owner"]'
+      expression: "[\"app.kubernetes.io/name\",\"app.kubernetes.io/part-of\",\"compliance.example.com/data-classification\",\"compliance.example.com/owner\"]"
     - name: labels
       expression: "has(object.metadata.labels) ? object.metadata.labels : {}"
     - name: podLabels

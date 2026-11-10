@@ -94,7 +94,7 @@
                   "checkId": "vap-image-pinned-by-digest",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -230,7 +230,7 @@
                   "checkId": "vap-image-pinned-by-digest",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -305,7 +305,7 @@
                   "checkId": "vap-container-runs-unprivileged",
                   "engine": "vap-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -375,7 +375,7 @@
                   "checkId": "vap-container-runs-unprivileged",
                   "engine": "vap-cel",
                   "result": "pass",
-                  "remarks": "4 subject(s) passing",
+                  "remarks": "4 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -445,7 +445,7 @@
                   "checkId": "vap-workload-inventory-labelled",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {
@@ -515,7 +515,7 @@
                   "checkId": "vap-db-credentials-from-secret",
                   "engine": "vap-cel",
                   "result": "fail",
-                  "remarks": "1 of 4 subject(s) not passing",
+                  "remarks": "1 failing, 3 passing, of 4 subject(s)",
                   "evidence": [],
                   "subjects": [
                     {

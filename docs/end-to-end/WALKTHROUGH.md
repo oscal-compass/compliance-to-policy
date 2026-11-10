@@ -561,8 +561,8 @@ It also prints the posture as markdown. Rendered, and with the per-engine check 
 
 | Control | | Status | Checks | Evidence |
 |---|---|---|---|---|
-| `si-7.15` | Code Authentication | not satisfied | 2 of 2 | 20 of 34 subjects failing |
-| `si-7` | Software, Firmware, and Information Integrity | not satisfied | 5 of 5 | 23 of 46 subjects failing |
+| `si-7.15` | Code Authentication | not satisfied | 2 of 2 | 13 of 34 subjects failing, 7 not evaluated |
+| `si-7` | Software, Firmware, and Information Integrity | not satisfied | 5 of 5 | 16 of 46 subjects failing, 7 not evaluated |
 | `cm-7.5` | Authorized Software — Allow-by-exception | **satisfied** | 2 of 2 | all 8 subjects passing |
 | `cm-8.3` | Automated Unauthorized Component Detection | **satisfied** | 2 of 2 | all 8 subjects passing |
 | `cm-2` | Baseline Configuration | not satisfied | 3 of 3 | 3 of 12 subjects failing |
@@ -603,9 +603,15 @@ decisions that belong to whoever runs the cluster rather than to a library. It l
 [`reference/`](reference/) and this page runs it as what it is, an example.
 
 The result: nine NIST controls, each with a status, the per-check results behind it, a coverage
-figure and the reason recorded — `20 of 34 subject(s) failing` is detail surviving from a
+figure and the reason recorded — `13 of 34 subject(s) failing` is detail surviving from a
 PolicyReport into a control-level statement — and every one of them traceable back to the control a
 person selected in step 3.
+
+The seven subjects `si-7.15` and `si-7` report as *not evaluated* are the same recording's local
+registry failing to return a manifest, so the signature check reached no verdict for them. They
+are reported as missing coverage rather than as violations: an engine that could not decide has
+not found anything, and a posture that counts it as a failure sends someone to look for a breach
+that is not there.
 
 `collected (reported)` and `collected (probed)` are different acts. Kyverno's two families publish
 to the `wgpolicyk8s.io` PolicyReport API, so collecting is a read, and it includes violations that

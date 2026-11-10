@@ -33,7 +33,7 @@ spec:
         resources: ["deployments", "statefulsets"]
   variables:
     - name: ledger
-      expression: 'resource.List("v1", "configmaps", "supply-chain")'
+      expression: "resource.List(\"v1\", \"configmaps\", \"supply-chain\")"
     - name: approved
       expression: >-
         dyn(variables.ledger.items)
@@ -51,5 +51,5 @@ spec:
   validations:
     - expression: "size(variables.unapproved) == 0"
       messageExpression: >-
-        'NIST SP 800-53 cm-7.5 cm-8.3: the image registry is not in the approved-registry ledger in namespace supply-chain. Offending: ' +
+        'NIST SP 800-53 cm-7.5 cm-8.3: the image registry is not in the approved-registry ledger in namespace ' + "supply-chain" + '. Offending: ' +
         variables.unapproved.map(c, c.image).join(', ') + ' (check kyverno-cel-image-registry-approved)'
