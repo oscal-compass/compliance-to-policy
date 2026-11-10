@@ -1,0 +1,45 @@
+# A PolicyReport as Kyverno's CEL pillar actually emits it: the subject is named once at the
+# report level in `scope`, and results[].resources is absent.
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: wgpolicyk8s.io/v1alpha2
+    kind: PolicyReport
+    metadata:
+      name: report-api
+      namespace: storefront
+    scope:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: api
+      namespace: storefront
+    results:
+      - policy: kyverno-cel-labels-present
+        result: fail
+        message: the workload is missing required inventory labels
+        timestamp:
+          seconds: 1762300000
+      - policy: kyverno-cel-labels-present
+        result: warn
+        message: admitted despite objecting
+        timestamp:
+          seconds: 1762300001
+  - apiVersion: wgpolicyk8s.io/v1alpha2
+    kind: ClusterPolicyReport
+    metadata:
+      name: report-cluster
+    scope:
+      apiVersion: apps/v1
+      kind: StatefulSet
+      name: db
+      namespace: storefront
+    results:
+      - policy: kyverno-cel-digest-pinned
+        result: pass
+        message: image is pinned by digest
+        timestamp:
+          seconds: 1762300002
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: not-a-report

@@ -18,8 +18,8 @@ import os
 import pathlib
 import shutil
 import tempfile
-from distutils.util import strtobool
 
+from c2p.common.utils import strtobool
 from c2p.framework.models import Parameter, Policy, RawResult, RuleSet
 from plugins_public.plugins.ocm import PluginConfigOCM, PluginOCM
 from plugins_public.tests.utils import load_yaml
