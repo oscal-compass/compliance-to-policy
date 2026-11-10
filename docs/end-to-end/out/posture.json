@@ -1,0 +1,1569 @@
+{
+  "schemaVersion": "c2p-posture/v1",
+  "generatedAt": "2026-11-10T04:16:13+00:00",
+  "source": {
+    "assessmentResults": "out/assessment-results.json",
+    "componentDefinition": "docs/end-to-end/oscal/component-definitions/kubecon-storefront/component-definition.json"
+  },
+  "components": [
+    {
+      "title": "container-supply-chain",
+      "controls": [
+        {
+          "controlId": "si-7.15",
+          "title": "Code Authentication",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "20 of 34 subject(s) failing, 2 of 2 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 2
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-signature-verified",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-signature-verified",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "10 of 17 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "ReplicaSet storefront/web-5678df868",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-5678df868",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                      "resourceId": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                      "resourceId": "v1/Pod/storefront/api-5646cc8bc5-rm9j6",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:50+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-df5546fcc",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-df5546fcc",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-5678df868-fxkbw",
+                      "resourceId": "v1/Pod/storefront/web-5678df868-fxkbw",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-bhwxd",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-bhwxd",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-db@sha256:31b2851706545c15912bd89f51932b74c31a9ef851970b0947cdd716f8f38fb0",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-hf8cf",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-hf8cf",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/db-0",
+                      "resourceId": "v1/Pod/storefront/db-0",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-db@sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:50+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-5646cc8bc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-signature-verified",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "10 of 17 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "ReplicaSet storefront/web-5678df868",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-5678df868",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                      "resourceId": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                      "resourceId": "v1/Pod/storefront/api-5646cc8bc5-rm9j6",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-df5546fcc",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-df5546fcc",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-5678df868-fxkbw",
+                      "resourceId": "v1/Pod/storefront/web-5678df868-fxkbw",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:55+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-bhwxd",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-bhwxd",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-hf8cf",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-hf8cf",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/db-0",
+                      "resourceId": "v1/Pod/storefront/db-0",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-db/manifests/sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-db Revision:sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994]",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-5646cc8bc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "si-7",
+          "title": "Software, Firmware, and Information Integrity",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "23 of 46 subject(s) failing, 5 of 5 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 5,
+            "assessedChecks": 5
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-signature-verified",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-signature-verified",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "10 of 17 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "ReplicaSet storefront/web-5678df868",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-5678df868",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                      "resourceId": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                      "resourceId": "v1/Pod/storefront/api-5646cc8bc5-rm9j6",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:50+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-df5546fcc",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-df5546fcc",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-5678df868-fxkbw",
+                      "resourceId": "v1/Pod/storefront/web-5678df868-fxkbw",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-bhwxd",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-bhwxd",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-db@sha256:31b2851706545c15912bd89f51932b74c31a9ef851970b0947cdd716f8f38fb0",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-hf8cf",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-hf8cf",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/db-0",
+                      "resourceId": "v1/Pod/storefront/db-0",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-db@sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:50+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-5646cc8bc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f",
+                      "result": "fail",
+                      "reason": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-signature-verified",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "10 of 17 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "ReplicaSet storefront/web-5678df868",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-5678df868",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                      "resourceId": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                      "resourceId": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                      "resourceId": "v1/Pod/storefront/api-5646cc8bc5-rm9j6",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-df5546fcc",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-df5546fcc",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/web-5678df868-fxkbw",
+                      "resourceId": "v1/Pod/storefront/web-5678df868-fxkbw",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:55+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-bhwxd",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-bhwxd",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5",
+                      "result": "fail",
+                      "reason": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/api-df5546fcc-hf8cf",
+                      "resourceId": "v1/Pod/storefront/api-df5546fcc-hf8cf",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Pod storefront/db-0",
+                      "resourceId": "v1/Pod/storefront/db-0",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-db/manifests/sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-db Revision:sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994]",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/api-5646cc8bc5",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                      "resourceId": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f",
+                      "result": "error",
+                      "reason": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]",
+                      "evaluatedOn": "2026-11-10T04:05:54+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:53+00:00"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ruleId": "image-pinned-by-digest",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-pinned-by-digest",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "validation error: NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag (check kyverno-dsl-image-pinned-by-digest). rule image-must-carry-a-digest failed at path /spec/template/spec/containers/0/image/",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-pinned-by-digest",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check kyverno-cel-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-image-pinned-by-digest",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-7.5",
+          "title": "Authorized Software — Allow-by-exception",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 8 subject(s) passing, 2 of 2 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 2
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-registry-approved",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-registry-approved",
+                  "engine": "kyverno-dsl",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-registry-approved",
+                  "engine": "kyverno-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-8.3",
+          "title": "Automated Unauthorized Component Detection",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 8 subject(s) passing, 2 of 2 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 2,
+            "assessedChecks": 2
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-registry-approved",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-registry-approved",
+                  "engine": "kyverno-dsl",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-registry-approved",
+                  "engine": "kyverno-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-2",
+          "title": "Baseline Configuration",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "3 of 12 subject(s) failing, 3 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 3
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "image-pinned-by-digest",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-image-pinned-by-digest",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "validation error: NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag (check kyverno-dsl-image-pinned-by-digest). rule image-must-carry-a-digest failed at path /spec/template/spec/containers/0/image/",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'image-must-carry-a-digest' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-image-pinned-by-digest",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check kyverno-cel-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-image-pinned-by-digest",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "three-tier-app",
+      "controls": [
+        {
+          "controlId": "ac-6",
+          "title": "Least Privilege",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 16 subject(s) passing, 3 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 3
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "container-runs-unprivileged",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-container-runs-unprivileged",
+                  "engine": "kyverno-dsl",
+                  "result": "pass",
+                  "remarks": "8 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-container-runs-unprivileged",
+                  "engine": "kyverno-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-container-runs-unprivileged",
+                  "engine": "vap-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "sc-39",
+          "title": "Process Isolation",
+          "state": "satisfied",
+          "reason": "pass",
+          "remarks": "all 16 subject(s) passing, 3 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 3
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "container-runs-unprivileged",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-container-runs-unprivileged",
+                  "engine": "kyverno-dsl",
+                  "result": "pass",
+                  "remarks": "8 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'no-hostpath-volumes' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'no-privilege-and-no-host-namespaces' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-container-runs-unprivileged",
+                  "engine": "kyverno-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-container-runs-unprivileged",
+                  "engine": "vap-cel",
+                  "result": "pass",
+                  "remarks": "4 subject(s) passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "cm-8",
+          "title": "System Component Inventory",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "3 of 12 subject(s) failing, 3 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 3
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "workload-inventory-labelled",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-workload-inventory-labelled",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "validation error: NIST SP 800-53 cm-8: the workload and its pod template must carry all required inventory labels (check kyverno-dsl-workload-inventory-labelled). rule required-inventory-labels failed at path /metadata/labels/app.kubernetes.io/name/",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "validation rule 'required-inventory-labels' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "validation rule 'required-inventory-labels' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "validation rule 'required-inventory-labels' passed.",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-workload-inventory-labelled",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check kyverno-cel-workload-inventory-labelled)",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-workload-inventory-labelled",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "controlId": "ia-5",
+          "title": "Authenticator Management",
+          "state": "not-satisfied",
+          "reason": "fail",
+          "remarks": "3 of 10 subject(s) failing, 3 of 3 expected check(s) reported",
+          "coverage": {
+            "expectedChecks": 3,
+            "assessedChecks": 3
+          },
+          "evidence": [],
+          "rules": [
+            {
+              "ruleId": "db-credentials-from-secret",
+              "checks": [
+                {
+                  "checkId": "kyverno-dsl-db-credentials-from-secret",
+                  "engine": "kyverno-dsl",
+                  "result": "fail",
+                  "remarks": "1 of 2 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "rule passed",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "fail",
+                      "reason": "validation failure: NIST SP 800-53 ia-5: a credential environment variable carries a literal value and must use valueFrom.secretKeyRef instead. Keys that must come from a Secret: POSTGRES_PASSWORD POSTGRES_USER APP_DB_PASSWORD APP_DB_DSN (check kyverno-dsl-db-credentials-from-secret)",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "kyverno-cel-db-credentials-from-secret",
+                  "engine": "kyverno-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "Deployment storefront/legacy-api",
+                      "resourceId": "apps/v1/Deployment/storefront/legacy-api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/api",
+                      "resourceId": "apps/v1/Deployment/storefront/api",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    },
+                    {
+                      "title": "StatefulSet storefront/db",
+                      "resourceId": "apps/v1/StatefulSet/storefront/db",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check kyverno-cel-db-credentials-from-secret)",
+                      "evaluatedOn": "2026-11-10T04:05:51+00:00"
+                    },
+                    {
+                      "title": "Deployment storefront/web",
+                      "resourceId": "apps/v1/Deployment/storefront/web",
+                      "result": "pass",
+                      "reason": "success",
+                      "evaluatedOn": "2026-11-10T04:05:52+00:00"
+                    }
+                  ]
+                },
+                {
+                  "checkId": "vap-db-credentials-from-secret",
+                  "engine": "vap-cel",
+                  "result": "fail",
+                  "remarks": "1 of 4 subject(s) not passing",
+                  "evidence": [],
+                  "subjects": [
+                    {
+                      "title": "deployment.apps/api in storefront",
+                      "resourceId": "deployment.apps/api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/legacy-api in storefront",
+                      "resourceId": "deployment.apps/legacy-api/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "deployment.apps/web in storefront",
+                      "resourceId": "deployment.apps/web/storefront",
+                      "result": "pass",
+                      "reason": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    },
+                    {
+                      "title": "statefulset.apps/db in storefront",
+                      "resourceId": "statefulset.apps/db/storefront",
+                      "result": "fail",
+                      "reason": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)",
+                      "evaluatedOn": "2026-11-10T04:16:07+00:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "satisfied": 4,
+    "notSatisfied": 5,
+    "notAssessed": 0
+  }
+}

@@ -1,0 +1,33 @@
+# Captured output
+
+Three files per command: `.cmd` (what ran, with every variable expanded), `.out` (stdout and
+stderr, merged, verbatim) and `.rc` (the exit code).
+
+The order is the order the review gate imposes. Generation and deployment are separate commands
+because reading the generated policy in between is the step that is not automated — see
+[`../reference/README.md`](../reference/README.md).
+
+| | |
+|---|---|
+| `B0-policy-templates.*` | the `policy-generation` skill writing one template, and its report. `.generated.yaml.tmpl` is what that run produced — a second pass, not one of the sixteen the walkthrough uses |
+| `B1-generate.*` | generate policy for three engines and stop, contacting no cluster |
+| | *a person reads `out/` — no output, so no capture* |
+| `B2-apply.*` | the reference implementation applies the reviewed tree, unmodified |
+| `B3-collect.*` | collect from all three engines, assess, posture |
+| `B4-collect-vap-only.*` | the same with `-e vap-cel`, which is how the coverage gap is shown |
+| `B5-posture-compare.*` | the two postures, compared |
+
+Steps before `B0` have no captures. They are prompts, and their output is the OSCAL artefacts
+committed under `../oscal/` and `../authoring/`, with frames from the runs under `../images/`.
+
+`B0` was run in a scratch workspace holding the component definition, with the skill installed
+under `.claude/skills/`; the paths in its output are that workspace's. The frame in step 7 of the
+walkthrough is a **different run of the same prompt**, taken from a terminal rather than from
+`claude -p`, so the two do not agree line for line. Step 7 is the one step here that does not
+reproduce exactly, and the walkthrough says so where it shows them.
+
+Captured against the demo cluster: kind, Kubernetes v1.34.0, Kyverno v1.19.2.
+
+`B1`, `B2` and `B3` are three programs on purpose. Generating is C2P over committed files and needs
+no cluster; applying and collecting need one and are a reference implementation. Keeping them apart
+is what puts the person reading, between `B1` and `B2`, somewhere other than inside a flag.

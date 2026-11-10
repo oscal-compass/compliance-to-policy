@@ -1,0 +1,1 @@
+Now author the component definition for this system, as authoring/cd.csv, and convert it to OSCAL with validate-controls on. Follow instruction-component-definition.md: the decomposition there is fixed, and the rule ids and check ids have to match it exactly.

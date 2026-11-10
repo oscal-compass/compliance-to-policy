@@ -1,0 +1,30 @@
+kyverno-dsl: collected (reported) for 6 check(s)
+kyverno-cel: collected (reported) for 6 check(s)
+vap-cel: collected (probed) for 4 check(s)
+
+wrote out/assessment-results.json (16 observations)
+wrote out/posture.json and posture.html
+
+# Compliance Posture
+
+4 satisfied, 5 not satisfied, 0 not assessed
+
+## Component: container-supply-chain
+
+| Control | Status | Coverage | Checks | Notes |
+|---|---|---|---|---|
+| si-7.15<br/>Code Authentication | :x: not-satisfied | 2/2 | :x: kyverno-dsl<br/>:x: kyverno-cel | 20 of 34 subject(s) failing, 2 of 2 expected check(s) reported |
+| si-7<br/>Software, Firmware, and Information Integrity | :x: not-satisfied | 5/5 | :x: kyverno-dsl<br/>:x: kyverno-cel<br/>:x: kyverno-dsl<br/>:x: kyverno-cel<br/>:x: vap-cel | 23 of 46 subject(s) failing, 5 of 5 expected check(s) reported |
+| cm-7.5<br/>Authorized Software — Allow-by-exception | :white_check_mark: satisfied | 2/2 | :white_check_mark: kyverno-dsl<br/>:white_check_mark: kyverno-cel | all 8 subject(s) passing, 2 of 2 expected check(s) reported |
+| cm-8.3<br/>Automated Unauthorized Component Detection | :white_check_mark: satisfied | 2/2 | :white_check_mark: kyverno-dsl<br/>:white_check_mark: kyverno-cel | all 8 subject(s) passing, 2 of 2 expected check(s) reported |
+| cm-2<br/>Baseline Configuration | :x: not-satisfied | 3/3 | :x: kyverno-dsl<br/>:x: kyverno-cel<br/>:x: vap-cel | 3 of 12 subject(s) failing, 3 of 3 expected check(s) reported |
+
+## Component: three-tier-app
+
+| Control | Status | Coverage | Checks | Notes |
+|---|---|---|---|---|
+| ac-6<br/>Least Privilege | :white_check_mark: satisfied | 3/3 | :white_check_mark: kyverno-dsl<br/>:white_check_mark: kyverno-cel<br/>:white_check_mark: vap-cel | all 16 subject(s) passing, 3 of 3 expected check(s) reported |
+| sc-39<br/>Process Isolation | :white_check_mark: satisfied | 3/3 | :white_check_mark: kyverno-dsl<br/>:white_check_mark: kyverno-cel<br/>:white_check_mark: vap-cel | all 16 subject(s) passing, 3 of 3 expected check(s) reported |
+| cm-8<br/>System Component Inventory | :x: not-satisfied | 3/3 | :x: kyverno-dsl<br/>:x: kyverno-cel<br/>:x: vap-cel | 3 of 12 subject(s) failing, 3 of 3 expected check(s) reported |
+| ia-5<br/>Authenticator Management | :x: not-satisfied | 3/3 | :x: kyverno-dsl<br/>:x: kyverno-cel<br/>:x: vap-cel | 3 of 10 subject(s) failing, 3 of 3 expected check(s) reported |
+

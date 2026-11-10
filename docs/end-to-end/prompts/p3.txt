@@ -1,0 +1,1 @@
+Resolve the profile into a catalog so the control prose reads filled in, and make anything still unassigned visibly marked rather than silently blank.

@@ -1,0 +1,3 @@
+applied 16 policy document(s) from out
+
+To take it off again: kubectl delete -R -f out

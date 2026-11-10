@@ -1,0 +1,263 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Compliance posture</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:2rem;color:#1c1c1c;background:#fafafa}
+/* Fixed layout, or the subjects column takes the width and squeezes the rule column until
+   every hyphenated check id wraps one word per line. */
+table{border-collapse:collapse;width:100%;background:#fff;table-layout:fixed}
+col.control{width:14%}col.state{width:13%}col.coverage{width:6%}col.checks{width:27%}
+th,td{border:1px solid #ddd;padding:.45rem .6rem;vertical-align:top;font-size:.92rem}
+th{background:#f0f0f0;text-align:left}
+td{overflow-wrap:anywhere}
+.satisfied{background:#e6f7e9}.not-satisfied{background:#fde8e8}.not-assessed{background:#fff6d6}
+code{font-size:.85em;white-space:nowrap}ul{margin:.1rem 0;padding-left:1.1rem}li{margin:.15rem 0}
+/* The subject list is the audit trail and has to be present, but a control with 34 subjects
+   makes the table unreadable if they are all open: one control then fills a screen and the
+   posture -- which is the point of the page -- cannot be scanned at all. */
+details>summary{cursor:pointer;font-size:.9rem}
+details[open]>summary{margin-bottom:.3rem}
+h1{margin-bottom:0}.meta{color:#666;margin-top:.2rem}
+</style>
+<h1>Compliance posture</h1>
+<p class="meta">
+
+2 satisfied · 4 not satisfied ·
+3 not assessed
+· generated 2026-11-10T04:16:21+00:00
+</p>
+
+<h2>container-supply-chain</h2>
+<table>
+<col class="control"><col class="state"><col class="coverage"><col class="checks"><col>
+<tr><th>Control</th><th>State</th><th>Coverage</th><th>Rule → check (engine)</th><th>Subjects</th></tr>
+<tr class="not-assessed">
+  <td><b>si-7.15</b><br><small>Code Authentication</small></td>
+  <td>not-assessed<br><small>no evidence from any of the 2 check(s) this control expects</small></td>
+  <td>0/2</td>
+  <td>
+    <code>image-signature-verified</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-signature-verified</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>si-7</b><br><small>Software, Firmware, and Information Integrity</small></td>
+  <td>not-satisfied<br><small>1 of 4 subject(s) failing, 1 of 5 expected check(s) reported</small></td>
+  <td>1/5</td>
+  <td>
+    <code>image-signature-verified</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-signature-verified</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>image-pinned-by-digest</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-pinned-by-digest</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>image-pinned-by-digest</code> → <code>vap-image-pinned-by-digest</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-assessed">
+  <td><b>cm-7.5</b><br><small>Authorized Software — Allow-by-exception</small></td>
+  <td>not-assessed<br><small>no evidence from any of the 2 check(s) this control expects</small></td>
+  <td>0/2</td>
+  <td>
+    <code>image-registry-approved</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-registry-approved</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+  </td>
+</tr>
+<tr class="not-assessed">
+  <td><b>cm-8.3</b><br><small>Automated Unauthorized Component Detection</small></td>
+  <td>not-assessed<br><small>no evidence from any of the 2 check(s) this control expects</small></td>
+  <td>0/2</td>
+  <td>
+    <code>image-registry-approved</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-registry-approved</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>cm-2</b><br><small>Baseline Configuration</small></td>
+  <td>not-satisfied<br><small>1 of 4 subject(s) failing, 1 of 3 expected check(s) reported</small></td>
+  <td>1/3</td>
+  <td>
+    <code>image-pinned-by-digest</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>image-pinned-by-digest</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>image-pinned-by-digest</code> → <code>vap-image-pinned-by-digest</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+</table>
+
+<h2>three-tier-app</h2>
+<table>
+<col class="control"><col class="state"><col class="coverage"><col class="checks"><col>
+<tr><th>Control</th><th>State</th><th>Coverage</th><th>Rule → check (engine)</th><th>Subjects</th></tr>
+<tr class="satisfied">
+  <td><b>ac-6</b><br><small>Least Privilege</small></td>
+  <td>satisfied<br><small>all 4 subject(s) passing, 1 of 3 expected check(s) reported</small></td>
+  <td>1/3</td>
+  <td>
+    <code>container-runs-unprivileged</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>container-runs-unprivileged</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>container-runs-unprivileged</code> → <code>vap-container-runs-unprivileged</code>
+    (vap-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="satisfied">
+  <td><b>sc-39</b><br><small>Process Isolation</small></td>
+  <td>satisfied<br><small>all 4 subject(s) passing, 1 of 3 expected check(s) reported</small></td>
+  <td>1/3</td>
+  <td>
+    <code>container-runs-unprivileged</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>container-runs-unprivileged</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>container-runs-unprivileged</code> → <code>vap-container-runs-unprivileged</code>
+    (vap-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>cm-8</b><br><small>System Component Inventory</small></td>
+  <td>not-satisfied<br><small>1 of 4 subject(s) failing, 1 of 3 expected check(s) reported</small></td>
+  <td>1/3</td>
+  <td>
+    <code>workload-inventory-labelled</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>workload-inventory-labelled</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>workload-inventory-labelled</code> → <code>vap-workload-inventory-labelled</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-workload-inventory-labelled</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>ia-5</b><br><small>Authenticator Management</small></td>
+  <td>not-satisfied<br><small>1 of 4 subject(s) failing, 1 of 3 expected check(s) reported</small></td>
+  <td>1/3</td>
+  <td>
+    <code>db-credentials-from-secret</code> → <code>—</code>
+    (kyverno-dsl) <b>not-assessed</b><br>
+    <code>db-credentials-from-secret</code> → <code>—</code>
+    (kyverno-cel) <b>not-assessed</b><br>
+    <code>db-credentials-from-secret</code> → <code>vap-db-credentials-from-secret</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <ul><li><i>no evidence covered this check</i></li></ul>
+    <details>
+    <summary><code>vap-db-credentials-from-secret</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> statefulset.apps/db in storefront<br><small>NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+</table>
+
+<p class="meta">A denied non-compliant request is recorded as a pass: the control was effective.
+<b>not-assessed</b> means no engine could evaluate the control -- neither compliant nor
+violated, and not the same as passing.</p>

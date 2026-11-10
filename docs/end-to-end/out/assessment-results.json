@@ -1,0 +1,2515 @@
+{
+  "assessment-results": {
+    "uuid": "53de738a-dd22-4403-9fb5-f1419e160233",
+    "metadata": {
+      "title": "Assessment Results",
+      "last-modified": "2026-11-10T04:16:13+00:00",
+      "version": "3.12.4",
+      "oscal-version": "1.1.3"
+    },
+    "import-ap": {
+      "href": "https://not-available-for-now"
+    },
+    "results": [
+      {
+        "uuid": "b819eb55-4282-4582-92fb-9c2d0167f42b",
+        "title": "Assessment Results",
+        "description": "Assessed by: kyverno-dsl, kyverno-cel, vap-cel",
+        "start": "2026-11-10T04:16:13+00:00",
+        "reviewed-controls": {
+          "control-selections": [
+            {
+              "include-controls": [
+                {
+                  "control-id": "si-7.15"
+                },
+                {
+                  "control-id": "si-7"
+                },
+                {
+                  "control-id": "cm-7.5"
+                },
+                {
+                  "control-id": "cm-8.3"
+                },
+                {
+                  "control-id": "cm-2"
+                }
+              ]
+            },
+            {
+              "include-controls": [
+                {
+                  "control-id": "ac-6"
+                },
+                {
+                  "control-id": "sc-39"
+                },
+                {
+                  "control-id": "cm-8"
+                },
+                {
+                  "control-id": "ia-5"
+                }
+              ]
+            }
+          ]
+        },
+        "observations": [
+          {
+            "uuid": "56ef4a36-582d-4fcf-9de7-ce912a4830ba",
+            "title": "kyverno-dsl-container-runs-unprivileged",
+            "description": "kyverno-dsl-container-runs-unprivileged",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "container-runs-unprivileged"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-container-runs-unprivileged"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "ba4d70a6-ca3d-4443-981f-c432acac7a96",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-hostpath-volumes' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3f02ddd0-05c5-4a24-9741-0ee19be5fe3d",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-privilege-and-no-host-namespaces' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "fb61969a-2307-479d-a89c-f7f47dacae31",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-hostpath-volumes' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "8230e2dc-c542-4766-be7a-9da7ed6efd40",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-privilege-and-no-host-namespaces' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "ca0c3195-eb16-43b0-9160-c9e23717fa52",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-hostpath-volumes' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "84c49279-06d9-4723-8286-4a26ca354387",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-privilege-and-no-host-namespaces' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "141debe1-586e-41a0-b68a-69787ff37ae4",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-hostpath-volumes' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "2270721e-6358-4e92-ad97-ab787dd6e90b",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'no-privilege-and-no-host-namespaces' passed."
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "546e8f7e-d55e-4921-ae8b-e6b7aedd9bc0",
+            "title": "kyverno-dsl-db-credentials-from-secret",
+            "description": "kyverno-dsl-db-credentials-from-secret",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "db-credentials-from-secret"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-db-credentials-from-secret"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "8c78b27f-21d0-4e6d-8a9b-997e181d64f4",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "rule passed"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c3e6c88b-1968-46a0-8621-9df2c9dc8578",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation failure: NIST SP 800-53 ia-5: a credential environment variable carries a literal value and must use valueFrom.secretKeyRef instead. Keys that must come from a Secret: POSTGRES_PASSWORD POSTGRES_USER APP_DB_PASSWORD APP_DB_DSN (check kyverno-dsl-db-credentials-from-secret)"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "2bfe175f-fdfe-4ee6-9977-20449c6b64c7",
+            "title": "kyverno-dsl-image-pinned-by-digest",
+            "description": "kyverno-dsl-image-pinned-by-digest",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-pinned-by-digest"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-image-pinned-by-digest"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "7497fc4a-ba3b-44c9-a20c-e2ad438e38c1",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation error: NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag (check kyverno-dsl-image-pinned-by-digest). rule image-must-carry-a-digest failed at path /spec/template/spec/containers/0/image/"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "a127e739-f054-4bf2-89a3-50e31917f8d6",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'image-must-carry-a-digest' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "7fda13c0-d2f3-46a7-8385-6faf2587b38a",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'image-must-carry-a-digest' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "e2541b21-dd85-4453-920b-7b718c1cbcfe",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'image-must-carry-a-digest' passed."
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "f38a6005-7c14-451d-a549-ecd4d2790356",
+            "title": "kyverno-dsl-image-registry-approved",
+            "description": "kyverno-dsl-image-registry-approved",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-registry-approved"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-image-registry-approved"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "969e1be0-3d41-40a5-91bb-0f1486f8414d",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "rule passed"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "40f57814-078c-4464-83d3-d9dcbbbaf4af",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "rule passed"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "72f8123b-4193-49a0-8aeb-efab8d4c3ea5",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "rule passed"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "769119fd-70eb-471d-bedb-cdac1ec59ea8",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "rule passed"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "84045fa6-76f2-444c-954b-efe7a8d61490",
+            "title": "kyverno-dsl-image-signature-verified",
+            "description": "kyverno-dsl-image-signature-verified",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-signature-verified"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-image-signature-verified"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "62b4931f-a671-4a0b-b8fb-1275801ae972",
+                "type": "resource",
+                "title": "ReplicaSet storefront/web-5678df868",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/web-5678df868"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "756a13ce-878d-4290-8414-3363da391f07",
+                "type": "resource",
+                "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "ed254ff9-3ac5-4cab-a5d9-28d0e59848ad",
+                "type": "resource",
+                "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "8d14b01e-163d-44a7-b7b6-a96da440dfec",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "0776e83e-af8a-4c15-87f1-5fcb68fe5666",
+                "type": "resource",
+                "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "9a50e67a-f220-456f-916e-cb42265c1b67",
+                "type": "resource",
+                "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-5646cc8bc5-rm9j6"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:50+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "07c209fc-dedd-46fc-b82f-25ae69d2354f",
+                "type": "resource",
+                "title": "ReplicaSet storefront/api-df5546fcc",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/api-df5546fcc"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "2d7479f4-b7c1-4d6a-a40d-d36c2fc00270",
+                "type": "resource",
+                "title": "Pod storefront/web-5678df868-fxkbw",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-5678df868-fxkbw"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "9d39e503-be03-434b-8a11-241b72c7c57f",
+                "type": "resource",
+                "title": "Pod storefront/api-df5546fcc-bhwxd",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-df5546fcc-bhwxd"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c55de231-0b3f-44fb-a03b-3adb507f7d5d",
+                "type": "resource",
+                "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c1c9c2e0-370c-4abb-b43c-d2079211efb4",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "bff48e15-f703-468f-b313-b4107551e925",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-db@sha256:31b2851706545c15912bd89f51932b74c31a9ef851970b0947cdd716f8f38fb0"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "b1be0bbc-db95-43e5-aaf4-717015245d51",
+                "type": "resource",
+                "title": "Pod storefront/api-df5546fcc-hf8cf",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-df5546fcc-hf8cf"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "882eeb05-7b53-48df-8229-309b1e0fe899",
+                "type": "resource",
+                "title": "Pod storefront/db-0",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/db-0"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:50+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-db@sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "71d86cb6-21c0-4943-9e5a-af70e9c6fb05",
+                "type": "resource",
+                "title": "ReplicaSet storefront/api-5646cc8bc5",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "04a50827-215f-4b9d-9884-8f7beba3936d",
+                "type": "resource",
+                "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "f1dacd1e-2302-4004-96a7-3b3776752544",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "e3b84dcc-fee1-42c1-898c-347fd9e257ac",
+            "title": "kyverno-dsl-workload-inventory-labelled",
+            "description": "kyverno-dsl-workload-inventory-labelled",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "workload-inventory-labelled"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-dsl-workload-inventory-labelled"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "94796b8b-a549-451b-acf9-2b92b4987eee",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation error: NIST SP 800-53 cm-8: the workload and its pod template must carry all required inventory labels (check kyverno-dsl-workload-inventory-labelled). rule required-inventory-labels failed at path /metadata/labels/app.kubernetes.io/name/"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3f7e781f-98c4-488c-b083-91dead055e4c",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'required-inventory-labels' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "27913623-53c8-4e69-b0a5-fca78a7c3179",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'required-inventory-labels' passed."
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "9ff972f9-aeb2-4200-bbc8-a204bc093bd7",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "validation rule 'required-inventory-labels' passed."
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "243ca4d3-6313-4d82-9b4a-cbb83f1ca8b2",
+            "title": "kyverno-cel-container-runs-unprivileged",
+            "description": "kyverno-cel-container-runs-unprivileged",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "container-runs-unprivileged"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-container-runs-unprivileged"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "187ce541-5484-4ba5-a6db-10f8c26cc979",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "b813186d-7b83-47ed-97e3-0b13d8d8614f",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "2358216a-d24c-4cd5-adcb-2c522547a97f",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "4924593e-6fb6-4034-af00-bbadc103ea22",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "5ec9efd9-929b-4054-b62b-6c81884d890d",
+            "title": "kyverno-cel-db-credentials-from-secret",
+            "description": "kyverno-cel-db-credentials-from-secret",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "db-credentials-from-secret"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-db-credentials-from-secret"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "dcb1a61f-d353-423c-9f50-053c9fffc116",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "dbbdda68-97e4-4371-a8ea-f8f4012c2899",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c4dff111-b9c7-4d0d-9922-834664eee6fd",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check kyverno-cel-db-credentials-from-secret)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "ba0ddeaf-7b8c-4942-944b-dd603a26c9d3",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "ca4400d0-d888-4838-a3ed-1e6ea9158824",
+            "title": "kyverno-cel-image-pinned-by-digest",
+            "description": "kyverno-cel-image-pinned-by-digest",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-pinned-by-digest"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-image-pinned-by-digest"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "3f69ef2a-0f06-4ed6-be03-816b68e7d3e6",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check kyverno-cel-image-pinned-by-digest)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "833494ef-d8ba-4e69-9139-cf3ed7d88bdd",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "dd7025c7-56e5-405d-a9d2-9378d708ae9f",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "155623b2-a43f-43e9-a990-9b9d78b0fb80",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "3dec0200-9767-4b88-a20b-461b5391600e",
+            "title": "kyverno-cel-image-registry-approved",
+            "description": "kyverno-cel-image-registry-approved",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-registry-approved"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-image-registry-approved"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "78c2f2f6-3534-4822-86cb-d66d2833f785",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "337291e0-5761-4fd6-b92a-c999e915070a",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "10369625-7ab1-430a-9385-97cbf9f11279",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "bb8e4c34-bde0-4b3d-aa2f-8f80328e9e96",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "02790a0d-5002-41a2-acd8-2c90b1611ed9",
+            "title": "kyverno-cel-image-signature-verified",
+            "description": "kyverno-cel-image-signature-verified",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-signature-verified"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-image-signature-verified"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "9e8edf1e-6cb2-4cd3-b446-30a96f072f15",
+                "type": "resource",
+                "title": "ReplicaSet storefront/web-5678df868",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/web-5678df868"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "60bd3c43-0660-4e7b-844d-1632028ef623",
+                "type": "resource",
+                "title": "Pod storefront/legacy-api-84868b5fc5-lf8fx",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/legacy-api-84868b5fc5-lf8fx"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "5def3eff-c2ea-45f7-b406-7ae6e42b73f6",
+                "type": "resource",
+                "title": "Pod storefront/web-6df5ff6f5f-wpn8b",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-6df5ff6f5f-wpn8b"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "e151b454-4e12-4c42-80a5-f97bd7b609c7",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "31d1143f-65f0-4e78-abd2-8965eaa02e2a",
+                "type": "resource",
+                "title": "Pod storefront/web-6df5ff6f5f-7tnqn",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-6df5ff6f5f-7tnqn"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "20e3cae2-3d8b-4217-8759-95a1f81221b2",
+                "type": "resource",
+                "title": "Pod storefront/api-5646cc8bc5-rm9j6",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-5646cc8bc5-rm9j6"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "27fa90d9-a146-4cf8-866f-4a183f00783d",
+                "type": "resource",
+                "title": "ReplicaSet storefront/api-df5546fcc",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/api-df5546fcc"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "ccf516fa-1e9f-477a-a379-95563b989cc0",
+                "type": "resource",
+                "title": "Pod storefront/web-5678df868-fxkbw",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/web-5678df868-fxkbw"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:55+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "39743125-fc9d-4518-827a-f9bff3a3c707",
+                "type": "resource",
+                "title": "Pod storefront/api-df5546fcc-bhwxd",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-df5546fcc-bhwxd"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3ab45dc2-5ef0-494d-9a71-14b944906666",
+                "type": "resource",
+                "title": "ReplicaSet storefront/legacy-api-84868b5fc5",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/legacy-api-84868b5fc5"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "db2dca24-79ba-49af-b877-2345f0375b24",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "52feb7c0-9cb2-4969-9fe9-6ad0e9b9ae0c",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "2aed201a-4f69-4084-8de3-228cc85ef6bc",
+                "type": "resource",
+                "title": "Pod storefront/api-df5546fcc-hf8cf",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/api-df5546fcc-hf8cf"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3cc5b6c3-0f1d-4697-afe4-c44c66aa21fa",
+                "type": "resource",
+                "title": "Pod storefront/db-0",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "v1/Pod/storefront/db-0"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-db/manifests/sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-db Revision:sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "227abae2-3e4f-48f2-b9c7-300cde0bc0ca",
+                "type": "resource",
+                "title": "ReplicaSet storefront/api-5646cc8bc5",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/api-5646cc8bc5"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "0cb0183a-7533-4c6a-a658-aeec83873883",
+                "type": "resource",
+                "title": "ReplicaSet storefront/web-6df5ff6f5f",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/ReplicaSet/storefront/web-6df5ff6f5f"
+                  },
+                  {
+                    "name": "result",
+                    "value": "error"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:54+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "b2174698-39b1-446e-8cbd-eb4dcb403c5a",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:53+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "8a65a360-3ee8-4800-9e67-b2e8fb9a4aec",
+            "title": "kyverno-cel-workload-inventory-labelled",
+            "description": "kyverno-cel-workload-inventory-labelled",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "workload-inventory-labelled"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "kyverno-cel-workload-inventory-labelled"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "df435d7c-97c0-44cc-a9b8-19c55de43920",
+                "type": "resource",
+                "title": "Deployment storefront/legacy-api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/legacy-api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check kyverno-cel-workload-inventory-labelled)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "d1b08367-898c-4713-a7d5-bea016660ba7",
+                "type": "resource",
+                "title": "Deployment storefront/api",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/api"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "e781bf76-eca1-4ae7-a210-59c8bcdedd2f",
+                "type": "resource",
+                "title": "StatefulSet storefront/db",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/StatefulSet/storefront/db"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:51+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "681bd12d-509f-466d-a8da-dee5a1aa288a",
+                "type": "resource",
+                "title": "Deployment storefront/web",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "apps/v1/Deployment/storefront/web"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:05:52+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "success"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:05+00:00"
+          },
+          {
+            "uuid": "93d0ef33-5827-432e-9f41-86ffe922fc24",
+            "title": "vap-container-runs-unprivileged",
+            "description": "vap-container-runs-unprivileged",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "container-runs-unprivileged"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-container-runs-unprivileged"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "686e1cba-f482-4518-a9dc-57b95a34548f",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "c3cffd7c-cfef-419d-b56f-2eb70773c2b9",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "e7208f44-5f09-4e87-aff9-fdc43fffbddb",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "ccd557ca-50df-45ef-89a5-c3c39d6f2dfd",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:13+00:00"
+          },
+          {
+            "uuid": "a99d95ae-d398-4579-8c94-468697d36267",
+            "title": "vap-db-credentials-from-secret",
+            "description": "vap-db-credentials-from-secret",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "db-credentials-from-secret"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-db-credentials-from-secret"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "72be0fb4-db6a-4a70-a3fc-1ba7559b901d",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "3d4aad60-8c99-445c-b649-8652c600a05f",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "adc3d28b-745c-42c1-ae31-5ff8f1b95d83",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "d4194f6e-45d0-4f68-bca0-13d7314dd9e9",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:13+00:00"
+          },
+          {
+            "uuid": "35d30f96-1ab9-40da-8012-d0d44339e20f",
+            "title": "vap-image-pinned-by-digest",
+            "description": "vap-image-pinned-by-digest",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "image-pinned-by-digest"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-image-pinned-by-digest"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "4277e69c-2caa-4dbd-8ece-843464bd0454",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "f782828c-1a4b-4f60-9017-7783bdea1aaa",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "39ddf2bc-736c-4be2-b2c9-129aaac95ec9",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "cbcfef38-0630-4ae7-9e81-574dbc555787",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:13+00:00"
+          },
+          {
+            "uuid": "f94bf197-047f-487a-aa8e-76024c174573",
+            "title": "vap-workload-inventory-labelled",
+            "description": "vap-workload-inventory-labelled",
+            "props": [
+              {
+                "name": "assessment-rule-id",
+                "value": "workload-inventory-labelled"
+              },
+              {
+                "name": "assessment-check-id",
+                "value": "vap-workload-inventory-labelled"
+              }
+            ],
+            "methods": [
+              "TEST-AUTOMATED"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "7ce3916f-938a-4b7f-868a-8a213528c6a0",
+                "type": "resource",
+                "title": "deployment.apps/api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "37ed9cc4-0016-4302-b721-74e06f256c66",
+                "type": "resource",
+                "title": "deployment.apps/legacy-api in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/legacy-api/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "failure"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "0ad556ef-0a9e-4694-b1e5-b92cf114cf02",
+                "type": "resource",
+                "title": "deployment.apps/web in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "deployment.apps/web/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              },
+              {
+                "subject-uuid": "a36f8a34-9ba6-4198-a5bc-8a1384cd49fa",
+                "type": "resource",
+                "title": "statefulset.apps/db in storefront",
+                "props": [
+                  {
+                    "name": "resource-id",
+                    "value": "statefulset.apps/db/storefront"
+                  },
+                  {
+                    "name": "result",
+                    "value": "pass"
+                  },
+                  {
+                    "name": "evaluated-on",
+                    "value": "2026-11-10T04:16:07+00:00"
+                  },
+                  {
+                    "name": "reason",
+                    "value": "admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing"
+                  }
+                ]
+              }
+            ],
+            "collected": "2026-11-10T04:16:13+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

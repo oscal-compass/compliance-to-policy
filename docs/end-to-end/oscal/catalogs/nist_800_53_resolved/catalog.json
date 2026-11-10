@@ -1,0 +1,3016 @@
+{
+  "catalog": {
+    "uuid": "03a47c4d-cd54-4514-a4ea-7723fe73f9c7",
+    "metadata": {
+      "title": "NIST SP 800-53 Rev 5 HIGH baseline — KubeCon three-tier demo subset",
+      "last-modified": "2022-08-23T14:36:49.133+00:00",
+      "version": "0.1.0",
+      "oscal-version": "1.2.1",
+      "links": [
+        {
+          "href": "trestle://catalogs/nist_800_53/catalog.json",
+          "rel": "resolution-source"
+        }
+      ],
+      "remarks": "Every control selected here is a member of the NIST SP 800-53 Rev 5 HIGH baseline. si-7.15 (Code Authentication) is HIGH-only, which is why this demo stands on HIGH rather than MODERATE. cm-14 (Signed Components) would be the intuitive control for image signing but is selected by no baseline, so si-7.15 carries that mapping and cm-14 appears only in the rule description."
+    },
+    "groups": [
+      {
+        "id": "ac",
+        "class": "family",
+        "title": "Access Control",
+        "controls": [
+          {
+            "id": "ac-6",
+            "class": "SP800-53",
+            "title": "Least Privilege",
+            "props": [
+              {
+                "name": "label",
+                "value": "AC-6"
+              },
+              {
+                "name": "label",
+                "value": "AC-06",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "ac-06"
+              }
+            ],
+            "links": [
+              {
+                "href": "#ac-2",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-3",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-5",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-16",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-5",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-11",
+                "rel": "related"
+              },
+              {
+                "href": "#pl-2",
+                "rel": "related"
+              },
+              {
+                "href": "#pm-12",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-8",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-15",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-17",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-38",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "ac-6_smt",
+                "name": "statement",
+                "prose": "Employ the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) that are necessary to accomplish assigned organizational tasks."
+              },
+              {
+                "id": "ac-6_gdn",
+                "name": "guidance",
+                "prose": "Organizations employ least privilege for specific duties and systems. The principle of least privilege is also applied to system processes, ensuring that the processes have access to systems and operate at privilege levels no higher than necessary to accomplish organizational missions or business functions. Organizations consider the creation of additional processes, roles, and accounts as necessary to achieve least privilege. Organizations apply least privilege to the development, implementation, and operation of organizational systems."
+              },
+              {
+                "id": "ac-6_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "AC-06",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "prose": "the principle of least privilege is employed, allowing only authorized accesses for users (or processes acting on behalf of users) that are necessary to accomplish assigned organizational tasks."
+              },
+              {
+                "id": "ac-6_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "AC-06-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Access control policy\n\nprocedures addressing least privilege\n\nlist of assigned access authorizations (user privileges)\n\nsystem configuration settings and associated documentation\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "ac-6_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "AC-06-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel with responsibilities for defining least privileges necessary to accomplish specified tasks\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "ac-6_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "AC-06-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Mechanisms implementing least privilege functions"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cm",
+        "class": "family",
+        "title": "Configuration Management",
+        "controls": [
+          {
+            "id": "cm-2",
+            "class": "SP800-53",
+            "title": "Baseline Configuration",
+            "params": [
+              {
+                "id": "cm-02_odp.01",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-2_prm_1"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-02_ODP[01]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "frequency",
+                "guidelines": [
+                  {
+                    "prose": "the frequency of baseline configuration review and update is defined;"
+                  }
+                ]
+              },
+              {
+                "id": "cm-02_odp.02",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-2_prm_2"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-02_ODP[02]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "circumstances",
+                "guidelines": [
+                  {
+                    "prose": "the circumstances requiring baseline configuration review and update are defined;"
+                  }
+                ],
+                "values": [
+                  "changes to the storefront namespace manifests, the admission policy set, or the approved-registry ledger"
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "label",
+                "value": "CM-2"
+              },
+              {
+                "name": "label",
+                "value": "CM-02",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "cm-02"
+              }
+            ],
+            "links": [
+              {
+                "href": "#0f66be67-85e7-4ca6-bd19-39453e9f4394",
+                "rel": "reference"
+              },
+              {
+                "href": "#20db4e66-e257-450c-b2e4-2bb9a62a2c88",
+                "rel": "reference"
+              },
+              {
+                "href": "#ac-19",
+                "rel": "related"
+              },
+              {
+                "href": "#au-6",
+                "rel": "related"
+              },
+              {
+                "href": "#ca-9",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-1",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-3",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-5",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-6",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-8",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-9",
+                "rel": "related"
+              },
+              {
+                "href": "#cp-9",
+                "rel": "related"
+              },
+              {
+                "href": "#cp-10",
+                "rel": "related"
+              },
+              {
+                "href": "#cp-12",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-2",
+                "rel": "related"
+              },
+              {
+                "href": "#pl-8",
+                "rel": "related"
+              },
+              {
+                "href": "#pm-5",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-8",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-10",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-15",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-18",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cm-2_smt",
+                "name": "statement",
+                "parts": [
+                  {
+                    "id": "cm-2_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Develop, document, and maintain under configuration control, a current baseline configuration of the system; and"
+                  },
+                  {
+                    "id": "cm-2_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Review and update the baseline configuration of the system:",
+                    "parts": [
+                      {
+                        "id": "cm-2_smt.b.1",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "1."
+                          }
+                        ],
+                        "prose": "UNASSIGNED: frequency;"
+                      },
+                      {
+                        "id": "cm-2_smt.b.2",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "2."
+                          }
+                        ],
+                        "prose": "When required due to changes to the storefront namespace manifests, the admission policy set, or the approved-registry ledger ; and"
+                      },
+                      {
+                        "id": "cm-2_smt.b.3",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "3."
+                          }
+                        ],
+                        "prose": "When system components are installed or upgraded."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "cm-2_gdn",
+                "name": "guidance",
+                "prose": "Baseline configurations for systems and system components include connectivity, operational, and communications aspects of systems. Baseline configurations are documented, formally reviewed, and agreed-upon specifications for systems or configuration items within those systems. Baseline configurations serve as a basis for future builds, releases, or changes to systems and include security and privacy control implementations, operational procedures, information about system components, network topology, and logical placement of components in the system architecture. Maintaining baseline configurations requires creating new baselines as organizational systems change over time. Baseline configurations of systems reflect the current enterprise architecture."
+              },
+              {
+                "id": "cm-2_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CM-02",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "cm-2_obj.a",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-02a.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "cm-2_obj.a-1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-02a.[01]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "a current baseline configuration of the system is developed and documented;"
+                      },
+                      {
+                        "id": "cm-2_obj.a-2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-02a.[02]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "a current baseline configuration of the system is maintained under configuration control;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-2_obj.b",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-02b.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "cm-2_obj.b.1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-02b.01",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "the baseline configuration of the system is reviewed and updated UNASSIGNED: frequency;"
+                      },
+                      {
+                        "id": "cm-2_obj.b.2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-02b.02",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "the baseline configuration of the system is reviewed and updated when required due to changes to the storefront namespace manifests, the admission policy set, or the approved-registry ledger;"
+                      },
+                      {
+                        "id": "cm-2_obj.b.3",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-02b.03",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "the baseline configuration of the system is reviewed and updated when system components are installed or upgraded."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "cm-2_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-02-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Configuration management policy\n\nprocedures addressing the baseline configuration of the system\n\nconfiguration management plan\n\nenterprise architecture documentation\n\nsystem design documentation\n\nsystem security plan\n\nprivacy plan\n\nsystem architecture and configuration documentation\n\nsystem configuration settings and associated documentation\n\nsystem component inventory\n\nchange control records\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "cm-2_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-02-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel with configuration management responsibilities\n\norganizational personnel with information security and privacy responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "cm-2_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-02-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational processes for managing baseline configurations\n\nmechanisms supporting configuration control of the baseline configuration"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cm-7.5",
+            "class": "SP800-53-enhancement",
+            "title": "Authorized Software — Allow-by-exception",
+            "params": [
+              {
+                "id": "cm-07.05_odp.01",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-7.5_prm_1"
+                  },
+                  {
+                    "name": "alt-label",
+                    "value": "software programs authorized to execute on the system",
+                    "class": "sp800-53"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)_ODP[01]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "software programs",
+                "guidelines": [
+                  {
+                    "prose": "software programs authorized to execute on the system are defined;"
+                  }
+                ],
+                "values": [
+                  "container images signed by the release workflow identity and pulled by digest from a registry listed in the approved-registry ledger"
+                ]
+              },
+              {
+                "id": "cm-07.05_odp.02",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-7.5_prm_2"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)_ODP[02]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "frequency",
+                "guidelines": [
+                  {
+                    "prose": "frequency at which to review and update the list of authorized software programs is defined;"
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "label",
+                "value": "CM-7(5)"
+              },
+              {
+                "name": "label",
+                "value": "CM-07(05)",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "cm-07.05"
+              }
+            ],
+            "links": [
+              {
+                "href": "#cm-7",
+                "rel": "required"
+              },
+              {
+                "href": "#cm-2",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-6",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-8",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-10",
+                "rel": "related"
+              },
+              {
+                "href": "#pl-9",
+                "rel": "related"
+              },
+              {
+                "href": "#pm-5",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-10",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-34",
+                "rel": "related"
+              },
+              {
+                "href": "#si-7",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cm-7.5_smt",
+                "name": "statement",
+                "parts": [
+                  {
+                    "id": "cm-7.5_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "(a)"
+                      }
+                    ],
+                    "prose": "Identify container images signed by the release workflow identity and pulled by digest from a registry listed in the approved-registry ledger;"
+                  },
+                  {
+                    "id": "cm-7.5_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "(b)"
+                      }
+                    ],
+                    "prose": "Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs on the system; and"
+                  },
+                  {
+                    "id": "cm-7.5_smt.c",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "(c)"
+                      }
+                    ],
+                    "prose": "Review and update the list of authorized software programs UNASSIGNED: frequency."
+                  }
+                ]
+              },
+              {
+                "id": "cm-7.5_gdn",
+                "name": "guidance",
+                "prose": "Authorized software programs can be limited to specific versions or from a specific source. To facilitate a comprehensive authorized software process and increase the strength of protection for attacks that bypass application level authorized software, software programs may be decomposed into and monitored at different levels of detail. These levels include applications, application programming interfaces, application modules, scripts, system processes, system services, kernel functions, registries, drivers, and dynamic link libraries. The concept of permitting the execution of authorized software may also be applied to user actions, system ports and protocols, IP addresses/ranges, websites, and MAC addresses. Organizations consider verifying the integrity of authorized software programs using digital signatures, cryptographic checksums, or hash functions. Verification of authorized software can occur either prior to execution or at system startup. The identification of authorized URLs for websites is addressed in [CA-3(5)](#ca-3.5) and [SC-7](#sc-7)."
+              },
+              {
+                "id": "cm-7.5_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "cm-7.5_obj.a",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-07(05)(a)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "container images signed by the release workflow identity and pulled by digest from a registry listed in the approved-registry ledger are identified;"
+                  },
+                  {
+                    "id": "cm-7.5_obj.b",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-07(05)(b)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "a deny-all, permit-by-exception policy to allow the execution of authorized software programs on the system is employed;"
+                  },
+                  {
+                    "id": "cm-7.5_obj.c",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-07(05)(c)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "the list of authorized software programs is reviewed and updated UNASSIGNED: frequency."
+                  }
+                ]
+              },
+              {
+                "id": "cm-7.5_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Configuration management policy\n\nprocedures addressing least functionality in the system\n\nconfiguration management plan\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\nlist of software programs authorized to execute on the system\n\nsystem component inventory\n\ncommon secure configuration checklists\n\nreview and update records associated with list of authorized software programs\n\nchange control records\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "cm-7.5_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel with responsibilities for identifying software authorized to execute on the system\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "cm-7.5_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-07(05)-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational process for identifying, reviewing, and updating programs authorized to execute on the system\n\norganizational process for implementing authorized software policy\n\nmechanisms supporting and/or implementing authorized software policy"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cm-8",
+            "class": "SP800-53",
+            "title": "System Component Inventory",
+            "params": [
+              {
+                "id": "cm-08_odp.01",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-8_prm_1"
+                  },
+                  {
+                    "name": "alt-label",
+                    "value": "information deemed necessary to achieve effective system component accountability",
+                    "class": "sp800-53"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08_ODP[01]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "information",
+                "guidelines": [
+                  {
+                    "prose": "information deemed necessary to achieve effective system component accountability is defined;"
+                  }
+                ],
+                "values": [
+                  "image digest, registry and repository, signing identity, workload name, and namespace"
+                ]
+              },
+              {
+                "id": "cm-08_odp.02",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "cm-8_prm_2"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08_ODP[02]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "frequency",
+                "guidelines": [
+                  {
+                    "prose": "frequency at which to review and update the system component inventory is defined;"
+                  }
+                ],
+                "values": [
+                  "continuously, as workloads are admitted to the cluster"
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "label",
+                "value": "CM-8"
+              },
+              {
+                "name": "label",
+                "value": "CM-08",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "cm-08"
+              }
+            ],
+            "links": [
+              {
+                "href": "#27847491-5ce1-4f6a-a1e4-9e483782f0ef",
+                "rel": "reference"
+              },
+              {
+                "href": "#110e26af-4765-49e1-8740-6750f83fcda1",
+                "rel": "reference"
+              },
+              {
+                "href": "#e7942589-e267-4a5a-a3d9-f39a7aae81f0",
+                "rel": "reference"
+              },
+              {
+                "href": "#8306620b-1920-4d73-8b21-12008528595f",
+                "rel": "reference"
+              },
+              {
+                "href": "#20db4e66-e257-450c-b2e4-2bb9a62a2c88",
+                "rel": "reference"
+              },
+              {
+                "href": "#70402863-5078-43af-9a6c-e11b0f3ec370",
+                "rel": "reference"
+              },
+              {
+                "href": "#996241f8-f692-42d5-91f1-ce8b752e39e6",
+                "rel": "reference"
+              },
+              {
+                "href": "#cm-2",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-7",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-9",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-10",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-11",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-13",
+                "rel": "related"
+              },
+              {
+                "href": "#cp-2",
+                "rel": "related"
+              },
+              {
+                "href": "#cp-9",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-2",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-6",
+                "rel": "related"
+              },
+              {
+                "href": "#pe-20",
+                "rel": "related"
+              },
+              {
+                "href": "#pl-9",
+                "rel": "related"
+              },
+              {
+                "href": "#pm-5",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-4",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-5",
+                "rel": "related"
+              },
+              {
+                "href": "#si-2",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-4",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "cm-8_smt",
+                "name": "statement",
+                "parts": [
+                  {
+                    "id": "cm-8_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Develop and document an inventory of system components that:",
+                    "parts": [
+                      {
+                        "id": "cm-8_smt.a.1",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "1."
+                          }
+                        ],
+                        "prose": "Accurately reflects the system;"
+                      },
+                      {
+                        "id": "cm-8_smt.a.2",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "2."
+                          }
+                        ],
+                        "prose": "Includes all components within the system;"
+                      },
+                      {
+                        "id": "cm-8_smt.a.3",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "3."
+                          }
+                        ],
+                        "prose": "Does not include duplicate accounting of components or components assigned to any other system;"
+                      },
+                      {
+                        "id": "cm-8_smt.a.4",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "4."
+                          }
+                        ],
+                        "prose": "Is at the level of granularity deemed necessary for tracking and reporting; and"
+                      },
+                      {
+                        "id": "cm-8_smt.a.5",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "5."
+                          }
+                        ],
+                        "prose": "Includes the following information to achieve system component accountability: image digest, registry and repository, signing identity, workload name, and namespace ; and"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Review and update the system component inventory continuously, as workloads are admitted to the cluster."
+                  }
+                ]
+              },
+              {
+                "id": "cm-8_gdn",
+                "name": "guidance",
+                "prose": "System components are discrete, identifiable information technology assets that include hardware, software, and firmware. Organizations may choose to implement centralized system component inventories that include components from all organizational systems. In such situations, organizations ensure that the inventories include system-specific information required for component accountability. The information necessary for effective accountability of system components includes the system name, software owners, software version numbers, hardware inventory specifications, software license information, and for networked components, the machine names and network addresses across all implemented protocols (e.g., IPv4, IPv6). Inventory specifications include date of receipt, cost, model, serial number, manufacturer, supplier information, component type, and physical location.\n\nPreventing duplicate accounting of system components addresses the lack of accountability that occurs when component ownership and system association is not known, especially in large or complex connected systems. Effective prevention of duplicate accounting of system components necessitates use of a unique identifier for each component. For software inventory, centrally managed software that is accessed via other systems is addressed as a component of the system on which it is installed and managed. Software installed on multiple organizational systems and managed at the system level is addressed for each individual system and may appear more than once in a centralized component inventory, necessitating a system association for each software instance in the centralized inventory to avoid duplicate accounting of components. Scanning systems implementing multiple network protocols (e.g., IPv4 and IPv6) can result in duplicate components being identified in different address spaces. The implementation of [CM-8(7)](#cm-8.7) can help to eliminate duplicate accounting of components."
+              },
+              {
+                "id": "cm-8_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CM-08",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "cm-8_obj.a",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08a.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "cm-8_obj.a.1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08a.01",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "an inventory of system components that accurately reflects the system is developed and documented;"
+                      },
+                      {
+                        "id": "cm-8_obj.a.2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08a.02",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "an inventory of system components that includes all components within the system is developed and documented;"
+                      },
+                      {
+                        "id": "cm-8_obj.a.3",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08a.03",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "an inventory of system components that does not include duplicate accounting of components or components assigned to any other system is developed and documented;"
+                      },
+                      {
+                        "id": "cm-8_obj.a.4",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08a.04",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "an inventory of system components that is at the level of granularity deemed necessary for tracking and reporting is developed and documented;"
+                      },
+                      {
+                        "id": "cm-8_obj.a.5",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08a.05",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "an inventory of system components that includes image digest, registry and repository, signing identity, workload name, and namespace is developed and documented;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8_obj.b",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08b.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "the system component inventory is reviewed and updated continuously, as workloads are admitted to the cluster."
+                  }
+                ]
+              },
+              {
+                "id": "cm-8_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Configuration management policy\n\nprocedures addressing system component inventory\n\nconfiguration management plan\n\nsystem security plan\n\nsystem design documentation\n\nsystem component inventory\n\ninventory reviews and update records\n\nsystem security plan\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "cm-8_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel with component inventory management responsibilities\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "cm-8_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational processes for managing the system component inventory\n\nmechanisms supporting and/or implementing system component inventory"
+                  }
+                ]
+              }
+            ],
+            "controls": [
+              {
+                "id": "cm-8.3",
+                "class": "SP800-53-enhancement",
+                "title": "Automated Unauthorized Component Detection",
+                "params": [
+                  {
+                    "id": "cm-8.3_prm_1",
+                    "props": [
+                      {
+                        "name": "aggregates",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "cm-08.03_odp.01"
+                      },
+                      {
+                        "name": "aggregates",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "cm-08.03_odp.02"
+                      },
+                      {
+                        "name": "aggregates",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "cm-08.03_odp.03"
+                      }
+                    ],
+                    "label": "organization-defined automated mechanisms"
+                  },
+                  {
+                    "id": "cm-08.03_odp.01",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[01]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "automated mechanisms",
+                    "guidelines": [
+                      {
+                        "prose": "automated mechanisms used to detect the presence of unauthorized hardware within the system are defined;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-08.03_odp.02",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[02]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "automated mechanisms",
+                    "guidelines": [
+                      {
+                        "prose": "automated mechanisms used to detect the presence of unauthorized software within the system are defined;"
+                      }
+                    ],
+                    "values": [
+                      "Kyverno and ValidatingAdmissionPolicy admission controls"
+                    ]
+                  },
+                  {
+                    "id": "cm-08.03_odp.03",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[03]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "automated mechanisms",
+                    "guidelines": [
+                      {
+                        "prose": "automated mechanisms used to detect the presence of unauthorized firmware within the system are defined;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-08.03_odp.04",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "cm-8.3_prm_2"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[04]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "frequency",
+                    "guidelines": [
+                      {
+                        "prose": "frequency at which automated mechanisms are used to detect the presence of unauthorized system components within the system is defined;"
+                      }
+                    ],
+                    "values": [
+                      "continuously, at every admission request"
+                    ]
+                  },
+                  {
+                    "id": "cm-08.03_odp.05",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "cm-8.3_prm_3"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[05]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "select": {
+                      "how-many": "one-or-more",
+                      "choice": [
+                        "disable network access by unauthorized components",
+                        "isolate unauthorized components",
+                        "notify UNASSIGNED: personnel or roles"
+                      ]
+                    }
+                  },
+                  {
+                    "id": "cm-08.03_odp.06",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "cm-8.3_prm_4"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)_ODP[06]",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "personnel or roles",
+                    "guidelines": [
+                      {
+                        "prose": "personnel or roles to be notified when unauthorized components are detected is/are defined (if selected);"
+                      }
+                    ]
+                  }
+                ],
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CM-8(3)"
+                  },
+                  {
+                    "name": "label",
+                    "value": "CM-08(03)",
+                    "class": "sp800-53a"
+                  },
+                  {
+                    "name": "sort-id",
+                    "value": "cm-08.03"
+                  }
+                ],
+                "links": [
+                  {
+                    "href": "#cm-8",
+                    "rel": "required"
+                  },
+                  {
+                    "href": "#ac-19",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#ca-7",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#ra-5",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#sc-3",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#sc-39",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#sc-44",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#si-3",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#si-4",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#si-7",
+                    "rel": "related"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "cm-8.3_smt",
+                    "name": "statement",
+                    "parts": [
+                      {
+                        "id": "cm-8.3_smt.a",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "(a)"
+                          }
+                        ],
+                        "prose": "Detect the presence of unauthorized hardware, software, and firmware components within the system using , Kyverno and ValidatingAdmissionPolicy admission controls,  continuously, at every admission request ; and"
+                      },
+                      {
+                        "id": "cm-8.3_smt.b",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "(b)"
+                          }
+                        ],
+                        "prose": "Take the following actions when unauthorized components are detected: Selection (one or more): disable network access by unauthorized components; isolate unauthorized components; notify UNASSIGNED: personnel or roles ."
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8.3_gdn",
+                    "name": "guidance",
+                    "prose": "Automated unauthorized component detection is applied in addition to the monitoring for unauthorized remote connections and mobile devices. Monitoring for unauthorized system components may be accomplished on an ongoing basis or by the periodic scanning of systems for that purpose. Automated mechanisms may also be used to prevent the connection of unauthorized components (see [CM-7(9)](#cm-7.9) ). Automated mechanisms can be implemented in systems or in separate system components. When acquiring and implementing automated mechanisms, organizations consider whether such mechanisms depend on the ability of the system component to support an agent or supplicant in order to be detected since some types of components do not have or cannot support agents (e.g., IoT devices, sensors). Isolation can be achieved , for example, by placing unauthorized system components in separate domains or subnets or quarantining such components. This type of component isolation is commonly referred to as \"sandboxing.\" "
+                  },
+                  {
+                    "id": "cm-8.3_obj",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "cm-8.3_obj.a",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08(03)(a)",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "parts": [
+                          {
+                            "id": "cm-8.3_obj.a-1",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(a)[01]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "the presence of unauthorized hardware within the system is detected using UNASSIGNED: automated mechanisms continuously, at every admission request;"
+                          },
+                          {
+                            "id": "cm-8.3_obj.a-2",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(a)[02]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "the presence of unauthorized software within the system is detected using Kyverno and ValidatingAdmissionPolicy admission controls continuously, at every admission request;"
+                          },
+                          {
+                            "id": "cm-8.3_obj.a-3",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(a)[03]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "the presence of unauthorized firmware within the system is detected using UNASSIGNED: automated mechanisms continuously, at every admission request;"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "cm-8.3_obj.b",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "CM-08(03)(b)",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "parts": [
+                          {
+                            "id": "cm-8.3_obj.b-1",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(b)[01]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "Selection (one or more): disable network access by unauthorized components; isolate unauthorized components; notify UNASSIGNED: personnel or roles  are taken when unauthorized hardware is detected;"
+                          },
+                          {
+                            "id": "cm-8.3_obj.b-2",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(b)[02]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "Selection (one or more): disable network access by unauthorized components; isolate unauthorized components; notify UNASSIGNED: personnel or roles  are taken when unauthorized software is detected;"
+                          },
+                          {
+                            "id": "cm-8.3_obj.b-3",
+                            "name": "assessment-objective",
+                            "props": [
+                              {
+                                "name": "label",
+                                "value": "CM-08(03)(b)[03]",
+                                "class": "sp800-53a"
+                              }
+                            ],
+                            "prose": "Selection (one or more): disable network access by unauthorized components; isolate unauthorized components; notify UNASSIGNED: personnel or roles  are taken when unauthorized firmware is detected."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8.3_asm-examine",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "EXAMINE"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)-Examine",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Configuration management policy\n\nprocedures addressing system component inventory\n\nconfiguration management plan\n\nsystem design documentation\n\nsystem security plan\n\nsystem component inventory\n\nchange control records\n\nalerts/notifications of unauthorized components within the system\n\nsystem monitoring records\n\nsystem maintenance records\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8.3_asm-interview",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "INTERVIEW"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)-Interview",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Organizational personnel with component inventory management responsibilities\n\norganizational personnel with responsibilities for managing the automated mechanisms implementing unauthorized system component detection\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators\n\nsystem developers"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cm-8.3_asm-test",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "TEST"
+                      },
+                      {
+                        "name": "label",
+                        "value": "CM-08(03)-Test",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Organizational processes for detection of unauthorized system components\n\norganizational processes for taking action when unauthorized system components are detected\n\nautomated mechanisms supporting and/or implementing the detection of unauthorized system components\n\nautomated mechanisms supporting and/or implementing actions taken when unauthorized system components are detected"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ia",
+        "class": "family",
+        "title": "Identification and Authentication",
+        "controls": [
+          {
+            "id": "ia-5",
+            "class": "SP800-53",
+            "title": "Authenticator Management",
+            "params": [
+              {
+                "id": "ia-05_odp.01",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "ia-5_prm_1"
+                  },
+                  {
+                    "name": "label",
+                    "value": "IA-05_ODP[01]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "time period by authenticator type",
+                "guidelines": [
+                  {
+                    "prose": "a time period for changing or refreshing authenticators by authenticator type is defined;"
+                  }
+                ]
+              },
+              {
+                "id": "ia-05_odp.02",
+                "props": [
+                  {
+                    "name": "alt-identifier",
+                    "value": "ia-5_prm_2"
+                  },
+                  {
+                    "name": "label",
+                    "value": "IA-05_ODP[02]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "events",
+                "guidelines": [
+                  {
+                    "prose": "events that trigger the change or refreshment of authenticators are defined;"
+                  }
+                ],
+                "values": [
+                  "suspected or confirmed credential compromises"
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "label",
+                "value": "IA-5"
+              },
+              {
+                "name": "label",
+                "value": "IA-05",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "ia-05"
+              }
+            ],
+            "links": [
+              {
+                "href": "#678e3d6c-150b-4393-aec5-6e3481eb1e00",
+                "rel": "reference"
+              },
+              {
+                "href": "#eea3c092-42ed-4382-a6f4-1adadef01b9d",
+                "rel": "reference"
+              },
+              {
+                "href": "#7ba1d91c-3934-4d5a-8532-b32f864ad34c",
+                "rel": "reference"
+              },
+              {
+                "href": "#a295ca19-8c75-4b4c-8800-98024732e181",
+                "rel": "reference"
+              },
+              {
+                "href": "#737513fa-6758-403f-831d-5ddab5e23cb3",
+                "rel": "reference"
+              },
+              {
+                "href": "#858705be-3c1f-48aa-a328-0ce398d95ef0",
+                "rel": "reference"
+              },
+              {
+                "href": "#7af2e6ec-9f7e-4232-ad3f-09888eb0793a",
+                "rel": "reference"
+              },
+              {
+                "href": "#828856bd-d7c4-427b-8b51-815517ec382d",
+                "rel": "reference"
+              },
+              {
+                "href": "#15dc76ff-b17a-4eeb-8948-8ea8de3ccc2c",
+                "rel": "reference"
+              },
+              {
+                "href": "#91701292-8bcd-4d2e-a5bd-59ab61e34b3c",
+                "rel": "reference"
+              },
+              {
+                "href": "#4f5f51ac-2b8d-4b90-a3c7-46f56e967617",
+                "rel": "reference"
+              },
+              {
+                "href": "#604774da-9e1d-48eb-9c62-4e959dc80737",
+                "rel": "reference"
+              },
+              {
+                "href": "#81aeb0a3-d0ee-4e44-b842-6bf28d2bd7f5",
+                "rel": "reference"
+              },
+              {
+                "href": "#ac-3",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-6",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-6",
+                "rel": "related"
+              },
+              {
+                "href": "#ia-2",
+                "rel": "related"
+              },
+              {
+                "href": "#ia-4",
+                "rel": "related"
+              },
+              {
+                "href": "#ia-7",
+                "rel": "related"
+              },
+              {
+                "href": "#ia-8",
+                "rel": "related"
+              },
+              {
+                "href": "#ia-9",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-4",
+                "rel": "related"
+              },
+              {
+                "href": "#pe-2",
+                "rel": "related"
+              },
+              {
+                "href": "#pl-4",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-12",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-13",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "ia-5_smt",
+                "name": "statement",
+                "prose": "Manage system authenticators by:",
+                "parts": [
+                  {
+                    "id": "ia-5_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Verifying, as part of the initial authenticator distribution, the identity of the individual, group, role, service, or device receiving the authenticator;"
+                  },
+                  {
+                    "id": "ia-5_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Establishing initial authenticator content for any authenticators issued by the organization;"
+                  },
+                  {
+                    "id": "ia-5_smt.c",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "c."
+                      }
+                    ],
+                    "prose": "Ensuring that authenticators have sufficient strength of mechanism for their intended use;"
+                  },
+                  {
+                    "id": "ia-5_smt.d",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "d."
+                      }
+                    ],
+                    "prose": "Establishing and implementing administrative procedures for initial authenticator distribution, for lost or compromised or damaged authenticators, and for revoking authenticators;"
+                  },
+                  {
+                    "id": "ia-5_smt.e",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "e."
+                      }
+                    ],
+                    "prose": "Changing default authenticators prior to first use;"
+                  },
+                  {
+                    "id": "ia-5_smt.f",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "f."
+                      }
+                    ],
+                    "prose": "Changing or refreshing authenticators UNASSIGNED: time period by authenticator type or when suspected or confirmed credential compromises occur;"
+                  },
+                  {
+                    "id": "ia-5_smt.g",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "g."
+                      }
+                    ],
+                    "prose": "Protecting authenticator content from unauthorized disclosure and modification;"
+                  },
+                  {
+                    "id": "ia-5_smt.h",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "h."
+                      }
+                    ],
+                    "prose": "Requiring individuals to take, and having devices implement, specific controls to protect authenticators; and"
+                  },
+                  {
+                    "id": "ia-5_smt.i",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "i."
+                      }
+                    ],
+                    "prose": "Changing authenticators for group or role accounts when membership to those accounts changes."
+                  }
+                ]
+              },
+              {
+                "id": "ia-5_gdn",
+                "name": "guidance",
+                "prose": "Authenticators include passwords, cryptographic devices, biometrics, certificates, one-time password devices, and ID badges. Device authenticators include certificates and passwords. Initial authenticator content is the actual content of the authenticator (e.g., the initial password). In contrast, the requirements for authenticator content contain specific criteria or characteristics (e.g., minimum password length). Developers may deliver system components with factory default authentication credentials (i.e., passwords) to allow for initial installation and configuration. Default authentication credentials are often well known, easily discoverable, and present a significant risk. The requirement to protect individual authenticators may be implemented via control [PL-4](#pl-4) or [PS-6](#ps-6) for authenticators in the possession of individuals and by controls [AC-3](#ac-3), [AC-6](#ac-6) , and [SC-28](#sc-28) for authenticators stored in organizational systems, including passwords stored in hashed or encrypted formats or files containing encrypted or hashed passwords accessible with administrator privileges.\n\nSystems support authenticator management by organization-defined settings and restrictions for various authenticator characteristics (e.g., minimum password length, validation time window for time synchronous one-time tokens, and number of allowed rejections during the verification stage of biometric authentication). Actions can be taken to safeguard individual authenticators, including maintaining possession of authenticators, not sharing authenticators with others, and immediately reporting lost, stolen, or compromised authenticators. Authenticator management includes issuing and revoking authenticators for temporary access when no longer needed."
+              },
+              {
+                "id": "ia-5_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "IA-05",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "ia-5_obj.a",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05a.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the verification of the identity of the individual, group, role, service, or device receiving the authenticator as part of the initial authenticator distribution;"
+                  },
+                  {
+                    "id": "ia-5_obj.b",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05b.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the establishment of initial authenticator content for any authenticators issued by the organization;"
+                  },
+                  {
+                    "id": "ia-5_obj.c",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05c.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed to ensure that authenticators have sufficient strength of mechanism for their intended use;"
+                  },
+                  {
+                    "id": "ia-5_obj.d",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05d.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the establishment and implementation of administrative procedures for initial authenticator distribution; lost, compromised, or damaged authenticators; and the revocation of authenticators;"
+                  },
+                  {
+                    "id": "ia-5_obj.e",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05e.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the change of default authenticators prior to first use;"
+                  },
+                  {
+                    "id": "ia-5_obj.f",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05f.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the change or refreshment of authenticators UNASSIGNED: time period by authenticator type or when suspected or confirmed credential compromises occur;"
+                  },
+                  {
+                    "id": "ia-5_obj.g",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05g.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the protection of authenticator content from unauthorized disclosure and modification;"
+                  },
+                  {
+                    "id": "ia-5_obj.h",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05h.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "ia-5_obj.h-1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "IA-05h.[01]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "system authenticators are managed through the requirement for individuals to take specific controls to protect authenticators;"
+                      },
+                      {
+                        "id": "ia-5_obj.h-2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "IA-05h.[02]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "system authenticators are managed through the requirement for devices to implement specific controls to protect authenticators;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ia-5_obj.i",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "IA-05i.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "system authenticators are managed through the change of authenticators for group or role accounts when membership to those accounts changes."
+                  }
+                ]
+              },
+              {
+                "id": "ia-5_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "IA-05-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Identification and authentication policy\n\nsystem security plan\n\naddressing authenticator management\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\nlist of system authenticator types\n\nchange control records associated with managing system authenticators\n\nsystem audit records\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "ia-5_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "IA-05-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel with authenticator management responsibilities\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "ia-5_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "IA-05-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Mechanisms supporting and/or implementing authenticator management capability"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sc",
+        "class": "family",
+        "title": "System and Communications Protection",
+        "controls": [
+          {
+            "id": "sc-39",
+            "class": "SP800-53",
+            "title": "Process Isolation",
+            "props": [
+              {
+                "name": "label",
+                "value": "SC-39"
+              },
+              {
+                "name": "label",
+                "value": "SC-39",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "sc-39"
+              }
+            ],
+            "links": [
+              {
+                "href": "#e3cc0520-a366-4fc9-abc2-5272db7e3564",
+                "rel": "reference"
+              },
+              {
+                "href": "#ac-3",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-4",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-6",
+                "rel": "related"
+              },
+              {
+                "href": "#ac-25",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-8",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-2",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-3",
+                "rel": "related"
+              },
+              {
+                "href": "#si-16",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "sc-39_smt",
+                "name": "statement",
+                "prose": "Maintain a separate execution domain for each executing system process."
+              },
+              {
+                "id": "sc-39_gdn",
+                "name": "guidance",
+                "prose": "Systems can maintain separate execution domains for each executing process by assigning each process a separate address space. Each system process has a distinct address space so that communication between processes is performed in a manner controlled through the security functions, and one process cannot modify the executing code of another process. Maintaining separate execution domains for executing processes can be achieved, for example, by implementing separate address spaces. Process isolation technologies, including sandboxing or virtualization, logically separate software and firmware from other software, firmware, and data. Process isolation helps limit the access of potentially untrusted software to other system resources. The capability to maintain separate execution domains is available in commercial operating systems that employ multi-state processor technologies."
+              },
+              {
+                "id": "sc-39_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SC-39",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "prose": "a separate execution domain is maintained for each executing system process."
+              },
+              {
+                "id": "sc-39_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SC-39-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "System design documentation\n\nsystem architecture\n\nindependent verification and validation documentation\n\ntesting and evaluation documentation\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "sc-39_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SC-39-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "System developers/integrators\n\nsystem security architect"
+                  }
+                ]
+              },
+              {
+                "id": "sc-39_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SC-39-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Mechanisms supporting and/or implementing separate execution domains for each executing process"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "si",
+        "class": "family",
+        "title": "System and Information Integrity",
+        "controls": [
+          {
+            "id": "si-7",
+            "class": "SP800-53",
+            "title": "Software, Firmware, and Information Integrity",
+            "params": [
+              {
+                "id": "si-7_prm_1",
+                "props": [
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.01"
+                  },
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.02"
+                  },
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.03"
+                  }
+                ],
+                "label": "organization-defined software, firmware, and information"
+              },
+              {
+                "id": "si-7_prm_2",
+                "props": [
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.04"
+                  },
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.05"
+                  },
+                  {
+                    "name": "aggregates",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "si-07_odp.06"
+                  }
+                ],
+                "label": "organization-defined actions"
+              },
+              {
+                "id": "si-07_odp.01",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[01]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "software",
+                "guidelines": [
+                  {
+                    "prose": "software requiring integrity verification tools to be employed to detect unauthorized changes is defined;"
+                  }
+                ],
+                "values": [
+                  "the container images of every workload in the storefront namespace"
+                ]
+              },
+              {
+                "id": "si-07_odp.02",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[02]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "firmware",
+                "guidelines": [
+                  {
+                    "prose": "firmware requiring integrity verification tools to be employed to detect unauthorized changes is defined;"
+                  }
+                ]
+              },
+              {
+                "id": "si-07_odp.03",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[03]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "information",
+                "guidelines": [
+                  {
+                    "prose": "information requiring integrity verification tools to be employed to detect unauthorized changes is defined;"
+                  }
+                ]
+              },
+              {
+                "id": "si-07_odp.04",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[04]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "actions",
+                "guidelines": [
+                  {
+                    "prose": "actions to be taken when unauthorized changes to software are detected are defined;"
+                  }
+                ],
+                "values": [
+                  "blocking admission of the affected workload"
+                ]
+              },
+              {
+                "id": "si-07_odp.05",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[05]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "actions",
+                "guidelines": [
+                  {
+                    "prose": "actions to be taken when unauthorized changes to firmware are detected are defined;"
+                  }
+                ]
+              },
+              {
+                "id": "si-07_odp.06",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07_ODP[06]",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "label": "actions",
+                "guidelines": [
+                  {
+                    "prose": "actions to be taken when unauthorized changes to information are detected are defined;"
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "label",
+                "value": "SI-7"
+              },
+              {
+                "name": "label",
+                "value": "SI-07",
+                "class": "sp800-53a"
+              },
+              {
+                "name": "sort-id",
+                "value": "si-07"
+              }
+            ],
+            "links": [
+              {
+                "href": "#27847491-5ce1-4f6a-a1e4-9e483782f0ef",
+                "rel": "reference"
+              },
+              {
+                "href": "#678e3d6c-150b-4393-aec5-6e3481eb1e00",
+                "rel": "reference"
+              },
+              {
+                "href": "#eea3c092-42ed-4382-a6f4-1adadef01b9d",
+                "rel": "reference"
+              },
+              {
+                "href": "#7c37a38d-21d7-40d8-bc3d-b5e27eac17e1",
+                "rel": "reference"
+              },
+              {
+                "href": "#a295ca19-8c75-4b4c-8800-98024732e181",
+                "rel": "reference"
+              },
+              {
+                "href": "#4895b4cd-34c5-4667-bf8a-27d443c12047",
+                "rel": "reference"
+              },
+              {
+                "href": "#e47ee630-9cbc-4133-880e-e013f83ccd51",
+                "rel": "reference"
+              },
+              {
+                "href": "#ac-4",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-3",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-7",
+                "rel": "related"
+              },
+              {
+                "href": "#cm-8",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-3",
+                "rel": "related"
+              },
+              {
+                "href": "#ma-4",
+                "rel": "related"
+              },
+              {
+                "href": "#ra-5",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-8",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-9",
+                "rel": "related"
+              },
+              {
+                "href": "#sa-10",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-8",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-12",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-13",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-28",
+                "rel": "related"
+              },
+              {
+                "href": "#sc-37",
+                "rel": "related"
+              },
+              {
+                "href": "#si-3",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-3",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-4",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-5",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-6",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-9",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-10",
+                "rel": "related"
+              },
+              {
+                "href": "#sr-11",
+                "rel": "related"
+              }
+            ],
+            "parts": [
+              {
+                "id": "si-7_smt",
+                "name": "statement",
+                "parts": [
+                  {
+                    "id": "si-7_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Employ integrity verification tools to detect unauthorized changes to the following software, firmware, and information: the container images of every workload in the storefront namespace, ,  ; and"
+                  },
+                  {
+                    "id": "si-7_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Take the following actions when unauthorized changes to the software, firmware, and information are detected: blocking admission of the affected workload, , ."
+                  }
+                ]
+              },
+              {
+                "id": "si-7_gdn",
+                "name": "guidance",
+                "prose": "Unauthorized changes to software, firmware, and information can occur due to errors or malicious activity. Software includes operating systems (with key internal components, such as kernels or drivers), middleware, and applications. Firmware interfaces include Unified Extensible Firmware Interface (UEFI) and Basic Input/Output System (BIOS). Information includes personally identifiable information and metadata that contains security and privacy attributes associated with information. Integrity-checking mechanisms—including parity checks, cyclical redundancy checks, cryptographic hashes, and associated tools—can automatically monitor the integrity of systems and hosted applications."
+              },
+              {
+                "id": "si-7_obj",
+                "name": "assessment-objective",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-07",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "si-7_obj.a",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "SI-07a.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "si-7_obj.a-1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07a.[01]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "integrity verification tools are employed to detect unauthorized changes to the container images of every workload in the storefront namespace;"
+                      },
+                      {
+                        "id": "si-7_obj.a-2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07a.[02]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "integrity verification tools are employed to detect unauthorized changes to UNASSIGNED: firmware;"
+                      },
+                      {
+                        "id": "si-7_obj.a-3",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07a.[03]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "integrity verification tools are employed to detect unauthorized changes to UNASSIGNED: information;"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "si-7_obj.b",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "SI-07b.",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "id": "si-7_obj.b-1",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07b.[01]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "blocking admission of the affected workload are taken when unauthorized changes to the software, are detected;"
+                      },
+                      {
+                        "id": "si-7_obj.b-2",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07b.[02]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "UNASSIGNED: actions are taken when unauthorized changes to the firmware are detected;"
+                      },
+                      {
+                        "id": "si-7_obj.b-3",
+                        "name": "assessment-objective",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "SI-07b.[03]",
+                            "class": "sp800-53a"
+                          }
+                        ],
+                        "prose": "UNASSIGNED: actions are taken when unauthorized changes to the information are detected."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "si-7_asm-examine",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "EXAMINE"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SI-07-Examine",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "System and information integrity policy\n\nsystem and information integrity procedures\n\nprocedures addressing software, firmware, and information integrity\n\npersonally identifiable information processing policy\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\nintegrity verification tools and associated documentation\n\nrecords generated or triggered by integrity verification tools regarding unauthorized software, firmware, and information changes\n\nsystem audit records\n\nsystem security plan\n\nprivacy plan\n\nother relevant documents or records"
+                  }
+                ]
+              },
+              {
+                "id": "si-7_asm-interview",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "INTERVIEW"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SI-07-Interview",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Organizational personnel responsible for software, firmware, and/or information integrity\n\norganizational personnel with information security and privacy responsibilities\n\nsystem/network administrators"
+                  }
+                ]
+              },
+              {
+                "id": "si-7_asm-test",
+                "name": "assessment-method",
+                "props": [
+                  {
+                    "name": "method",
+                    "ns": "http://csrc.nist.gov/ns/rmf",
+                    "value": "TEST"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SI-07-Test",
+                    "class": "sp800-53a"
+                  }
+                ],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "Software, firmware, and information integrity verification tools"
+                  }
+                ]
+              }
+            ],
+            "controls": [
+              {
+                "id": "si-7.15",
+                "class": "SP800-53-enhancement",
+                "title": "Code Authentication",
+                "params": [
+                  {
+                    "id": "si-07.15_odp",
+                    "props": [
+                      {
+                        "name": "alt-identifier",
+                        "value": "si-7.15_prm_1"
+                      },
+                      {
+                        "name": "label",
+                        "value": "SI-07(15)_ODP",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "label": "software or firmware components",
+                    "guidelines": [
+                      {
+                        "prose": "software or firmware components to be authenticated by cryptographic mechanisms prior to installation are defined;"
+                      }
+                    ],
+                    "values": [
+                      "all container images admitted to the storefront namespace"
+                    ]
+                  }
+                ],
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "SI-7(15)"
+                  },
+                  {
+                    "name": "label",
+                    "value": "SI-07(15)",
+                    "class": "sp800-53a"
+                  },
+                  {
+                    "name": "sort-id",
+                    "value": "si-07.15"
+                  }
+                ],
+                "links": [
+                  {
+                    "href": "#si-7",
+                    "rel": "required"
+                  },
+                  {
+                    "href": "#cm-5",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#sc-12",
+                    "rel": "related"
+                  },
+                  {
+                    "href": "#sc-13",
+                    "rel": "related"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "si-7.15_smt",
+                    "name": "statement",
+                    "prose": "Implement cryptographic mechanisms to authenticate the following software or firmware components prior to installation: all container images admitted to the storefront namespace."
+                  },
+                  {
+                    "id": "si-7.15_gdn",
+                    "name": "guidance",
+                    "prose": "Cryptographic authentication includes verifying that software or firmware components have been digitally signed using certificates recognized and approved by organizations. Code signing is an effective method to protect against malicious code. Organizations that employ cryptographic mechanisms also consider cryptographic key management solutions."
+                  },
+                  {
+                    "id": "si-7.15_obj",
+                    "name": "assessment-objective",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "SI-07(15)",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "prose": "cryptographic mechanisms are implemented to authenticate all container images admitted to the storefront namespace prior to installation."
+                  },
+                  {
+                    "id": "si-7.15_asm-examine",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "EXAMINE"
+                      },
+                      {
+                        "name": "label",
+                        "value": "SI-07(15)-Examine",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "System and information integrity policy\n\nsystem and information integrity procedures\n\nprocedures addressing software, firmware, and information integrity\n\nsystem design documentation\n\nsystem configuration settings and associated documentation\n\ncryptographic mechanisms and associated documentation\n\nsystem audit records\n\nsystem security plan\n\nother relevant documents or records"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "si-7.15_asm-interview",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "INTERVIEW"
+                      },
+                      {
+                        "name": "label",
+                        "value": "SI-07(15)-Interview",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Organizational personnel responsible for software, firmware, and/or information integrity\n\norganizational personnel with information security responsibilities\n\nsystem/network administrators\n\nsystem developer"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "si-7.15_asm-test",
+                    "name": "assessment-method",
+                    "props": [
+                      {
+                        "name": "method",
+                        "ns": "http://csrc.nist.gov/ns/rmf",
+                        "value": "TEST"
+                      },
+                      {
+                        "name": "label",
+                        "value": "SI-07(15)-Test",
+                        "class": "sp800-53a"
+                      }
+                    ],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "Cryptographic mechanisms authenticating software and firmware prior to installation"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "back-matter": {}
+  }
+}

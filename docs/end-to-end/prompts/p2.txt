@@ -1,0 +1,1 @@
+Now fill in the organisation-defined parameters for those nine controls, for the system in SYSTEM.md. Propose a value only where a fact about this system implies one; leave a parameter unset when it is an organisational decision or outside this system's scope, and record why in the profile itself. Then assemble the values back into the profile.

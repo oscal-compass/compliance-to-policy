@@ -1,0 +1,1 @@
+Our organisation needs a control profile for the system described in SYSTEM.md, based on NIST SP 800-53 rev 5. Set up an OSCAL workspace here, import the NIST catalog from NIST, and create a profile named nist_800_53 selecting exactly these nine controls from the HIGH baseline: ac-6 cm-2 cm-7.5 cm-8 cm-8.3 ia-5 sc-39 si-7 si-7.15. Do not fill in any parameter values yet.

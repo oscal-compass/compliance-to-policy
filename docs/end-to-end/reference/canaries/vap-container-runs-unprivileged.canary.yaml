@@ -1,0 +1,48 @@
+# Fails `vap-container-runs-unprivileged` and no other check: the image is pinned by digest, the
+# inventory labels are present and the credential comes from a Secret.
+#
+# It offends two of this check's expressions rather than one, and that is forced: Kubernetes
+# itself refuses an object with `privileged: true` and `allowPrivilegeEscalation: false`, and
+# such an object never reaches admission, so a canary that tried to break only the first
+# expression would be rejected as invalid and the check would look invisible. A canary has to
+# make its check speak; it does not have to be minimal.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-container-runs-unprivileged
+  labels:
+    app.kubernetes.io/name: canary
+    app.kubernetes.io/part-of: storefront
+    compliance.example.com/data-classification: internal
+    compliance.example.com/owner: platform
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: canary
+  template:
+    metadata:
+      labels:
+        app: canary
+        app.kubernetes.io/name: canary
+        app.kubernetes.io/part-of: storefront
+        compliance.example.com/data-classification: internal
+        compliance.example.com/owner: platform
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: app
+          image: registry.example.com/canary@sha256:0000000000000000000000000000000000000000000000000000000000000000
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: canary
+                  key: password

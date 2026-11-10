@@ -1,0 +1,33 @@
+Template written. I couldn't run the render — the `python3` calls were declined, so the render and YAML parse are **unverified**; I hand-checked them instead. I left the harness I wrote at `.render_check.py` (it resolves the rule set from the component definition, renders with `quote`/`tojson` registered, and parses the output) so you can run it yourself:
+
+```
+cd /tmp/skillrun && python3 .render_check.py
+```
+
+## What I generated
+
+`templates/vap-cel/vap-image-pinned-by-digest.yaml.tmpl` — policy + binding in one document, per `engines.md`.
+
+- **No `params`.** Rule `image-pinned-by-digest` declares no `Parameter_Id` in the component definition, so nothing is interpolated from the parameter set and there is no cross-engine parity obligation for this one.
+- **Assertion follows the check description**, not the other two engines': `!c.image.contains("@sha256:")`. The `kyverno-dsl` and `kyverno-cel` checks for the same rule are both phrased as "the form `repository@sha256:digest`", which is a regex-shaped claim; vap's says "contain `@sha256:`". They agree in effect (a digest-pinned reference with a tag still passes both, correctly — the digest wins), but if you want the three to read identically that's a component-definition edit, not a template one.
+- **One `podSpec` variable** branches over where each matched kind keeps the spec (CronJob nests twice, apps/v1 controllers and Job once, Pod not at all), so the same expression covers all three `resourceRules` groups.
+- **Matches controllers and bare pods.** Pods alone would catch everything eventually, but the compliance probe re-submits *workloads* under server-side dry-run, so the Deployment has to be judged directly or the check has nothing to say about the object in your inventory.
+- `initContainers` included; `ephemeralContainers` deliberately not — they can't be set on create and arrive via a subresource this policy doesn't match.
+- `auditAnnotations` stamp the check id and the offending images, since this engine writes no report and the result has to be attributable.
+
+## One thing I need you to decide
+
+The binding's `namespaceSelector` pins `kubernetes.io/metadata.name: storefront`. **That value is not in the render context** — the component definition only states the storefront namespace in prose (the `three-tier-app` description). I marked it `# REVIEW:` in the template rather than copying it in quietly, because this is the failure mode `SKILL.md` warns about: it's correct today and goes stale the first time the namespace changes, and the parity test can't catch it since the template is where the expected value comes from.
+
+The enforcement scope is a compliance decision, so it belongs to whoever authored the component definition. My recommendation is a `Parameter_Id` of `enforced_namespace` on the rules, which all four vap-cel checks and the Kyverno equivalents would then share. I haven't edited the component definition — say the word and I will.
+
+## Two things dry-run will likely comment on
+
+1. `status.typeChecking` will carry warnings like `undefined field 'jobTemplate'` — the apiserver re-checks each expression against every matched kind's schema. Runtime binds `object` as `dyn`, so these are warnings, not compile failures, and the policy still evaluates. Unavoidable for one policy spanning Pod/Deployment/CronJob.
+2. The `unpinned-images` annotation evaluates to `""` when nothing is unpinned. I expect the apiserver to omit an empty-valued annotation; if it records it instead, that's cosmetic noise in the audit log and I'll switch it to a conditional.
+
+Neither is a reason to hold the template — per `verification.md` the real test is `kubectl apply --server-side --force-conflicts --dry-run=server`, then applying it and submitting a tag-referenced Deployment to confirm it actually refuses something.
+
+## Still outstanding for `vap-cel`
+
+Three declared checks have no template yet, so a render of the full set will raise today: `vap-container-runs-unprivileged`, `vap-workload-inventory-labelled` (this one does need `required_workload_labels` via `tojson`, and must match the `kyverno-cel` expression byte for byte), `vap-db-credentials-from-secret`. Worth noting the component definition correctly declares **no** vap-cel check for `image-signature-verified` or `image-registry-approved` — those are the two VAP genuinely can't express, and they'll come back `not-assessed` with coverage showing why.

@@ -1,0 +1,17 @@
+control  every engine            vap-cel only
+---------------------------------------------
+ac-6     satisfied               satisfied
+cm-2     not-satisfied           not-satisfied
+cm-7.5   satisfied               — not reported —
+cm-8     not-satisfied           not-satisfied
+cm-8.3   satisfied               — not reported —
+ia-5     not-satisfied           not-satisfied
+sc-39    satisfied               satisfied
+si-7     not-satisfied           not-satisfied
+si-7.15  not-satisfied           — not reported —
+
+3 control(s) stop being reported when only ValidatingAdmissionPolicy is available:
+  cm-7.5: was satisfied, now absent
+  cm-8.3: was satisfied, now absent
+  si-7.15: was not-satisfied, now absent
+

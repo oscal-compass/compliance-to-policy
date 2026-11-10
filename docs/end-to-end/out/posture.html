@@ -1,0 +1,521 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Compliance posture</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:2rem;color:#1c1c1c;background:#fafafa}
+/* Fixed layout, or the subjects column takes the width and squeezes the rule column until
+   every hyphenated check id wraps one word per line. */
+table{border-collapse:collapse;width:100%;background:#fff;table-layout:fixed}
+col.control{width:14%}col.state{width:13%}col.coverage{width:6%}col.checks{width:27%}
+th,td{border:1px solid #ddd;padding:.45rem .6rem;vertical-align:top;font-size:.92rem}
+th{background:#f0f0f0;text-align:left}
+td{overflow-wrap:anywhere}
+.satisfied{background:#e6f7e9}.not-satisfied{background:#fde8e8}.not-assessed{background:#fff6d6}
+code{font-size:.85em;white-space:nowrap}ul{margin:.1rem 0;padding-left:1.1rem}li{margin:.15rem 0}
+/* The subject list is the audit trail and has to be present, but a control with 34 subjects
+   makes the table unreadable if they are all open: one control then fills a screen and the
+   posture -- which is the point of the page -- cannot be scanned at all. */
+details>summary{cursor:pointer;font-size:.9rem}
+details[open]>summary{margin-bottom:.3rem}
+h1{margin-bottom:0}.meta{color:#666;margin-top:.2rem}
+</style>
+<h1>Compliance posture</h1>
+<p class="meta">
+
+4 satisfied · 5 not satisfied ·
+0 not assessed
+· generated 2026-11-10T04:16:13+00:00
+</p>
+
+<h2>container-supply-chain</h2>
+<table>
+<col class="control"><col class="state"><col class="coverage"><col class="checks"><col>
+<tr><th>Control</th><th>State</th><th>Coverage</th><th>Rule → check (engine)</th><th>Subjects</th></tr>
+<tr class="not-satisfied">
+  <td><b>si-7.15</b><br><small>Code Authentication</small></td>
+  <td>not-satisfied<br><small>20 of 34 subject(s) failing, 2 of 2 expected check(s) reported</small></td>
+  <td>2/2</td>
+  <td>
+    <code>image-signature-verified</code> → <code>kyverno-dsl-image-signature-verified</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>image-signature-verified</code> → <code>kyverno-cel-image-signature-verified</code>
+    (kyverno-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-image-signature-verified</code>
+    — 17 subject(s),
+    10 not passing</summary>
+    <ul>
+      <li><b>pass</b> ReplicaSet storefront/web-5678df868<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+      <li><b>fail</b> Pod storefront/legacy-api-84868b5fc5-lf8fx<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/web-6df5ff6f5f-wpn8b<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/web-6df5ff6f5f-7tnqn<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Pod storefront/api-5646cc8bc5-rm9j6<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>fail</b> ReplicaSet storefront/api-df5546fcc<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Pod storefront/web-5678df868-fxkbw<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+      <li><b>fail</b> Pod storefront/api-df5546fcc-bhwxd<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> ReplicaSet storefront/legacy-api-84868b5fc5<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-db@sha256:31b2851706545c15912bd89f51932b74c31a9ef851970b0947cdd716f8f38fb0</small></li>
+      <li><b>fail</b> Pod storefront/api-df5546fcc-hf8cf<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/db-0<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-db@sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> ReplicaSet storefront/api-5646cc8bc5<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>fail</b> ReplicaSet storefront/web-6df5ff6f5f<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-signature-verified</code>
+    — 17 subject(s),
+    10 not passing</summary>
+    <ul>
+      <li><b>pass</b> ReplicaSet storefront/web-5678df868<br><small>success</small></li>
+      <li><b>fail</b> Pod storefront/legacy-api-84868b5fc5-lf8fx<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>error</b> Pod storefront/web-6df5ff6f5f-wpn8b<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>error</b> Pod storefront/web-6df5ff6f5f-7tnqn<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>pass</b> Pod storefront/api-5646cc8bc5-rm9j6<br><small>success</small></li>
+      <li><b>error</b> ReplicaSet storefront/api-df5546fcc<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>pass</b> Pod storefront/web-5678df868-fxkbw<br><small>success</small></li>
+      <li><b>error</b> Pod storefront/api-df5546fcc-bhwxd<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>fail</b> ReplicaSet storefront/legacy-api-84868b5fc5<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>error</b> Pod storefront/api-df5546fcc-hf8cf<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>error</b> Pod storefront/db-0<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-db/manifests/sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-db Revision:sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994]</small></li>
+      <li><b>pass</b> ReplicaSet storefront/api-5646cc8bc5<br><small>success</small></li>
+      <li><b>error</b> ReplicaSet storefront/web-6df5ff6f5f<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>si-7</b><br><small>Software, Firmware, and Information Integrity</small></td>
+  <td>not-satisfied<br><small>23 of 46 subject(s) failing, 5 of 5 expected check(s) reported</small></td>
+  <td>5/5</td>
+  <td>
+    <code>image-signature-verified</code> → <code>kyverno-dsl-image-signature-verified</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>image-signature-verified</code> → <code>kyverno-cel-image-signature-verified</code>
+    (kyverno-cel) <b>fail</b><br>
+    <code>image-pinned-by-digest</code> → <code>kyverno-dsl-image-pinned-by-digest</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>image-pinned-by-digest</code> → <code>kyverno-cel-image-pinned-by-digest</code>
+    (kyverno-cel) <b>fail</b><br>
+    <code>image-pinned-by-digest</code> → <code>vap-image-pinned-by-digest</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-image-signature-verified</code>
+    — 17 subject(s),
+    10 not passing</summary>
+    <ul>
+      <li><b>pass</b> ReplicaSet storefront/web-5678df868<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+      <li><b>fail</b> Pod storefront/legacy-api-84868b5fc5-lf8fx<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/web-6df5ff6f5f-wpn8b<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/web-6df5ff6f5f-7tnqn<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Pod storefront/api-5646cc8bc5-rm9j6<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>fail</b> ReplicaSet storefront/api-df5546fcc<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Pod storefront/web-5678df868-fxkbw<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+      <li><b>fail</b> Pod storefront/api-df5546fcc-bhwxd<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> ReplicaSet storefront/legacy-api-84868b5fc5<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api:latest: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-db@sha256:31b2851706545c15912bd89f51932b74c31a9ef851970b0947cdd716f8f38fb0</small></li>
+      <li><b>fail</b> Pod storefront/api-df5546fcc-hf8cf<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-api@sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>fail</b> Pod storefront/db-0<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-db@sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> ReplicaSet storefront/api-5646cc8bc5<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-api@sha256:382133d215f1d2377472e2e6590682af7aa159b5500ff6e02a35d5cc01dfd41d</small></li>
+      <li><b>fail</b> ReplicaSet storefront/web-6df5ff6f5f<br><small>failed to verify image kind-registry:5000/kubecon-demo/storefront-web@sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: .attestors[0].entries[0].keyless: no signatures found; .attestors[0].entries[1].keys: no signatures found</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>verified image signatures for kind-registry:5000/kubecon-demo/storefront-web@sha256:04f96ec1694101611f81cf0e1bdf68b45e1ae15720cac9703582cc1bb1916066</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-signature-verified</code>
+    — 17 subject(s),
+    10 not passing</summary>
+    <ul>
+      <li><b>pass</b> ReplicaSet storefront/web-5678df868<br><small>success</small></li>
+      <li><b>fail</b> Pod storefront/legacy-api-84868b5fc5-lf8fx<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>error</b> Pod storefront/web-6df5ff6f5f-wpn8b<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>error</b> Pod storefront/web-6df5ff6f5f-7tnqn<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>pass</b> Pod storefront/api-5646cc8bc5-rm9j6<br><small>success</small></li>
+      <li><b>error</b> ReplicaSet storefront/api-df5546fcc<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>pass</b> Pod storefront/web-5678df868-fxkbw<br><small>success</small></li>
+      <li><b>error</b> Pod storefront/api-df5546fcc-bhwxd<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>fail</b> ReplicaSet storefront/legacy-api-84868b5fc5<br><small>image kind-registry:5000/kubecon-demo/storefront-api:latest does not have a digest</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>error</b> Pod storefront/api-df5546fcc-hf8cf<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-api/manifests/sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-api Revision:sha256:f8d2035139811e2a5fbd3bba902cc8bb0cb817ad9ef125485b5a9fd2daa38e80]</small></li>
+      <li><b>error</b> Pod storefront/db-0<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-db/manifests/sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-db Revision:sha256:c62cc12a237cbbaea9ce5877002bfa14a1613c8ea1e63a6dec5f9644dab6f994]</small></li>
+      <li><b>pass</b> ReplicaSet storefront/api-5646cc8bc5<br><small>success</small></li>
+      <li><b>error</b> ReplicaSet storefront/web-6df5ff6f5f<br><small>failed to evaluate policy: GET http://kind-registry:5000/v2/kubecon-demo/storefront-web/manifests/sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2: MANIFEST_UNKNOWN: manifest unknown; map[Name:kubecon-demo/storefront-web Revision:sha256:2140f7faad5c7d1cb0a9599a18e36be32c3917fd421c2d3372af25b2f0b72cc2]</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-dsl-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>validation error: NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag (check kyverno-dsl-image-pinned-by-digest). rule image-must-carry-a-digest failed at path /spec/template/spec/containers/0/image/</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check kyverno-cel-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="satisfied">
+  <td><b>cm-7.5</b><br><small>Authorized Software — Allow-by-exception</small></td>
+  <td>satisfied<br><small>all 8 subject(s) passing, 2 of 2 expected check(s) reported</small></td>
+  <td>2/2</td>
+  <td>
+    <code>image-registry-approved</code> → <code>kyverno-dsl-image-registry-approved</code>
+    (kyverno-dsl) <b>pass</b><br>
+    <code>image-registry-approved</code> → <code>kyverno-cel-image-registry-approved</code>
+    (kyverno-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-image-registry-approved</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>rule passed</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>rule passed</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>rule passed</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>rule passed</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-registry-approved</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="satisfied">
+  <td><b>cm-8.3</b><br><small>Automated Unauthorized Component Detection</small></td>
+  <td>satisfied<br><small>all 8 subject(s) passing, 2 of 2 expected check(s) reported</small></td>
+  <td>2/2</td>
+  <td>
+    <code>image-registry-approved</code> → <code>kyverno-dsl-image-registry-approved</code>
+    (kyverno-dsl) <b>pass</b><br>
+    <code>image-registry-approved</code> → <code>kyverno-cel-image-registry-approved</code>
+    (kyverno-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-image-registry-approved</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>rule passed</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>rule passed</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>rule passed</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>rule passed</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-registry-approved</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>cm-2</b><br><small>Baseline Configuration</small></td>
+  <td>not-satisfied<br><small>3 of 12 subject(s) failing, 3 of 3 expected check(s) reported</small></td>
+  <td>3/3</td>
+  <td>
+    <code>image-pinned-by-digest</code> → <code>kyverno-dsl-image-pinned-by-digest</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>image-pinned-by-digest</code> → <code>kyverno-cel-image-pinned-by-digest</code>
+    (kyverno-cel) <b>fail</b><br>
+    <code>image-pinned-by-digest</code> → <code>vap-image-pinned-by-digest</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>validation error: NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag (check kyverno-dsl-image-pinned-by-digest). rule image-must-carry-a-digest failed at path /spec/template/spec/containers/0/image/</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;image-must-carry-a-digest&#39; passed.</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check kyverno-cel-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-image-pinned-by-digest</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-2 si-7: container images must be pinned by digest, not by a mutable tag. Offending: kind-registry:5000/kubecon-demo/storefront-api:latest (check vap-image-pinned-by-digest)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-image-pinned-by-digest reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+</table>
+
+<h2>three-tier-app</h2>
+<table>
+<col class="control"><col class="state"><col class="coverage"><col class="checks"><col>
+<tr><th>Control</th><th>State</th><th>Coverage</th><th>Rule → check (engine)</th><th>Subjects</th></tr>
+<tr class="satisfied">
+  <td><b>ac-6</b><br><small>Least Privilege</small></td>
+  <td>satisfied<br><small>all 16 subject(s) passing, 3 of 3 expected check(s) reported</small></td>
+  <td>3/3</td>
+  <td>
+    <code>container-runs-unprivileged</code> → <code>kyverno-dsl-container-runs-unprivileged</code>
+    (kyverno-dsl) <b>pass</b><br>
+    <code>container-runs-unprivileged</code> → <code>kyverno-cel-container-runs-unprivileged</code>
+    (kyverno-cel) <b>pass</b><br>
+    <code>container-runs-unprivileged</code> → <code>vap-container-runs-unprivileged</code>
+    (vap-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-container-runs-unprivileged</code>
+    — 8 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="satisfied">
+  <td><b>sc-39</b><br><small>Process Isolation</small></td>
+  <td>satisfied<br><small>all 16 subject(s) passing, 3 of 3 expected check(s) reported</small></td>
+  <td>3/3</td>
+  <td>
+    <code>container-runs-unprivileged</code> → <code>kyverno-dsl-container-runs-unprivileged</code>
+    (kyverno-dsl) <b>pass</b><br>
+    <code>container-runs-unprivileged</code> → <code>kyverno-cel-container-runs-unprivileged</code>
+    (kyverno-cel) <b>pass</b><br>
+    <code>container-runs-unprivileged</code> → <code>vap-container-runs-unprivileged</code>
+    (vap-cel) <b>pass</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-container-runs-unprivileged</code>
+    — 8 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;no-hostpath-volumes&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;no-privilege-and-no-host-namespaces&#39; passed.</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-container-runs-unprivileged</code>
+    — 4 subject(s),
+    0 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-container-runs-unprivileged reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>cm-8</b><br><small>System Component Inventory</small></td>
+  <td>not-satisfied<br><small>3 of 12 subject(s) failing, 3 of 3 expected check(s) reported</small></td>
+  <td>3/3</td>
+  <td>
+    <code>workload-inventory-labelled</code> → <code>kyverno-dsl-workload-inventory-labelled</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>workload-inventory-labelled</code> → <code>kyverno-cel-workload-inventory-labelled</code>
+    (kyverno-cel) <b>fail</b><br>
+    <code>workload-inventory-labelled</code> → <code>vap-workload-inventory-labelled</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-workload-inventory-labelled</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>validation error: NIST SP 800-53 cm-8: the workload and its pod template must carry all required inventory labels (check kyverno-dsl-workload-inventory-labelled). rule required-inventory-labels failed at path /metadata/labels/app.kubernetes.io/name/</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>validation rule &#39;required-inventory-labels&#39; passed.</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>validation rule &#39;required-inventory-labels&#39; passed.</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>validation rule &#39;required-inventory-labels&#39; passed.</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-workload-inventory-labelled</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>fail</b> Deployment storefront/legacy-api<br><small>NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check kyverno-cel-workload-inventory-labelled)</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>pass</b> StatefulSet storefront/db<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-workload-inventory-labelled</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> deployment.apps/legacy-api in storefront<br><small>NIST SP 800-53 cm-8: the workload is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled); NIST SP 800-53 cm-8: the pod template is missing required inventory labels: app.kubernetes.io/name, app.kubernetes.io/part-of, compliance.example.com/data-classification, compliance.example.com/owner (check vap-workload-inventory-labelled)</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> statefulset.apps/db in storefront<br><small>admitted with vap-workload-inventory-labelled reporting, and the canary for it was reported as failing</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+<tr class="not-satisfied">
+  <td><b>ia-5</b><br><small>Authenticator Management</small></td>
+  <td>not-satisfied<br><small>3 of 10 subject(s) failing, 3 of 3 expected check(s) reported</small></td>
+  <td>3/3</td>
+  <td>
+    <code>db-credentials-from-secret</code> → <code>kyverno-dsl-db-credentials-from-secret</code>
+    (kyverno-dsl) <b>fail</b><br>
+    <code>db-credentials-from-secret</code> → <code>kyverno-cel-db-credentials-from-secret</code>
+    (kyverno-cel) <b>fail</b><br>
+    <code>db-credentials-from-secret</code> → <code>vap-db-credentials-from-secret</code>
+    (vap-cel) <b>fail</b><br>
+  </td>
+  <td>
+    <details>
+    <summary><code>kyverno-dsl-db-credentials-from-secret</code>
+    — 2 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/api<br><small>rule passed</small></li>
+      <li><b>fail</b> StatefulSet storefront/db<br><small>validation failure: NIST SP 800-53 ia-5: a credential environment variable carries a literal value and must use valueFrom.secretKeyRef instead. Keys that must come from a Secret: POSTGRES_PASSWORD POSTGRES_USER APP_DB_PASSWORD APP_DB_DSN (check kyverno-dsl-db-credentials-from-secret)</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>kyverno-cel-db-credentials-from-secret</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> Deployment storefront/legacy-api<br><small>success</small></li>
+      <li><b>pass</b> Deployment storefront/api<br><small>success</small></li>
+      <li><b>fail</b> StatefulSet storefront/db<br><small>NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check kyverno-cel-db-credentials-from-secret)</small></li>
+      <li><b>pass</b> Deployment storefront/web<br><small>success</small></li>
+    </ul>
+    </details>
+    <details>
+    <summary><code>vap-db-credentials-from-secret</code>
+    — 4 subject(s),
+    1 not passing</summary>
+    <ul>
+      <li><b>pass</b> deployment.apps/api in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/legacy-api in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>pass</b> deployment.apps/web in storefront<br><small>admitted with vap-db-credentials-from-secret reporting, and the canary for it was reported as failing</small></li>
+      <li><b>fail</b> statefulset.apps/db in storefront<br><small>NIST SP 800-53 ia-5: credential environment variables must come from a Secret via valueFrom.secretKeyRef, not a literal value. Offending containers: postgres (check vap-db-credentials-from-secret)</small></li>
+    </ul>
+    </details>
+  </td>
+</tr>
+</table>
+
+<p class="meta">A denied non-compliant request is recorded as a pass: the control was effective.
+<b>not-assessed</b> means no engine could evaluate the control -- neither compliant nor
+violated, and not the same as passing.</p>

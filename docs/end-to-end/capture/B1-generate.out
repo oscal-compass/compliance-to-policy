@@ -1,0 +1,5 @@
+kyverno-dsl: generated 6 policy document(s) into out/kyverno-dsl
+kyverno-cel: generated 6 policy document(s) into out/kyverno-cel
+vap-cel: generated 4 policy document(s) into out/vap-cel
+
+16 policy document(s) under out. Read them before applying them: a check that asserts nothing applies cleanly and reports every workload compliant. See docs/end-to-end/reference/README.md for what to look for.

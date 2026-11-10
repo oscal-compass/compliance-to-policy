@@ -1,0 +1,638 @@
+{
+  "component-definition": {
+    "uuid": "bd41b369-b757-4adb-a93b-a08f735d5d02",
+    "metadata": {
+      "title": "Three-tier storefront on vanilla Kubernetes — NIST SP 800-53 rev 5 demo",
+      "last-modified": "2026-11-09T10:21:33+00:00",
+      "version": "0.1.0",
+      "oscal-version": "1.2.1"
+    },
+    "components": [
+      {
+        "uuid": "fd67dd28-fb47-4375-a617-a272e48ce639",
+        "type": "service",
+        "title": "container-supply-chain",
+        "description": "Container image supply chain for the storefront stack: build provenance cosign signature verification and the cluster-held approved-registry ledger",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-signature-verified",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Every container image admitted into the storefront namespace carries a valid Sigstore/cosign signature made either by the approved release identity or by the organization's own signing key; verification happens at admission against the registry and (for the release identity) the Rekor transparency log. CM-14 Signed Components is the narrative control but is selected by no 800-53 rev5 baseline so SI-7(15) Code Authentication carries the mapping",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "approved_signer_identity",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "OIDC subject of the release workflow permitted to sign storefront images (Sigstore keyless)",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Parameter_Id_2",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "approved_signer_oidc_issuer",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Parameter_Description_2",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "OIDC issuer that must have asserted the signing identity. Paired with approved_signer_identity: a subject is only meaningful against the issuer that vouched for it, so both are authored here rather than one being fixed in the template",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-registry-approved",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Every container image is pulled from a registry that has an entry in the cluster-held approved-registry ledger (one ConfigMap per registry labelled supply-chain.example.com/ledger=approved-registry). The allow-list is cluster state and changes without redeploying policy",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "approved_registry_ledger_namespace",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Namespace holding the approved-registry ledger ConfigMaps that the engine reads at evaluation time",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-pinned-by-digest",
+            "remarks": "rule_set_02"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Every container image is referenced by immutable digest and never by a mutable tag such as latest so that the deployed baseline configuration is reproducible and the verified signature stays bound to the bytes that run",
+            "remarks": "rule_set_02"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "850748ac-add5-4d92-9edb-70768b57f6b2",
+            "source": "profiles/nist_800_53/profile.json",
+            "description": "NIST SP 800-53 rev 5 HIGH baseline (KubeCon three-tier demo subset)",
+            "set-parameters": [
+              {
+                "param-id": "approved_signer_identity",
+                "values": [
+                  "https://github.com/kubecon-demo/storefront/.github/workflows/release.yml@refs/tags/*"
+                ]
+              },
+              {
+                "param-id": "approved_signer_oidc_issuer",
+                "values": [
+                  "https://token.actions.githubusercontent.com"
+                ]
+              },
+              {
+                "param-id": "approved_registry_ledger_namespace",
+                "values": [
+                  "supply-chain"
+                ]
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "852daf63-a579-4882-ae8f-51858757ca77",
+                "control-id": "si-7.15",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-signature-verified"
+                  }
+                ]
+              },
+              {
+                "uuid": "182ecf01-595d-4abc-ae0b-b95fd31b7aaf",
+                "control-id": "si-7",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-signature-verified"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-pinned-by-digest"
+                  }
+                ]
+              },
+              {
+                "uuid": "6ad711bc-b4ab-43b1-9e2c-f2241ee94bdc",
+                "control-id": "cm-7.5",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-registry-approved"
+                  }
+                ]
+              },
+              {
+                "uuid": "32aa47ed-093a-42e2-b748-1b6dd7edd647",
+                "control-id": "cm-8.3",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-registry-approved"
+                  }
+                ]
+              },
+              {
+                "uuid": "3892b601-c605-42e6-8512-1ccb471a1a4f",
+                "control-id": "cm-2",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "image-pinned-by-digest"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "cfe26041-a256-4d16-9cf2-b4646c3c8fa8",
+        "type": "service",
+        "title": "three-tier-app",
+        "description": "Hand-rolled three-tier storefront on vanilla Kubernetes: web tier / api tier / db tier in namespace storefront",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "container-runs-unprivileged",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "No storefront container runs privileged or may escalate privileges; all Linux capabilities are dropped; runAsNonRoot is set; host namespaces and hostPath volumes are not used so that every workload keeps a separate execution domain",
+            "remarks": "rule_set_03"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "workload-inventory-labelled",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Every storefront workload carries the inventory labels that make it attributable in the system component inventory: application name / part-of / data classification / owning team",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "required_workload_labels",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Label keys every storefront workload must carry (blank separated). Rendered into a CEL list literal in all three engines",
+            "remarks": "rule_set_04"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "db-credentials-from-secret",
+            "remarks": "rule_set_05"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Database credentials reach the db and api tiers only through secretKeyRef; no credential environment variable may carry a literal value in the workload manifest where it would be exposed in etcd / kubectl output / Git / audit records",
+            "remarks": "rule_set_05"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "credential_env_keys",
+            "remarks": "rule_set_05"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Environment variable names that must be sourced from a Secret rather than a literal value (blank separated)",
+            "remarks": "rule_set_05"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "b81774d7-ea91-4615-9440-844246476e9a",
+            "source": "profiles/nist_800_53/profile.json",
+            "description": "NIST SP 800-53 rev 5 HIGH baseline (KubeCon three-tier demo subset)",
+            "set-parameters": [
+              {
+                "param-id": "required_workload_labels",
+                "values": [
+                  "app.kubernetes.io/name app.kubernetes.io/part-of compliance.example.com/data-classification compliance.example.com/owner"
+                ]
+              },
+              {
+                "param-id": "credential_env_keys",
+                "values": [
+                  "POSTGRES_PASSWORD POSTGRES_USER APP_DB_PASSWORD APP_DB_DSN"
+                ]
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "0ea7d358-4515-4372-916e-12e50eccbeb3",
+                "control-id": "ac-6",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "container-runs-unprivileged"
+                  }
+                ]
+              },
+              {
+                "uuid": "01637a0d-1f49-476b-a27e-b380d9f68f53",
+                "control-id": "sc-39",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "container-runs-unprivileged"
+                  }
+                ]
+              },
+              {
+                "uuid": "71c5b34f-b6bb-40fa-bb70-715cb92b7179",
+                "control-id": "cm-8",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "workload-inventory-labelled"
+                  }
+                ]
+              },
+              {
+                "uuid": "abf9a3bb-8e69-4cff-a195-e0e317b6980b",
+                "control-id": "ia-5",
+                "description": "",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "db-credentials-from-secret"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "29643aa2-dad8-4576-b073-6079982b340a",
+        "type": "validation",
+        "title": "kyverno-dsl",
+        "description": "Kyverno ClusterPolicy (kyverno.io/v1): admission enforcement plus background scan. Kyverno's earlier policy API and the one most estates are running today",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-signature-verified",
+            "remarks": "rule_set_06"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-image-signature-verified",
+            "remarks": "rule_set_06"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy verifyImages rule over every container image of the storefront workloads in ghcr.io/kubecon-demo/* and kind-registry:5000/kubecon-demo/* with two attestors of which either satisfies the rule: a keyless cosign attestor (subject = approved_signer_identity; issuer = approved_signer_oidc_issuer; Rekor) and the organization's own public key published as the cosign.pub entry of ConfigMap storefront-cosign-approved in namespace supply-chain (signed offline so there is no transparency log entry to check)",
+            "remarks": "rule_set_06"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-registry-approved",
+            "remarks": "rule_set_07"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-image-registry-approved",
+            "remarks": "rule_set_07"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy context.apiCall lists ConfigMaps labelled supply-chain.example.com/ledger=approved-registry in approved_registry_ledger_namespace and denies any image whose registry host is absent from the ledger",
+            "remarks": "rule_set_07"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-pinned-by-digest",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-image-pinned-by-digest",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy denies any container image reference that is not of the form repository@sha256:digest",
+            "remarks": "rule_set_08"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "container-runs-unprivileged",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-container-runs-unprivileged",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy denies privileged containers allowPrivilegeEscalation host namespaces hostPath volumes and any container that does not drop ALL capabilities",
+            "remarks": "rule_set_09"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "workload-inventory-labelled",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-workload-inventory-labelled",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy requires every label key in required_workload_labels to be present and non-empty on the workload and on its pod template",
+            "remarks": "rule_set_10"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "db-credentials-from-secret",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-dsl-db-credentials-from-secret",
+            "remarks": "rule_set_11"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ClusterPolicy denies any env entry whose name is in credential_env_keys and that carries a literal value instead of valueFrom.secretKeyRef",
+            "remarks": "rule_set_11"
+          }
+        ]
+      },
+      {
+        "uuid": "6f36f7f5-18ee-40ca-ad48-3bd2f492e000",
+        "type": "validation",
+        "title": "kyverno-cel",
+        "description": "Kyverno policy types (policies.kyverno.io/v1): ValidatingPolicy and ImageValidatingPolicy, written in CEL, with admission enforcement plus background scan",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-signature-verified",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-image-signature-verified",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ImageValidatingPolicy verifies the cosign signature of every storefront image in ghcr.io/kubecon-demo/* and kind-registry:5000/kubecon-demo/* against two attestors of which either satisfies the rule: keyless (subject = approved_signer_identity; issuer = approved_signer_oidc_issuer) and the organization's own public key read from the cosign.pub entry of ConfigMap storefront-cosign-approved in namespace supply-chain (signed offline so there is no transparency log entry to check). VAP has no equivalent and carries no check for this rule by design",
+            "remarks": "rule_set_12"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-registry-approved",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-image-registry-approved",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingPolicy variable lists ConfigMaps in approved_registry_ledger_namespace and requires every image registry host to appear in the ledger",
+            "remarks": "rule_set_13"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-pinned-by-digest",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-image-pinned-by-digest",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingPolicy requires every container image reference to match the digest form repository@sha256:digest",
+            "remarks": "rule_set_14"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "container-runs-unprivileged",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-container-runs-unprivileged",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingPolicy CEL expressions assert privileged=false allowPrivilegeEscalation=false runAsNonRoot=true capabilities.drop contains ALL and no host namespaces or hostPath volumes",
+            "remarks": "rule_set_15"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "workload-inventory-labelled",
+            "remarks": "rule_set_16"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-workload-inventory-labelled",
+            "remarks": "rule_set_16"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingPolicy evaluates required_workload_labels rendered as a CEL list literal and requires all keys to be present and non-empty",
+            "remarks": "rule_set_16"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "db-credentials-from-secret",
+            "remarks": "rule_set_17"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "kyverno-cel-db-credentials-from-secret",
+            "remarks": "rule_set_17"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingPolicy requires every env entry named in credential_env_keys to use valueFrom.secretKeyRef",
+            "remarks": "rule_set_17"
+          }
+        ]
+      },
+      {
+        "uuid": "ca5e06d4-9d20-4f23-8728-323dbaf7ed82",
+        "type": "validation",
+        "title": "vap-cel",
+        "description": "Upstream Kubernetes admission CEL: admissionregistration.k8s.io/v1 ValidatingAdmissionPolicy with binding. Admission time only. No external data and no background scan",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "image-pinned-by-digest",
+            "remarks": "rule_set_18"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "vap-image-pinned-by-digest",
+            "remarks": "rule_set_18"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingAdmissionPolicy requires every container image reference to contain @sha256: at admission time. No background scan so pre-existing violations stay invisible to this check",
+            "remarks": "rule_set_18"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "container-runs-unprivileged",
+            "remarks": "rule_set_19"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "vap-container-runs-unprivileged",
+            "remarks": "rule_set_19"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingAdmissionPolicy asserts the same securityContext expressions at admission time with validationActions Deny and Audit",
+            "remarks": "rule_set_19"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "workload-inventory-labelled",
+            "remarks": "rule_set_20"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "vap-workload-inventory-labelled",
+            "remarks": "rule_set_20"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingAdmissionPolicy evaluates the same required_workload_labels CEL list literal as the Kyverno CEL check from the same OSCAL parameter",
+            "remarks": "rule_set_20"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "db-credentials-from-secret",
+            "remarks": "rule_set_21"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "vap-db-credentials-from-secret",
+            "remarks": "rule_set_21"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "TEST: ValidatingAdmissionPolicy requires every env entry named in credential_env_keys to use valueFrom.secretKeyRef",
+            "remarks": "rule_set_21"
+          }
+        ]
+      }
+    ]
+  }
+}
