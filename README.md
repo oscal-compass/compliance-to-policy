@@ -136,8 +136,8 @@ You may be asked passphrase of SSH key to access to the git repo.
     ```
     e.g. [kyverno.result.md](/docs/public/kyverno.result.md)
 1. (Optional) Render a control-level compliance posture instead. Unlike the viewer, the posture
-   is a document in its own right -- `json` is the `c2p-posture/v1` model, and `md` and `html`
-   are views over it -- so it can be diffed, served and re-rendered.
+   is a document in its own right -- `json` is the [`c2p-posture/v1`](docs/public/posture.md)
+   model, and `md` and `html` are views over it -- so it can be diffed, served and re-rendered.
     ```
     c2p tools result2posture -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -f html -o /tmp/posture.html
     ```
@@ -160,6 +160,7 @@ You may be asked passphrase of SSH key to access to the git repo.
 - [Auditree](docs/public/auditree.md)
 - [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
 - [End-to-end walkthrough on Kubernetes](docs/end-to-end/README.md) — one NIST SP 800-53 control to a compliance posture, against a real cluster
+- [The compliance posture](docs/public/posture.md) — `c2p tools result2posture` and `posture-compare`, and the `c2p-posture/v1` document
 
 ## Usage of C2P as a library
 

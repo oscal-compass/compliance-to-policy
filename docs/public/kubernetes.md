@@ -78,6 +78,10 @@ nine NIST SP 800-53 controls, each rule implemented by up to three engines.
     c2p tools result2posture -ar /tmp/assessment-results.json -cdef samples_public/kubernetes/component-definition.json -f html -o /tmp/posture.html
     ```
 
+    Two of the six rules have no `vap-cel` check, so a posture built from `vap-cel` alone stops
+    reporting those controls. `c2p tools posture-compare` names which ones — see
+    [The compliance posture](posture.md).
+
 #### Using a plugin as a library
 
 Each plugin takes a template directory and an output directory, and nothing else:
