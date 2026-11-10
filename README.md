@@ -16,22 +16,6 @@ Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open
     - The plugin is responsible for implementing a function that takes the results of the policy engine and returns verdicts (pass/fail/error), reason, and/or resource name for each respective policy by its names/IDs.
 1. C2P produces Compliance Assessment Results, for example OSCAL Assessment Results that represents the assessment results of each control 
 
-
-## KubeCon NA 2026 demo
-
-One NIST SP 800-53 control, authored once, becomes policy for three Kubernetes engines, runs
-against a live cluster, and comes back as OSCAL assessment results and a compliance posture.
-
-[![Watch the demo on YouTube](https://img.youtube.com/vi/pk3EsgA4EBQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=pk3EsgA4EBQ)
-
-**Want to run it yourself?** [NIST SP 800-53 to a compliance posture, end to end](docs/end-to-end/README.md)
-walks the same chain in ten steps you can follow with your own agent, with the real inputs, the
-captured output of every command, and the artefacts each step produced.
-
-The video is an introduction and moves at a presentation's pace, so it does not look command for
-command like the walkthrough — it shows the shape of the chain, and the walkthrough is where you
-can reproduce it.
-
 ## Goals
 Provide seamless integration with compliance frameworks and existing policy engines, and enable to use heterogeneous policy engines in compliance check operation
 - Flexibility in choise of policy engines and compliance frameworks

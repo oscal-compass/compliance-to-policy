@@ -25,7 +25,7 @@ from — they were written by an agent skill rather than by hand, and C2P cannot
 **No cluster, no credentials, no network.** Generating is a function of files, which is what
 makes the next step possible: a person reads the result before any of it is applied. Applying
 it, and collecting what the engines then decide, is deliberately not in this script and not in
-the C2P library — see `docs/end-to-end/reference/` for a worked example of that half.
+the C2P library: it belongs to the program that holds the credentials for the cluster.
 """
 
 import argparse
@@ -91,8 +91,7 @@ def main():
 
     print(
         f'\n{total} policy document(s) under {out_root}. Read them before applying them: a check '
-        f'that asserts nothing applies cleanly and reports every workload compliant. See '
-        f'docs/end-to-end/reference/README.md for what to look for.'
+        f'that asserts nothing applies cleanly and reports every workload compliant.'
     )
 
 

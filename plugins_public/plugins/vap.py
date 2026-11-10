@@ -21,9 +21,8 @@ is no object to read to learn what it thinks of a workload that already exists; 
 to find out is to re-submit that workload with a server-side dry run and see whether admission
 rejects it.
 
-That probing needs a cluster, and C2P does not ship it. It lives in the reference
-implementation under `docs/end-to-end/reference/platform_k8s`, which is also where the
-credentials and the decision to write to a cluster live. This plugin only converts what such a
+That probing needs a cluster, and C2P does not ship it: it belongs to the program that holds
+the credentials and the decision to write to a cluster. This plugin only converts what such a
 probe observed, which is what lets the same results be replayed from disk without a cluster --
 and what lets a different probe, or a different operator's script, feed it.
 
