@@ -193,23 +193,45 @@ def _evidence_of(observations: List[Observation]) -> List[Link]:
     return evidence
 
 
+# A verdict is something an engine decided about a subject. `error` is not one: it is the
+# engine, or the probe in front of it, saying it could not decide -- a probe that could not
+# reach a check, a `skip` from a matching PolicyException. Neither is evidence of compliance
+# nor of its absence, so neither is counted as either. They are reported as coverage: the
+# control was not fully assessed, which is a different fact from the control being violated
+# and is the fact that is true.
+VERDICTS = [RESULT_FAIL, RESULT_WARNING, RESULT_PASS]
+
+
 def _check_result(subjects: List[Subject]) -> str:
+    """The strongest verdict any subject produced, or `error` if none produced one."""
     results = [s.result for s in subjects]
     if results == []:
         return RESULT_NOT_ASSESSED
-    for candidate in [RESULT_FAIL, RESULT_ERROR, RESULT_WARNING]:
+    for candidate in VERDICTS:
         if candidate in results:
             return candidate
-    return RESULT_PASS
+    return RESULT_ERROR
+
+
+def _undecided(subjects: List[Subject]) -> List[Subject]:
+    return [s for s in subjects if s.result not in VERDICTS]
 
 
 def _check_remarks(result: str, subjects: List[Subject]) -> str:
     if result == RESULT_NOT_ASSESSED:
         return 'no evidence covered this check'
-    failing = len([s for s in subjects if s.result in [RESULT_FAIL, RESULT_ERROR]])
-    if failing != 0:
-        return f'{failing} of {len(subjects)} subject(s) not passing'
-    return f'{len(subjects)} subject(s) passing'
+    undecided = len(_undecided(subjects))
+    if result == RESULT_ERROR:
+        return f'{undecided} of {len(subjects)} subject(s) could not be evaluated'
+    counts = {
+        'failing': len([s for s in subjects if s.result == RESULT_FAIL]),
+        'non-compliant but unscored': len([s for s in subjects if s.result == RESULT_WARNING]),
+        'passing': len([s for s in subjects if s.result == RESULT_PASS]),
+    }
+    named = ', '.join(f'{n} {label}' for label, n in counts.items() if n != 0)
+    if undecided != 0:
+        named = f'{named}, {undecided} not evaluated'
+    return f'{named}, of {len(subjects)} subject(s)'
 
 
 def _roll_up(checks: List[Check]) -> Tuple[str, str, str]:
@@ -218,23 +240,44 @@ def _roll_up(checks: List[Check]) -> Tuple[str, str, str]:
     A denied non-compliant request is `pass` evidence -- the control was effective -- so this
     does not try to re-derive compliance from subjects; it aggregates what the engines said.
     """
-    assessed = [c for c in checks if c.result != RESULT_NOT_ASSESSED]
-    subjects = [s for c in assessed for s in c.subjects]
+    reported = [c for c in checks if c.result != RESULT_NOT_ASSESSED]
+    # A check that errored reported no verdict, so it is not a check this control can be
+    # judged on. It stays in `expected`, which is what makes the gap visible as coverage.
+    decided = [c for c in reported if c.result != RESULT_ERROR]
+    subjects = [s for c in reported for s in c.subjects]
     if checks == []:
         return STATE_NOT_ASSESSED, REASON_OTHER, 'no PVP declares a check for this control'
-    if assessed == []:
+    if reported == []:
         remarks = f'no evidence from any of the {len(checks)} check(s) this control expects'
         return STATE_NOT_ASSESSED, REASON_OTHER, remarks
+    if decided == []:
+        remarks = f'all {len(reported)} reporting check(s) failed to evaluate, of {len(checks)} expected'
+        return STATE_NOT_ASSESSED, REASON_OTHER, remarks
 
-    coverage = f'{len(assessed)} of {len(checks)} expected check(s) reported'
-    failing = [s for s in subjects if s.result in [RESULT_FAIL, RESULT_ERROR]]
+    coverage = f'{len(decided)} of {len(checks)} expected check(s) reported'
+    undecided = _undecided(subjects)
+    gap = f', {len(undecided)} subject(s) could not be evaluated' if undecided != [] else ''
+
+    failing = [s for s in subjects if s.result == RESULT_FAIL]
     if failing != []:
-        return STATE_NOT_SATISFIED, REASON_FAIL, f'{len(failing)} of {len(subjects)} subject(s) failing, {coverage}'
+        remarks = f'{len(failing)} of {len(subjects)} subject(s) failing, {coverage}{gap}'
+        return STATE_NOT_SATISFIED, REASON_FAIL, remarks
 
     warned = [s for s in subjects if s.result == RESULT_WARNING]
     if warned != []:
-        remarks = f'{len(warned)} of {len(subjects)} subject(s) admitted that should have been denied, {coverage}'
+        remarks = (
+            f'{len(warned)} of {len(subjects)} subject(s) non-compliant, reported by the engine '
+            f'as a warning rather than scored, {coverage}{gap}'
+        )
         return STATE_NOT_SATISFIED, REASON_OTHER, remarks
+
+    passing = [s for s in subjects if s.result == RESULT_PASS]
+    if undecided != []:
+        # Something passed and something could not be evaluated. Neither "satisfied" nor
+        # "not-satisfied" is true of the control, and saying either would invent a verdict the
+        # evidence does not carry.
+        remarks = f'{len(passing)} of {len(subjects)} subject(s) passing, {coverage}{gap}'
+        return STATE_NOT_ASSESSED, REASON_OTHER, remarks
 
     return STATE_SATISFIED, REASON_PASS, f'all {len(subjects)} subject(s) passing, {coverage}'
 
@@ -302,7 +345,7 @@ def _dedupe_evidence(checks: List[Check]) -> List[Link]:
 def _build_control(control_id: str, title: Optional[str], rules: List[Rule]) -> Control:
     checks = [c for r in rules for c in r.checks]
     state, reason, remarks = _roll_up(checks)
-    assessed = len([c for c in checks if c.result != RESULT_NOT_ASSESSED])
+    assessed = len([c for c in checks if c.result not in [RESULT_NOT_ASSESSED, RESULT_ERROR]])
     return Control(
         control_id=control_id,
         title=title,

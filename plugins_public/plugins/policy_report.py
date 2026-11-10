@@ -36,8 +36,19 @@ POLICY_REPORT_API = 'wgpolicyk8s.io/v1alpha2'
 POLICY_REPORT_KINDS = ['PolicyReport', 'ClusterPolicyReport']
 
 # A background-scan `fail` is a violation that already exists, which is where most real
-# findings live. `warn` is an object that was admitted when the policy objected to it -- the
-# control is not merely violated, it was not enforced -- so it is not folded into Failure.
+# findings live.
+#
+# `warn` is not a weaker `fail` and not an admission event. Kyverno's report result logic
+# defines it as a non-compliant result reported as a warning -- the documented example is a
+# policy annotated `policies.kyverno.io/scored: "false"`. The object is non-compliant; what
+# differs is that the engine did not score it. It is kept distinct from Failure so a posture
+# can say which of the two it is rather than averaging them.
+#
+# `skip` is the opposite: "evaluation was bypassed, for example by a matching
+# PolicyException". No verdict was reached, which is what Error means here -- not that
+# something went wrong, but that nothing was decided. A posture must not count it as a
+# violation; see `c2p.tools.posture`, which excludes Error from the pass/fail tally and
+# reports it as missing coverage.
 RESULT_DICTIONARY = {
     'pass': ResultEnum.Pass,
     'fail': ResultEnum.Failure,

@@ -35,9 +35,12 @@ from trestle.oscal.component import (
 from c2p.framework import oscal_utils
 from c2p.tools.posture import posture, render
 from c2p.tools.posture.model import (
+    REASON_FAIL,
+    RESULT_ERROR,
     RESULT_FAIL,
     RESULT_NOT_ASSESSED,
     RESULT_PASS,
+    RESULT_WARNING,
     STATE_NOT_ASSESSED,
     STATE_NOT_SATISFIED,
     STATE_SATISFIED,
@@ -274,3 +277,83 @@ def test_several_assessment_results_combine_into_one_posture():
 
     assert control.coverage.assessed_checks == 2
     assert control.state == STATE_SATISFIED
+
+
+def test_a_probe_that_could_not_evaluate_does_not_make_a_control_non_compliant():
+    """The case that matters most: `error` is the engine saying it could not decide. Counting
+    it as a violation turns a broken probe into a compliance finding, and an estate that
+    cannot tell the two apart will chase the wrong one."""
+    cdef = component_definition(
+        [
+            {'title': 'kyverno-dsl', 'check_id': 'c1'},
+            {'title': 'kyverno-cel', 'check_id': 'c2'},
+            {'title': 'vap-cel', 'check_id': 'c3'},
+        ]
+    )
+    ar = assessment_results(
+        [
+            observation(RESULT_PASS, check_id='c1'),
+            observation(RESULT_PASS, check_id='c2'),
+            observation(RESULT_ERROR, check_id='c3'),
+        ]
+    )
+
+    control = only_control(posture.generate(ar, cdef))
+
+    assert control.state != STATE_NOT_SATISFIED
+    assert control.reason != REASON_FAIL
+    # Nor is it satisfied: two engines passing and one unable to say is not a clean control.
+    assert control.state == STATE_NOT_ASSESSED
+    # The gap is reported as coverage, which is the fact that is actually true.
+    assert control.coverage.expected_checks == 3
+    assert control.coverage.assessed_checks == 2
+    assert 'could not be evaluated' in control.remarks
+
+
+def test_an_error_alongside_a_failure_is_still_a_failure():
+    """Dropping `error` from the tally must not drop a real violation reported beside it."""
+    cdef = component_definition([{'title': 'kyverno-cel', 'check_id': 'c1'}, {'title': 'vap-cel', 'check_id': 'c2'}])
+    ar = assessment_results([observation(RESULT_FAIL, check_id='c1'), observation(RESULT_ERROR, check_id='c2')])
+
+    control = only_control(posture.generate(ar, cdef))
+
+    assert control.state == STATE_NOT_SATISFIED
+    assert control.reason == REASON_FAIL
+
+
+def test_a_control_no_engine_could_evaluate_is_not_assessed():
+    cdef = component_definition([{'title': 'kyverno-cel', 'check_id': 'c1'}, {'title': 'vap-cel', 'check_id': 'c2'}])
+    ar = assessment_results([observation(RESULT_ERROR, check_id='c1'), observation(RESULT_ERROR, check_id='c2')])
+
+    control = only_control(posture.generate(ar, cdef))
+
+    assert control.state == STATE_NOT_ASSESSED
+    assert control.coverage.assessed_checks == 0
+    assert {c.result for c in control.rules[0].checks} == {RESULT_ERROR}
+
+
+def test_a_check_that_errored_for_one_subject_still_reports_the_verdict_it_reached():
+    """A check is `error` only when it produced no verdict at all. One unevaluated subject
+    beside a real pass leaves the check's verdict intact and is named in the remarks."""
+    cdef = component_definition([{'title': 'kyverno-cel', 'check_id': 'c1'}])
+    observations = [observation(RESULT_PASS, check_id='c1'), observation(RESULT_ERROR, check_id='c1')]
+    ar = assessment_results(observations)
+
+    control = only_control(posture.generate(ar, cdef))
+    check = control.rules[0].checks[0]
+
+    assert check.result == RESULT_PASS
+    assert 'not evaluated' in check.remarks
+
+
+def test_a_warning_is_non_compliant_and_is_not_described_as_passing():
+    """Kyverno reports `warn` for a non-compliant object the policy did not score -- the
+    documented example is `policies.kyverno.io/scored: "false"`. It is a violation, so the
+    check's remarks must not call the subject passing."""
+    cdef = component_definition([{'title': 'kyverno-cel', 'check_id': 'c1'}])
+    ar = assessment_results([observation(RESULT_WARNING, check_id='c1')])
+
+    control = only_control(posture.generate(ar, cdef))
+
+    assert control.state == STATE_NOT_SATISFIED
+    assert 'passing' not in control.rules[0].checks[0].remarks

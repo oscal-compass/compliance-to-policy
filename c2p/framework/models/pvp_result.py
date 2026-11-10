@@ -29,9 +29,12 @@ from trestle.oscal.common import Finding
 class ResultEnum(str, Enum):
     Pass = 'pass'
     Failure = 'failure'
+    # No verdict was reached: the engine could not evaluate, or evaluation was bypassed. Not
+    # a violation, and a posture must not report it as one.
     Error = 'error'
-    # An object that should have been rejected but was admitted. Distinct from Failure: the
-    # control is not merely violated, the engine that was supposed to enforce it did not.
+    # Non-compliant, but reported by the engine as a warning rather than scored as a failure
+    # -- Kyverno produces this for a policy annotated `policies.kyverno.io/scored: "false"`.
+    # Kept distinct from Failure so the distinction survives into the posture.
     Warning = 'warning'
 
 
