@@ -16,6 +16,11 @@ Compliance-to-Policy (C2P) is designed to bridge Compliance as Code such as Open
     - The plugin is responsible for implementing a function that takes the results of the policy engine and returns verdicts (pass/fail/error), reason, and/or resource name for each respective policy by its names/IDs.
 1. C2P produces Compliance Assessment Results, for example OSCAL Assessment Results that represents the assessment results of each control 
 
+That chain run for real, step by step, is the
+[end-to-end walkthrough on Kubernetes](docs/end-to-end/README.md): one NIST SP 800-53 control to a
+compliance posture against a live cluster, with the captured output of every command. There is a
+[recording of the demo](https://www.youtube.com/watch?v=pk3EsgA4EBQ) as well.
+
 ## Goals
 Provide seamless integration with compliance frameworks and existing policy engines, and enable to use heterogeneous policy engines in compliance check operation
 - Flexibility in choise of policy engines and compliance frameworks
@@ -125,14 +130,35 @@ You may be asked passphrase of SSH key to access to the git repo.
     ```
     c2p tools viewer -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -o /tmp/assessment_results.md
     ```
-    ![assessment-results-md.kyverno.jpg](/docs/public/images/assessment-results-md.kyverno.jpg)
+    e.g. [kyverno.result.md](/docs/public/kyverno.result.md)
+1. (Optional) Render a control-level compliance posture instead. Unlike the viewer, the posture
+   is a document in its own right -- `json` is the [`c2p-posture/v1`](docs/public/posture.md)
+   model, and `md` and `html` are views over it -- so it can be diffed, served and re-rendered.
+    ```
+    c2p tools result2posture -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -f html -o /tmp/posture.html
+    # and as the c2p-posture/v1 document, which is what posture-compare reads
+    c2p tools result2posture -ar /tmp/assessment_results.json -cdef ./plugins_public/tests/data/kyverno/component-definition.json -f json -o /tmp/posture.json
+    ```
+    The posture is accountable for every check the component definition declares, so a check
+    no engine reported is a `not-assessed` row rather than an omission, and each control carries
+    `coverage` alongside its state. Repeat `-ar` to combine several Assessment Results into one
+    posture.
+1. (Optional) Compare two postures control by control, to see which controls stop being
+   assessed under a narrower set of engines. Both inputs are `-f json` postures, each produced
+   from its own collection -- below, a second one collected with `vap-cel` alone.
+    ```
+    c2p tools posture-compare -b /tmp/posture.json -p /tmp/posture-vap-only.json \
+      --baseline-label 'every engine' --posture-label 'vap-cel only' \
+      --condition 'when only ValidatingAdmissionPolicy is available'
+    ```
 
 ## Usage of C2P Plugins
 - [Kyverno](docs/public/kyverno.md)
+- [Kubernetes policy engines — Kyverno DSL, Kyverno CEL and ValidatingAdmissionPolicy](docs/public/kubernetes.md)
 - [Open Cluster Management Governance Policy Framework](docs/public/ocm.md)
 - [Auditree](docs/public/auditree.md)
 - [Heterogeneous PVPs (mixing Kyverno, OCM Policy, and Auditree)](docs/public/heterogeneous.md)
-- [End-to-end walkthrough on Kubernetes](docs/end-to-end/README.md) — one NIST SP 800-53 control to a compliance posture, against a real cluster
+- [The compliance posture](docs/public/posture.md) — `c2p tools result2posture` and `posture-compare`, and the `c2p-posture/v1` document
 
 ## Usage of C2P as a library
 
@@ -172,6 +198,39 @@ You may be asked passphrase of SSH key to access to the git repo.
     └── disallow-capabilities
         └── disallow-capabilities.yaml
     ```
+##### Rule parameters
+
+`get_policy()` resolves each parameter a rule declares, in this order:
+
+1. the value in the component definition's `set-parameters`
+1. the `Parameter_Value_Default` prop
+1. the `Parameter_Value_Alternatives` prop
+
+`set-parameters` wins because it is the resolved value: trestle's `csv-to-oscal-cd` writes
+parameter values there and leaves only the id in the props, so reading the props alone yields
+parameters with nothing in them.
+
+Parameters are read from **every** component that is not a validation component, and a rule can
+declare several by numbering the prop columns — `Parameter_Id_2`, `Parameter_Value_Default_2`,
+and so on.
+
+> **Behaviour change — check your generated output after upgrading.** Four things differ from
+> earlier releases, and a component definition that generated correctly before can generate
+> different policy now:
+>
+> | | Before | Now |
+> |---|---|---|
+> | Where the value comes from | `Parameter_Value_Alternatives` only | `set-parameters`, then `Parameter_Value_Default`, then `Parameter_Value_Alternatives` |
+> | Which components are read | only the **last** non-validation component — the loop overwrote its accumulator each time round, so a component definition with several service components silently used one of them | every non-validation component |
+> | Numbered columns | only the unnumbered `Parameter_Id` | `Parameter_Id`, `Parameter_Id_2`, … |
+> | A parameter declared twice | — | the later value wins, silently, in every plugin that turns the list into a `{id: value}` mapping — the three Kubernetes plugins, `kyverno` and `ocm`. `auditree` iterates the list instead and sees both |
+
+**A parameter with no value anywhere renders as an empty string.** It is logged as a warning and
+substituted as `''`. `StrictUndefined` does not catch it — the variable is defined, it is empty —
+so a check written as `image.startsWith({{ params.approved_registry | quote }})` becomes
+`image.startsWith("")` and asserts nothing. Read the generated policy, and treat a parameter
+warning in the log as a generation failure until the value is supplied.
+
 #### Generate Compliance Assessment Results from PVP native results
 1. Create `C2PConfig` object to supply compliance requirements and some metadata (See also [kyverno/compliance_to_policy.py](/samples_public/kyverno/result_to_compliance.py) for a real example)
     ```python
@@ -210,6 +269,26 @@ You may be asked passphrase of SSH key to access to the git repo.
     oscal_assessment_results = c2p.result_to_oscal()
     print(oscal_assessment_results.oscal_serialize_json(pretty=True))
     ```
+    A cluster typically runs more than one policy engine, and each is assessed on its own.
+    Call `add_pvp_result()` once per engine instead of `set_pvp_result()`, and
+    `result_to_oscal()` aggregates them into **one** Assessment Results document:
+    ```python
+    for pvp_result in [kyverno_dsl_result, kyverno_cel_result, vap_result]:
+        c2p.add_pvp_result(pvp_result)
+    oscal_assessment_results = c2p.result_to_oscal()
+    ```
+    One document per engine would make the artifact an accident of how the assessment was
+    organised rather than a statement about the system, and anything reading it would have to
+    know to look for several files.
+
+    Where the engines are collected by separate pipelines and aggregating in one process is not
+    possible, each run produces its own Assessment Results and `c2p tools result2posture` takes
+    a repeated `-ar` to bring them back together.
+
+    Every observation carries an `assessment-check-id` prop as well as `assessment-rule-id`.
+    One rule is routinely implemented by several PVPs, so a rule id alone cannot say which
+    engine reported an observation, and a reader of the Assessment Results -- including
+    `c2p tools result2posture` -- has no way to attribute it.
 1. (Optional) you may reformat OSCAL Assessment Results in markdown style.
     ```
     c2p tools viewer -ar <OSCAL Assessment Results (json)> -cdef ./plugins_public/tests/data/ocm/component-definition.json -o /tmp/assessment_results.md

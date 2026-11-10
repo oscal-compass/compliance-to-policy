@@ -13,7 +13,7 @@ Before embarking on a more ambitious contribution, please quickly [get in touch]
 requires extensive rework (by you or by us), sits in backlog for a long time, or
 cannot be accepted at all!**
 
-We have also adopted [Contributor Covenant Code of Conduct](/CODE_OF_CONDUCT.md).
+We have also adopted the OSCAL Compass [Contributor Covenant Code of Conduct](https://github.com/oscal-compass/community/blob/main/CODE_OF_CONDUCT.md).
 
 ### Proposing new features
 
