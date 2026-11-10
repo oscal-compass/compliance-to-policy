@@ -39,6 +39,11 @@ logger = getLogger(__name__)
 ENGINE = 'kyverno-cel'
 ENGINE_API = 'policies.kyverno.io/v1 ValidatingPolicy'
 
+# What a template for this engine is allowed to have produced. Checked after rendering, so a
+# value from the component definition cannot add a document of its own. `ImageValidatingPolicy`
+# is the image-verification sibling, which a signature check generates instead.
+GENERATED_KINDS: List[str] = ['ValidatingPolicy', 'ImageValidatingPolicy']
+
 # A background scan, so an existing violation is visible without re-submitting the object.
 METHODS: List[str] = ['TEST-AUTOMATED']
 
@@ -69,6 +74,7 @@ class PluginKyvernoCel(PluginSpec):
             self.config.policy_template_dir,
             self.config.deliverable_policy_dir,
             ENGINE,
+            GENERATED_KINDS,
         )
 
     def generate_pvp_result(self, raw_result: RawResult) -> PVPResult:

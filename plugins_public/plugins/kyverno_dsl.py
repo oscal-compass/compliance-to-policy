@@ -48,6 +48,10 @@ logger = getLogger(__name__)
 ENGINE = 'kyverno-dsl'
 ENGINE_API = 'kyverno.io/v1 ClusterPolicy'
 
+# What a template for this engine is allowed to have produced. Checked after rendering, so a
+# value from the component definition cannot add a document of its own.
+GENERATED_KINDS: List[str] = ['ClusterPolicy']
+
 # A background scan, so an existing violation is visible without re-submitting the object.
 METHODS: List[str] = ['TEST-AUTOMATED']
 
@@ -78,6 +82,7 @@ class PluginKyvernoDsl(PluginSpec):
             self.config.policy_template_dir,
             self.config.deliverable_policy_dir,
             ENGINE,
+            GENERATED_KINDS,
         )
 
     def generate_pvp_result(self, raw_result: RawResult) -> PVPResult:

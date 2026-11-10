@@ -56,6 +56,11 @@ logger = getLogger(__name__)
 ENGINE = 'vap-cel'
 ENGINE_API = 'admissionregistration.k8s.io/v1 ValidatingAdmissionPolicy'
 
+# What a template for this engine is allowed to have produced. Checked after rendering, so a
+# value from the component definition cannot add a document of its own. A policy is inert
+# without a binding, so a template here emits both.
+GENERATED_KINDS: List[str] = ['ValidatingAdmissionPolicy', 'ValidatingAdmissionPolicyBinding']
+
 # `pass` means the probe submitted the object, this check was observed to be reporting, and it
 # said nothing. `error` means the verdict is unknown -- the probe could not show that it sees
 # this check, or the submission was rejected by something the probe does not model -- and must
@@ -94,6 +99,7 @@ class PluginVap(PluginSpec):
             self.config.policy_template_dir,
             self.config.deliverable_policy_dir,
             ENGINE,
+            GENERATED_KINDS,
         )
 
     def generate_pvp_result(self, raw_result: RawResult) -> PVPResult:

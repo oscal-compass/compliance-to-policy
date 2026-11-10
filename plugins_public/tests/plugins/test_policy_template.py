@@ -40,8 +40,20 @@ def _policy(rule_id: str, check_id: str) -> Policy:
     return policy
 
 
-def _templates(directory: pathlib.Path, check_id: str) -> str:
-    (directory / f'{check_id}{policy_template.TEMPLATE_SUFFIX}').write_text('name: {{ check.id }}\n')
+KINDS = ['ValidatingAdmissionPolicy']
+
+# The smallest document that is what a vap-cel template claims to emit: rendering is now
+# checked against that claim, so a fixture emitting `name: ...` alone would be refused.
+TEMPLATE = (
+    'apiVersion: admissionregistration.k8s.io/v1\n'
+    'kind: ValidatingAdmissionPolicy\n'
+    'metadata:\n'
+    '  name: {{ check.id }}\n'
+)
+
+
+def _templates(directory: pathlib.Path, check_id: str, body: str = TEMPLATE) -> str:
+    (directory / f'{check_id}{policy_template.TEMPLATE_SUFFIX}').write_text(body)
     return str(directory)
 
 
@@ -51,10 +63,10 @@ def test_a_valid_identifier_renders_where_it_says(tmp_path):
     _templates(template_dir, 'check-a')
     out = tmp_path / 'out'
 
-    written = policy_template.render(_policy('rule-a', 'check-a'), str(template_dir), str(out), 'vap-cel')
+    written = policy_template.render(_policy('rule-a', 'check-a'), str(template_dir), str(out), 'vap-cel', KINDS)
 
     assert written == [out / 'rule-a' / 'check-a.yaml']
-    assert written[0].read_text() == 'name: check-a\n'
+    assert written[0].read_text() == TEMPLATE.replace('{{ check.id }}', 'check-a')
 
 
 def test_a_rule_id_that_climbs_out_of_the_output_directory_is_refused(tmp_path):
@@ -67,7 +79,7 @@ def test_a_rule_id_that_climbs_out_of_the_output_directory_is_refused(tmp_path):
     bystander.write_text('do not overwrite me\n')
 
     with pytest.raises(C2PError, match='not a valid Kubernetes name'):
-        policy_template.render(_policy('../', 'chk'), str(template_dir), str(out), 'vap-cel')
+        policy_template.render(_policy('../', 'chk'), str(template_dir), str(out), 'vap-cel', KINDS)
 
     assert bystander.read_text() == 'do not overwrite me\n'
 
@@ -80,7 +92,9 @@ def test_a_check_id_that_climbs_out_of_the_template_directory_is_refused(tmp_pat
     (tmp_path / f'secret{policy_template.TEMPLATE_SUFFIX}').write_text('a-token\n')
 
     with pytest.raises(C2PError, match='not a valid Kubernetes name'):
-        policy_template.render(_policy('rule-a', '../secret'), str(template_dir), str(tmp_path / 'out'), 'vap-cel')
+        policy_template.render(
+            _policy('rule-a', '../secret'), str(template_dir), str(tmp_path / 'out'), 'vap-cel', KINDS
+        )
 
 
 @pytest.mark.parametrize(

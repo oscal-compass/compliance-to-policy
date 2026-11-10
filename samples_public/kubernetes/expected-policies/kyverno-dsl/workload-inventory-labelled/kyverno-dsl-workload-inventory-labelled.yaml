@@ -31,15 +31,15 @@ spec:
         pattern:
           metadata:
             labels:
-              app.kubernetes.io/name: "?*"
-              app.kubernetes.io/part-of: "?*"
-              compliance.example.com/data-classification: "?*"
-              compliance.example.com/owner: "?*"
+              "app.kubernetes.io/name": "?*"
+              "app.kubernetes.io/part-of": "?*"
+              "compliance.example.com/data-classification": "?*"
+              "compliance.example.com/owner": "?*"
           spec:
             template:
               metadata:
                 labels:
-                  app.kubernetes.io/name: "?*"
-                  app.kubernetes.io/part-of: "?*"
-                  compliance.example.com/data-classification: "?*"
-                  compliance.example.com/owner: "?*"
+                  "app.kubernetes.io/name": "?*"
+                  "app.kubernetes.io/part-of": "?*"
+                  "compliance.example.com/data-classification": "?*"
+                  "compliance.example.com/owner": "?*"
