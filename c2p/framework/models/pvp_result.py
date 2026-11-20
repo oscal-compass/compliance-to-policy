@@ -147,11 +147,14 @@ class PVPResult(C2PBaseModel):
 
 
 def set_defaults(pvp_result: PVPResult) -> PVPResult:
-    for observation in pvp_result.observations_by_check:
-        if observation.description == None:
+    # A PVP result may carry only findings and/or local definitions, and an observation may
+    # have no subjects, so both are optional.
+    for observation in pvp_result.observations_by_check or []:
+        if observation.title == None:
             observation.title = observation.check_id
+        if observation.description == None:
             observation.description = observation.check_id
-        for subject in observation.subjects:
+        for subject in observation.subjects or []:
             if subject.evaluated_on == None:
                 subject.evaluated_on = observation.collected
     return pvp_result
