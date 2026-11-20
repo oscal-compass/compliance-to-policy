@@ -263,11 +263,11 @@ class C2P:
         aggregating = len(pvp_results) > 1
         rule_sets = self._get_rule_sets(every_pvp=aggregating)
         observations = []
-        for observation in [o for r in pvp_results for o in r.observations_by_check]:
+        for observation in [o for r in pvp_results for o in r.observations_by_check or []]:
             rule_set = self._find_rule_set(observation.check_id, rule_sets)
             if rule_set != None:
                 subjects = []
-                for subject in observation.subjects:
+                for subject in observation.subjects or []:
                     props = []
                     oscal_utils.add_prop(props, 'resource-id', subject, ['resource_id'])
                     oscal_utils.add_prop(props, 'result', subject, ['result'])
