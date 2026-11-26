@@ -123,3 +123,46 @@ def test_the_single_engine_path_is_unchanged(tmp_path):
     observations = c2p.result_to_oscal().results[0].observations
 
     assert len(observations) == 1
+
+
+def test_a_result_with_only_findings_and_local_definitions_is_accepted():
+    """Findings and local definitions can be supplied without any observation."""
+    c2p = configured(COMPONENT_DEFINITION_TEST_DATA)
+    c2p.set_pvp_result(PVPResult(findings=[]))
+
+    result = c2p.result_to_oscal().results[0]
+
+    assert result.observations == []
+    assert result.findings is None
+
+
+def test_an_observation_without_subjects_is_accepted():
+    c2p = configured(COMPONENT_DEFINITION_TEST_DATA)
+    pvp_result = a_result('policy-high-scan')
+    pvp_result.observations_by_check[0].subjects = None
+    c2p.set_pvp_result(pvp_result)
+
+    observations = c2p.result_to_oscal().results[0].observations
+
+    assert len(observations) == 1
+    assert observations[0].subjects == []
+
+
+def test_a_given_title_is_kept_when_the_description_is_missing():
+    c2p = configured(COMPONENT_DEFINITION_TEST_DATA)
+    pvp_result = a_result('policy-high-scan')
+    pvp_result.observations_by_check[0].title = 'My title'
+    c2p.set_pvp_result(pvp_result)
+
+    observation = c2p.result_to_oscal().results[0].observations[0]
+
+    assert observation.title == 'My title'
+
+
+def test_title_defaults_to_the_check_id():
+    c2p = configured(COMPONENT_DEFINITION_TEST_DATA)
+    c2p.set_pvp_result(a_result('policy-high-scan'))
+
+    observation = c2p.result_to_oscal().results[0].observations[0]
+
+    assert observation.title == 'policy-high-scan'
